@@ -37,7 +37,7 @@ def download_market_data_for_tickers(tickers, duration, env_folder_path = None):
         download_market_data_for_ticker(ticker, duration, env_folder_path)
 
 def download_market_data_for_ticker(ticker, duration, env_folder_path = None):
-    print('Start to download all data of ' + ticker)
+    print('Started downloading all data of ' + ticker)
     columns_to_keep = [OPEN, HIGH, LOW, CLOSE, VOLUME]
 
     data = yf.Ticker(ticker)
@@ -63,6 +63,7 @@ def download_market_data_for_ticker(ticker, duration, env_folder_path = None):
 
     folder_path = env_folder_path + MARKET_DATA_FOLDER_PATH if env_folder_path else MARKET_DATA_FOLDER_PATH
     save_csv(df, folder_path + '/', ticker + '.csv')
+    print('Finished downloading all data of ' + ticker)
     return
 
 #endregion
@@ -70,9 +71,10 @@ def download_market_data_for_ticker(ticker, duration, env_folder_path = None):
 #region Fill ticker data up to today to exising ticker files
 
 def enrich_with_indicators_for_tickers(tickers, duration, env_folder_path = None):
-    print('Start to fill data of ' + str(len(tickers)) + ' tickers')
+    print('Started filling data of ' + str(len(tickers)) + ' tickers')
     for ticker in tickers:
         enrich_with_indicators_for_ticker(ticker, duration, env_folder_path)
+    print('Finished filling data of ' + str(len(tickers)) + ' tickers')
 
 def enrich_with_indicators_for_ticker(ticker, duration, env_folder_path = None):    
     today = date.today()

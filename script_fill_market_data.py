@@ -16,7 +16,7 @@ with open(current_script_directory +'script_logs/fill_market_data.log', 'a') as 
     f.write(f'[INFO ] {str(datetime.now())} Current script directory is {current_script_directory}\n')
 
     tickers = get_all_unique_tickers(current_script_directory)
-    f.write(f'[INFO ] {str(datetime.now())} Found {len(tickers)} tickers\n')
+    f.write(f'[INFO ] {str(datetime.now())} Ready to fill data of {len(tickers)} tickers\n')
     download_market_data_for_tickers(tickers, PERIOD_5Y, current_script_directory)
     enrich_with_indicators_for_tickers(tickers, PERIOD_5Y, current_script_directory)
 
