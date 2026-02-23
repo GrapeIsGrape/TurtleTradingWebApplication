@@ -41,32 +41,32 @@ def get_breakout_ticker_information(tickers):
 
 #region Price Breakout
 
-def check_price_breakout_for_tickers(tickers, days, use_current_price = None):
+def check_price_breakout_for_tickers(tickers, n_days, use_live_price = None, env_folder_path = None):
     print('[check_price_breakout_for_tickers] Start')
-    if use_current_price is None:
+    if use_live_price is None:
         today = date.today()
         if today.weekday() >= 5:  # Saturday and Sunday
-            use_current_price = False
+            use_live_price = False
         else:
-            use_current_price = True
+            use_live_price = True
     
-    use_current_price = False
+    use_live_price = False
 
     #check which ticker breakout today
     tickers_reach_n_days_high = []
-    if use_current_price:
-        tickers_reach_n_days_high = check_breakout_with_todays_high_price(tickers, days)
+    if use_live_price:
+        tickers_reach_n_days_high = check_breakout_with_todays_high_price(tickers, n_days, env_folder_path)
     else:
-        tickers_reach_n_days_high = check_breakout_of_n_days_high_price_of_i_days_ago(tickers, days, 0)
+        tickers_reach_n_days_high = check_breakout_of_n_days_high_price_of_i_days_ago(tickers, n_days, 0, env_folder_path)
 
-    print('Tickers breaks ' + str(days) + '-days high: ' + ', '.join(tickers_reach_n_days_high))
+    print('Tickers breaks ' + str(n_days) + '-days high: ' + ', '.join(tickers_reach_n_days_high))
 
     # check each breakout tickers did not breakout in last n days
     breakout_tickers = []
     for ticker in tickers_reach_n_days_high:
         did_not_breakout_in_past_n_days = True
-        for i in range(1, days+1): # 1 to days
-            if check_high_of_previous_i_days_break_n_days_high(ticker, days, i):
+        for i in range(1, n_days+1): # 1 to days
+            if check_high_of_previous_i_days_break_n_days_high(ticker, n_days, i, env_folder_path):
                 did_not_breakout_in_past_n_days = False
                 break
         if did_not_breakout_in_past_n_days:
@@ -75,10 +75,10 @@ def check_price_breakout_for_tickers(tickers, days, use_current_price = None):
     print('Tickers that confirm breakout today: ' + ', '.join(breakout_tickers))
     return breakout_tickers
 
-def check_breakout_with_todays_high_price(tickers, days):
+def check_breakout_with_todays_high_price(tickers, days, env_folder_path = None):
     breakout_tickers = []
     for ticker in tickers:
-        df = pd.read_csv(MARKET_DATA_FOLDER_PATH + '/' + ticker + '.csv')
+        df = pd.read_csv((env_folder_path + MARKET_DATA_FOLDER_PATH if env_folder_path else MARKET_DATA_FOLDER_PATH) + '/' + ticker + '.csv')
         stock = yf.Ticker(ticker)
         price = stock.info['dayHigh']               # use high of the day as the price
         # price = stock.info['regularMarketPrice']  # use current price of the day as the price
@@ -94,16 +94,16 @@ def check_price_break_n_days_high(df, days, price):
     n_days_high = max(df[HIGH].loc[last_index - days + 1:last_index])
     return price > n_days_high
 
-def check_breakout_of_n_days_high_price_of_i_days_ago(tickers, days, i):
+def check_breakout_of_n_days_high_price_of_i_days_ago(tickers, days, i, env_folder_path = None):
     breakout_tickers = []
     for ticker in tickers:
-        if (check_high_of_previous_i_days_break_n_days_high(ticker, days, i)):
+        if (check_high_of_previous_i_days_break_n_days_high(ticker, days, i, env_folder_path)):
             breakout_tickers.append(ticker)
     breakout_tickers.sort()
     return breakout_tickers
 
-def check_high_of_previous_i_days_break_n_days_high(ticker, days, n):
-    df = pd.read_csv(MARKET_DATA_FOLDER_PATH + '/' + ticker + '.csv')
+def check_high_of_previous_i_days_break_n_days_high(ticker, days, n, env_folder_path = None):
+    df = pd.read_csv((env_folder_path + MARKET_DATA_FOLDER_PATH if env_folder_path else MARKET_DATA_FOLDER_PATH) + '/' + ticker + '.csv')
     if n > 0:
         df = df.iloc[:-n]
 

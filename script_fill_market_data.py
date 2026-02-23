@@ -9,18 +9,16 @@ from datetime import datetime
 from classes.data_retriever import *
 from classes.constants import *
 
-current_script_directory = os.path.dirname(os.path.abspath(__file__))
+current_script_directory = os.path.dirname(os.path.abspath(__file__)) + '/'
 
-env_folder_path = '/volume1/web/sources/turtle_trading_web_application/'
-
-with open(env_folder_path +'fill_market_data.log', 'a') as f:
+with open(current_script_directory +'script_logs/fill_market_data.log', 'a') as f:
     f.write(f'[START] {str(datetime.now())} Fill market data job started\n')
     f.write(f'[INFO ] {str(datetime.now())} Current script directory is {current_script_directory}\n')
 
-    tickers = get_all_unique_tickers(current_script_directory + '/')
+    tickers = get_all_unique_tickers(current_script_directory)
     f.write(f'[INFO ] {str(datetime.now())} Found {len(tickers)} tickers\n')
-    download_market_data_for_tickers(tickers, PERIOD_5Y, env_folder_path)
-    enrich_with_indicators_for_tickers(tickers, PERIOD_5Y, env_folder_path)
+    download_market_data_for_tickers(tickers, PERIOD_5Y, current_script_directory)
+    enrich_with_indicators_for_tickers(tickers, PERIOD_5Y, current_script_directory)
 
     current_time = datetime.now()
     f.write(f'[END  ] {str(datetime.now())} Fill market data job ended\n')
