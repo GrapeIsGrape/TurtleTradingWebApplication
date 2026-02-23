@@ -41,16 +41,8 @@ def get_breakout_ticker_information(tickers):
 
 #region Price Breakout
 
-def check_price_breakout_for_tickers(tickers, n_days, use_live_price = None, env_folder_path = None):
+def check_price_breakout_for_tickers(tickers, n_days, use_live_price = False, env_folder_path = None):
     print('[check_price_breakout_for_tickers] Start')
-    if use_live_price is None:
-        today = date.today()
-        if today.weekday() >= 5:  # Saturday and Sunday
-            use_live_price = False
-        else:
-            use_live_price = True
-    
-    use_live_price = False
 
     #check which ticker breakout today
     tickers_reach_n_days_high = []

@@ -1,9 +1,4 @@
-# import sys
 import os
-# current_dir = os.path.dirname(os.path.abspath(__file__))
-# target_folder = os.path.join(current_dir, '..', 'classes')
-# sys.path.insert(0, target_folder)
-
 from datetime import datetime
 
 from classes.data_retriever import *
@@ -17,6 +12,7 @@ with open(current_script_directory +'script_logs/fill_market_data.log', 'a') as 
 
     tickers = get_all_unique_tickers(current_script_directory)
     f.write(f'[INFO ] {str(datetime.now())} Ready to fill data of {len(tickers)} tickers\n')
+    
     download_market_data_for_tickers(tickers, PERIOD_5Y, current_script_directory)
     enrich_with_indicators_for_tickers(tickers, PERIOD_5Y, current_script_directory)
 
