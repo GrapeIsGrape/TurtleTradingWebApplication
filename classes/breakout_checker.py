@@ -1,0 +1,166 @@
+import pandas as pd
+import yfinance as yf
+from datetime import date, datetime
+
+from .constants import *
+from .calculator import *
+
+def get_breakout_ticker_information(tickers):
+    today = date.today().strftime("%Y-%m-%d")
+    result_df = pd.DataFrame(columns=[DATE, TICKER, OPEN, HIGH, LOW, CLOSE, CURRENT_PRICE, DAYS_HIGH_10, DAYS_HIGH_20, DAYS_HIGH_50, DAYS_HIGH_100, DAYS_HIGH_200, BULLISH_ARRANGEMENT, ATR_20, STOP_LOSS])
+    
+    for ticker in tickers:
+        df = pd.read_csv(MARKET_DATA_FOLDER_PATH + '/' + ticker + '.csv')
+        _20_days_average_true_range = df[ATR_20].loc[len(df)-1]
+        
+        stock = yf.Ticker(ticker)
+        price = stock.info['regularMarketPrice']
+
+        last_day_record = stock.history(PERIOD_1D).iloc[0]
+
+        new_row_data = {
+            DATE: today,
+            TICKER: ticker,
+            OPEN: round(last_day_record[OPEN], ROUND_DP),
+            HIGH: round(last_day_record[HIGH], ROUND_DP),
+            LOW: round(last_day_record[LOW], ROUND_DP),
+            CLOSE: round(last_day_record[CLOSE], ROUND_DP),
+            CURRENT_PRICE: price,
+            DAYS_HIGH_10: calculate_n_days_high_at_index(df, len(df)-1, 10),
+            DAYS_HIGH_20: calculate_n_days_high_at_index(df, len(df)-1, 20),
+            DAYS_HIGH_50: calculate_n_days_high_at_index(df, len(df)-1, 50),
+            DAYS_HIGH_100: calculate_n_days_high_at_index(df, len(df)-1, 100),
+            DAYS_HIGH_200: calculate_n_days_high_at_index(df, len(df)-1, 200),
+            BULLISH_ARRANGEMENT: check_bullish_arrangement_for_ticker(ticker),
+            ATR_20: _20_days_average_true_range,
+            STOP_LOSS: round(price - _20_days_average_true_range, ROUND_DP)
+        }
+        result_df.loc[len(result_df)] = new_row_data
+    
+    return result_df
+
+#region Price Breakout
+
+def check_price_breakout_for_tickers(tickers, days, use_current_price = None):
+    print('[check_price_breakout_for_tickers] Start')
+    if use_current_price is None:
+        today = date.today()
+        if today.weekday() >= 5:  # Saturday and Sunday
+            use_current_price = False
+        else:
+            use_current_price = True
+    
+    use_current_price = False
+
+    #check which ticker breakout today
+    tickers_reach_n_days_high = []
+    if use_current_price:
+        tickers_reach_n_days_high = check_breakout_with_todays_high_price(tickers, days)
+    else:
+        tickers_reach_n_days_high = check_breakout_of_n_days_high_price_of_i_days_ago(tickers, days, 0)
+
+    print('Tickers breaks ' + str(days) + '-days high: ' + ', '.join(tickers_reach_n_days_high))
+
+    # check each breakout tickers did not breakout in last n days
+    breakout_tickers = []
+    for ticker in tickers_reach_n_days_high:
+        did_not_breakout_in_past_n_days = True
+        for i in range(1, days+1): # 1 to days
+            if check_high_of_previous_i_days_break_n_days_high(ticker, days, i):
+                did_not_breakout_in_past_n_days = False
+                break
+        if did_not_breakout_in_past_n_days:
+            breakout_tickers.append(ticker)
+
+    print('Tickers that confirm breakout today: ' + ', '.join(breakout_tickers))
+    return breakout_tickers
+
+def check_breakout_with_todays_high_price(tickers, days):
+    breakout_tickers = []
+    for ticker in tickers:
+        df = pd.read_csv(MARKET_DATA_FOLDER_PATH + '/' + ticker + '.csv')
+        stock = yf.Ticker(ticker)
+        price = stock.info['dayHigh']               # use high of the day as the price
+        # price = stock.info['regularMarketPrice']  # use current price of the day as the price
+        if (check_price_break_n_days_high(df, days, price)):
+            breakout_tickers.append(ticker)
+    breakout_tickers.sort()
+    return breakout_tickers
+
+def check_price_break_n_days_high(df, days, price):
+    if len(df) < days:
+        days = len(df)
+    last_index = len(df)-1
+    n_days_high = max(df[HIGH].loc[last_index - days + 1:last_index])
+    return price > n_days_high
+
+def check_breakout_of_n_days_high_price_of_i_days_ago(tickers, days, i):
+    breakout_tickers = []
+    for ticker in tickers:
+        if (check_high_of_previous_i_days_break_n_days_high(ticker, days, i)):
+            breakout_tickers.append(ticker)
+    breakout_tickers.sort()
+    return breakout_tickers
+
+def check_high_of_previous_i_days_break_n_days_high(ticker, days, n):
+    df = pd.read_csv(MARKET_DATA_FOLDER_PATH + '/' + ticker + '.csv')
+    if n > 0:
+        df = df.iloc[:-n]
+
+    if len(df) < days+1:
+        days = len(df)-1
+    
+    last_index = len(df)-1
+    n_days_high = max(df[HIGH].loc[last_index-days:last_index-1])
+    previous_high = df[HIGH].loc[len(df)-1]
+    
+    return previous_high > n_days_high
+
+#endregion
+
+#region Moving Average Breakout
+    
+def check_moving_average_breakout_for_tickers(tickers, first_moving_average, second_moving_average):
+    breakout_tickers = []
+    for ticker in tickers:
+        print('Checking moving average breakout for ' + ticker)
+        df = pd.read_csv(MARKET_DATA_FOLDER_PATH + '/' + ticker + '.csv')
+        if (check_moving_average_breakout(df, first_moving_average, second_moving_average)):
+            breakout_tickers.append(ticker)
+    breakout_tickers.sort()
+    return breakout_tickers
+
+def check_moving_average_breakout(df, first_moving_average, second_moving_average):
+    first_moving_average = df[first_moving_average]
+    second_moving_average = df[second_moving_average]
+    return first_moving_average.loc[len(df)-1] > second_moving_average.loc[len(df)-2] and first_moving_average.loc[len(df)-2] < second_moving_average.loc[len(df)-3]
+
+#endregion
+
+#region Bullish Arrangement
+
+def check_bullish_arrangement_for_tickers(tickers):
+    breakout_tickers = []
+    for ticker in tickers:
+        if (check_bullish_arrangement_for_ticker(ticker)):
+            breakout_tickers.append(ticker)
+    breakout_tickers.sort()
+    return breakout_tickers
+
+def check_bullish_arrangement_for_ticker(ticker):
+    df = pd.read_csv(MARKET_DATA_FOLDER_PATH + '/' + ticker + '.csv')
+    return check_bullish_arrangement(df.loc[len(df)-1])
+
+def check_bullish_arrangement(row):
+    MA = [MA_5, MA_10, MA_20, MA_30, MA_50, MA_100, MA_200]
+    i = 0
+    while i < len(MA)-1:
+        if row[MA[i]] <= row[MA[i+1]]:
+            return False
+        i += 1
+    return True
+
+#endregion
+
+
+
