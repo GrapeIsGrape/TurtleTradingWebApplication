@@ -1,1 +1,2 @@
 /data/market_data/*.csv
+*.pyc
