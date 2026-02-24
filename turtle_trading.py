@@ -11,20 +11,22 @@ def main():
     # start_time = datetime.now()
     # print('Start time: ', start_time)
 
+    print(check_if_market_is_open())
+
     #region Download market data and calculate indicators for all tickers
 
     # print('===================Market Data====================')
-    tickers = get_all_unique_tickers()
-    download_market_data_for_tickers(tickers, PERIOD_5Y)
-    enrich_with_indicators_for_tickers(tickers, PERIOD_5Y)
+    # tickers = get_all_unique_tickers()
+    # download_market_data_for_tickers(tickers, PERIOD_5Y)
+    # enrich_with_indicators_for_tickers(tickers, PERIOD_5Y)
 
     # #endregion
 
     # print('=====================BreakOut=====================')
 
-    price_breakout_tickers = check_price_breakout_for_tickers(tickers, 20)
-    breakout_ticker_info = get_breakout_ticker_information(price_breakout_tickers)
-    print(breakout_ticker_info)
+    # price_breakout_tickers = check_price_breakout_for_tickers(tickers, 20)
+    # breakout_ticker_info = get_breakout_ticker_information(price_breakout_tickers)
+    # print(breakout_ticker_info)
 
     # print('=======================Exit=======================')
 
