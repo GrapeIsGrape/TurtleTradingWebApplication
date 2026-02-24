@@ -7,33 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Turtle Trading</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/about">About</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Script Logs
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            {% for log in log_files %}
-            <li>
-              <a class="dropdown-item {% if selected_log == log %}active{% endif %}" href="{{ url_for('view_log', logfile=log) }}">{{ log }}</a>
-            </li>
-            {% endfor %}
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+{% include 'common/navbar.html' %}
 <div class="container mt-4">
     {% if log_content %}
       <h4 class="mb-3">Log: {{ selected_log }}</h4>

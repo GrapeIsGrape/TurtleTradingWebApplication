@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Turtle Trading</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/about' %}active{% endif %}" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/sectors' %}active{% endif %}" href="/sectors">Sectors</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path.startswith('/logs') %}active{% endif %}" href="/logs">Logs</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
