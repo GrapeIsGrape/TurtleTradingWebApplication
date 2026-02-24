@@ -11,7 +11,8 @@ def main():
     # start_time = datetime.now()
     # print('Start time: ', start_time)
 
-    print(check_if_market_is_open())
+    abc = check_if_market_is_open()
+    print(abc)
 
     #region Download market data and calculate indicators for all tickers
 

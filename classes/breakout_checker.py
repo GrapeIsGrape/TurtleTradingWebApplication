@@ -42,8 +42,6 @@ def get_breakout_ticker_information(tickers):
 #region Price Breakout
 
 def check_price_breakout_for_tickers(tickers, n_days, use_live_price = False, env_folder_path = None):
-    print('[check_price_breakout_for_tickers] Start')
-
     #check which ticker breakout today
     tickers_reach_n_days_high = []
     if use_live_price:
@@ -51,7 +49,7 @@ def check_price_breakout_for_tickers(tickers, n_days, use_live_price = False, en
     else:
         tickers_reach_n_days_high = check_breakout_of_n_days_high_price_of_i_days_ago(tickers, n_days, 0, env_folder_path)
 
-    print('Tickers breaks ' + str(n_days) + '-days high: ' + ', '.join(tickers_reach_n_days_high))
+    print(f"{n_days}-days high Breakout tickers: {', '.join(tickers_reach_n_days_high)} (Count: {len(tickers_reach_n_days_high)})")
 
     # check each breakout tickers did not breakout in last n days
     breakout_tickers = []
@@ -64,7 +62,8 @@ def check_price_breakout_for_tickers(tickers, n_days, use_live_price = False, en
         if did_not_breakout_in_past_n_days:
             breakout_tickers.append(ticker)
 
-    print('Tickers that confirm breakout today: ' + ', '.join(breakout_tickers))
+    print(f"Tickers that confirm breakout today (did not breakout in past {n_days} days): {', '.join(breakout_tickers)} (Count: {len(breakout_tickers)})")
+
     return breakout_tickers
 
 def check_breakout_with_todays_high_price(tickers, days, env_folder_path = None):
