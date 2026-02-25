@@ -3,10 +3,20 @@ from flask import Flask, render_template, request, redirect
 import os
 import csv
 import logging
+from classes.constants import (
+    TICKERS_TO_BE_RETRIEVED_FOLDER_PATH,
+    SCRIPT_LOGS_FOLDER_PATH,
+    BREAKOUT_LOG_MARKET_CLOSE,
+    BREAKOUT_LOG_MARKET_OPEN
+)
 
 app = Flask(__name__)
 
-SECTOR_DIR = os.path.join(os.path.dirname(__file__), 'data', 'tickers_to_be_retrieved')
+# Constants
+SECTOR_DIR = os.path.join(os.path.dirname(__file__), TICKERS_TO_BE_RETRIEVED_FOLDER_PATH)
+LOG_FOLDER = os.path.join(os.path.dirname(__file__), SCRIPT_LOGS_FOLDER_PATH)
+LOG_ERROR_FILE = os.path.join(os.path.dirname(__file__), 'templates', 'error_handling', 'flask_errors.log')
+
 def get_sector_files():
     sector_files = []
     if os.path.exists(SECTOR_DIR):
@@ -23,7 +33,7 @@ def home():
 @app.route("/breakout")
 def breakout():
     from datetime import date
-    log_path = os.path.join(os.path.dirname(__file__), 'script_logs', 'breakout_check_market_close_full_breakout_list.log')
+    log_path = os.path.join(LOG_FOLDER, BREAKOUT_LOG_MARKET_CLOSE)
     breakout_days = []
     if os.path.exists(log_path):
         with open(log_path, 'r') as f:
@@ -92,10 +102,7 @@ def update_tickers():
     
     return redirect('/tickers')
 
-LOG_FOLDER = os.path.join(os.path.dirname(__file__), 'script_logs')
-
 # Set up logging to a file for errors
-LOG_ERROR_FILE = os.path.join(os.path.dirname(__file__), 'templates', 'error_handling', 'flask_errors.log')
 logging.basicConfig(
     filename=LOG_ERROR_FILE,
     level=None,

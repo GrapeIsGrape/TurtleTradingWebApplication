@@ -6,7 +6,7 @@ from classes.constants import *
 
 current_script_directory = os.path.dirname(os.path.abspath(__file__)) + '/'
 
-with open(current_script_directory +'script_logs/fill_market_data.log', 'a') as f:
+with open(current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MAIN_LOG_FILL_MARKET_DATA, 'a') as f:
     f.write(f'[START] {str(datetime.now())} Fill market data job started\n')
 
     tickers = get_all_unique_tickers(current_script_directory)

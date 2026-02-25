@@ -52,6 +52,12 @@ PERIOD_MAX = 'max'
 MARKET_DATA_FOLDER_PATH = 'data/market_data'
 TICKERS_TO_BE_RETRIEVED_FOLDER_PATH = 'data/tickers_to_be_retrieved'
 CURRENT_POSITIONS_FILE_PATH = 'data/positions.csv'
+SCRIPT_LOGS_FOLDER_PATH = 'script_logs'
+BREAKOUT_LOG_MARKET_CLOSE = 'breakout_check_market_close_full_breakout_list.log'
+BREAKOUT_LOG_MARKET_OPEN = 'breakout_check_market_open_full_breakout_list.log'
+MAIN_LOG_BREAKOUT_MARKET_CLOSE = 'breakout_check_market_close.log'
+MAIN_LOG_BREAKOUT_MARKET_OPEN = 'breakout_check_market_open.log'
+MAIN_LOG_FILL_MARKET_DATA = 'fill_market_data.log'
 
 # Others
 
