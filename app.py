@@ -16,7 +16,7 @@ from classes.constants import (
     FILTER_MAX_PER_SECTOR,
     FILTER_EARNINGS_SKIP_DAYS
 )
-from classes.breakout_checker import check_bullish_arrangement_for_tickers, get_breakout_ticker_information
+from classes.breakout_checker import check_bullish_arrangement_for_tickers, get_breakout_ticker_information_close
 
 app = Flask(__name__)
 
@@ -117,7 +117,7 @@ def breakout():
             all_tickers.extend(breakout.get('tickers', []))
     bullish_tickers = set(check_bullish_arrangement_for_tickers(all_tickers)) if all_tickers else set()
     # Get detailed ticker information
-    ticker_info_df = get_breakout_ticker_information(all_tickers) if all_tickers else pd.DataFrame()
+    ticker_info_df = get_breakout_ticker_information_close(all_tickers) if all_tickers else pd.DataFrame()
     ticker_info = ticker_info_df.to_dict('records') if not ticker_info_df.empty else []
     return render_template('breakout.html', entries=entries, page_title="Breakout (Close)", bullish_tickers=bullish_tickers, ticker_info=ticker_info)
 
@@ -132,7 +132,7 @@ def breakout_live():
             all_tickers.extend(breakout.get('tickers', []))
     bullish_tickers = set(check_bullish_arrangement_for_tickers(all_tickers)) if all_tickers else set()
     # Get detailed ticker information
-    ticker_info_df = get_breakout_ticker_information(all_tickers) if all_tickers else pd.DataFrame()
+    ticker_info_df = get_breakout_ticker_information_close(all_tickers) if all_tickers else pd.DataFrame()
     ticker_info = ticker_info_df.to_dict('records') if not ticker_info_df.empty else []
     return render_template('breakout.html', entries=entries, page_title="Breakout (Live)", bullish_tickers=bullish_tickers, ticker_info=ticker_info)
 

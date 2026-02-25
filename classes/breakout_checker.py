@@ -5,7 +5,7 @@ from datetime import date, datetime
 from .constants import *
 from .calculator import *
 
-def get_breakout_ticker_information(tickers):
+def get_breakout_ticker_information_live(tickers):
     today = date.today().strftime("%Y-%m-%d")
     result_df = pd.DataFrame(columns=[DATE, TICKER, OPEN, HIGH, LOW, CLOSE, CURRENT_PRICE, DAYS_HIGH_10, DAYS_HIGH_20, DAYS_HIGH_50, DAYS_HIGH_100, DAYS_HIGH_200, BULLISH_ARRANGEMENT, ATR_20, STOP_LOSS])
     
@@ -56,11 +56,11 @@ def get_breakout_ticker_information_close(tickers):
             LOW: round(last_row[LOW], ROUND_DP),
             CLOSE: round(last_row[CLOSE], ROUND_DP),
             CURRENT_PRICE: last_row[CLOSE],
-            DAYS_HIGH_10: round(last_row[DAYS_HIGH_10], ROUND_DP),
-            DAYS_HIGH_20: round(last_row[DAYS_HIGH_20], ROUND_DP),
-            DAYS_HIGH_50: round(last_row[DAYS_HIGH_50], ROUND_DP),
-            DAYS_HIGH_100: round(last_row[DAYS_HIGH_100], ROUND_DP),
-            DAYS_HIGH_200: round(last_row[DAYS_HIGH_200], ROUND_DP),
+            DAYS_HIGH_10: calculate_n_days_high_at_index(df, len(df)-1, 10),
+            DAYS_HIGH_20: calculate_n_days_high_at_index(df, len(df)-1, 20),
+            DAYS_HIGH_50: calculate_n_days_high_at_index(df, len(df)-1, 50),
+            DAYS_HIGH_100: calculate_n_days_high_at_index(df, len(df)-1, 100),
+            DAYS_HIGH_200: calculate_n_days_high_at_index(df, len(df)-1, 200),
             BULLISH_ARRANGEMENT: last_row[BULLISH_ARRANGEMENT],
             ATR_20: last_row[ATR_20],
             STOP_LOSS: round(last_row[CLOSE] - 2 * last_row[ATR_20], ROUND_DP)
