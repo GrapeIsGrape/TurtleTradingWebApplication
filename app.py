@@ -16,6 +16,7 @@ from classes.constants import (
     FILTER_MAX_PER_SECTOR,
     FILTER_EARNINGS_SKIP_DAYS
 )
+from classes.breakout_checker import check_bullish_arrangement_for_tickers
 
 app = Flask(__name__)
 
@@ -120,6 +121,7 @@ def breakout_live():
 @app.route("/tickers")
 def tickers():
     sectors = []
+    all_tickers = []
     for sector_name, filename in get_sector_files():
         path = os.path.join(SECTOR_DIR, filename)
         tickers_list = []
@@ -127,6 +129,7 @@ def tickers():
             with open(path, newline="") as f:
                 reader = csv.DictReader(f)
                 tickers_list = [row['Ticker'] for row in reader]
+        all_tickers.extend(tickers_list)
         file_key = os.path.splitext(filename)[0]
         sectors.append({
             "name": sector_name,
@@ -134,7 +137,9 @@ def tickers():
             "file_key": file_key,
             "filename": filename
         })
+    bullish_tickers = set(check_bullish_arrangement_for_tickers(all_tickers)) if all_tickers else set()
     return render_template("tickers.html", sectors=sectors,
+                         bullish_tickers=bullish_tickers,
                          FILTER_MIN_PRICE=FILTER_MIN_PRICE,
                          FILTER_MIN_VOLUME=FILTER_MIN_VOLUME,
                          FILTER_MIN_DOLLAR_VOLUME=FILTER_MIN_DOLLAR_VOLUME,

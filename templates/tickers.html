@@ -18,6 +18,7 @@
         .border-orange { border-color: #fd7e14 !important; }
         .bg-pink { background-color: #d63384 !important; }
         .border-pink { border-color: #d63384 !important; }
+        .badge { --bs-badge-font-weight: 400; }
     </style>
 </head>
 <body>
@@ -43,6 +44,13 @@
     </div>
     
     <p class="text-muted mb-4">This page shows tickers that are being used to check price breakout for the Turtle Trading strategy.</p>
+    <div class="d-flex align-items-center flex-wrap gap-2 text-muted mb-4">
+        <span class="badge bg-success fw-bold">SYMBOL</span>
+        <span class="small">Bullish arrangement</span>
+        <span class="text-secondary">•</span>
+        <span class="badge bg-secondary">SYMBOL</span>
+        <span class="small">Non-bullish arrangement</span>
+    </div>
 
     <!-- All Tickers Modal -->
     <div class="modal fade" id="allTickersModal" tabindex="-1">
@@ -61,7 +69,11 @@
                 <div class="modal-body">
                     <div class="d-flex flex-wrap gap-2">
                         {% for ticker in all_tickers|sort %}
-                            <span class="badge bg-secondary" style="font-size:0.95em;">{{ ticker }}</span>
+                            {% set badge_class = 'bg-success' if ticker in bullish_tickers else 'bg-secondary' %}
+                            {% set badge_weight = 'fw-bold' if ticker in bullish_tickers else '' %}
+                            <a href="/raw_data/{{ ticker }}.csv" class="text-decoration-none">
+                                <span class="badge {{ badge_class }} {{ badge_weight }}" style="font-size:0.95em;">{{ ticker }}</span>
+                            </a>
                         {% endfor %}
                     </div>
                 </div>
@@ -114,7 +126,11 @@
             {% if sector.tickers %}
             <div class="d-flex flex-wrap gap-2">
               {% for ticker in sector.tickers %}
-              <span class="badge bg-secondary" style="font-size:0.95em;">{{ ticker }}</span>
+                              {% set badge_class = 'bg-success' if ticker in bullish_tickers else 'bg-secondary' %}
+                              {% set badge_weight = 'fw-bold' if ticker in bullish_tickers else '' %}
+                                                            <a href="/raw_data/{{ ticker }}.csv" class="text-decoration-none">
+                                                                <span class="badge {{ badge_class }} {{ badge_weight }}" style="font-size:0.95em;">{{ ticker }}</span>
+                                                            </a>
               {% endfor %}
             </div>
             {% else %}
