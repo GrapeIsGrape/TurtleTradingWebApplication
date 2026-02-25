@@ -34,10 +34,12 @@ def get_all_unique_tickers(env_folder_path = None):
 
 def download_market_data_for_tickers(tickers, duration, env_folder_path = None):
     for ticker in tickers:
-        download_market_data_for_ticker(ticker, duration, env_folder_path)
+        try:
+            download_market_data_for_ticker(ticker, duration, env_folder_path)
+        except Exception as e:
+            print(f'Error when downloading data of {ticker} from yfinance: {str(e)}')
 
 def download_market_data_for_ticker(ticker, duration, env_folder_path = None):
-    print('Started downloading all data of ' + ticker)
     columns_to_keep = [OPEN, HIGH, LOW, CLOSE, VOLUME]
 
     data = yf.Ticker(ticker)
@@ -71,10 +73,11 @@ def download_market_data_for_ticker(ticker, duration, env_folder_path = None):
 #region Fill ticker data up to today to exising ticker files
 
 def enrich_with_indicators_for_tickers(tickers, duration, env_folder_path = None):
-    print('Started filling data of ' + str(len(tickers)) + ' tickers')
     for ticker in tickers:
-        enrich_with_indicators_for_ticker(ticker, duration, env_folder_path)
-    print('Finished filling data of ' + str(len(tickers)) + ' tickers')
+        try:
+            enrich_with_indicators_for_ticker(ticker, duration, env_folder_path)
+        except Exception as e:
+            print(f'Error when enriching data of {ticker}: {str(e)}')
 
 def enrich_with_indicators_for_ticker(ticker, duration, env_folder_path = None):    
     today = date.today()
@@ -139,6 +142,7 @@ def enrich_with_indicators_for_ticker(ticker, duration, env_folder_path = None):
             
         index += 1
     save_csv(df, folder_path + '/', ticker + '.csv')
+    print('Finished filling data of ' + ticker)
 
 #endregion
 
