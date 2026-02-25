@@ -52,19 +52,18 @@ def check_price_breakout_for_tickers(tickers, n_days, use_live_price = False, en
     print(f"{n_days}-days high Breakout tickers: {', '.join(tickers_reach_n_days_high)} (Count: {len(tickers_reach_n_days_high)})")
 
     # check each breakout tickers did not breakout in last n days
-    breakout_tickers = []
-    for ticker in tickers_reach_n_days_high:
-        did_not_breakout_in_past_n_days = True
-        for i in range(1, n_days+1): # 1 to days
-            if check_high_of_previous_i_days_break_n_days_high(ticker, n_days, i, env_folder_path):
-                did_not_breakout_in_past_n_days = False
-                break
-        if did_not_breakout_in_past_n_days:
-            breakout_tickers.append(ticker)
+    # breakout_tickers = []
+    # for ticker in tickers_reach_n_days_high:
+    #     did_not_breakout_in_past_n_days = True
+    #     for i in range(1, n_days+1): # 1 to days
+    #         if check_high_of_previous_i_days_break_n_days_high(ticker, n_days, i, env_folder_path):
+    #             did_not_breakout_in_past_n_days = False
+    #             break
+    #     if did_not_breakout_in_past_n_days:
+    #         breakout_tickers.append(ticker)
+    # print(f"Tickers that confirm breakout today (did not breakout in past {n_days} days): {', '.join(breakout_tickers)} (Count: {len(breakout_tickers)})")
 
-    print(f"Tickers that confirm breakout today (did not breakout in past {n_days} days): {', '.join(breakout_tickers)} (Count: {len(breakout_tickers)})")
-
-    return breakout_tickers
+    return tickers_reach_n_days_high
 
 def check_breakout_with_todays_high_price(tickers, days, env_folder_path = None):
     breakout_tickers = []
