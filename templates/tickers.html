@@ -13,12 +13,43 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>S&P 500 Tickers by Sector</h2>
         <div>
+            <button class="btn btn-success me-2 d-none" id="refreshTickersBtn" title="Refresh tickers based on criteria (admin only)">
+                🔄 Refresh Tickers
+            </button>
             <button class="btn btn-outline-primary" id="editModeBtn" data-bs-toggle="modal" data-bs-target="#passwordModal" title="Enable admin mode">
                 🔒 Admin Mode
             </button>
             <button class="btn btn-outline-danger d-none" id="exitModeBtn" title="Exit admin mode">
                 🔓 Exit Admin Mode
             </button>
+        </div>
+    </div>
+
+    <!-- Refresh Confirmation Modal -->
+    <div class="modal fade" id="refreshModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Refresh All Tickers</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>This will fetch S&P 500 tickers and filter them based on the criteria in the About page:</p>
+                    <ul class="small">
+                        <li>Liquidity: 30-day avg volume ≥ 1M shares OR dollar volume ≥ $75M</li>
+                        <li>Price: ≥ $20</li>
+                        <li>Volatility: 20-day volatility ≥ 25% OR 14-day ATR % ≥ 1.8%</li>
+                        <li>Max 7 stocks per sector</li>
+                    </ul>
+                    <p class="text-warning"><strong>Warning:</strong> This operation may take 5-10 minutes and will replace all existing ticker files.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form method="POST" action="/refresh_tickers" id="refreshForm">
+                        <button type="submit" class="btn btn-success">Confirm Refresh</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -73,29 +104,8 @@
         </div>
       </div>
       {% endfor %}
-    </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.getElementById('submitPassword').addEventListener('click', function() {
-        const password = document.getElementById('passwordInput').value;
-        const errorDiv = document.getElementById('passwordError');
-        
-        if (password === 'admin') {
-            // Show all edit buttons
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.classList.remove('d-none');
-            });
-            // Show exit button, hide edit mode button
-            document.getElementById('editModeBtn').classList.add('d-none');
-            document.getElementById('exitModeBtn').classList.remove('d-none');
-            // Close the modal
-            bootstrap.Modal.getInstance(document.getElementById('passwordModal')).hide();
-            // Clear the password field
-            document.getElementById('passwordInput').value = '';
-            errorDiv.classList.add('d-none');
-        } else {
-            // Show error message
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     // Setup password modal for tickers page
@@ -108,6 +118,8 @@
             document.querySelectorAll('.edit-btn').forEach(btn => {
                 btn.classList.remove('d-none');
             });
+            // Show refresh button
+            document.getElementById('refreshTickersBtn').classList.remove('d-none');
             // Show exit button, hide edit mode button
             document.getElementById('editModeBtn').classList.add('d-none');
             document.getElementById('exitModeBtn').classList.remove('d-none');
@@ -123,8 +135,25 @@
         document.querySelectorAll('.edit-btn').forEach(btn => {
             btn.classList.add('d-none');
         });
+        // Hide refresh button
+        document.getElementById('refreshTickersBtn').classList.add('d-none');
         // Show edit mode button, hide exit button
         document.getElementById('editModeBtn').classList.remove('d-none');
         document.getElementById('exitModeBtn').classList.add('d-none');
     });
+
+    // Refresh tickers button
+    document.getElementById('refreshTickersBtn').addEventListener('click', function() {
+        const refreshModal = new bootstrap.Modal(document.getElementById('refreshModal'));
+        refreshModal.show();
+    });
+
+    // Show loading indicator when form is submitted
+    document.getElementById('refreshForm').addEventListener('submit', function() {
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+        submitBtn.disabled = true;
+    });
 </script>
+</body>
+</html>

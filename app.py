@@ -155,6 +155,24 @@ def update_tickers():
     
     return redirect('/tickers')
 
+@app.route("/refresh_tickers", methods=["POST"])
+def refresh_tickers():
+    """
+    Refresh tickers based on Turtle Trading criteria.
+    This is a long-running operation.
+    """
+    from classes.ticker_filter import filter_and_save_tickers
+    try:
+        # Create output directory if it doesn't exist
+        os.makedirs(SECTOR_DIR, exist_ok=True)
+        total_filtered = filter_and_save_tickers(SECTOR_DIR, max_per_sector=7)
+        logging.info(f'Successfully refreshed tickers. Total filtered: {total_filtered}')
+        return redirect('/tickers')
+    except Exception as e:
+        logging.error(f'Error refreshing tickers: {e}', exc_info=True)
+        error_msg = f'Error refreshing tickers: {str(e)}'
+        return render_template('error_handling/error_handling.html', error=error_msg, config=app.config), 500
+
 # Set up logging to a file for errors
 logging.basicConfig(
     filename=LOG_ERROR_FILE,
