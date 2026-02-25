@@ -17,8 +17,14 @@ from classes.constants import (
     FILTER_EARNINGS_SKIP_DAYS
 )
 from classes.breakout_checker import check_bullish_arrangement_for_tickers, get_breakout_ticker_information_close
+from classes.helper import check_if_market_is_open
 
 app = Flask(__name__)
+
+# Context processor to make market_is_open available to all templates
+@app.context_processor
+def inject_market_status():
+    return dict(market_is_open=check_if_market_is_open())
 
 # Constants
 SECTOR_DIR = os.path.join(os.path.dirname(__file__), TICKERS_TO_BE_RETRIEVED_FOLDER_PATH)
