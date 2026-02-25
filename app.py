@@ -6,20 +6,15 @@ import logging
 
 app = Flask(__name__)
 
-SECTOR_FILES = [
-    ("Information Technology", "information_technology.csv"),
-    ("Communication Services", "communication_services.csv"),
-    ("Consumer Discretionary", "consumer_discretionary.csv"),
-    ("Consumer Staples", "consumer_staples.csv"),
-    ("Health Care", "health_care.csv"),
-    ("Financials", "financials.csv"),
-    ("Industrials", "industrials.csv"),
-    ("Energy", "energy.csv"),
-    ("Materials", "materials.csv"),
-    ("Utilities", "utilities.csv"),
-    ("Real Estate", "real_estate.csv"),
-]
 SECTOR_DIR = os.path.join(os.path.dirname(__file__), 'data', 'tickers_to_be_retrieved')
+def get_sector_files():
+    sector_files = []
+    if os.path.exists(SECTOR_DIR):
+        for fname in sorted(os.listdir(SECTOR_DIR)):
+            if fname.endswith('.csv') and os.path.isfile(os.path.join(SECTOR_DIR, fname)):
+                sector_name = os.path.splitext(fname)[0].replace('_', ' ').title()
+                sector_files.append((sector_name, fname))
+    return sector_files
 
 @app.route("/")
 def home():
@@ -28,7 +23,7 @@ def home():
 @app.route("/sectors")
 def sectors():
     sectors = []
-    for sector_name, filename in SECTOR_FILES:
+    for sector_name, filename in get_sector_files():
         path = os.path.join(SECTOR_DIR, filename)
         tickers = []
         if os.path.exists(path):
