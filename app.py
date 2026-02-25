@@ -178,9 +178,15 @@ def tickers():
             "file_key": file_key,
             "filename": filename
         })
-    bullish_tickers = set(check_bullish_arrangement_for_tickers(all_tickers)) if all_tickers else set()
+    if check_if_market_is_open():
+        ticker_info_df = get_breakout_ticker_information_live(all_tickers) if all_tickers else pd.DataFrame()
+    else:
+        ticker_info_df = get_breakout_ticker_information_close(all_tickers) if all_tickers else pd.DataFrame()
+    bullish_tickers = set(ticker_info_df[ticker_info_df['Bullish'] == True]['Ticker'].tolist()) if not ticker_info_df.empty else set()
+    ticker_info = ticker_info_df.to_dict('records') if not ticker_info_df.empty else []
     return render_template("tickers.html", sectors=sectors,
                          bullish_tickers=bullish_tickers,
+                         ticker_info=ticker_info,
                          FILTER_MIN_PRICE=FILTER_MIN_PRICE,
                          FILTER_MIN_VOLUME=FILTER_MIN_VOLUME,
                          FILTER_MIN_DOLLAR_VOLUME=FILTER_MIN_DOLLAR_VOLUME,

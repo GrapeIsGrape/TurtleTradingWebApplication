@@ -110,53 +110,8 @@
   
   // Add event listener for toggle changes
   toggleSwitch.addEventListener('change', updateCardVisibility);
-  
-  // Create ticker info lookup map
-  const tickerInfoMap = {};
-  {% for info in ticker_info %}
-    tickerInfoMap['{{ info.Ticker }}'] = {
-      ticker: '{{ info.Ticker }}',
-      open: {{ info.Open }},
-      close: {{ info.Close }},
-      current: {{ info['Current Price'] }},
-      high: {{ info.High }},
-      low: {{ info.Low }},
-      bullish: {{ 'true' if info['Bullish'] else 'false' }},
-      atr20: {{ info['ATR-20'] }},
-      stopLoss: {{ info['Stop Loss'] }}
-    };
-  {% endfor %}
-
-  // Listen for modal show event
-  document.getElementById('tickerModal').addEventListener('show.bs.modal', function (event) {
-    const badge = event.relatedTarget;
-    const ticker = badge.getAttribute('data-ticker');
-    const info = tickerInfoMap[ticker];
-    
-    if (info) {
-      document.getElementById('modalTicker').textContent = info.ticker;
-      document.getElementById('modalOpen').textContent = info.open.toFixed(2);
-      document.getElementById('modalClose').textContent = info.close.toFixed(2);
-      document.getElementById('modalCurrent').textContent = info.current.toFixed(2);
-      document.getElementById('modalHigh').textContent = info.high.toFixed(2);
-      document.getElementById('modalLow').textContent = info.low.toFixed(2);
-      document.getElementById('modalBullish').innerHTML = info.bullish 
-        ? '<span class="badge bg-success">Yes</span>' 
-        : '<span class="badge bg-secondary">No</span>';
-      document.getElementById('modalATR').textContent = info.atr20.toFixed(2);
-      document.getElementById('modalStopLoss').textContent = info.stopLoss.toFixed(2);
-    } else {
-      document.getElementById('modalTicker').textContent = ticker;
-      document.getElementById('modalOpen').textContent = 'N/A';
-      document.getElementById('modalClose').textContent = 'N/A';
-      document.getElementById('modalCurrent').textContent = 'N/A';
-      document.getElementById('modalHigh').textContent = 'N/A';
-      document.getElementById('modalLow').textContent = 'N/A';
-      document.getElementById('modalBullish').textContent = 'N/A';
-      document.getElementById('modalATR').textContent = 'N/A';
-      document.getElementById('modalStopLoss').textContent = 'N/A';
-    }
-  });
 </script>
+
+{% include 'common/ticker_details_script.html' %}
 </body>
 </html>
