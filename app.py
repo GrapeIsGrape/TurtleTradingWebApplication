@@ -116,11 +116,17 @@ def parse_breakout_log(log_path, group_by_date=True):
 def breakout():
     log_path = os.path.join(LOG_FOLDER, BREAKOUT_LOG_MARKET_CLOSE)
     entries = parse_breakout_log(log_path, group_by_date=True)
-    # Collect all tickers from first entry for bullish check
+    # Collect all tickers from the first entry with actual breakout tickers
     all_tickers = []
-    if entries and not entries[0].get('market_closed'):
-        for breakout in entries[0].get('breakouts', []):
-            all_tickers.extend(breakout.get('tickers', []))
+    for entry in entries:
+        if entry.get('market_closed'):
+            continue
+        entry_tickers = []
+        for breakout in entry.get('breakouts', []):
+            entry_tickers.extend(breakout.get('tickers', []))
+        if entry_tickers:
+            all_tickers = entry_tickers
+            break
     bullish_tickers = set(check_bullish_arrangement_for_tickers(all_tickers)) if all_tickers else set()
     # Get detailed ticker information
     ticker_info_df = get_breakout_ticker_information_close(all_tickers) if all_tickers else pd.DataFrame()
@@ -131,11 +137,17 @@ def breakout():
 def breakout_live():
     log_path = os.path.join(LOG_FOLDER, BREAKOUT_LOG_MARKET_OPEN)
     entries = parse_breakout_log(log_path, group_by_date=False)
-    # Collect all tickers from first entry for bullish check
+    # Collect all tickers from the first entry with actual breakout tickers
     all_tickers = []
-    if entries and not entries[0].get('market_closed'):
-        for breakout in entries[0].get('breakouts', []):
-            all_tickers.extend(breakout.get('tickers', []))
+    for entry in entries:
+        if entry.get('market_closed'):
+            continue
+        entry_tickers = []
+        for breakout in entry.get('breakouts', []):
+            entry_tickers.extend(breakout.get('tickers', []))
+        if entry_tickers:
+            all_tickers = entry_tickers
+            break
     # Get detailed ticker information based on market status
     if check_if_market_is_open():
         ticker_info_df = get_breakout_ticker_information_live(all_tickers) if all_tickers else pd.DataFrame()
