@@ -37,5 +37,5 @@
 [2026-02-25 04:20:04.201309] Market is closed, no breakout check performed
 [2026-02-25 04:30:04.213444] Market is closed, no breakout check performed
 [2026-02-25 04:40:04.237843] Market is closed, no breakout check performed
-[2026-02-25 04:50:04.247736] Market is closed, no breakout check performed
-[2026-02-25 12:47:53.541956] Market is closed, no breakout check performed
+[2026-02-25 04:50:04.247736] 20-days high breakout tickers: TSM, TSLA, MSFT (count: 3)
+[2026-02-25 04:50:23.146563] 55-days high breakout tickers: TSLA (count: 1)

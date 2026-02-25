@@ -30,32 +30,85 @@ def get_sector_files():
 def home():
     return render_template("index.html")
 
+def parse_breakout_log(log_path, group_by_date=True):
+    """
+    Parse breakout log file and return structured data.
+    
+    Args:
+        log_path: Path to the log file
+        group_by_date: If True, group by date only. If False, group by minute (YYYY-MM-DD HH:MM).
+    
+    Returns:
+        List of dicts with timestamp/date, breakouts, and metadata
+    """
+    from datetime import date
+    import re
+    
+    entries = []
+    if not os.path.exists(log_path):
+        return entries
+    
+    with open(log_path, 'r') as f:
+        lines = f.readlines()
+    
+    entry_dict = {}
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        
+        # Check for market closed message
+        closed_match = re.match(r'\[(.*?)\] Market is closed, no breakout check performed', line)
+        if closed_match:
+            timestamp = closed_match.group(1)
+            if group_by_date:
+                key = timestamp.split()[0]  # Extract date only
+            else:
+                # Extract up to minute: YYYY-MM-DD HH:MM
+                parts = timestamp.split('.')[0].rsplit(':', 1)  # Remove milliseconds and seconds
+                key = parts[0] if parts else timestamp
+            if key not in entry_dict:
+                entry_dict[key] = {'market_closed': True, 'breakouts': []}
+            continue
+        
+        # Check for breakout tickers (handles both "Count:" and "count:" formats)
+        breakout_match = re.match(r'\[(.*?)\] (.*?) [Bb]reakout tickers: ?(.*) \([Cc]ount: (\d+)\)', line)
+        if breakout_match:
+            timestamp, label, tickers_str, count = breakout_match.groups()
+            tickers = [t.strip() for t in tickers_str.split(',') if t.strip()] if tickers_str else []
+            if group_by_date:
+                key = timestamp.split()[0]  # Extract date only
+            else:
+                # Extract up to minute: YYYY-MM-DD HH:MM
+                parts = timestamp.split('.')[0].rsplit(':', 1)  # Remove milliseconds and seconds
+                key = parts[0] if parts else timestamp
+            if key not in entry_dict:
+                entry_dict[key] = {'market_closed': False, 'breakouts': []}
+            entry_dict[key]['breakouts'].append({'label': label, 'tickers': tickers})
+    
+    today_str = str(date.today())
+    for key in sorted(entry_dict.keys(), reverse=True):
+        is_today = key.startswith(today_str)
+        entries.append({
+            'timestamp': key,
+            'is_today': is_today,
+            'market_closed': entry_dict[key].get('market_closed', False),
+            'breakouts': entry_dict[key].get('breakouts', [])
+        })
+    
+    return entries
+
 @app.route("/breakout")
 def breakout():
-    from datetime import date
     log_path = os.path.join(LOG_FOLDER, BREAKOUT_LOG_MARKET_CLOSE)
-    breakout_days = []
-    if os.path.exists(log_path):
-        with open(log_path, 'r') as f:
-            lines = f.readlines()
-        day_dict = {}
-        for line in lines:
-            line = line.strip()
-            if not line:
-                continue
-            # Example: [2026-02-24] 20-days high Breakout tickers: PDD (Count: 1)
-            import re
-            m = re.match(r'\[(.*?)\] (.*?) Breakout tickers: ?(.*) \(Count: (\d+)\)', line)
-            if m:
-                date_str, label, tickers_str, count = m.groups()
-                tickers = [t.strip() for t in tickers_str.split(',') if t.strip()] if tickers_str else []
-                if date_str not in day_dict:
-                    day_dict[date_str] = []
-                day_dict[date_str].append({'label': label, 'tickers': tickers})
-        for date_str in sorted(day_dict.keys(), reverse=True):
-            breakout_days.append({'date': date_str, 'breakouts': day_dict[date_str]})
-    today_date = str(date.today())
-    return render_template('breakout.html', breakout_days=breakout_days, today_date=today_date)
+    entries = parse_breakout_log(log_path, group_by_date=True)
+    return render_template('breakout.html', entries=entries, page_title="Breakout Viewer")
+
+@app.route("/breakout_live")
+def breakout_live():
+    log_path = os.path.join(LOG_FOLDER, BREAKOUT_LOG_MARKET_OPEN)
+    entries = parse_breakout_log(log_path, group_by_date=False)
+    return render_template('breakout.html', entries=entries, page_title="Breakout Viewer (Live)")
 
 @app.route("/tickers")
 def tickers():
