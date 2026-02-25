@@ -18,6 +18,9 @@
         <li class="nav-item">
           <a class="nav-link {% if request.path.startswith('/daily_script_logs') %}active{% endif %}" href="/daily_script_logs">Daily Script Logs</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/breakout' %}active{% endif %}" href="/breakout">Breakout</a>
+        </li>
       </ul>
     </div>
   </div>

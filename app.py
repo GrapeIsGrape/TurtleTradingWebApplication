@@ -20,6 +20,33 @@ def get_sector_files():
 def home():
     return render_template("index.html")
 
+@app.route("/breakout")
+def breakout():
+    from datetime import date
+    log_path = os.path.join(os.path.dirname(__file__), 'script_logs', 'breakout_check_market_close_full_breakout_list.log')
+    breakout_days = []
+    if os.path.exists(log_path):
+        with open(log_path, 'r') as f:
+            lines = f.readlines()
+        day_dict = {}
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+            # Example: [2026-02-24] 20-days high Breakout tickers: PDD (Count: 1)
+            import re
+            m = re.match(r'\[(.*?)\] (.*?) Breakout tickers: ?(.*) \(Count: (\d+)\)', line)
+            if m:
+                date_str, label, tickers_str, count = m.groups()
+                tickers = [t.strip() for t in tickers_str.split(',') if t.strip()] if tickers_str else []
+                if date_str not in day_dict:
+                    day_dict[date_str] = []
+                day_dict[date_str].append({'label': label, 'tickers': tickers})
+        for date_str in sorted(day_dict.keys(), reverse=True):
+            breakout_days.append({'date': date_str, 'breakouts': day_dict[date_str]})
+    today_date = str(date.today())
+    return render_template('breakout.html', breakout_days=breakout_days, today_date=today_date)
+
 @app.route("/sectors")
 def sectors():
     sectors = []
