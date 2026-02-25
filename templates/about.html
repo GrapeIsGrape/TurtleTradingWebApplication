@@ -22,49 +22,7 @@
                         <p class="card-text">This web application demonstrates the Turtle Trading strategy and related analytics. Use the navigation bar to explore logs, view trading data, and learn more about the project.</p>
                         <div class="mt-4">
                                 <h5 class="fw-bold mb-3">Ticker Selection Criteria <span class="badge bg-info text-dark ms-2">As of 2026-02-24</span></h5>
-                                <div class="list-group list-group-flush">
-                                    <div class="list-group-item py-3">
-                                        <span class="me-2 text-primary"><i class="bi bi-check-circle-fill"></i></span>
-                                        <span class="fw-bold text-success">S&amp;P 500</span> membership
-                                    </div>
-                                    <div class="list-group-item py-3 bg-light">
-                                        <span class="me-2 text-primary"><i class="bi bi-droplet-half"></i></span>
-                                        <span class="fw-bold text-warning">Liquidity</span> (critical for Turtle breakouts):
-                                        <ul class="mb-0 mt-1">
-                                            <li>30-day avg daily share volume <span class="badge bg-secondary">≥ 1,000,000</span> shares</li>
-                                            <li>OR 30-day avg daily dollar volume <span class="badge bg-secondary">≥ $75–100 million</span> <span class="text-muted">(the stricter of the two)</span></li>
-                                        </ul>
-                                    </div>
-                                    <div class="list-group-item py-3">
-                                        <span class="me-2 text-primary"><i class="bi bi-currency-dollar"></i></span>
-                                        <span class="fw-bold text-info">Price</span>: <span class="badge bg-success">≥ $20</span> <span class="text-muted">(avoids large gap risk on low-priced names)</span>
-                                    </div>
-                                    <div class="list-group-item py-3 bg-light">
-                                        <span class="me-2 text-primary"><i class="bi bi-graph-up"></i></span>
-                                        <span class="fw-bold text-danger">Volatility</span> (to ensure tradable trends):
-                                        <ul class="mb-0 mt-1">
-                                            <li>20-day annualized historical volatility <span class="badge bg-secondary">≥ 25%</span></li>
-                                            <li>OR 14-day ATR as % of price <span class="badge bg-secondary">≥ 1.8–2.0%</span></li>
-                                        </ul>
-                                    </div>
-                                    <div class="list-group-item py-3">
-                                        <span class="me-2 text-primary"><i class="bi bi-diagram-3"></i></span>
-                                        <span class="fw-bold text-primary">Diversification / Sector cap</span>:
-                                        <ul class="mb-0 mt-1">
-                                            <li>Max <span class="badge bg-secondary">7</span> stocks per GICS sector (<span class="badge bg-secondary">11</span> sectors)</li>
-                                            <li>Within each sector, ranked by liquidity score + volatility score, keeping the best trend-following candidates</li>
-                                        </ul>
-                                    </div>
-                                    <div class="list-group-item py-3 bg-light">
-                                        <span class="me-2 text-primary"><i class="bi bi-lightbulb"></i></span>
-                                        <span class="fw-bold text-secondary">Soft rules</span>:
-                                        <ul class="mb-0 mt-1">
-                                            <li>Skipped anything with earnings in the next <span class="badge bg-secondary">5 days</span> at scan time</li>
-                                            <li>Avoided obvious low-float or biotech weirdos</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+                                {% include 'common/criteria.html' %}
                         </div>
                         <hr>
                         <p class="text-muted small">&copy; 2026 Turtle Trading Project</p>
