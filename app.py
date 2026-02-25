@@ -20,6 +20,11 @@ SECTOR_FILES = [
     ("Real Estate", "real_estate.csv"),
 ]
 SECTOR_DIR = os.path.join(os.path.dirname(__file__), 'data', 'tickers_to_be_retrieved')
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
 @app.route("/sectors")
 def sectors():
     sectors = []
