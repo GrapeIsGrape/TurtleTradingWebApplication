@@ -39,7 +39,7 @@ LOG_FOLDER = os.path.join(os.path.dirname(__file__), 'script_logs')
 LOG_ERROR_FILE = os.path.join(os.path.dirname(__file__), 'templates', 'error_handling', 'flask_errors.log')
 logging.basicConfig(
     filename=LOG_ERROR_FILE,
-    level=logging.ERROR,
+    level=None,
     format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
 )
 
@@ -65,8 +65,8 @@ def logs():
                 log_content = f.read()
     return render_template("logs.html", log_files=log_files, log_content=log_content, selected_log=selected_log)
 
-# Market data viewer page
-@app.route("/market_data")
+# Raw Data Viewer page
+@app.route("/raw_data")
 def market_data():
     market_data_dir = os.path.join(os.path.dirname(__file__), 'data', 'market_data')
     csv_files = []
@@ -85,10 +85,10 @@ def market_data():
             table_data = df.tail(100).iloc[::-1].values.tolist()  # Show last 100 rows, reversed (most recent at top)
         except Exception:
             table_data = None
-    return render_template("market_data.html", csv_files=csv_files, columns=columns, table_data=table_data, selected_file=selected_file)
+    return render_template("raw_data.html", csv_files=csv_files, columns=columns, table_data=table_data, selected_file=selected_file)
 
-@app.route("/market_data/<filename>")
-def view_market_data(filename):
+@app.route("/raw_data/<filename>")
+def view_raw_data(filename):
     market_data_dir = os.path.join(os.path.dirname(__file__), 'data', 'market_data')
     csv_files = []
     if os.path.exists(market_data_dir):
@@ -105,7 +105,7 @@ def view_market_data(filename):
             table_data = df.tail(100).iloc[::-1].values.tolist()  # Show last 100 rows, reversed (most recent at top)
         except Exception:
             table_data = None
-    return render_template("market_data.html", csv_files=csv_files, columns=columns, table_data=table_data, selected_file=selected_file)
+    return render_template("raw_data.html", csv_files=csv_files, columns=columns, table_data=table_data, selected_file=selected_file)
 
 @app.route("/logs/<logfile>")
 def view_log(logfile):
