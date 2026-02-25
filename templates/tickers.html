@@ -8,18 +8,35 @@
 </head>
 <body>
 {% include 'common/navbar.html' %}
+{% include 'common/password_modal.html' %}
 <div class="container mt-4">
-    <h2 class="mb-4">S&P 500 Tickers by Sector</h2>
-    <div class="row g-2">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>S&P 500 Tickers by Sector</h2>
+        <div>
+            <button class="btn btn-outline-primary" id="editModeBtn" data-bs-toggle="modal" data-bs-target="#passwordModal" title="Enable admin mode">
+                🔒 Admin Mode
+            </button>
+            <button class="btn btn-outline-danger d-none" id="exitModeBtn" title="Exit admin mode">
+                🔓 Exit Admin Mode
+            </button>
+        </div>
+    </div>
+
+    <!-- Password Modal is included from common/password_modal.html -->
+
+    <div class="row g-3">
       {% for sector in sectors %}
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-        <div class="card border-primary border-2" style="font-size:0.95em;">
-          <div class="card-header bg-primary text-white py-2 px-2 text-center" style="font-size:1em;">
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card border-primary border-2">
+          <div class="card-header bg-primary text-white py-2 px-3 d-flex justify-content-between align-items-center">
             <strong>{{ sector.name }}</strong>
+            <button class="btn btn-sm btn-light edit-btn d-none" data-bs-toggle="modal" data-bs-target="#modal_{{ sector.file_key }}" title="Edit tickers">
+              ✎
+            </button>
           </div>
-          <div class="card-body p-2">
+          <div class="card-body p-3">
             {% if sector.tickers %}
-            <div class="d-flex flex-wrap gap-1 justify-content-center">
+            <div class="d-flex flex-wrap gap-2">
               {% for ticker in sector.tickers %}
               <span class="badge bg-secondary" style="font-size:0.95em;">{{ ticker }}</span>
               {% endfor %}
@@ -30,9 +47,84 @@
           </div>
         </div>
       </div>
+
+      <!-- Modal for editing tickers -->
+      <div class="modal fade" id="modal_{{ sector.file_key }}" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Edit {{ sector.name }} Tickers</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="/update_tickers">
+              <div class="modal-body">
+                <input type="hidden" name="sector_key" value="{{ sector.file_key }}">
+                <div class="mb-3">
+                  <label for="tickers_{{ sector.file_key }}" class="form-label">Tickers (comma-separated)</label>
+                  <textarea class="form-control" id="tickers_{{ sector.file_key }}" name="tickers" rows="10">{{ sector.tickers|join(', ') }}</textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
       {% endfor %}
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<script>
+    document.getElementById('submitPassword').addEventListener('click', function() {
+        const password = document.getElementById('passwordInput').value;
+        const errorDiv = document.getElementById('passwordError');
+        
+        if (password === 'admin') {
+            // Show all edit buttons
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.classList.remove('d-none');
+            });
+            // Show exit button, hide edit mode button
+            document.getElementById('editModeBtn').classList.add('d-none');
+            document.getElementById('exitModeBtn').classList.remove('d-none');
+            // Close the modal
+            bootstrap.Modal.getInstance(document.getElementById('passwordModal')).hide();
+            // Clear the password field
+            document.getElementById('passwordInput').value = '';
+            errorDiv.classList.add('d-none');
+        } else {
+            // Show error message
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Setup password modal for tickers page
+    setupPasswordModal({
+        correctPassword: 'admin',
+        modalTitle: 'Enable Admin Mode',
+        canDismiss: true,
+        onSuccess: function() {
+            // Show all edit buttons
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.classList.remove('d-none');
+            });
+            // Show exit button, hide edit mode button
+            document.getElementById('editModeBtn').classList.add('d-none');
+            document.getElementById('exitModeBtn').classList.remove('d-none');
+        },
+        onCancel: function() {
+            // Nothing to do on cancel for this page
+        }
+    });
+
+    // Exit admin mode button
+    document.getElementById('exitModeBtn').addEventListener('click', function() {
+        // Hide all edit buttons
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.classList.add('d-none');
+        });
+        // Show edit mode button, hide exit button
+        document.getElementById('editModeBtn').classList.remove('d-none');
+        document.getElementById('exitModeBtn').classList.add('d-none');
+    });
+</script>

@@ -8,28 +8,58 @@
 </head>
 <body>
 {% include 'common/navbar.html' %}
-<div class="container mt-4">
-    <h2 class="mb-4">Daily Script Logs</h2>
-    <form method="get" action="">
-        <div class="row mb-3">
-            <div class="col-12 col-md-6">
-                <label for="logSelect" class="form-label">Select Log File:</label>
-                <select class="form-select" id="logSelect" name="logfile" onchange="if(this.value) window.location.href='/daily_script_logs/' + this.value;">
-                    {% for log in log_files %}
-                    <option value="{{ log }}" {% if selected_log == log %}selected{% endif %}>{{ log }}</option>
-                    {% endfor %}
-                </select>
+{% include 'common/password_modal.html' %}
+
+<div id="contentContainer" class="d-none">
+    <div class="container mt-4">
+        <h2 class="mb-4">Daily Script Logs</h2>
+        <form method="get" action="">
+            <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                    <label for="logSelect" class="form-label">Select Log File:</label>
+                    <select class="form-select" id="logSelect" name="logfile" onchange="if(this.value) window.location.href='/daily_script_logs/' + this.value;">
+                        {% for log in log_files %}
+                        <option value="{{ log }}" {% if selected_log == log %}selected{% endif %}>{{ log }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
+        </form>
+        {% if log_content %}
+        <div class="bg-dark text-light rounded p-3" style="max-height:60vh;overflow:auto;word-break:break-all;font-size:1rem;">
+            <pre class="mb-0" style="background:transparent;border:none;white-space:pre-wrap;">{{ log_content }}</pre>
         </div>
-    </form>
-    {% if log_content %}
-    <div class="bg-dark text-light rounded p-3" style="max-height:60vh;overflow:auto;word-break:break-all;font-size:1rem;">
-        <pre class="mb-0" style="background:transparent;border:none;white-space:pre-wrap;">{{ log_content }}</pre>
+        {% else %}
+        <div class="alert alert-info mt-3">No log file selected or log is empty.</div>
+        {% endif %}
     </div>
-    {% else %}
-    <div class="alert alert-info mt-3">No log file selected or log is empty.</div>
-    {% endif %}
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Setup password modal for logs page
+    setupPasswordModal({
+        correctPassword: 'admin',
+        modalTitle: 'Access Required',
+        canDismiss: false,
+        onSuccess: function() {
+            // Show content and hide modal
+            document.getElementById('contentContainer').classList.remove('d-none');
+        },
+        onCancel: function() {
+            // Redirect back to home page
+            window.location.href = '/';
+        }
+    });
+
+    // Show password modal on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordModal = new bootstrap.Modal(document.getElementById('passwordModal'), {
+            backdrop: 'static',
+            keyboard: false
+        });
+        passwordModal.show();
+    });
+</script>
 </body>
 </html>

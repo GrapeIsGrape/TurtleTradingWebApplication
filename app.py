@@ -1,5 +1,5 @@
 import pandas as pd
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import os
 import csv
 import logging
@@ -52,13 +52,45 @@ def tickers():
     sectors = []
     for sector_name, filename in get_sector_files():
         path = os.path.join(SECTOR_DIR, filename)
-        tickers = []
+        tickers_list = []
         if os.path.exists(path):
             with open(path, newline="") as f:
                 reader = csv.DictReader(f)
-                tickers = [row['Ticker'] for row in reader]
-        sectors.append({"name": sector_name, "tickers": tickers})
+                tickers_list = [row['Ticker'] for row in reader]
+        file_key = os.path.splitext(filename)[0]
+        sectors.append({
+            "name": sector_name,
+            "tickers": tickers_list,
+            "file_key": file_key,
+            "filename": filename
+        })
     return render_template("tickers.html", sectors=sectors)
+
+@app.route("/update_tickers", methods=["POST"])
+def update_tickers():
+    sector_key = request.form.get("sector_key")
+    tickers_str = request.form.get("tickers", "")
+    
+    # Parse tickers from comma-separated string
+    tickers_list = [t.strip().upper() for t in tickers_str.split(',') if t.strip()]
+    
+    # Find the matching sector file
+    sector_filename = None
+    for sector_name, filename in get_sector_files():
+        if os.path.splitext(filename)[0] == sector_key:
+            sector_filename = filename
+            break
+    
+    if sector_filename:
+        file_path = os.path.join(SECTOR_DIR, sector_filename)
+        # Write updated tickers to CSV
+        with open(file_path, 'w', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=['Ticker'])
+            writer.writeheader()
+            for ticker in tickers_list:
+                writer.writerow({'Ticker': ticker})
+    
+    return redirect('/tickers')
 
 LOG_FOLDER = os.path.join(os.path.dirname(__file__), 'script_logs')
 
