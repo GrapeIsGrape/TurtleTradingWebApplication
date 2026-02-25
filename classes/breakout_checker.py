@@ -12,6 +12,7 @@ def get_breakout_ticker_information(tickers):
     for ticker in tickers:
         df = pd.read_csv(MARKET_DATA_FOLDER_PATH + '/' + ticker + '.csv')
         _20_days_average_true_range = df[ATR_20].loc[len(df)-1]
+        bullish = df[BULLISH_ARRANGEMENT].loc[len(df)-1]
         
         stock = yf.Ticker(ticker)
         price = stock.info['regularMarketPrice']
@@ -31,7 +32,7 @@ def get_breakout_ticker_information(tickers):
             DAYS_HIGH_50: calculate_n_days_high_at_index(df, len(df)-1, 50),
             DAYS_HIGH_100: calculate_n_days_high_at_index(df, len(df)-1, 100),
             DAYS_HIGH_200: calculate_n_days_high_at_index(df, len(df)-1, 200),
-            BULLISH_ARRANGEMENT: last_day_record[BULLISH_ARRANGEMENT],
+            BULLISH_ARRANGEMENT: bullish,
             ATR_20: _20_days_average_true_range,
             STOP_LOSS: round(price - 2 * _20_days_average_true_range, ROUND_DP)
         }
