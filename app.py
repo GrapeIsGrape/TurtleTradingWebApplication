@@ -16,7 +16,7 @@ from classes.constants import (
     FILTER_MAX_PER_SECTOR,
     FILTER_EARNINGS_SKIP_DAYS
 )
-from classes.breakout_checker import check_bullish_arrangement_for_tickers
+from classes.breakout_checker import check_bullish_arrangement_for_tickers, get_breakout_ticker_information
 
 app = Flask(__name__)
 
@@ -110,13 +110,31 @@ def parse_breakout_log(log_path, group_by_date=True):
 def breakout():
     log_path = os.path.join(LOG_FOLDER, BREAKOUT_LOG_MARKET_CLOSE)
     entries = parse_breakout_log(log_path, group_by_date=True)
-    return render_template('breakout.html', entries=entries, page_title="Breakout Viewer")
+    # Collect all tickers from first entry for bullish check
+    all_tickers = []
+    if entries and not entries[0].get('market_closed'):
+        for breakout in entries[0].get('breakouts', []):
+            all_tickers.extend(breakout.get('tickers', []))
+    bullish_tickers = set(check_bullish_arrangement_for_tickers(all_tickers)) if all_tickers else set()
+    # Get detailed ticker information
+    ticker_info_df = get_breakout_ticker_information(all_tickers) if all_tickers else pd.DataFrame()
+    ticker_info = ticker_info_df.to_dict('records') if not ticker_info_df.empty else []
+    return render_template('breakout.html', entries=entries, page_title="Breakout (Close)", bullish_tickers=bullish_tickers, ticker_info=ticker_info)
 
 @app.route("/breakout_live")
 def breakout_live():
     log_path = os.path.join(LOG_FOLDER, BREAKOUT_LOG_MARKET_OPEN)
     entries = parse_breakout_log(log_path, group_by_date=False)
-    return render_template('breakout.html', entries=entries, page_title="Breakout Viewer (Live)")
+    # Collect all tickers from first entry for bullish check
+    all_tickers = []
+    if entries and not entries[0].get('market_closed'):
+        for breakout in entries[0].get('breakouts', []):
+            all_tickers.extend(breakout.get('tickers', []))
+    bullish_tickers = set(check_bullish_arrangement_for_tickers(all_tickers)) if all_tickers else set()
+    # Get detailed ticker information
+    ticker_info_df = get_breakout_ticker_information(all_tickers) if all_tickers else pd.DataFrame()
+    ticker_info = ticker_info_df.to_dict('records') if not ticker_info_df.empty else []
+    return render_template('breakout.html', entries=entries, page_title="Breakout (Live)", bullish_tickers=bullish_tickers, ticker_info=ticker_info)
 
 @app.route("/tickers")
 def tickers():

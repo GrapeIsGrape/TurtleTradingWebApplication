@@ -6,17 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ page_title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .badge { --bs-badge-font-weight: 400; }
+    </style>
 </head>
 <body>
 {% include 'common/navbar.html' %}
 <div class="container mt-4">
   <h2>{{ page_title }}</h2>
+  <div class="d-flex align-items-center flex-wrap gap-2 text-muted mb-4">
+    <span class="badge bg-success fw-bold">SYMBOL</span>
+    <span class="small">Bullish arrangement</span>
+    <span class="text-secondary">•</span>
+    <span class="badge bg-secondary">SYMBOL</span>
+    <span class="small">Non-bullish arrangement</span>
+  </div>
   {% if entries %}
     <div class="row">
       {% for entry in entries %}
+        {% set is_first_card = loop.first %}
         <div class="col-md-6 mb-4">
           <div class="card">
-            <div class="card-header {% if loop.first %}bg-primary{% else %}bg-secondary{% endif %} text-white">
+            <div class="card-header {% if is_first_card %}bg-primary{% else %}bg-secondary{% endif %} text-white">
               {{ entry.timestamp }}
             </div>
             <div class="card-body">
@@ -30,7 +41,21 @@
                     <div class="d-flex align-items-center flex-wrap">
                       {% if breakout.tickers %}<strong class="me-2">{{ breakout.label }}</strong>{% else %}<span class="me-2 text-muted">{{ breakout.label }}</span>{% endif %}
                       {% for ticker in breakout.tickers %}
-                        <span class="badge bg-success me-1 mb-1 mt-1">{{ ticker }}</span>
+                        {% if is_first_card %}
+                          {% set badge_class = 'bg-success' if ticker in bullish_tickers else 'bg-secondary' %}
+                          {% set badge_weight = 'fw-bold' if ticker in bullish_tickers else '' %}
+                          <span class="badge {{ badge_class }} {{ badge_weight }} me-1 mb-1 mt-1" 
+                                style="cursor: pointer;" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#tickerModal" 
+                                data-ticker="{{ ticker }}">{{ ticker }}</span>
+                        {% else %}
+                          <span class="badge bg-secondary me-1 mb-1 mt-1" 
+                                style="cursor: pointer;" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#tickerModal" 
+                                data-ticker="{{ ticker }}">{{ ticker }}</span>
+                        {% endif %}
                       {% endfor %}
                     </div>
                   </div>
@@ -45,6 +70,112 @@
     <p>No breakout log data found.</p>
   {% endif %}
 </div>
+
+<!-- Ticker Details Modal -->
+<div class="modal fade" id="tickerModal" tabindex="-1" aria-labelledby="tickerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tickerModalLabel">Ticker Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-sm">
+          <tbody>
+            <tr>
+              <th scope="row">Ticker</th>
+              <td id="modalTicker">-</td>
+            </tr>
+            <tr>
+              <th scope="row">Open</th>
+              <td id="modalOpen">-</td>
+            </tr>
+            <tr>
+              <th scope="row">Close</th>
+              <td id="modalClose">-</td>
+            </tr>
+            <tr>
+              <th scope="row">Current</th>
+              <td id="modalCurrent" class="text-success fw-bold">-</td>
+            </tr>
+            <tr>
+              <th scope="row">High</th>
+              <td id="modalHigh">-</td>
+            </tr>
+            <tr>
+              <th scope="row">Low</th>
+              <td id="modalLow">-</td>
+            </tr>
+            <tr>
+              <th scope="row">Bullish Arrangement</th>
+              <td id="modalBullish">-</td>
+            </tr>
+            <tr>
+              <th scope="row">ATR-20</th>
+              <td id="modalATR" class="text-info fw-bold">-</td>
+            </tr>
+            <tr>
+              <th scope="row">Stop Loss</th>
+              <td id="modalStopLoss" class="text-danger fw-bold">-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Create ticker info lookup map
+  const tickerInfoMap = {};
+  {% for info in ticker_info %}
+    tickerInfoMap['{{ info.Ticker }}'] = {
+      ticker: '{{ info.Ticker }}',
+      open: {{ info.Open }},
+      close: {{ info.Close }},
+      current: {{ info['Current Price'] }},
+      high: {{ info.High }},
+      low: {{ info.Low }},
+      bullish: {{ 'true' if info['Bullish Arrangement'] else 'false' }},
+      atr20: {{ info['ATR-20'] }},
+      stopLoss: {{ info['Stop Loss'] }}
+    };
+  {% endfor %}
+
+  // Listen for modal show event
+  document.getElementById('tickerModal').addEventListener('show.bs.modal', function (event) {
+    const badge = event.relatedTarget;
+    const ticker = badge.getAttribute('data-ticker');
+    const info = tickerInfoMap[ticker];
+    
+    if (info) {
+      document.getElementById('modalTicker').textContent = info.ticker;
+      document.getElementById('modalOpen').textContent = info.open.toFixed(2);
+      document.getElementById('modalClose').textContent = info.close.toFixed(2);
+      document.getElementById('modalCurrent').textContent = info.current.toFixed(2);
+      document.getElementById('modalHigh').textContent = info.high.toFixed(2);
+      document.getElementById('modalLow').textContent = info.low.toFixed(2);
+      document.getElementById('modalBullish').innerHTML = info.bullish 
+        ? '<span class="badge bg-success">Yes</span>' 
+        : '<span class="badge bg-secondary">No</span>';
+      document.getElementById('modalATR').textContent = info.atr20.toFixed(2);
+      document.getElementById('modalStopLoss').textContent = info.stopLoss.toFixed(2);
+    } else {
+      document.getElementById('modalTicker').textContent = ticker;
+      document.getElementById('modalOpen').textContent = 'N/A';
+      document.getElementById('modalClose').textContent = 'N/A';
+      document.getElementById('modalCurrent').textContent = 'N/A';
+      document.getElementById('modalHigh').textContent = 'N/A';
+      document.getElementById('modalLow').textContent = 'N/A';
+      document.getElementById('modalBullish').textContent = 'N/A';
+      document.getElementById('modalATR').textContent = 'N/A';
+      document.getElementById('modalStopLoss').textContent = 'N/A';
+    }
+  });
+</script>
 </body>
 </html>

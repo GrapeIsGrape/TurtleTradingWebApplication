@@ -33,7 +33,7 @@ def get_breakout_ticker_information(tickers):
             DAYS_HIGH_200: calculate_n_days_high_at_index(df, len(df)-1, 200),
             BULLISH_ARRANGEMENT: check_bullish_arrangement_for_ticker(ticker),
             ATR_20: _20_days_average_true_range,
-            STOP_LOSS: round(price - _20_days_average_true_range, ROUND_DP)
+            STOP_LOSS: round(price - 2 * _20_days_average_true_range, ROUND_DP)
         }
         result_df.loc[len(result_df)] = new_row_data
     
