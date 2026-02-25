@@ -16,7 +16,7 @@ from classes.constants import (
     FILTER_MAX_PER_SECTOR,
     FILTER_EARNINGS_SKIP_DAYS
 )
-from classes.breakout_checker import check_bullish_arrangement_for_tickers, get_breakout_ticker_information_close
+from classes.breakout_checker import check_bullish_arrangement_for_tickers, get_breakout_ticker_information_close, get_breakout_ticker_information_live
 from classes.helper import check_if_market_is_open
 
 app = Flask(__name__)
@@ -136,9 +136,12 @@ def breakout_live():
     if entries and not entries[0].get('market_closed'):
         for breakout in entries[0].get('breakouts', []):
             all_tickers.extend(breakout.get('tickers', []))
-    bullish_tickers = set(check_bullish_arrangement_for_tickers(all_tickers)) if all_tickers else set()
-    # Get detailed ticker information
-    ticker_info_df = get_breakout_ticker_information_close(all_tickers) if all_tickers else pd.DataFrame()
+    # Get detailed ticker information based on market status
+    if check_if_market_is_open():
+        ticker_info_df = get_breakout_ticker_information_live(all_tickers) if all_tickers else pd.DataFrame()
+    else:
+        ticker_info_df = get_breakout_ticker_information_close(all_tickers) if all_tickers else pd.DataFrame()
+    bullish_tickers = set(ticker_info_df[ticker_info_df['Bullish'] == True]['Ticker'].tolist()) if not ticker_info_df.empty else set()
     ticker_info = ticker_info_df.to_dict('records') if not ticker_info_df.empty else []
     return render_template('breakout.html', entries=entries, page_title="Breakout (Live)", bullish_tickers=bullish_tickers, ticker_info=ticker_info)
 
