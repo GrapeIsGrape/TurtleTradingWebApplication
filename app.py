@@ -47,8 +47,8 @@ def breakout():
     today_date = str(date.today())
     return render_template('breakout.html', breakout_days=breakout_days, today_date=today_date)
 
-@app.route("/sectors")
-def sectors():
+@app.route("/tickers")
+def tickers():
     sectors = []
     for sector_name, filename in get_sector_files():
         path = os.path.join(SECTOR_DIR, filename)
@@ -58,7 +58,7 @@ def sectors():
                 reader = csv.DictReader(f)
                 tickers = [row['Ticker'] for row in reader]
         sectors.append({"name": sector_name, "tickers": tickers})
-    return render_template("sectors.html", sectors=sectors)
+    return render_template("tickers.html", sectors=sectors)
 
 LOG_FOLDER = os.path.join(os.path.dirname(__file__), 'script_logs')
 
