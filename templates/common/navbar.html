@@ -12,17 +12,20 @@
         <li class="nav-item">
           <a class="nav-link {% if request.path == '/tickers' %}active{% endif %}" href="/tickers">Tickers</a>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% if request.path in ['/breakout', '/breakout_live'] %}active{% endif %}" href="#" id="breakoutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Breakout
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="breakoutDropdown">
+            <li><a class="dropdown-item {% if request.path == '/breakout' %}active{% endif %}" href="/breakout">Close</a></li>
+            <li><a class="dropdown-item {% if request.path == '/breakout_live' %}active{% endif %}" href="/breakout_live">Live</a></li>
+          </ul>
+        </li>
         <li class="nav-item">
           <a class="nav-link {% if request.path.startswith('/raw_data') %}active{% endif %}" href="/raw_data">Raw Data</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {% if request.path.startswith('/daily_script_logs') %}active{% endif %}" href="/daily_script_logs">Daily Script Logs</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.path == '/breakout' %}active{% endif %}" href="/breakout">Breakout</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.path == '/breakout_live' %}active{% endif %}" href="/breakout_live">Breakout (Live)</a>
         </li>
       </ul>
     </div>
