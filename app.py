@@ -1,7 +1,8 @@
 import pandas as pd
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import os
 import csv
+import logging
 
 app = Flask(__name__)
 
@@ -34,6 +35,19 @@ def sectors():
 
 LOG_FOLDER = os.path.join(os.path.dirname(__file__), 'script_logs')
 
+# Set up logging to a file for errors
+LOG_ERROR_FILE = os.path.join(os.path.dirname(__file__), 'templates', 'error_handling', 'flask_errors.log')
+logging.basicConfig(
+    filename=LOG_ERROR_FILE,
+    level=logging.ERROR,
+    format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+)
+
+# Catch all unhandled exceptions
+@app.errorhandler(Exception)
+def unhandled_exception(e):
+    logging.error('Unhandled Exception: %s\nRequest path: %s', e, request.path)
+    return render_template('error_handling/error_handling.html', error=e, config=app.config), 500
 
 # Log viewer page
 @app.route("/logs")
