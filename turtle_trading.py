@@ -26,7 +26,7 @@ def main():
     # print('=====================BreakOut=====================')
 
     price_breakout_tickers = check_price_breakout_for_tickers(tickers, 20)
-    breakout_ticker_info = get_breakout_ticker_information(price_breakout_tickers)
+    breakout_ticker_info = get_breakout_ticker_information_close(price_breakout_tickers)
     print(breakout_ticker_info)
 
     # print('=======================Exit=======================')
