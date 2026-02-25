@@ -23,7 +23,7 @@
               {% for breakout in day.breakouts %}
                 <div class="mb-3 p-2 border rounded bg-light">
                   <div class="d-flex align-items-center flex-wrap">
-                    <strong class="me-2">{{ breakout.label }}</strong>
+                    {% if breakout.tickers %}<strong class="me-2">{{ breakout.label }}</strong>{% else %}<span class="me-2 text-muted">{{ breakout.label }}</span>{% endif %}
                     {% for ticker in breakout.tickers %}
                       <span class="badge bg-success me-1 mb-1 mt-1">{{ ticker }}</span>
                     {% endfor %}
