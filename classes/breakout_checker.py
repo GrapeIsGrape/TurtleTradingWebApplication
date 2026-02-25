@@ -40,6 +40,35 @@ def get_breakout_ticker_information(tickers):
     
     return result_df
 
+def get_breakout_ticker_information_close(tickers):
+    today = date.today().strftime("%Y-%m-%d")
+    result_df = pd.DataFrame(columns=[DATE, TICKER, OPEN, HIGH, LOW, CLOSE, CURRENT_PRICE, DAYS_HIGH_10, DAYS_HIGH_20, DAYS_HIGH_50, DAYS_HIGH_100, DAYS_HIGH_200, BULLISH_ARRANGEMENT, ATR_20, STOP_LOSS])
+    
+    for ticker in tickers:
+        df = pd.read_csv(MARKET_DATA_FOLDER_PATH + '/' + ticker + '.csv')
+        last_row = df.iloc[len(df)-1]
+
+        new_row_data = {
+            DATE: today,
+            TICKER: ticker,
+            OPEN: round(last_row[OPEN], ROUND_DP),
+            HIGH: round(last_row[HIGH], ROUND_DP),
+            LOW: round(last_row[LOW], ROUND_DP),
+            CLOSE: round(last_row[CLOSE], ROUND_DP),
+            CURRENT_PRICE: last_row[CLOSE],
+            DAYS_HIGH_10: round(last_row[DAYS_HIGH_10], ROUND_DP),
+            DAYS_HIGH_20: round(last_row[DAYS_HIGH_20], ROUND_DP),
+            DAYS_HIGH_50: round(last_row[DAYS_HIGH_50], ROUND_DP),
+            DAYS_HIGH_100: round(last_row[DAYS_HIGH_100], ROUND_DP),
+            DAYS_HIGH_200: round(last_row[DAYS_HIGH_200], ROUND_DP),
+            BULLISH_ARRANGEMENT: last_row[BULLISH_ARRANGEMENT],
+            ATR_20: last_row[ATR_20],
+            STOP_LOSS: round(last_row[CLOSE] - 2 * last_row[ATR_20], ROUND_DP)
+        }
+        result_df.loc[len(result_df)] = new_row_data
+    
+    return result_df
+
 #region Price Breakout
 
 def check_price_breakout_for_tickers(tickers, n_days, use_live_price = False, env_folder_path = None):
