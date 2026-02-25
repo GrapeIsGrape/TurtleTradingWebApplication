@@ -20,6 +20,137 @@
                 <div class="card-body">
                         <h1 class="card-title fs-3 fs-md-2">About Turtle Trading Web App</h1>
                         <p class="card-text">This web application demonstrates the Turtle Trading strategy and related analytics. Use the navigation bar to explore logs, view trading data, and learn more about the project.</p>
+                        
+                        <div class="mt-4">
+                                <h5 class="fw-bold mb-3">Turtle Trading Overview</h5>
+                                <p class="text-muted">The Turtle Trading strategy is a systematic trend-following approach based on breakout mechanics, volatility measurement, and disciplined risk management. This project implements both System 1 and System 2 variations.</p>
+
+                                <div class="row g-3 mt-3">
+                                        <!-- System 1 -->
+                                        <div class="col-12 col-lg-6">
+                                                <div class="card border-primary border-2 h-100 shadow-sm">
+                                                        <div class="card-header bg-primary text-white py-3">
+                                                                <strong class="fs-6">📈 System 1: 20-Day Breakout</strong>
+                                                        </div>
+                                                        <div class="card-body">
+                                                                <!-- Long Position -->
+                                                                <div class="mb-4 pb-3 border-bottom">
+                                                                        <h6 class="fw-bold text-success mb-2">📊 Long Position</h6>
+                                                                        <div class="mb-2">
+                                                                                <p class="mb-1"><small><span class="badge bg-success">ENTRY</span></small></p>
+                                                                                <ul class="ps-3 small mb-2">
+                                                                                        <li>Price breaks above <span class="text-success fw-bold">20-day high</span></li>
+                                                                                        <li>No existing position in ticker</li>
+                                                                                        <li><span class="badge bg-warning">Skip Winner:</span> After a winning trade, skip the <span class="text-warning fw-bold">next</span> breakout signal</li>
+                                                                                </ul>
+                                                                        </div>
+                                                                        <div>
+                                                                                <p class="mb-1"><small><span class="badge bg-danger">EXIT</span></small></p>
+                                                                                <ul class="ps-3 small">
+                                                                                        <li>Price closes below <span class="text-danger fw-bold">10-day low</span></li>
+                                                                                        <li>Stop loss: Entry − <span class="text-danger fw-bold">(2 × ATR-20)</span></li>
+                                                                                </ul>
+                                                                        </div>
+                                                                </div>
+
+                                                                <!-- Short Position -->
+                                                                <div>
+                                                                        <h6 class="fw-bold text-danger mb-2">📉 Short Position</h6>
+                                                                        <div class="mb-2">
+                                                                                <p class="mb-1"><small><span class="badge bg-success">ENTRY</span></small></p>
+                                                                                <ul class="ps-3 small mb-2">
+                                                                                        <li>Price breaks below <span class="text-success fw-bold">20-day low</span></li>
+                                                                                        <li>No existing position in ticker</li>
+                                                                                        <li><span class="badge bg-warning">Skip Winner:</span> After a winning trade, skip the <span class="text-warning fw-bold">next</span> breakout signal</li>
+                                                                                </ul>
+                                                                        </div>
+                                                                        <div>
+                                                                                <p class="mb-1"><small><span class="badge bg-danger">EXIT</span></small></p>
+                                                                                <ul class="ps-3 small">
+                                                                                        <li>Price closes above <span class="text-danger fw-bold">10-day high</span></li>
+                                                                                        <li>Stop loss: Entry + <span class="text-danger fw-bold">(2 × ATR-20)</span></li>
+                                                                                </ul>
+                                                                        </div>
+                                                                </div>
+
+                                                                <p class="small text-muted mt-3 mb-0"><strong>💡 Best for:</strong> Quick trends, faster-moving markets. Avoids whipsaw with Skip Winner logic.</p>
+                                                        </div>
+                                                </div>
+                                        </div>
+
+                                        <!-- System 2 -->
+                                        <div class="col-12 col-lg-6">
+                                                <div class="card border-success border-2 h-100 shadow-sm">
+                                                        <div class="card-header bg-success text-white py-3">
+                                                                <strong class="fs-6">🎯 System 2: 55-Day Breakout</strong>
+                                                        </div>
+                                                        <div class="card-body">
+                                                                <!-- Long Position -->
+                                                                <div class="mb-4 pb-3 border-bottom">
+                                                                        <h6 class="fw-bold text-success mb-2">📊 Long Position</h6>
+                                                                        <div class="mb-2">
+                                                                                <p class="mb-1"><small><span class="badge bg-success">ENTRY</span></small></p>
+                                                                                <ul class="ps-3 small mb-2">
+                                                                                        <li>Price breaks above <span class="text-success fw-bold">55-day high</span></li>
+                                                                                </ul>
+                                                                        </div>
+                                                                        <div>
+                                                                                <p class="mb-1"><small><span class="badge bg-danger">EXIT</span></small></p>
+                                                                                <ul class="ps-3 small">
+                                                                                        <li>Price closes below <span class="text-danger fw-bold">20-day low</span></li>
+                                                                                        <li>Stop loss: Entry − <span class="text-danger fw-bold">(2 × ATR-20)</span></li>
+                                                                                </ul>
+                                                                        </div>
+                                                                </div>
+
+                                                                <!-- Short Position -->
+                                                                <div>
+                                                                        <h6 class="fw-bold text-danger mb-2">📉 Short Position</h6>
+                                                                        <div class="mb-2">
+                                                                                <p class="mb-1"><small><span class="badge bg-success">ENTRY</span></small></p>
+                                                                                <ul class="ps-3 small mb-2">
+                                                                                        <li>Price breaks below <span class="text-success fw-bold">55-day low</span></li>
+                                                                                </ul>
+                                                                        </div>
+                                                                        <div>
+                                                                                <p class="mb-1"><small><span class="badge bg-danger">EXIT</span></small></p>
+                                                                                <ul class="ps-3 small">
+                                                                                        <li>Price closes above <span class="text-danger fw-bold">20-day high</span></li>
+                                                                                        <li>Stop loss: Entry + <span class="text-danger fw-bold">(2 × ATR-20)</span></li>
+                                                                                </ul>
+                                                                        </div>
+                                                                </div>
+
+                                                                <p class="small text-muted mt-3 mb-0"><strong>💡 Best for:</strong> Major trends, fewer false signals. More conservative but higher-quality entries.</p>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                                <!-- Key Concepts -->
+                                <div class="mt-4 p-3 border-start border-4 border-info bg-light rounded">
+                                        <h6 class="fw-bold mb-3"><span class="badge bg-info">KEY INDICATORS</span></h6>
+                                        <ul class="small ps-3 mb-0">
+                                                <li class="mb-2"><span class="fw-bold text-primary">Average True Range (ATR)</span> — Volatility measurement. <span class="badge bg-warning">High ATR</span> = bigger moves = smaller position. Used for stops & sizing.</li>
+                                                <li class="mb-2"><span class="fw-bold text-primary">N-Day High/Low</span> — Highest/lowest price over N days. Defines breakout levels.</li>
+                                                <li><span class="fw-bold text-primary">Moving Averages (5/10/20/30/50/100/200)</span> — Confirm trend. <span class="badge bg-light text-dark">Bullish</span> when shorter > longer.</li>
+                                        </ul>
+                                </div>
+
+                                <!-- Position Sizing -->
+                                <div class="mt-4 p-3 bg-success bg-opacity-10 border-start border-4 border-success rounded">
+                                        <h6 class="fw-bold mb-3"><span class="badge bg-success">POSITION SIZING & RISK</span></h6>
+                                        <ul class="small ps-3 mb-0">
+                                                <li class="mb-2"><span class="fw-bold text-success">Unit Size:</span> Shares = (Risk per trade $) ÷ <span class="badge bg-light text-dark">ATR</span>. E.g., $1,000 ÷ $50 ATR = 20 shares.</li>
+                                                <li class="mb-2"><span class="fw-bold text-success">Stop Distance:</span> <span class="badge bg-light text-dark">ATR × 2</span> below entry (defines max loss).</li>
+                                                <li class="mb-2"><span class="fw-bold text-success">Max Risk/Trade:</span> 1–2% of account. Typical Turtle rule: <span class="badge bg-light text-dark">2%</span>.</li>
+                                                <li><span class="fw-bold text-success">Sector Limit:</span> Max 1–2 units per sector to avoid concentration.</li>
+                                        </ul>
+                                </div>
+
+                                <hr class="mt-4">
+                        </div>
+
                         <div class="mt-4">
                                 <h5 class="fw-bold mb-3">Ticker Selection Criteria</h5>
                                 {% include 'common/criteria.html' %}
