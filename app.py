@@ -54,22 +54,6 @@ def unhandled_exception(e):
     logging.error('Unhandled Exception: %s\nRequest path: %s', e, request.path)
     return render_template('error_handling/error_handling.html', error=e, config=app.config), 500
 
-# Log viewer page
-@app.route("/logs")
-def logs():
-    log_files = []
-    if os.path.exists(LOG_FOLDER):
-        log_files = [f for f in os.listdir(LOG_FOLDER) if os.path.isfile(os.path.join(LOG_FOLDER, f))]
-    selected_log = None
-    log_content = None
-    if log_files:
-        selected_log = log_files[0]
-        log_path = os.path.join(LOG_FOLDER, selected_log)
-        if os.path.exists(log_path):
-            with open(log_path, "r") as f:
-                log_content = f.read()
-    return render_template("logs.html", log_files=log_files, log_content=log_content, selected_log=selected_log)
-
 # Raw Data Viewer page
 @app.route("/raw_data")
 def market_data():
@@ -112,7 +96,23 @@ def view_raw_data(filename):
             table_data = None
     return render_template("raw_data.html", csv_files=csv_files, columns=columns, table_data=table_data, selected_file=selected_file)
 
-@app.route("/logs/<logfile>")
+# Log viewer page
+@app.route("/daily_script_logs")
+def logs():
+    log_files = []
+    if os.path.exists(LOG_FOLDER):
+        log_files = [f for f in os.listdir(LOG_FOLDER) if os.path.isfile(os.path.join(LOG_FOLDER, f))]
+    selected_log = None
+    log_content = None
+    if log_files:
+        selected_log = log_files[0]
+        log_path = os.path.join(LOG_FOLDER, selected_log)
+        if os.path.exists(log_path):
+            with open(log_path, "r") as f:
+                log_content = f.read()
+    return render_template("daily_script_logs.html", log_files=log_files, log_content=log_content, selected_log=selected_log)
+
+@app.route("/daily_script_logs/<logfile>")
 def view_log(logfile):
     log_files = []
     if os.path.exists(LOG_FOLDER):
@@ -123,7 +123,7 @@ def view_log(logfile):
     if os.path.exists(log_path):
         with open(log_path, "r") as f:
             log_content = f.read()
-    return render_template("logs.html", log_files=log_files, log_content=log_content, selected_log=selected_log)
+    return render_template("daily_script_logs.html", log_files=log_files, log_content=log_content, selected_log=selected_log)
 
 @app.route("/about")
 def about():
