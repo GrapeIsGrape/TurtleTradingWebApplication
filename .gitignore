@@ -1,3 +1,4 @@
 /data/market_data/*.csv
 *.pyc
 .DS_Store
+templates/error_handling/flask_errors.log
