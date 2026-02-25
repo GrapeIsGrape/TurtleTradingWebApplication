@@ -14,10 +14,12 @@ from classes.constants import (
     FILTER_MIN_VOLATILITY,
     FILTER_MIN_ATR_PCT,
     FILTER_MAX_PER_SECTOR,
-    FILTER_EARNINGS_SKIP_DAYS
+    FILTER_EARNINGS_SKIP_DAYS,
+    PERIOD_5Y
 )
 from classes.breakout_checker import check_bullish_arrangement_for_tickers, get_breakout_ticker_information_close, get_breakout_ticker_information_live
 from classes.helper import check_if_market_is_open
+from classes.data_retriever import download_market_data_for_ticker, enrich_with_indicators_for_tickers
 
 app = Flask(__name__)
 
@@ -229,6 +231,22 @@ def refresh_tickers():
     except Exception as e:
         logging.error(f'Error refreshing tickers: {e}', exc_info=True)
         error_msg = f'Error refreshing tickers: {str(e)}'
+        return render_template('error_handling/error_handling.html', error=error_msg, config=app.config), 500
+
+@app.route("/retrieve_ticker_data", methods=["POST"])
+def retrieve_ticker_data():
+    ticker = request.form.get("ticker", "").strip().upper()
+    if not ticker:
+        return redirect('/tickers')
+
+    try:
+        download_market_data_for_ticker(ticker, PERIOD_5Y, os.path.dirname(__file__) + '/')
+        enrich_with_indicators_for_tickers([ticker], PERIOD_5Y, os.path.dirname(__file__) + '/')
+        logging.info(f'Successfully retrieved data for ticker: {ticker}')
+        return redirect('/tickers')
+    except Exception as e:
+        logging.error(f'Error retrieving data for ticker {ticker}: {e}', exc_info=True)
+        error_msg = f'Error retrieving data for ticker {ticker}: {str(e)}'
         return render_template('error_handling/error_handling.html', error=error_msg, config=app.config), 500
 
 # Set up logging to a file for errors

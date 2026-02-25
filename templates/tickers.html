@@ -34,6 +34,9 @@
             <button class="btn btn-success me-2 d-none" id="refreshTickersBtn" title="Refresh tickers based on criteria (admin only)">
                 🔄 Refresh Tickers
             </button>
+            <button class="btn btn-outline-success me-2 d-none" id="retrieveTickerDataBtn" title="Retrieve market data for a ticker (admin only)">
+                📥 Retrieve Ticker Data
+            </button>
             <button class="btn btn-outline-primary" id="editModeBtn" data-bs-toggle="modal" data-bs-target="#passwordModal" title="Enable admin mode">
                 🔒 Admin Mode
             </button>
@@ -103,6 +106,31 @@
                         <button type="submit" class="btn btn-success">Confirm Refresh</button>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Retrieve Ticker Data Modal -->
+    <div class="modal fade" id="retrieveTickerModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Retrieve Ticker Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="POST" action="/retrieve_ticker_data" id="retrieveTickerForm">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="retrieveTickerInput" class="form-label">Ticker</label>
+                            <input type="text" class="form-control" id="retrieveTickerInput" name="ticker" placeholder="e.g. AAPL" required>
+                        </div>
+                        <p class="text-muted mb-0">Downloads and enriches 5Y data for the ticker.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Retrieve</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -181,6 +209,8 @@
             });
             // Show refresh button
             document.getElementById('refreshTickersBtn').classList.remove('d-none');
+            // Show retrieve ticker button
+            document.getElementById('retrieveTickerDataBtn').classList.remove('d-none');
             // Show exit button, hide edit mode button
             document.getElementById('editModeBtn').classList.add('d-none');
             document.getElementById('exitModeBtn').classList.remove('d-none');
@@ -198,6 +228,8 @@
         });
         // Hide refresh button
         document.getElementById('refreshTickersBtn').classList.add('d-none');
+        // Hide retrieve ticker button
+        document.getElementById('retrieveTickerDataBtn').classList.add('d-none');
         // Show edit mode button, hide exit button
         document.getElementById('editModeBtn').classList.remove('d-none');
         document.getElementById('exitModeBtn').classList.add('d-none');
@@ -209,8 +241,21 @@
         refreshModal.show();
     });
 
+    // Retrieve ticker data button
+    document.getElementById('retrieveTickerDataBtn').addEventListener('click', function() {
+        const retrieveModal = new bootstrap.Modal(document.getElementById('retrieveTickerModal'));
+        retrieveModal.show();
+    });
+
     // Show loading indicator when form is submitted
     document.getElementById('refreshForm').addEventListener('submit', function() {
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+        submitBtn.disabled = true;
+    });
+
+    // Show loading indicator when retrieve form is submitted
+    document.getElementById('retrieveTickerForm').addEventListener('submit', function() {
         const submitBtn = this.querySelector('button[type="submit"]');
         submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
         submitBtn.disabled = true;
