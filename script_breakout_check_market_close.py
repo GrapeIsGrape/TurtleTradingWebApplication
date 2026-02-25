@@ -12,7 +12,7 @@ with open(current_script_directory +'script_logs/breakout_check_market_close.log
 
     tickers = get_all_unique_tickers(current_script_directory)
 
-    n_days_list = [20,55]
+    n_days_list = [20,50]
     for n_days in n_days_list:
         price_breakout_tickers = check_price_breakout_for_tickers(tickers, n_days, False, current_script_directory)
         joined_ticker_list = f"{n_days}-days high Breakout tickers: {', '.join(price_breakout_tickers)} (Count: {len(price_breakout_tickers)})"
