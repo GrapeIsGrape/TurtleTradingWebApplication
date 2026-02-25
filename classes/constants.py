@@ -61,7 +61,7 @@ MAIN_LOG_FILL_MARKET_DATA = 'fill_market_data.log'
 
 # Others
 
-N_DAYS_HIGH_LIST = [20,50]
+N_DAYS_HIGH_LIST = [20,55]
 
 # Ticker Filter Criteria
 
