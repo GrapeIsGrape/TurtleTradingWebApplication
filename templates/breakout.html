@@ -140,7 +140,7 @@
       current: {{ info['Current Price'] }},
       high: {{ info.High }},
       low: {{ info.Low }},
-      bullish: {{ 'true' if info['Bullish Arrangement'] else 'false' }},
+      bullish: {{ 'true' if info['Bullish'] else 'false' }},
       atr20: {{ info['ATR-20'] }},
       stopLoss: {{ info['Stop Loss'] }}
     };
