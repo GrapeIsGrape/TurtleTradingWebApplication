@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 import os
 import csv
 import ssl
+import urllib.request
 
 # Fix SSL certificate issue on macOS
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -20,85 +21,23 @@ def get_sp500_tickers():
     """
     # Get S&P 500 tickers from Wikipedia
     url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
-    try:
-        tables = pd.read_html(url)
-        sp500_table = tables[0]
-        
-        ticker_sector_map = {}
-        for _, row in sp500_table.iterrows():
-            ticker = row['Symbol'].replace('.', '-')  # yfinance format
-            sector = row['GICS Sector']
-            ticker_sector_map[ticker] = sector
-        
-        return ticker_sector_map
-    except Exception as e:
-        print(f"Warning: Could not fetch S&P 500 list from Wikipedia: {e}")
-        print("Using fallback static S&P 500 list...")
-        # Fallback to a smaller hardcoded list of major stocks for testing
-        return get_fallback_sp500_tickers()
-
-def get_fallback_sp500_tickers():
-    """
-    Fallback S&P 500 tickers for when Wikipedia fetch fails.
-    Returns a smaller list of major stocks from different sectors.
-    """
-    # Subset of S&P 500 stocks from different GICS sectors
-    fallback_tickers = {
-        'AAPL': 'Information Technology',
-        'MSFT': 'Information Technology',
-        'NVDA': 'Information Technology',
-        'TSLA': 'Consumer Discretionary',
-        'AMZN': 'Consumer Discretionary',
-        'META': 'Communication Services',
-        'GOOGL': 'Communication Services',
-        'BRK-B': 'Financials',
-        'JNJ': 'Health Care',
-        'XOM': 'Energy',
-        'JPM': 'Financials',
-        'V': 'Financials',
-        'WMT': 'Consumer Staples',
-        'PG': 'Consumer Staples',
-        'CVX': 'Energy',
-        'KO': 'Consumer Staples',
-        'BA': 'Industrials',
-        'CAT': 'Industrials',
-        'IBM': 'Information Technology',
-        'CSCO': 'Information Technology',
-        'ABT': 'Health Care',
-        'UNH': 'Health Care',
-        'MRK': 'Health Care',
-        'PFE': 'Health Care',
-        'GE': 'Industrials',
-        'HON': 'Industrials',
-        'INTC': 'Information Technology',
-        'AMD': 'Information Technology',
-        'QCOM': 'Information Technology',
-        'ADBE': 'Information Technology',
-        'CRM': 'Software',
-        'ORCL': 'Software',
-        'SAP': 'Software',
-        'NOW': 'Software',
-        'DIS': 'Communication Services',
-        'NFLX': 'Communication Services',
-        'CMCSA': 'Communication Services',
-        'T': 'Communication Services',
-        'VZ': 'Communication Services',
-        'BKKING': 'Consumer Discretionary',
-        'ABNB': 'Consumer Discretionary',
-        'MCD': 'Consumer Discretionary',
-        'NKE': 'Consumer Discretionary',
-        'F': 'Consumer Discretionary',
-        'GM': 'Consumer Discretionary',
-        'HD': 'Consumer Discretionary',
-        'LOW': 'Consumer Discretionary',
-        'TJX': 'Consumer Discretionary',
-        'MU': 'Information Technology',
-        'UBER': 'Consumer Discretionary',
-        'LYFT': 'Consumer Discretionary',
-        'SPOT': 'Communication Services',
-        'ZM': 'Communication Services',
-    }
-    return fallback_tickers
+    
+    # Add a proper user-agent header to avoid 403 Forbidden
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+    req = urllib.request.Request(url, headers=headers)
+    
+    with urllib.request.urlopen(req) as response:
+        tables = pd.read_html(response)
+    
+    sp500_table = tables[0]
+    
+    ticker_sector_map = {}
+    for _, row in sp500_table.iterrows():
+        ticker = row['Symbol'].replace('.', '-')  # yfinance format
+        sector = row['GICS Sector']
+        ticker_sector_map[ticker] = sector
+    
+    return ticker_sector_map
 
 def calculate_ticker_metrics(ticker):
     """

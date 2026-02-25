@@ -6,14 +6,30 @@
     <title>Tickers - Turtle Trading Web App</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        /* Custom color classes for cards and badges */
+        .bg-purple { background-color: #6f42c1 !important; }
+        .border-purple { border-color: #6f42c1 !important; }
+        .bg-teal { background-color: #20c997 !important; }
+        .border-teal { border-color: #20c997 !important; }
+        .bg-indigo { background-color: #6610f2 !important; }
+        .border-indigo { border-color: #6610f2 !important; }
+        .bg-orange { background-color: #fd7e14 !important; }
+        .border-orange { border-color: #fd7e14 !important; }
+        .bg-pink { background-color: #d63384 !important; }
+        .border-pink { border-color: #d63384 !important; }
+    </style>
 </head>
 <body>
 {% include 'common/navbar.html' %}
 {% include 'common/password_modal.html' %}
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>S&P 500 Tickers by Sector</h2>
+        <h2>Tickers by GICS sector</h2>
         <div>
+            <button class="btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#allTickersModal" title="View all tickers">
+                📋 View All Tickers
+            </button>
             <button class="btn btn-success me-2 d-none" id="refreshTickersBtn" title="Refresh tickers based on criteria (admin only)">
                 🔄 Refresh Tickers
             </button>
@@ -23,6 +39,36 @@
             <button class="btn btn-outline-danger d-none" id="exitModeBtn" title="Exit admin mode">
                 🔓 Exit Admin Mode
             </button>
+        </div>
+    </div>
+    
+    <p class="text-muted mb-4">This page shows tickers that are being used to check price breakout for the Turtle Trading strategy.</p>
+
+    <!-- All Tickers Modal -->
+    <div class="modal fade" id="allTickersModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% set all_tickers = [] %}
+                    {% for sector in sectors %}
+                        {% for ticker in sector.tickers %}
+                            {% set _ = all_tickers.append(ticker) %}
+                        {% endfor %}
+                    {% endfor %}
+                    <h5 class="modal-title">All Tickers ({{ all_tickers|length }})</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for ticker in all_tickers|sort %}
+                            <span class="badge bg-secondary" style="font-size:0.95em;">{{ ticker }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -52,11 +98,14 @@
     <!-- Password Modal is included from common/password_modal.html -->
 
     <div class="row g-3">
+      {% set card_colors = ['primary', 'success', 'danger', 'warning', 'info', 'dark', 'purple', 'teal', 'indigo', 'orange', 'pink'] %}
       {% for sector in sectors %}
+      {% set color_index = loop.index0 % card_colors|length %}
+      {% set card_color = card_colors[color_index] %}
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="card border-primary border-2">
-          <div class="card-header bg-primary text-white py-2 px-3 d-flex justify-content-between align-items-center">
-            <strong>{{ sector.name }}</strong>
+        <div class="card border-{{ card_color }} border-2">
+          <div class="card-header bg-{{ card_color }} text-white py-2 px-3 d-flex justify-content-between align-items-center">
+            <strong>{{ sector.name }} ({{ sector.tickers|length }})</strong>
             <button class="btn btn-sm btn-light edit-btn d-none" data-bs-toggle="modal" data-bs-target="#modal_{{ sector.file_key }}" title="Edit tickers">
               ✎
             </button>
