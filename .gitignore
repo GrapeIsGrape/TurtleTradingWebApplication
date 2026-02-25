@@ -1,2 +1,3 @@
 /data/market_data/*.csv
 *.pyc
+.DS_Store
