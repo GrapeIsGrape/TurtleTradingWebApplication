@@ -58,7 +58,7 @@
                 {% for breakout in entry.breakouts %}
                   <div class="mb-3 p-2 border rounded bg-light">
                     <div class="d-flex align-items-center flex-wrap">
-                      {% if breakout.tickers %}<strong class="me-2">{{ breakout.label }}</strong>{% else %}<span class="me-2 text-muted">{{ breakout.label }}</span>{% endif %}
+                      {% if breakout.tickers %}<strong class="me-2">{{ breakout.label }} ({{ breakout.tickers|length }})</strong>{% else %}<span class="me-2 text-muted">{{ breakout.label }} (0)</span>{% endif %}
                       {% for ticker in breakout.tickers %}
                         {% if is_first_card %}
                           {% set badge_class = 'bg-success' if ticker in bullish_tickers else 'bg-secondary' %}
