@@ -311,33 +311,49 @@ def view_raw_data(filename):
     return render_template("raw_data.html", csv_files=csv_files, columns=columns, table_data=table_data, selected_file=selected_file)
 
 # Log viewer page
-@app.route("/daily_script_logs")
+@app.route("/logs")
 def logs():
     log_files = []
     if os.path.exists(LOG_FOLDER):
-        log_files = [f for f in os.listdir(LOG_FOLDER) if os.path.isfile(os.path.join(LOG_FOLDER, f))]
+        log_files = [f for f in os.listdir(LOG_FOLDER) if os.path.isfile(os.path.join(LOG_FOLDER, f)) and f != '.DS_Store']
+    # Add flask_errors.log to the list
+    if os.path.exists(LOG_ERROR_FILE):
+        log_files.append('flask_errors.log')
+    log_files.sort()
     selected_log = None
     log_content = None
     if log_files:
         selected_log = log_files[0]
-        log_path = os.path.join(LOG_FOLDER, selected_log)
+        # Determine the correct path based on the log file
+        if selected_log == 'flask_errors.log':
+            log_path = LOG_ERROR_FILE
+        else:
+            log_path = os.path.join(LOG_FOLDER, selected_log)
         if os.path.exists(log_path):
             with open(log_path, "r") as f:
                 log_content = f.read()
-    return render_template("daily_script_logs.html", log_files=log_files, log_content=log_content, selected_log=selected_log)
+    return render_template("logs.html", log_files=log_files, log_content=log_content, selected_log=selected_log)
 
 @app.route("/daily_script_logs/<logfile>")
 def view_log(logfile):
     log_files = []
     if os.path.exists(LOG_FOLDER):
-        log_files = [f for f in os.listdir(LOG_FOLDER) if os.path.isfile(os.path.join(LOG_FOLDER, f))]
+        log_files = [f for f in os.listdir(LOG_FOLDER) if os.path.isfile(os.path.join(LOG_FOLDER, f)) and f != '.DS_Store']
+    # Add flask_errors.log to the list
+    if os.path.exists(LOG_ERROR_FILE):
+        log_files.append('flask_errors.log')
+    log_files.sort()
     log_content = ""
     selected_log = logfile
-    log_path = os.path.join(LOG_FOLDER, logfile)
+    # Determine the correct path based on the log file
+    if logfile == 'flask_errors.log':
+        log_path = LOG_ERROR_FILE
+    else:
+        log_path = os.path.join(LOG_FOLDER, logfile)
     if os.path.exists(log_path):
         with open(log_path, "r") as f:
             log_content = f.read()
-    return render_template("daily_script_logs.html", log_files=log_files, log_content=log_content, selected_log=selected_log)
+    return render_template("logs.html", log_files=log_files, log_content=log_content, selected_log=selected_log)
 
 @app.route("/about")
 def about():
