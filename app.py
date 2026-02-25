@@ -7,7 +7,14 @@ from classes.constants import (
     TICKERS_TO_BE_RETRIEVED_FOLDER_PATH,
     SCRIPT_LOGS_FOLDER_PATH,
     BREAKOUT_LOG_MARKET_CLOSE,
-    BREAKOUT_LOG_MARKET_OPEN
+    BREAKOUT_LOG_MARKET_OPEN,
+    FILTER_MIN_PRICE,
+    FILTER_MIN_VOLUME,
+    FILTER_MIN_DOLLAR_VOLUME,
+    FILTER_MIN_VOLATILITY,
+    FILTER_MIN_ATR_PCT,
+    FILTER_MAX_PER_SECTOR,
+    FILTER_EARNINGS_SKIP_DAYS
 )
 
 app = Flask(__name__)
@@ -127,7 +134,14 @@ def tickers():
             "file_key": file_key,
             "filename": filename
         })
-    return render_template("tickers.html", sectors=sectors)
+    return render_template("tickers.html", sectors=sectors,
+                         FILTER_MIN_PRICE=FILTER_MIN_PRICE,
+                         FILTER_MIN_VOLUME=FILTER_MIN_VOLUME,
+                         FILTER_MIN_DOLLAR_VOLUME=FILTER_MIN_DOLLAR_VOLUME,
+                         FILTER_MIN_VOLATILITY=FILTER_MIN_VOLATILITY,
+                         FILTER_MIN_ATR_PCT=FILTER_MIN_ATR_PCT,
+                         FILTER_MAX_PER_SECTOR=FILTER_MAX_PER_SECTOR,
+                         FILTER_EARNINGS_SKIP_DAYS=FILTER_EARNINGS_SKIP_DAYS)
 
 @app.route("/update_tickers", methods=["POST"])
 def update_tickers():
@@ -165,7 +179,7 @@ def refresh_tickers():
     try:
         # Create output directory if it doesn't exist
         os.makedirs(SECTOR_DIR, exist_ok=True)
-        total_filtered = filter_and_save_tickers(SECTOR_DIR, max_per_sector=7)
+        total_filtered = filter_and_save_tickers(SECTOR_DIR)
         logging.info(f'Successfully refreshed tickers. Total filtered: {total_filtered}')
         return redirect('/tickers')
     except Exception as e:
@@ -259,7 +273,14 @@ def view_log(logfile):
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return render_template("about.html",
+                         FILTER_MIN_PRICE=FILTER_MIN_PRICE,
+                         FILTER_MIN_VOLUME=FILTER_MIN_VOLUME,
+                         FILTER_MIN_DOLLAR_VOLUME=FILTER_MIN_DOLLAR_VOLUME,
+                         FILTER_MIN_VOLATILITY=FILTER_MIN_VOLATILITY,
+                         FILTER_MIN_ATR_PCT=FILTER_MIN_ATR_PCT,
+                         FILTER_MAX_PER_SECTOR=FILTER_MAX_PER_SECTOR,
+                         FILTER_EARNINGS_SKIP_DAYS=FILTER_EARNINGS_SKIP_DAYS)
 
 if __name__ == "__main__":
     app.run(debug=True)

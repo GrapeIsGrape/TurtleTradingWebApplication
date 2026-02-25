@@ -9,27 +9,27 @@
         <span class="me-2 text-primary"><i class="bi bi-droplet-half"></i></span>
         <span class="fw-bold text-warning">Liquidity</span> (critical for Turtle breakouts):
         <ul class="mb-0 mt-1">
-            <li>30-day avg daily share volume <span class="badge bg-secondary">≥ 1,000,000</span> shares</li>
-            <li>OR 30-day avg daily dollar volume <span class="badge bg-secondary">≥ $75–100 million</span> <span class="text-muted">(the stricter of the two)</span></li>
+            <li>30-day avg daily share volume <span class="badge bg-secondary">≥ {{ "{:,}".format(FILTER_MIN_VOLUME) }}</span> shares</li>
+            <li>OR 30-day avg daily dollar volume <span class="badge bg-secondary">≥ ${{ "{:,}".format(FILTER_MIN_DOLLAR_VOLUME // 1_000_000) }} million</span> <span class="text-muted">(the stricter of the two)</span></li>
         </ul>
     </div>
     <div class="list-group-item py-3">
         <span class="me-2 text-primary"><i class="bi bi-currency-dollar"></i></span>
-        <span class="fw-bold text-info">Price</span>: <span class="badge bg-success">≥ $20</span> <span class="text-muted">(avoids large gap risk on low-priced names)</span>
+        <span class="fw-bold text-info">Price</span>: <span class="badge bg-success">≥ ${{ FILTER_MIN_PRICE }}</span> <span class="text-muted">(avoids large gap risk on low-priced names)</span>
     </div>
     <div class="list-group-item py-3 bg-light">
         <span class="me-2 text-primary"><i class="bi bi-graph-up"></i></span>
         <span class="fw-bold text-danger">Volatility</span> (to ensure tradable trends):
         <ul class="mb-0 mt-1">
-            <li>20-day annualized historical volatility <span class="badge bg-secondary">≥ 25%</span></li>
-            <li>OR 14-day ATR as % of price <span class="badge bg-secondary">≥ 1.8–2.0%</span></li>
+            <li>20-day annualized historical volatility <span class="badge bg-secondary">≥ {{ FILTER_MIN_VOLATILITY }}%</span></li>
+            <li>OR 14-day ATR as % of price <span class="badge bg-secondary">≥ {{ FILTER_MIN_ATR_PCT }}%</span></li>
         </ul>
     </div>
     <div class="list-group-item py-3">
         <span class="me-2 text-primary"><i class="bi bi-diagram-3"></i></span>
         <span class="fw-bold text-primary">Diversification / Sector cap</span>:
         <ul class="mb-0 mt-1">
-            <li>Max <span class="badge bg-secondary">7</span> stocks per GICS sector</li>
+            <li>Max <span class="badge bg-secondary">{{ FILTER_MAX_PER_SECTOR }}</span> stocks per GICS sector</li>
             <li>Within each sector, ranked by liquidity score + volatility score, keeping the best trend-following candidates</li>
         </ul>
     </div>
@@ -37,7 +37,7 @@
         <span class="me-2 text-primary"><i class="bi bi-lightbulb"></i></span>
         <span class="fw-bold text-secondary">Soft rules</span>:
         <ul class="mb-0 mt-1">
-            <li>Skipped anything with earnings in the next <span class="badge bg-secondary">5 days</span> at scan time</li>
+            <li>Skipped anything with earnings in the next <span class="badge bg-secondary">{{ FILTER_EARNINGS_SKIP_DAYS }} days</span> at scan time</li>
             <li>Avoided obvious low-float or biotech weirdos</li>
         </ul>
     </div>

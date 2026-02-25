@@ -62,3 +62,13 @@ MAIN_LOG_FILL_MARKET_DATA = 'fill_market_data.log'
 # Others
 
 N_DAYS_HIGH_LIST = [20,50]
+
+# Ticker Filter Criteria
+
+FILTER_MIN_PRICE = 20  # Minimum price in USD
+FILTER_MIN_VOLUME = 1_000_000  # Minimum 30-day avg daily share volume
+FILTER_MIN_DOLLAR_VOLUME = 75_000_000  # Minimum 30-day avg daily dollar volume in USD
+FILTER_MIN_VOLATILITY = 25  # Minimum 20-day annualized historical volatility percentage
+FILTER_MIN_ATR_PCT = 1.8  # Minimum 14-day ATR as percentage of price
+FILTER_MAX_PER_SECTOR = 7  # Maximum stocks per GICS sector
+FILTER_EARNINGS_SKIP_DAYS = 5  # Skip stocks with earnings in next N days

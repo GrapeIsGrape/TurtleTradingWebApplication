@@ -10,6 +10,14 @@ import os
 import csv
 import ssl
 import urllib.request
+from classes.constants import (
+    FILTER_MIN_PRICE,
+    FILTER_MIN_VOLUME,
+    FILTER_MIN_DOLLAR_VOLUME,
+    FILTER_MIN_VOLATILITY,
+    FILTER_MIN_ATR_PCT,
+    FILTER_MAX_PER_SECTOR
+)
 
 # Fix SSL certificate issue on macOS
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -95,15 +103,15 @@ def filter_ticker(metrics):
         return False
     
     # Price criterion: >= $20
-    if metrics['price'] < 20:
+    if metrics['price'] < FILTER_MIN_PRICE:
         return False
     
     # Liquidity criterion: 30-day avg volume >= 1M shares OR avg dollar volume >= $75M
-    if metrics['avg_volume_30d'] < 1_000_000 and metrics['avg_dollar_volume_30d'] < 75_000_000:
+    if metrics['avg_volume_30d'] < FILTER_MIN_VOLUME and metrics['avg_dollar_volume_30d'] < FILTER_MIN_DOLLAR_VOLUME:
         return False
     
     # Volatility criterion: 20-day annualized volatility >= 25% OR 14-day ATR % >= 1.8%
-    if metrics['volatility_20d'] < 25 and metrics['atr_pct'] < 1.8:
+    if metrics['volatility_20d'] < FILTER_MIN_VOLATILITY and metrics['atr_pct'] < FILTER_MIN_ATR_PCT:
         return False
     
     return True
@@ -117,10 +125,13 @@ def calculate_score(metrics):
     volatility_score = (metrics['volatility_20d'] + metrics['atr_pct'] * 10) / 2  # Weighted combo
     return liquidity_score + volatility_score * 10
 
-def filter_and_save_tickers(output_dir, max_per_sector=7):
+def filter_and_save_tickers(output_dir, max_per_sector=None):
     """
     Main function to filter S&P 500 tickers and save by sector.
     """
+    if max_per_sector is None:
+        max_per_sector = FILTER_MAX_PER_SECTOR
+    
     print(f"[{datetime.now()}] Starting ticker filtering process...")
     
     # Get S&P 500 tickers
