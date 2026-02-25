@@ -12,6 +12,7 @@ n_days_high_columns = [DAYS_HIGH_10, DAYS_HIGH_20, DAYS_HIGH_30, DAYS_HIGH_50, D
 n_days_low_columns = [DAYS_LOW_10]
 moving_average_columns = [MA_5, MA_10, MA_20, MA_30, MA_50, MA_100, MA_200]
 true_range_columns = [TRUE_RANGE, ATR_20, ATR_55]
+bullish_columns = [BULLISH_ARRANGEMENT]
 
 numeric_columns = [OPEN, HIGH, LOW, CLOSE] + n_days_high_columns + n_days_low_columns + moving_average_columns + true_range_columns
 
@@ -58,7 +59,7 @@ def download_market_data_for_ticker(ticker, duration, env_folder_path = None):
     if df[DATE].loc[len(df)-1] == today:
         df = df.iloc[:-10]
 
-    columns_to_be_calculated = n_days_high_columns + n_days_low_columns + moving_average_columns + true_range_columns
+    columns_to_be_calculated = n_days_high_columns + n_days_low_columns + moving_average_columns + true_range_columns + bullish_columns
 
     for column in columns_to_be_calculated:
         df = add_column(df, column)
@@ -178,4 +179,7 @@ def add_column(df, columnName):
     if 'Days Low' in columnName:
         days = columnName.split('-')[0]
         return calculate_n_days_low_column(df, int(days))
+    
+    if columnName == BULLISH_ARRANGEMENT:
+        return calculate_bullish_arrangement_column(df)
 

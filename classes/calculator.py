@@ -135,3 +135,23 @@ def calculate_n_days_low_at_index(df, index, n):
 
 #endregion
 
+#region Bullish Arrangement
+
+def calculate_bullish_arrangement_column(df):
+    bullish_arrangements = []
+    for index, row in df.iterrows():
+        bullish_arrangements.append(check_bullish_arrangement_at_index(df, index))
+    df[BULLISH_ARRANGEMENT] = bullish_arrangements
+    return df
+
+def check_bullish_arrangement_at_index(df, index):
+    row = df.loc[index]
+    MA = [MA_5, MA_10, MA_20, MA_30, MA_50, MA_100, MA_200]
+    i = 0
+    while i < len(MA)-1:
+        if row[MA[i]] <= row[MA[i+1]]:
+            return False
+        i += 1
+    return True
+
+#endregion

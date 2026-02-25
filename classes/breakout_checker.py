@@ -31,7 +31,7 @@ def get_breakout_ticker_information(tickers):
             DAYS_HIGH_50: calculate_n_days_high_at_index(df, len(df)-1, 50),
             DAYS_HIGH_100: calculate_n_days_high_at_index(df, len(df)-1, 100),
             DAYS_HIGH_200: calculate_n_days_high_at_index(df, len(df)-1, 200),
-            BULLISH_ARRANGEMENT: check_bullish_arrangement_for_ticker(ticker),
+            BULLISH_ARRANGEMENT: last_day_record[BULLISH_ARRANGEMENT],
             ATR_20: _20_days_average_true_range,
             STOP_LOSS: round(price - 2 * _20_days_average_true_range, ROUND_DP)
         }
@@ -139,16 +139,7 @@ def check_bullish_arrangement_for_tickers(tickers):
 
 def check_bullish_arrangement_for_ticker(ticker):
     df = pd.read_csv(MARKET_DATA_FOLDER_PATH + '/' + ticker + '.csv')
-    return check_bullish_arrangement(df.loc[len(df)-1])
-
-def check_bullish_arrangement(row):
-    MA = [MA_5, MA_10, MA_20, MA_30, MA_50, MA_100, MA_200]
-    i = 0
-    while i < len(MA)-1:
-        if row[MA[i]] <= row[MA[i+1]]:
-            return False
-        i += 1
-    return True
+    return check_bullish_arrangement_at_index(df, len(df)-1)
 
 #endregion
 
