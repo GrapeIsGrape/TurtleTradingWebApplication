@@ -74,7 +74,7 @@
                         {% for ticker in all_tickers|sort %}
                             {% set badge_class = 'bg-success' if ticker in bullish_tickers else 'bg-secondary' %}
                             {% set badge_weight = 'fw-bold' if ticker in bullish_tickers else '' %}
-                            <span class="badge {{ badge_class }} {{ badge_weight }}" style="font-size:0.95em; cursor:pointer;" data-bs-toggle="modal" data-bs-target="#tickerModal" data-ticker="{{ ticker }}">{{ ticker }}</span>
+                            <span class="badge {{ badge_class }} {{ badge_weight }}" style="font-size:0.95em;">{{ ticker }}</span>
                         {% endfor %}
                     </div>
                 </div>
@@ -154,7 +154,7 @@
               {% for ticker in sector.tickers %}
                               {% set badge_class = 'bg-success' if ticker in bullish_tickers else 'bg-secondary' %}
                               {% set badge_weight = 'fw-bold' if ticker in bullish_tickers else '' %}
-                                                                                                                        <span class="badge {{ badge_class }} {{ badge_weight }}" style="font-size:0.95em; cursor:pointer;" data-bs-toggle="modal" data-bs-target="#tickerModal" data-ticker="{{ ticker }}">{{ ticker }}</span>
+                                                                                                                        <span class="badge {{ badge_class }} {{ badge_weight }}" style="font-size:0.95em;">{{ ticker }}</span>
               {% endfor %}
             </div>
             {% else %}
@@ -190,8 +190,6 @@
       </div>
       {% endfor %}
 </div>
-
-{% include 'common/ticker_details_modal.html' %}
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -259,7 +257,5 @@
         submitBtn.disabled = true;
     });
 </script>
-
-{% include 'common/ticker_details_modal_script.html' %}
 </body>
 </html>
