@@ -4,6 +4,7 @@ import os
 import csv
 import logging
 from classes.constants import (
+    BULLISH_ARRANGEMENT,
     TICKERS_TO_BE_RETRIEVED_FOLDER_PATH,
     SCRIPT_LOGS_FOLDER_PATH,
     BREAKOUT_LOG_MARKET_CLOSE,
@@ -155,7 +156,7 @@ def breakout_live():
         ticker_info_df = get_breakout_ticker_information_live(all_tickers) if all_tickers else pd.DataFrame()
     else:
         ticker_info_df = get_breakout_ticker_information_close(all_tickers) if all_tickers else pd.DataFrame()
-    bullish_tickers = set(ticker_info_df[ticker_info_df['Bullish'] == True]['Ticker'].tolist()) if not ticker_info_df.empty else set()
+    bullish_tickers = set(ticker_info_df[ticker_info_df[BULLISH_ARRANGEMENT] == True]['Ticker'].tolist()) if not ticker_info_df.empty else set()
     ticker_info = ticker_info_df.to_dict('records') if not ticker_info_df.empty else []
     return render_template('breakout.html', entries=entries, page_title="Breakout (Live)", bullish_tickers=bullish_tickers, ticker_info=ticker_info)
 
@@ -179,7 +180,7 @@ def tickers():
             "filename": filename
         })
     ticker_info_df = get_breakout_ticker_information_close(all_tickers) if all_tickers else pd.DataFrame()
-    bullish_tickers = set(ticker_info_df[ticker_info_df['Bullish'] == True]['Ticker'].tolist()) if not ticker_info_df.empty else set()
+    bullish_tickers = set(ticker_info_df[ticker_info_df[BULLISH_ARRANGEMENT] == True]['Ticker'].tolist()) if not ticker_info_df.empty else set()
     return render_template("tickers.html", sectors=sectors,
                          bullish_tickers=bullish_tickers,
                          FILTER_MIN_PRICE=FILTER_MIN_PRICE,
