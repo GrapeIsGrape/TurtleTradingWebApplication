@@ -1,32 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Turtle Trading Web App</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-{% include 'common/navbar.html' %}
-<div class="container mt-4">
-  <div class="row justify-content-center">
-    <div class="col-12 col-md-8">
-      <div class="card shadow-sm mb-4">
-        <div class="card-body">
-          <h1 class="card-title mb-3 text-primary">Welcome to Turtle Trading Web Application</h1>
-          <p class="card-text fs-5">This platform provides a modern interface for exploring the Turtle Trading strategy, viewing market data, analyzing S&P 500 tickers, and reviewing trading logs. Use the navigation bar above to access:</p>
-          <ul class="list-group list-group-flush mb-3">
-            <li class="list-group-item">📈 <strong>Sectors:</strong> View and filter tickers by sector, based on liquidity and volatility criteria.</li>
-            <li class="list-group-item">🗂 <strong>Market Data:</strong> Browse historical price and indicator data for each ticker.</li>
-            <li class="list-group-item">📝 <strong>Logs:</strong> Review script and trading logs for transparency and troubleshooting.</li>
-            <li class="list-group-item">ℹ️ <strong>About:</strong> Learn about the methodology and selection criteria behind the Turtle Trading approach.</li>
-          </ul>
-          <p class="text-muted small">Built for traders, analysts, and enthusiasts. All data is sourced and processed according to robust, transparent rules.</p>
-        </div>
+{% extends 'base.html' %}
+
+{% block title %}Turtle Trading Web App{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8">
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h1 class="card-title mb-3 text-primary">Welcome to Turtle Trading Web Application</h1>
+        <p class="card-text fs-5">This platform provides a modern interface for exploring the Turtle Trading strategy, viewing market data, analyzing S&P 500 tickers, and reviewing trading logs. Use the navigation bar above to access:</p>
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item">📈 <strong>Sectors:</strong> View and filter tickers by sector, based on liquidity and volatility criteria.</li>
+          <li class="list-group-item">🗂 <strong>Market Data:</strong> Browse historical price and indicator data for each ticker.</li>
+          <li class="list-group-item">📝 <strong>Logs:</strong> Review script and trading logs for transparency and troubleshooting.</li>
+          <li class="list-group-item">ℹ️ <strong>About:</strong> Learn about the methodology and selection criteria behind the Turtle Trading approach.</li>
+        </ul>
+        <p class="text-muted small">Built for traders, analysts, and enthusiasts. All data is sourced and processed according to robust, transparent rules.</p>
       </div>
     </div>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}

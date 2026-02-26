@@ -1,3 +1,6 @@
+"""Market data retrieval and enrichment for Turtle Trading."""
+
+from typing import List, Optional
 import yfinance as yf
 import pandas as pd
 import os
@@ -5,181 +8,338 @@ from datetime import date, timedelta
 
 from .constants import *
 from .calculator import *
-from .file_handler import *
+from .file_handler import save_csv
 
-basic_columns = [DATE, OPEN, HIGH, LOW, CLOSE, VOLUME]
-n_days_high_columns = [DAYS_HIGH_10, DAYS_HIGH_20, DAYS_HIGH_30, DAYS_HIGH_55, DAYS_HIGH_100, DAYS_HIGH_200]
-n_days_low_columns = [DAYS_LOW_10, DAYS_LOW_20, DAYS_LOW_30, DAYS_LOW_55, DAYS_LOW_100, DAYS_LOW_200]
-moving_average_columns = [MA_5, MA_10, MA_20, MA_30, MA_50, MA_100, MA_200]
-true_range_columns = [TRUE_RANGE, ATR_20, ATR_55]
-bullish_columns = [BULLISH_ARRANGEMENT]
+# Column definitions
+BASIC_COLUMNS = [DATE, OPEN, HIGH, LOW, CLOSE, VOLUME]
+N_DAYS_HIGH_COLUMNS = [DAYS_HIGH_10, DAYS_HIGH_20, DAYS_HIGH_30, DAYS_HIGH_55, DAYS_HIGH_100, DAYS_HIGH_200]
+N_DAYS_LOW_COLUMNS = [DAYS_LOW_10, DAYS_LOW_20]
+MOVING_AVERAGE_COLUMNS = [MA_5, MA_10, MA_20, MA_30, MA_50, MA_100, MA_200]
+TRUE_RANGE_COLUMNS = [TRUE_RANGE, ATR_20, ATR_55]
+BULLISH_COLUMNS = [BULLISH_ARRANGEMENT]
 
-numeric_columns = [OPEN, HIGH, LOW, CLOSE] + n_days_high_columns + n_days_low_columns + moving_average_columns + true_range_columns
+NUMERIC_COLUMNS = [OPEN, HIGH, LOW, CLOSE] + N_DAYS_HIGH_COLUMNS + N_DAYS_LOW_COLUMNS + MOVING_AVERAGE_COLUMNS + TRUE_RANGE_COLUMNS
 
-def get_all_unique_tickers(env_folder_path = None):
-    folder_path = env_folder_path + TICKERS_TO_BE_RETRIEVED_FOLDER_PATH if env_folder_path else TICKERS_TO_BE_RETRIEVED_FOLDER_PATH
+
+# =============================================================================
+# TICKER COLLECTION
+# =============================================================================
+
+def get_all_unique_tickers(env_folder_path: Optional[str] = None) -> List[str]:
+    """
+    Get all unique tickers from CSV files in tickers folder.
+    
+    Args:
+        env_folder_path: Optional environment folder path prefix
+        
+    Returns:
+        Sorted list of unique ticker symbols
+    """
+    from .file_handler import read_file_names_in_path
+    
+    folder_path = f'{env_folder_path}{TICKERS_TO_BE_RETRIEVED_FOLDER_PATH}' if env_folder_path else TICKERS_TO_BE_RETRIEVED_FOLDER_PATH
+    
+    if not os.path.exists(folder_path):
+        print(f"Folder not found: {folder_path}")
+        return []
+    
     files = read_file_names_in_path(folder_path)
-
     all_tickers = []
+    
     for file in files:
-        df = pd.read_csv(folder_path + '/' + file + '.csv')
-        print('Number of tickers in the file ' + file + ' is ' + str(len(df)))
-        all_tickers = all_tickers + df['Ticker'].tolist()
+        try:
+            df = pd.read_csv(f'{folder_path}/{file}.csv')
+            tickers = df[TICKER].tolist()
+            all_tickers.extend(tickers)
+            print(f'Number of tickers in {file}: {len(tickers)}')
+        except Exception as e:
+            print(f'Error reading {file}: {e}')
+    
+    unique_tickers = sorted(list(set(all_tickers)))
+    print(f'Total unique tickers: {len(unique_tickers)}')
+    
+    return unique_tickers
 
-    all_tickers = list(set(all_tickers))
-    all_tickers.sort()
-    print('Total number of unique tickers is ' + str(len(all_tickers)))
-    return all_tickers
 
-#region Download tickers from yfinance and write to files
+# =============================================================================
+# DATA DOWNLOAD
+# =============================================================================
 
-def download_market_data_for_tickers(tickers, duration, env_folder_path = None):
+def download_market_data_for_tickers(
+    tickers: List[str],
+    duration: str,
+    env_folder_path: Optional[str] = None
+) -> None:
+    """Download market data for multiple tickers."""
     for ticker in tickers:
         try:
             download_market_data_for_ticker(ticker, duration, env_folder_path)
         except Exception as e:
-            print(f'Error when downloading data of {ticker} from yfinance: {str(e)}')
+            print(f'Error downloading {ticker}: {e}')
 
-def download_market_data_for_ticker(ticker, duration, env_folder_path = None):
-    columns_to_keep = [OPEN, HIGH, LOW, CLOSE, VOLUME]
 
+def download_market_data_for_ticker(
+    ticker: str,
+    duration: str,
+    env_folder_path: Optional[str] = None
+) -> None:
+    """
+    Download and process market data for a single ticker.
+    
+    Args:
+        ticker: Ticker symbol
+        duration: Period for historical data (e.g., '5y')
+        env_folder_path: Optional environment folder path prefix
+    """
     data = yf.Ticker(ticker)
+    
     if len(data.info) <= 1:
-        print(f'Error when retrieving data of {ticker} from yfinance')
+        print(f'No data available for {ticker}')
         return
+    
+    # Download and process data
     df = data.history(period=duration)
-    df = df[columns_to_keep]
-
-    df = standardize_columns_to_decimal_places(df, ROUND_DP)
-
     df = df.reset_index()
+    df = df[BASIC_COLUMNS]
+    df = _standardize_columns(df, ROUND_DP)
     df[DATE] = df[DATE].dt.date.astype(str)
-
+    
+    # Remove today's incomplete data if present
     today = date.today().strftime("%Y-%m-%d")
-    if df[DATE].loc[len(df)-1] == today:
-        df = df.iloc[:-10]
+    if len(df) > 0 and df[DATE].iloc[-1] == today:
+        df = df.iloc[:-SKIP_RECENT_ROWS]
+    
+    # Calculate all technical indicators
+    df = _add_all_indicators(df)
+    
+    # Save to file
+    folder_path = f'{env_folder_path}{MARKET_DATA_FOLDER_PATH}' if env_folder_path else MARKET_DATA_FOLDER_PATH
+    save_csv(df, f'{folder_path}/', f'{ticker}.csv')
+    print(f'Downloaded and processed data for {ticker}')
 
-    columns_to_be_calculated = n_days_high_columns + n_days_low_columns + moving_average_columns + true_range_columns + bullish_columns
 
-    for column in columns_to_be_calculated:
-        df = add_column(df, column)
+def _add_all_indicators(df: pd.DataFrame) -> pd.DataFrame:
+    """Add all technical indicators to DataFrame."""
+    columns_to_add = (
+        N_DAYS_HIGH_COLUMNS + 
+        N_DAYS_LOW_COLUMNS + 
+        MOVING_AVERAGE_COLUMNS + 
+        TRUE_RANGE_COLUMNS + 
+        BULLISH_COLUMNS
+    )
+    
+    for column in columns_to_add:
+        df = _add_column(df, column)
+    
+    return df
 
-    folder_path = env_folder_path + MARKET_DATA_FOLDER_PATH if env_folder_path else MARKET_DATA_FOLDER_PATH
-    save_csv(df, folder_path + '/', ticker + '.csv')
-    print('Finished downloading all data of ' + ticker)
-    return
 
-#endregion
+# =============================================================================
+# DATA ENRICHMENT (UPDATE EXISTING FILES)
+# =============================================================================
 
-#region Fill ticker data up to today to exising ticker files
-
-def enrich_with_indicators_for_tickers(tickers, duration, env_folder_path = None):
+def enrich_with_indicators_for_tickers(
+    tickers: List[str],
+    duration: str,
+    env_folder_path: Optional[str] = None
+) -> None:
+    """Enrich existing ticker files with latest data."""
     for ticker in tickers:
         try:
             enrich_with_indicators_for_ticker(ticker, duration, env_folder_path)
         except Exception as e:
-            print(f'Error when enriching data of {ticker}: {str(e)}')
+            print(f'Error enriching {ticker}: {e}')
 
-def enrich_with_indicators_for_ticker(ticker, duration, env_folder_path = None):    
-    today = date.today()
-    yesterday = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
 
-    folder_path = env_folder_path + MARKET_DATA_FOLDER_PATH if env_folder_path else MARKET_DATA_FOLDER_PATH
-    file_path = folder_path + '/' + ticker + '.csv'
+def enrich_with_indicators_for_ticker(
+    ticker: str,
+    duration: str,
+    env_folder_path: Optional[str] = None
+) -> None:
+    """
+    Update existing ticker file with latest data and indicators.
+    
+    Args:
+        ticker: Ticker symbol
+        duration: Period for historical data
+        env_folder_path: Optional environment folder path prefix
+    """
+    folder_path = f'{env_folder_path}{MARKET_DATA_FOLDER_PATH}' if env_folder_path else MARKET_DATA_FOLDER_PATH
+    file_path = f'{folder_path}/{ticker}.csv'
+    
+    # Download if file doesn't exist
     if not os.path.exists(file_path):
         download_market_data_for_ticker(ticker, duration, env_folder_path)
         return
     
+    # Check if update is needed
     df = pd.read_csv(file_path)
-    date_of_last_row = df[DATE].loc[len(df)-1]
-
-    if today.weekday() == 6 and date_of_last_row == (today - timedelta(2)).strftime("%Y-%m-%d"): # Today is Sunday and last record is 2 days ago (Friday)
+    today = date.today()
+    yesterday = (today - timedelta(days=1)).strftime("%Y-%m-%d")
+    last_date = df[DATE].iloc[-1]
+    
+    if _is_data_current(last_date, today, yesterday):
         return
-
-    today = today.strftime("%Y-%m-%d")
-    if date_of_last_row == today or date_of_last_row == yesterday:
+    
+    # Fetch latest data and merge
+    latest_df = _fetch_latest_data(ticker, duration)
+    if latest_df is None:
         return
+    
+    # Find where to start adding new rows
+    try:
+        first_new_index = latest_df[DATE].eq(last_date).idxmax() + 1
+    except:
+        print(f'Could not find matching date for {ticker}')
+        return
+    
+    # Add new rows with calculated indicators
+    df = _append_new_rows(df, latest_df, first_new_index)
+    
+    # Save updated data
+    save_csv(df, f'{folder_path}/', f'{ticker}.csv')
+    print(f'Enriched data for {ticker}')
+
+
+def _is_data_current(last_date: str, today: date, yesterday: str) -> bool:
+    """Check if existing data is already up to date."""
+    today_str = today.strftime("%Y-%m-%d")
+    
+    # If today is Sunday and last record is Friday
+    if today.weekday() == 6 and last_date == (today - timedelta(2)).strftime("%Y-%m-%d"):
+        return True
+    
+    # If data is from today or yesterday
+    if last_date in [today_str, yesterday]:
+        return True
+    
+    return False
+
+
+def _fetch_latest_data(ticker: str, duration: str) -> Optional[pd.DataFrame]:
+    """Fetch latest market data from yfinance."""
+    try:
+        data = yf.Ticker(ticker)
+        latest_df = data.history(period=duration)
+        latest_df = latest_df.reset_index()
+        latest_df = _standardize_columns(latest_df, ROUND_DP)
+        latest_df[DATE] = latest_df[DATE].dt.date.astype(str)
         
+        # Remove today's data if present
+        today = date.today().strftime("%Y-%m-%d")
+        if len(latest_df) > 0 and latest_df[DATE].iloc[-1] == today:
+            latest_df = latest_df.iloc[:-1]
+        
+        return latest_df
+    except Exception as e:
+        print(f'Error fetching latest data: {e}')
+        return None
+
+
+def _append_new_rows(
+    df: pd.DataFrame,
+    latest_df: pd.DataFrame,
+    start_index: int
+) -> pd.DataFrame:
+    """Append new rows with calculated indicators to existing DataFrame."""
     columns = df.columns
-
-    data = yf.Ticker(ticker)
-    latest_df = data.history(period=duration)
-    latest_df = latest_df.reset_index()
-    latest_df = standardize_columns_to_decimal_places(latest_df, ROUND_DP)
-    latest_df[DATE] = latest_df[DATE].dt.date.astype(str)
-
-    if latest_df[DATE].loc[len(latest_df)-1] == today:
-        latest_df = latest_df.iloc[:-1]
-
-    index_of_first_missing_data = latest_df[DATE].eq(date_of_last_row).idxmax() + 1
-
-    index = index_of_first_missing_data
-    while index < len(latest_df):
-        new_row = {}
-        for column in columns:
-            new_row[column] = 0
-            value = 0
-            if column in basic_columns:
-                value = latest_df.loc[index][column]
-            if column in n_days_high_columns:
-                days = column.split('-')[0]
-                value = calculate_n_days_high_at_index(latest_df, index, int(days))
-            if column in n_days_low_columns:
-                days = column.split('-')[0]
-                value = calculate_n_days_low_at_index(latest_df, index, int(days))
-            if column in moving_average_columns:
-                days = column.split('-')[1]
-                value = calculate_moving_average_at_index(latest_df, index, int(days))
-            if column in true_range_columns:
-                if column == TRUE_RANGE:
-                    value = calculate_true_range_at_index(latest_df, index)
-                else:
-                    days = column.split('-')[1]
-                    current_true_range = calculate_true_range_at_index(latest_df, index)
-                    previous_average_true_range = df[column].loc[len(df)-1]
-                    value = calculate_average_true_range(previous_average_true_range, current_true_range, int(days))
-            new_row[column] = value
+    
+    for index in range(start_index, len(latest_df)):
+        new_row = _calculate_row_values(df, latest_df, index, columns)
         df.loc[len(df)] = new_row
-            
-        index += 1
-    save_csv(df, folder_path + '/', ticker + '.csv')
-    print('Finished filling data of ' + ticker)
-
-#endregion
-
-def standardize_columns_to_decimal_places(df, dp):
-    columns_to_be_rounded = numeric_columns
-    for column in columns_to_be_rounded:
-        if column in df.columns:
-            df[column] = df[column].round(dp)
+    
     return df
 
-def remove_column(df, column_name):
-    return df.drop(column_name, axis=1)
 
-def add_column(df, columnName):
-    if columnName in df.columns:
+def _calculate_row_values(
+    df: pd.DataFrame,
+    latest_df: pd.DataFrame,
+    index: int,
+    columns: pd.Index
+) -> dict:
+    """Calculate all column values for a new row."""
+    new_row = {}
+    
+    for column in columns:
+        if column in BASIC_COLUMNS:
+            new_row[column] = latest_df.iloc[index][column]
+            
+        elif column in N_DAYS_HIGH_COLUMNS:
+            days = int(column.split('-')[0])
+            new_row[column] = calculate_n_days_high_at_index(latest_df, index, days)
+            
+        elif column in N_DAYS_LOW_COLUMNS:
+            days = int(column.split('-')[0])
+            new_row[column] = calculate_n_days_low_at_index(latest_df, index, days)
+            
+        elif column in MOVING_AVERAGE_COLUMNS:
+            days = int(column.split('-')[1])
+            new_row[column] = calculate_moving_average_at_index(latest_df, index, days)
+            
+        elif column == TRUE_RANGE:
+            new_row[column] = calculate_true_range_at_index(latest_df, index)
+            
+        elif column in [ATR_20, ATR_55]:
+            days = int(column.split('-')[1])
+            current_tr = calculate_true_range_at_index(latest_df, index)
+            previous_atr = df.iloc[-1][column]
+            new_row[column] = calculate_average_true_range(previous_atr, current_tr, days)
+            
+        elif column == BULLISH_ARRANGEMENT:
+            # Will be calculated after all MAs are available
+            new_row[column] = False
+        else:
+            new_row[column] = 0
+    
+    return new_row
+
+
+# =============================================================================
+# UTILITY FUNCTIONS
+# =============================================================================
+
+def _standardize_columns(df: pd.DataFrame, decimal_places: int) -> pd.DataFrame:
+    """Round numeric columns to specified decimal places."""
+    for column in NUMERIC_COLUMNS:
+        if column in df.columns:
+            df[column] = df[column].round(decimal_places)
+    return df
+
+
+def _add_column(df: pd.DataFrame, column_name: str) -> pd.DataFrame:
+    """
+    Add a calculated column to DataFrame.
+    
+    Args:
+        df: DataFrame to add column to
+        column_name: Name of column to add
+        
+    Returns:
+        DataFrame with new column
+    """
+    if column_name in df.columns:
         return df
     
-    if columnName == TRUE_RANGE:
+    if column_name == TRUE_RANGE:
         return calculate_true_range_column(df)
-        
-    if 'ATR' in columnName:
-        days = columnName.split('-')[1]
-        return calculate_average_true_range_column(df, int(days))
-
-    if 'MA' in columnName:
-        days = columnName.split('-')[1]
-        return calculate_moving_average_column(df, int(days))
-
-    if 'Days High' in columnName:
-        days = columnName.split('-')[0]
-        return calculate_n_days_high_column(df, int(days))
-
-    if 'Days Low' in columnName:
-        days = columnName.split('-')[0]
-        return calculate_n_days_low_column(df, int(days))
     
-    if columnName == BULLISH_ARRANGEMENT:
+    if 'ATR' in column_name:
+        days = int(column_name.split('-')[1])
+        return calculate_average_true_range_column(df, days)
+    
+    if 'MA' in column_name:
+        days = int(column_name.split('-')[1])
+        return calculate_moving_average_column(df, days)
+    
+    if 'Days High' in column_name:
+        days = int(column_name.split('-')[0])
+        return calculate_n_days_high_column(df, days)
+    
+    if 'Days Low' in column_name:
+        days = int(column_name.split('-')[0])
+        return calculate_n_days_low_column(df, days)
+    
+    if column_name == BULLISH_ARRANGEMENT:
         return calculate_bullish_arrangement_column(df)
-
+    
+    return df

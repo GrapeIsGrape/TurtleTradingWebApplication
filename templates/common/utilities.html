@@ -1,0 +1,68 @@
+<!-- Common JavaScript Functions and Event Handlers -->
+
+<script>
+/**
+ * Utility function to setup form submission with loading indicator
+ * @param {string} formId - The ID of the form element
+ * @param {string} buttonSelector - CSS selector for the submit button
+ */
+function setupFormLoadingIndicator(formId, buttonSelector = 'button[type="submit"]') {
+    const form = document.getElementById(formId);
+    if (!form) return;
+    
+    form.addEventListener('submit', function() {
+        const submitBtn = this.querySelector(buttonSelector);
+        if (submitBtn) {
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+            submitBtn.disabled = true;
+        }
+    });
+}
+
+/**
+ * Setup select picker for file/log selection
+ */
+function setupSelectPicker() {
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof $ !== 'undefined' && $('.selectpicker').length) {
+            $('.selectpicker').selectpicker();
+        }
+    });
+}
+
+/**
+ * Redirect on select change
+ * @param {string} selectId - The ID of the select element
+ * @param {string} basePath - The base URL path to redirect to
+ */
+function setupSelectRedirect(selectId, basePath) {
+    const select = document.getElementById(selectId);
+    if (select) {
+        select.addEventListener('change', function() {
+            if (this.value) {
+                window.location.href = basePath + this.value;
+            }
+        });
+    }
+}
+
+/**
+ * Setup toggle functionality for showing/hiding elements
+ * @param {string} toggleId - The ID of the toggle switch
+ * @param {string} selectorToHide - CSS selector for elements to hide when checked
+ */
+function setupToggleVisibility(toggleId, selectorToHide) {
+    const toggle = document.getElementById(toggleId);
+    if (!toggle) return;
+    
+    function updateVisibility() {
+        const shouldHide = toggle.checked;
+        document.querySelectorAll(selectorToHide).forEach(el => {
+            el.style.display = shouldHide ? 'none' : '';
+        });
+    }
+    
+    updateVisibility();
+    toggle.addEventListener('change', updateVisibility);
+}
+</script>

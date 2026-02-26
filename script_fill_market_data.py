@@ -1,19 +1,147 @@
+"""
+Market Data Fill Script
+
+This script downloads and enriches market data for all S&P 500 tickers tracked
+by the Turtle Trading system. It:
+
+1. Retrieves all unique tickers from the configured ticker files
+2. Downloads 5-year historical market data (OHLCV)
+3. Enriches data with technical indicators (ATR, moving averages, etc.)
+
+This is typically run periodically (e.g., daily after market close) to ensure
+all ticker data is current for analysis and breakout detection.
+
+Usage:
+    python script_fill_market_data.py
+
+Logs:
+    - Main log: logs/fill_market_data_main.log
+
+Environment:
+    Uses configuration from classes/constants.py including:
+    - PERIOD_5Y: 5-year historical period
+    - SCRIPT_LOGS_FOLDER_PATH: Log directory path
+"""
+
 import os
 from datetime import datetime
+from pathlib import Path
+from typing import List
 
-from classes.data_retriever import *
-from classes.constants import *
+from classes.data_retriever import (
+    get_all_unique_tickers,
+    download_market_data_for_tickers,
+    enrich_with_indicators_for_tickers,
+)
+from classes.constants import (
+    SCRIPT_LOGS_FOLDER_PATH,
+    MAIN_LOG_FILL_MARKET_DATA,
+    PERIOD_5Y,
+)
 
-current_script_directory = os.path.dirname(os.path.abspath(__file__)) + '/'
 
-with open(current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MAIN_LOG_FILL_MARKET_DATA, 'a') as f:
-    f.write(f'[START] {str(datetime.now())} Fill market data job started\n')
+# =============================================================================
+# LOGGING UTILITIES
+# =============================================================================
 
-    tickers = get_all_unique_tickers(current_script_directory)
-    download_market_data_for_tickers(tickers, PERIOD_5Y, current_script_directory)
-    enrich_with_indicators_for_tickers(tickers, PERIOD_5Y, current_script_directory)
+def get_script_directory() -> str:
+    """Get the absolute path to the script directory."""
+    return os.path.dirname(os.path.abspath(__file__)) + '/'
 
-    current_time = datetime.now()
-    f.write(f'[END  ] {str(datetime.now())} Fill market data job ended ({len(tickers)} tickers filled)\n')
+
+def get_log_file_path(script_dir: str, log_file_name: str) -> Path:
+    """
+    Get the full path to a log file, creating directory if needed.
+    
+    Args:
+        script_dir: Base script directory
+        log_file_name: Name of the log file
+        
+    Returns:
+        Path object pointing to the log file
+    """
+    log_path = Path(script_dir) / SCRIPT_LOGS_FOLDER_PATH / log_file_name
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    return log_path
+
+
+def log_message(file_path: Path, level: str, message: str) -> None:
+    """
+    Write a timestamped log message to file.
+    
+    Args:
+        file_path: Path to log file
+        level: Log level (START, INFO, END, ERROR, etc.)
+        message: Log message content
+    """
+    with open(file_path, 'a') as f:
+        f.write(f'[{level:6}] {str(datetime.now())} {message}\n')
+
+
+# =============================================================================
+# DATA PROCESSING
+# =============================================================================
+
+def download_and_enrich_data(
+    script_dir: str,
+    tickers: List[str],
+    period: str = PERIOD_5Y
+) -> None:
+    """
+    Download and enrich market data for all tickers.
+    
+    Args:
+        script_dir: Base script directory path
+        tickers: List of ticker symbols to process
+        period: Historical period to download (default: 5y)
+    """
+    print(f"Downloading market data for {len(tickers)} tickers...")
+    download_market_data_for_tickers(tickers, period, script_dir)
+    
+    print(f"Enriching data with technical indicators...")
+    enrich_with_indicators_for_tickers(tickers, period, script_dir)
+
+
+def main() -> None:
+    """Execute the market data fill job."""
+    script_dir = get_script_directory()
+    log_file_path = get_log_file_path(script_dir, MAIN_LOG_FILL_MARKET_DATA)
+    
+    try:
+        # Log job start
+        log_message(log_file_path, 'START', 'Fill market data job started')
+        
+        # Get all unique tickers
+        print("Retrieving tickers...")
+        tickers = get_all_unique_tickers(script_dir)
+        
+        if not tickers:
+            log_message(log_file_path, 'WARN', 'No tickers found to process')
+            log_message(log_file_path, 'END', 'Fill market data job ended (0 tickers)')
+            return
+        
+        log_message(log_file_path, 'INFO', f'Processing {len(tickers)} unique tickers')
+        
+        # Download and enrich market data
+        download_and_enrich_data(script_dir, tickers)
+        
+        # Log job completion
+        log_message(
+            log_file_path,
+            'END',
+            f'Fill market data job ended ({len(tickers)} tickers processed)'
+        )
+        
+        print(f"✓ Successfully processed {len(tickers)} tickers")
+        
+    except Exception as e:
+        log_message(log_file_path, 'ERROR', f'Fatal error: {e}')
+        print(f"✗ Error: {e}")
+        raise
+
+
+if __name__ == "__main__":
+    main()
+
 
     
