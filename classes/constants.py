@@ -28,10 +28,15 @@ MA_200 = 'MA-200'
 DAYS_HIGH_10 = '10-Days High'
 DAYS_HIGH_20 = '20-Days High'
 DAYS_HIGH_30 = '30-Days High'
-DAYS_HIGH_50 = '50-Days High'
+DAYS_HIGH_55 = '55-Days High'
 DAYS_HIGH_100 = '100-Days High'
 DAYS_HIGH_200 = '200-Days High'
 DAYS_LOW_10 = '10-Days Low'
+DAYS_LOW_20 = '20-Days Low'
+DAYS_LOW_30 = '30-Days Low'
+DAYS_LOW_55 = '55-Days Low'
+DAYS_LOW_100 = '100-Days Low'
+DAYS_LOW_200 = '200-Days Low'
 
 # yfinance history length
 

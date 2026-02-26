@@ -7,7 +7,7 @@ from .calculator import *
 
 def get_breakout_ticker_information_live(tickers):
     today = date.today().strftime("%Y-%m-%d")
-    result_df = pd.DataFrame(columns=[DATE, TICKER, OPEN, HIGH, LOW, CLOSE, CURRENT_PRICE, DAYS_HIGH_10, DAYS_HIGH_20, DAYS_HIGH_50, DAYS_HIGH_100, DAYS_HIGH_200, BULLISH_ARRANGEMENT, ATR_20, STOP_LOSS])
+    result_df = pd.DataFrame(columns=[DATE, TICKER, OPEN, HIGH, LOW, CLOSE, CURRENT_PRICE, DAYS_HIGH_10, DAYS_HIGH_20, DAYS_HIGH_55, DAYS_HIGH_100, DAYS_HIGH_200, BULLISH_ARRANGEMENT, ATR_20, STOP_LOSS])
     
     for ticker in tickers:
         df = pd.read_csv(MARKET_DATA_FOLDER_PATH + '/' + ticker + '.csv')
@@ -29,7 +29,7 @@ def get_breakout_ticker_information_live(tickers):
             CURRENT_PRICE: price,
             DAYS_HIGH_10: calculate_n_days_high_at_index(df, len(df)-1, 10),
             DAYS_HIGH_20: calculate_n_days_high_at_index(df, len(df)-1, 20),
-            DAYS_HIGH_50: calculate_n_days_high_at_index(df, len(df)-1, 50),
+            DAYS_HIGH_55: calculate_n_days_high_at_index(df, len(df)-1, 50),
             DAYS_HIGH_100: calculate_n_days_high_at_index(df, len(df)-1, 100),
             DAYS_HIGH_200: calculate_n_days_high_at_index(df, len(df)-1, 200),
             BULLISH_ARRANGEMENT: bullish,
@@ -42,7 +42,7 @@ def get_breakout_ticker_information_live(tickers):
 
 def get_breakout_ticker_information_close(tickers):
     today = date.today().strftime("%Y-%m-%d")
-    result_df = pd.DataFrame(columns=[DATE, TICKER, OPEN, HIGH, LOW, CLOSE, CURRENT_PRICE, DAYS_HIGH_10, DAYS_HIGH_20, DAYS_HIGH_50, DAYS_HIGH_100, DAYS_HIGH_200, BULLISH_ARRANGEMENT, ATR_20, STOP_LOSS])
+    result_df = pd.DataFrame(columns=[DATE, TICKER, OPEN, HIGH, LOW, CLOSE, CURRENT_PRICE, DAYS_HIGH_10, DAYS_HIGH_20, DAYS_HIGH_55, DAYS_HIGH_100, DAYS_HIGH_200, BULLISH_ARRANGEMENT, ATR_20, STOP_LOSS])
     
     for ticker in tickers:
         df = pd.read_csv(MARKET_DATA_FOLDER_PATH + '/' + ticker + '.csv')
@@ -58,7 +58,7 @@ def get_breakout_ticker_information_close(tickers):
             CURRENT_PRICE: last_row[CLOSE],
             DAYS_HIGH_10: calculate_n_days_high_at_index(df, len(df)-1, 10),
             DAYS_HIGH_20: calculate_n_days_high_at_index(df, len(df)-1, 20),
-            DAYS_HIGH_50: calculate_n_days_high_at_index(df, len(df)-1, 50),
+            DAYS_HIGH_55: calculate_n_days_high_at_index(df, len(df)-1, 50),
             DAYS_HIGH_100: calculate_n_days_high_at_index(df, len(df)-1, 100),
             DAYS_HIGH_200: calculate_n_days_high_at_index(df, len(df)-1, 200),
             BULLISH_ARRANGEMENT: last_row[BULLISH_ARRANGEMENT],

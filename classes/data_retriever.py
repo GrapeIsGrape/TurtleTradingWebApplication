@@ -8,8 +8,8 @@ from .calculator import *
 from .file_handler import *
 
 basic_columns = [DATE, OPEN, HIGH, LOW, CLOSE, VOLUME]
-n_days_high_columns = [DAYS_HIGH_10, DAYS_HIGH_20, DAYS_HIGH_30, DAYS_HIGH_50, DAYS_HIGH_100, DAYS_HIGH_200]
-n_days_low_columns = [DAYS_LOW_10]
+n_days_high_columns = [DAYS_HIGH_10, DAYS_HIGH_20, DAYS_HIGH_30, DAYS_HIGH_55, DAYS_HIGH_100, DAYS_HIGH_200]
+n_days_low_columns = [DAYS_LOW_10, DAYS_LOW_20, DAYS_LOW_30, DAYS_LOW_55, DAYS_LOW_100, DAYS_LOW_200]
 moving_average_columns = [MA_5, MA_10, MA_20, MA_30, MA_50, MA_100, MA_200]
 true_range_columns = [TRUE_RANGE, ATR_20, ATR_55]
 bullish_columns = [BULLISH_ARRANGEMENT]
