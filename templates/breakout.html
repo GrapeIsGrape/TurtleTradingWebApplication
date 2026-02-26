@@ -79,26 +79,26 @@
   {% else %}
     <p>No breakout log data found.</p>
   {% endif %}
-</div>
 
 {% include 'common/ticker_details_modal.html' %}
+{% endblock %}
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% block extra_js %}
 <script>
   // Handle toggle for showing last check only
   const toggleSwitch = document.getElementById('showLastCheckOnly');
   const historyCards = document.querySelectorAll('.breakout-card-history');
-  
+
   function updateCardVisibility() {
     const showLastOnly = toggleSwitch.checked;
     historyCards.forEach(card => {
       card.style.display = showLastOnly ? 'none' : '';
     });
   }
-  
+
   // Initialize visibility on page load
   updateCardVisibility();
-  
+
   // Add event listener for toggle changes
   toggleSwitch.addEventListener('change', updateCardVisibility);
 </script>

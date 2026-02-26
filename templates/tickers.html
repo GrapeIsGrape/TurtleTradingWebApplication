@@ -3,13 +3,13 @@
 {% block title %}Tickers - Turtle Trading Web App{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
 <style>
     /* Custom card color extensions */
 </style>
 {% endblock %}
 
 {% block content %}
+    {% include 'common/password_modal.html' %}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Tickers by GICS sector</h2>
         <div>
@@ -174,69 +174,7 @@
         </div>
       </div>
       {% endfor %}
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Setup password modal for tickers page
-    setupPasswordModal({
-        correctPassword: 'admin',
-        modalTitle: 'Enable Admin Mode',
-        canDismiss: true,
-        onSuccess: function() {
-            // Show all edit buttons
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.classList.remove('d-none');
-            });
-            // Show refresh button
-            document.getElementById('refreshTickersBtn').classList.remove('d-none');
-            // Show retrieve ticker button
-            document.getElementById('retrieveTickerDataBtn').classList.remove('d-none');
-            // Show exit button, hide edit mode button
-            document.getElementById('editModeBtn').classList.add('d-none');
-            document.getElementById('exitModeBtn').classList.remove('d-none');
-        },
-        onCancel: function() {
-            // Nothing to do on cancel for this page
-        }
-    });
-
-    // Exit admin mode button
-    document.getElementById('exitModeBtn').addEventListener('click', function() {
-        // Hide all edit buttons
-        document.querySelectorAll('.edit-btn').forEach(btn => {
-            btn.classList.add('d-none');
-        });
-        // Hide refresh button
-        document.getElementById('refreshTickersBtn').classList.add('d-none');
-        // Hide retrieve ticker button
-        document.getElementById('retrieveTickerDataBtn').classList.add('d-none');
-        // Show edit mode button, hide exit button
-        document.getElementById('editModeBtn').classList.remove('d-none');
-        document.getElementById('exitModeBtn').classList.add('d-none');
-    });
-
-    // Refresh tickers button
-    document.getElementById('refreshTickersBtn').addEventListener('click', function() {
-        const refreshModal = new bootstrap.Modal(document.getElementById('refreshModal'));
-        refreshModal.show();
-    });
-
-    // Retrieve ticker data button
-    document.getElementById('retrieveTickerDataBtn').addEventListener('click', function() {
-        const retrieveModal = new bootstrap.Modal(document.getElementById('retrieveTickerModal'));
-        retrieveModal.show();
-    });
-
-    // Show loading indicator when form is submitted
-    document.getElementById('refreshForm').addEventListener('submit', function() {
-        const submitBtn = this.querySelector('button[type="submit"]');
-        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
-        submitBtn.disabled = true;
-    });
-</script>
-
-{% include 'common/password_modal.html' %}
+    </div>
 {% endblock %}
 
 {% block extra_js %}
