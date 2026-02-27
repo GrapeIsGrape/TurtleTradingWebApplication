@@ -15,10 +15,17 @@
                                 <div class="row g-3 mt-3">
                                         <!-- System 1 -->
                                         <div class="col-12 col-lg-6">
-                                                <div class="card border-primary border-2 h-100 shadow-sm">
-                                                        <div class="card-header bg-primary text-white py-3">
+                                                <div class="card border-primary border-2 shadow-sm">
+                                                        <div class="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center"
+                                                             role="button"
+                                                             data-bs-toggle="collapse"
+                                                             data-bs-target="#system1Collapse"
+                                                             aria-expanded="false"
+                                                             aria-controls="system1Collapse">
                                                                 <strong class="fs-6">📈 System 1: 20-Day Breakout</strong>
+                                                                <i class="bi bi-chevron-down fs-6" aria-hidden="true"></i>
                                                         </div>
+                                                        <div class="collapse" id="system1Collapse">
                                                         <div class="card-body">
                                                                 <!-- Long Position -->
                                                                 <div class="mb-4 pb-3 border-bottom">
@@ -62,15 +69,23 @@
 
                                                                 <p class="small text-muted mt-3 mb-0"><strong>💡 Best for:</strong> Quick trends, faster-moving markets. Avoids whipsaw with Skip Winner logic.</p>
                                                         </div>
+                                                        </div>
                                                 </div>
                                         </div>
 
                                         <!-- System 2 -->
                                         <div class="col-12 col-lg-6">
-                                                <div class="card border-success border-2 h-100 shadow-sm">
-                                                        <div class="card-header bg-success text-white py-3">
+                                                <div class="card border-success border-2 shadow-sm">
+                                                        <div class="card-header bg-success text-white py-3 d-flex justify-content-between align-items-center"
+                                                             role="button"
+                                                             data-bs-toggle="collapse"
+                                                             data-bs-target="#system2Collapse"
+                                                             aria-expanded="false"
+                                                             aria-controls="system2Collapse">
                                                                 <strong class="fs-6">🎯 System 2: 55-Day Breakout</strong>
+                                                                <i class="bi bi-chevron-down fs-6" aria-hidden="true"></i>
                                                         </div>
+                                                        <div class="collapse" id="system2Collapse">
                                                         <div class="card-body">
                                                                 <!-- Long Position -->
                                                                 <div class="mb-4 pb-3 border-bottom">
@@ -110,6 +125,7 @@
 
                                                                 <p class="small text-muted mt-3 mb-0"><strong>💡 Best for:</strong> Major trends, fewer false signals. More conservative but higher-quality entries.</p>
                                                         </div>
+                                                        </div>
                                                 </div>
                                         </div>
                                 </div>
@@ -136,7 +152,95 @@
                                 </div>
 
                 <hr>
-        <p class="text-muted small">&copy; 2026 Turtle Trading Project</p>
+
+                <section class="mt-4">
+                        <div class="card border-0 shadow-sm">
+                                <div class="card-header bg-dark text-white py-3 d-flex justify-content-between align-items-center"
+                                     role="button"
+                                     data-bs-toggle="collapse"
+                                     data-bs-target="#tickerCriteriaCollapse"
+                                     aria-expanded="false"
+                                     aria-controls="tickerCriteriaCollapse">
+                                        <h5 class="mb-0 fw-semibold">Ticker Selection Criteria</h5>
+                                        <i class="bi bi-chevron-down fs-6" aria-hidden="true"></i>
+                                </div>
+                                <div class="collapse" id="tickerCriteriaCollapse">
+                                <div class="card-body bg-light">
+                                        <p class="text-muted small mb-3">Use the following criteria to keep your watchlist focused and tradable.</p>
+                                        {% include 'common/criteria.html' %}
+                                </div>
+                                </div>
+                        </div>
+                </section>
+
+                <hr class="my-4">
+
+                <section class="mt-4">
+                        <div class="card border-0 shadow-sm">
+                                <div class="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center"
+                                     role="button"
+                                     data-bs-toggle="collapse"
+                                     data-bs-target="#multiSignalsCollapse"
+                                     aria-expanded="false"
+                                     aria-controls="multiSignalsCollapse">
+                                        <h5 class="mb-0 fw-semibold">Multiple Signals in the Same Day</h5>
+                                        <i class="bi bi-chevron-down fs-6" aria-hidden="true"></i>
+                                </div>
+                                <div class="collapse" id="multiSignalsCollapse">
+                                <div class="card-body">
+                                        <p class="text-muted mb-3">When multiple breakouts fire on the same day, use this quick ranking checklist to make fast, disciplined choices.</p>
+
+                                        <div class="d-grid gap-3">
+                                                <div class="p-3 rounded border border-warning-subtle bg-warning bg-opacity-10">
+                                                        <h6 class="fw-bold mb-2 d-flex align-items-center gap-2">
+                                                                <i class="bi bi-diagram-3-fill text-warning" aria-hidden="true"></i>
+                                                                <span>1) Sector Filter First</span>
+                                                                <span class="badge bg-warning text-dark">Highest Priority</span>
+                                                        </h6>
+                                                        <p class="small text-muted mb-0">If you already have an open trade in that <span class="fw-semibold text-warning-emphasis">GICS sector</span>, skip the new setup. This alone removes most over-concentration risk.</p>
+                                                </div>
+
+                                                <div class="p-3 rounded border border-danger-subtle bg-danger bg-opacity-10">
+                                                        <h6 class="fw-bold mb-2 d-flex align-items-center gap-2">
+                                                                <i class="bi bi-activity text-danger" aria-hidden="true"></i>
+                                                                <span>2) Volatility Rank (Highest First)</span>
+                                                        </h6>
+                                                        <p class="small text-muted mb-0">Choose the ticker with the biggest <span class="fw-semibold text-danger-emphasis">20-day ATR in dollars</span>. Bigger expected movement can translate into better reward when the breakout follows through.</p>
+                                                </div>
+
+                                                <div class="p-3 rounded border border-primary-subtle bg-primary bg-opacity-10">
+                                                        <h6 class="fw-bold mb-2 d-flex align-items-center gap-2">
+                                                                <i class="bi bi-graph-up-arrow text-primary" aria-hidden="true"></i>
+                                                                <span>3) Momentum Strength</span>
+                                                        </h6>
+                                                        <ul class="small text-muted mb-0 ps-3">
+                                                                <li>Prefer the one trading farther above its <span class="fw-semibold text-primary-emphasis">200-day moving average</span>.</li>
+                                                                <li>Or compare breakout force: pick the one that cleared the <span class="fw-semibold text-primary-emphasis">55-day high</span> by a wider margin.</li>
+                                                        </ul>
+                                                </div>
+
+                                                <div class="p-3 rounded border border-success-subtle bg-success bg-opacity-10">
+                                                        <h6 class="fw-bold mb-2 d-flex align-items-center gap-2">
+                                                                <i class="bi bi-droplet-half text-success" aria-hidden="true"></i>
+                                                                <span>4) Liquidity Tie-Breaker</span>
+                                                        </h6>
+                                                        <p class="small text-muted mb-0">If candidates are still close, pick the one with higher <span class="fw-semibold text-success-emphasis">average daily dollar volume</span> for smoother fills and tighter spreads.</p>
+                                                </div>
+
+                                                <div class="p-3 rounded border border-secondary-subtle bg-secondary bg-opacity-10">
+                                                        <h6 class="fw-bold mb-2 d-flex align-items-center gap-2">
+                                                                <i class="bi bi-hourglass-split text-secondary" aria-hidden="true"></i>
+                                                                <span>5) Still Tied?</span>
+                                                        </h6>
+                                                        <p class="small text-muted mb-0">Take the first symbol in your scan order (FIFO), or randomize. <span class="fw-semibold text-secondary-emphasis">Do not overthink the final tie.</span></p>
+                                                </div>
+                                        </div>
+                                </div>
+                                </div>
+                        </div>
+                </section>
+
+        <p class="text-muted small mt-4">&copy; 2026 Turtle Trading Project</p>
       </div>
     </div>
   </div>
