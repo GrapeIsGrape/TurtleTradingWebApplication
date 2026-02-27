@@ -37,45 +37,13 @@ from classes.constants import (
     SCRIPT_LOGS_FOLDER_PATH,
     MAIN_LOG_FILL_MARKET_DATA,
     PERIOD_5Y,
+    LOG_LEVEL_START,
+    LOG_LEVEL_INFO,
+    LOG_LEVEL_WARN,
+    LOG_LEVEL_ERROR,
+    LOG_LEVEL_END,
 )
-
-
-# =============================================================================
-# LOGGING UTILITIES
-# =============================================================================
-
-def get_script_directory() -> str:
-    """Get the absolute path to the script directory."""
-    return os.path.dirname(os.path.abspath(__file__)) + '/'
-
-
-def get_log_file_path(script_dir: str, log_file_name: str) -> Path:
-    """
-    Get the full path to a log file, creating directory if needed.
-    
-    Args:
-        script_dir: Base script directory
-        log_file_name: Name of the log file
-        
-    Returns:
-        Path object pointing to the log file
-    """
-    log_path = Path(script_dir) / SCRIPT_LOGS_FOLDER_PATH / log_file_name
-    log_path.parent.mkdir(parents=True, exist_ok=True)
-    return log_path
-
-
-def log_message(file_path: Path, level: str, message: str) -> None:
-    """
-    Write a timestamped log message to file.
-    
-    Args:
-        file_path: Path to log file
-        level: Log level (START, INFO, END, ERROR, etc.)
-        message: Log message content
-    """
-    with open(file_path, 'a') as f:
-        f.write(f'[{level:6}] {str(datetime.now())} {message}\n')
+from classes.script_logger import get_script_directory, get_log_file_path, log_message
 
 
 # =============================================================================
@@ -105,22 +73,22 @@ def download_and_enrich_data(
 def main() -> None:
     """Execute the market data fill job."""
     script_dir = get_script_directory()
-    log_file_path = get_log_file_path(script_dir, MAIN_LOG_FILL_MARKET_DATA)
+    log_file_path = get_log_file_path(script_dir, SCRIPT_LOGS_FOLDER_PATH, MAIN_LOG_FILL_MARKET_DATA)
     
     try:
         # Log job start
-        log_message(log_file_path, 'START', 'Fill market data job started')
+        log_message(log_file_path, LOG_LEVEL_START, 'Fill market data job started')
         
         # Get all unique tickers
         print("Retrieving tickers...")
         tickers = get_all_unique_tickers(script_dir)
         
         if not tickers:
-            log_message(log_file_path, 'WARN', 'No tickers found to process')
-            log_message(log_file_path, 'END', 'Fill market data job ended (0 tickers)')
+            log_message(log_file_path, LOG_LEVEL_WARN, 'No tickers found to process')
+            log_message(log_file_path, LOG_LEVEL_END, 'Fill market data job ended (0 tickers)')
             return
         
-        log_message(log_file_path, 'INFO', f'Processing {len(tickers)} unique tickers')
+        log_message(log_file_path, LOG_LEVEL_INFO, f'Processing {len(tickers)} unique tickers')
         
         # Download and enrich market data
         download_and_enrich_data(script_dir, tickers)
@@ -128,14 +96,14 @@ def main() -> None:
         # Log job completion
         log_message(
             log_file_path,
-            'END',
+            LOG_LEVEL_END,
             f'Fill market data job ended ({len(tickers)} tickers processed)'
         )
         
         print(f"✓ Successfully processed {len(tickers)} tickers")
         
     except Exception as e:
-        log_message(log_file_path, 'ERROR', f'Fatal error: {e}')
+        log_message(log_file_path, LOG_LEVEL_ERROR, f'Fatal error: {e}')
         print(f"✗ Error: {e}")
         raise
 

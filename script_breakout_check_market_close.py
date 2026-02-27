@@ -25,45 +25,13 @@ from classes.constants import (
     BREAKOUT_LOG_MARKET_CLOSE,
     MAIN_LOG_BREAKOUT_MARKET_CLOSE,
     N_DAYS_HIGH_LIST,
+    LOG_LEVEL_START,
+    LOG_LEVEL_INFO,
+    LOG_LEVEL_WARN,
+    LOG_LEVEL_ERROR,
+    LOG_LEVEL_END,
 )
-
-
-# =============================================================================
-# LOGGING UTILITIES
-# =============================================================================
-
-def get_script_directory() -> str:
-    """Get the absolute path to the script directory."""
-    return os.path.dirname(os.path.abspath(__file__)) + '/'
-
-
-def get_log_file_path(script_dir: str, log_file_name: str) -> Path:
-    """
-    Get the full path to a log file, creating directory if needed.
-    
-    Args:
-        script_dir: Base script directory
-        log_file_name: Name of the log file
-        
-    Returns:
-        Path object pointing to the log file
-    """
-    log_path = Path(script_dir) / SCRIPT_LOGS_FOLDER_PATH / log_file_name
-    log_path.parent.mkdir(parents=True, exist_ok=True)
-    return log_path
-
-
-def log_message(file_path: Path, level: str, message: str) -> None:
-    """
-    Write a timestamped log message to file.
-    
-    Args:
-        file_path: Path to log file
-        level: Log level (START, INFO, END, ERROR, etc.)
-        message: Log message content
-    """
-    with open(file_path, 'a') as f:
-        f.write(f'[{level:6}] {str(datetime.now())} {message}\n')
+from classes.script_logger import get_script_directory, get_log_file_path, log_message
 
 
 # =============================================================================
@@ -103,7 +71,7 @@ def check_breakouts_for_period(
         f.write(f'[{date.today()}] {log_entry}\n')
     
     # Write to main log (with full timestamp)
-    log_message(main_log_path, 'INFO', log_entry)
+    log_message(main_log_path, LOG_LEVEL_INFO, log_entry)
 
 
 def main() -> None:
@@ -111,20 +79,20 @@ def main() -> None:
     script_dir = get_script_directory()
     
     # Setup log file paths
-    main_log_path = get_log_file_path(script_dir, MAIN_LOG_BREAKOUT_MARKET_CLOSE)
-    daily_log_path = get_log_file_path(script_dir, BREAKOUT_LOG_MARKET_CLOSE)
+    main_log_path = get_log_file_path(script_dir, SCRIPT_LOGS_FOLDER_PATH, MAIN_LOG_BREAKOUT_MARKET_CLOSE)
+    daily_log_path = get_log_file_path(script_dir, SCRIPT_LOGS_FOLDER_PATH, BREAKOUT_LOG_MARKET_CLOSE)
     
     try:
         # Log job start
-        log_message(main_log_path, 'START', 'Check breakout at market close job started')
-        log_message(main_log_path, 'INFO', f'Current script directory is {script_dir}')
+        log_message(main_log_path, LOG_LEVEL_START, 'Check breakout at market close job started')
+        log_message(main_log_path, LOG_LEVEL_INFO, f'Current script directory is {script_dir}')
         
         # Get all unique tickers
         tickers = get_all_unique_tickers(script_dir)
         
         if not tickers:
-            log_message(main_log_path, 'WARN', 'No tickers found to process')
-            log_message(main_log_path, 'END', 'Check breakout at market close job ended')
+            log_message(main_log_path, LOG_LEVEL_WARN, 'No tickers found to process')
+            log_message(main_log_path, LOG_LEVEL_END, 'Check breakout at market close job ended')
             return
         
         # Check breakouts for each configured period
@@ -138,13 +106,13 @@ def main() -> None:
                     n_days
                 )
             except Exception as e:
-                log_message(main_log_path, 'ERROR', f'Error checking {n_days}-day breakouts: {e}')
+                log_message(main_log_path, LOG_LEVEL_ERROR, f'Error checking {n_days}-day breakouts: {e}')
         
         # Log job completion
-        log_message(main_log_path, 'END', 'Check breakout at market close job ended')
+        log_message(main_log_path, LOG_LEVEL_END, 'Check breakout at market close job ended')
         
     except Exception as e:
-        log_message(main_log_path, 'ERROR', f'Fatal error: {e}')
+        log_message(main_log_path, LOG_LEVEL_ERROR, f'Fatal error: {e}')
         raise
 
 

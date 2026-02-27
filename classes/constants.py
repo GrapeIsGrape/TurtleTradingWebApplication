@@ -101,6 +101,13 @@ MAIN_LOG_BREAKOUT_MARKET_CLOSE = 'breakout_check_market_close.log'
 MAIN_LOG_BREAKOUT_MARKET_OPEN = 'breakout_check_market_open.log'
 MAIN_LOG_FILL_MARKET_DATA = 'fill_market_data.log'
 
+# Log Levels
+LOG_LEVEL_START = 'START'
+LOG_LEVEL_INFO = 'INFO'
+LOG_LEVEL_WARN = 'WARN'
+LOG_LEVEL_ERROR = 'ERROR'
+LOG_LEVEL_END = 'END'
+
 # =============================================================================
 # TRADING STRATEGY PARAMETERS
 # =============================================================================
