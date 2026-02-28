@@ -155,29 +155,7 @@
 
                 <section class="mt-4">
                         <div class="card border-0 shadow-sm">
-                                <div class="card-header bg-dark text-white py-3 d-flex justify-content-between align-items-center"
-                                     role="button"
-                                     data-bs-toggle="collapse"
-                                     data-bs-target="#tickerCriteriaCollapse"
-                                     aria-expanded="false"
-                                     aria-controls="tickerCriteriaCollapse">
-                                        <h5 class="mb-0 fw-semibold">Ticker Selection Criteria</h5>
-                                        <i class="bi bi-chevron-down fs-6" aria-hidden="true"></i>
-                                </div>
-                                <div class="collapse" id="tickerCriteriaCollapse">
-                                <div class="card-body bg-light">
-                                        <p class="text-muted small mb-3">Use the following criteria to keep your watchlist focused and tradable.</p>
-                                        {% include 'common/criteria.html' %}
-                                </div>
-                                </div>
-                        </div>
-                </section>
-
-                <hr class="my-4">
-
-                <section class="mt-4">
-                        <div class="card border-0 shadow-sm">
-                                <div class="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center"
+                                <div class="card-header bg-warning text-white py-3 d-flex justify-content-between align-items-center"
                                      role="button"
                                      data-bs-toggle="collapse"
                                      data-bs-target="#multiSignalsCollapse"
@@ -235,6 +213,28 @@
                                                         <p class="small text-muted mb-0">Take the first symbol in your scan order (FIFO), or <span class="fw-semibold text-secondary-emphasis">randomize</span>. Do not overthink the final tie.</p>
                                                 </div>
                                         </div>
+                                </div>
+                                </div>
+                        </div>
+                </section>
+
+                <hr>
+
+                <section class="mt-4">
+                        <div class="card border-0 shadow-sm">
+                                <div class="card-header bg-dark text-white py-3 d-flex justify-content-between align-items-center"
+                                     role="button"
+                                     data-bs-toggle="collapse"
+                                     data-bs-target="#tickerCriteriaCollapse"
+                                     aria-expanded="false"
+                                     aria-controls="tickerCriteriaCollapse">
+                                        <h5 class="mb-0 fw-semibold">Ticker Selection Criteria</h5>
+                                        <i class="bi bi-chevron-down fs-6" aria-hidden="true"></i>
+                                </div>
+                                <div class="collapse" id="tickerCriteriaCollapse">
+                                <div class="card-body bg-light">
+                                        <p class="text-muted small mb-3">Use the following criteria to keep your watchlist focused and tradable.</p>
+                                        {% include 'common/criteria.html' %}
                                 </div>
                                 </div>
                         </div>
