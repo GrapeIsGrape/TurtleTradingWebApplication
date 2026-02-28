@@ -5,6 +5,19 @@
 {% block extra_css %}
 <style>
     /* Custom card color extensions */
+    
+    /* Reset days toggle button styling */
+    .btn-check:checked + .btn-outline-info {
+        background-color: #0dcaf0;
+        border-color: #0dcaf0;
+        color: white;
+    }
+    
+    .btn-check:checked + .btn-outline-info:hover {
+        background-color: #0dcaf0;
+        border-color: #0dcaf0;
+        color: white;
+    }
 </style>
 {% endblock %}
 
@@ -35,14 +48,17 @@
     {% include 'common/tickers_legend.html' %}
     
     <!-- Reset Days Toggle -->
-    <div class="d-flex align-items-center gap-3 mb-4">
-        <span class="text-muted">Reset check period:</span>
-        <div class="btn-group" role="group">
-            <input type="radio" class="btn-check" name="resetDays" id="reset20Days" value="20">
-            <label class="btn btn-outline-secondary" for="reset20Days">20 Days</label>
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <small class="text-muted">Reset check period:</small>
+        <div class="btn-group btn-group-sm" role="group">
+            <input type="radio" class="btn-check" name="resetDays" id="resetNone" value="none" checked>
+            <label class="btn btn-outline-secondary" for="resetNone">None</label>
             
-            <input type="radio" class="btn-check" name="resetDays" id="reset55Days" value="55" checked>
-            <label class="btn btn-outline-secondary" for="reset55Days">55 Days</label>
+            <input type="radio" class="btn-check" name="resetDays" id="reset20Days" value="20">
+            <label class="btn btn-outline-info" for="reset20Days">20 Days</label>
+            
+            <input type="radio" class="btn-check" name="resetDays" id="reset55Days" value="55">
+            <label class="btn btn-outline-info" for="reset55Days">55 Days</label>
         </div>
     </div>
 
@@ -272,7 +288,13 @@
             const isReset55 = badge.getAttribute('data-is-reset-55') === 'True';
             
             // Determine which reset status to check based on selected days
-            const isReset = (selectedDays === '20' && isReset20) || (selectedDays === '55' && isReset55);
+            let isReset = false;
+            if (selectedDays === '20') {
+                isReset = isReset20;
+            } else if (selectedDays === '55') {
+                isReset = isReset55;
+            }
+            // If selectedDays === 'none', isReset stays false
             
             // Clear previous classes
             badge.className = 'badge ticker-badge';
@@ -288,12 +310,40 @@
         });
     }
     
+    // Update toggle button styling based on selection
+    function updateToggleButtonStyling() {
+        const selectedDays = document.querySelector('input[name="resetDays"]:checked').value;
+        
+        // Update all toggle button labels
+        document.querySelectorAll('input[name="resetDays"]').forEach(radio => {
+            const label = document.querySelector(`label[for="${radio.id}"]`);
+            if (label) {
+                label.classList.remove('btn-outline-info', 'btn-outline-secondary');
+                
+                if (radio.value === 'none') {
+                    // None button: always secondary
+                    label.classList.add('btn-outline-secondary');
+                } else if (radio.checked) {
+                    // Selected 20/55 button: info color
+                    label.classList.add('btn-outline-info');
+                } else {
+                    // Unselected 20/55 buttons: secondary color
+                    label.classList.add('btn-outline-secondary');
+                }
+            }
+        });
+    }
+    
     // Add event listeners to reset days radio buttons
     document.querySelectorAll('input[name="resetDays"]').forEach(radio => {
-        radio.addEventListener('change', updateTickerBadgeColors);
+        radio.addEventListener('change', function() {
+            updateTickerBadgeColors();
+            updateToggleButtonStyling();
+        });
     });
     
     // Initialize with default (55 days)
     updateTickerBadgeColors();
+    updateToggleButtonStyling();
 </script>
 {% endblock %}
