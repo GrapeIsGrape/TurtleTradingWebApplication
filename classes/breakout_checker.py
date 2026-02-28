@@ -308,3 +308,101 @@ def check_bullish_arrangement_for_ticker(ticker: str) -> bool:
     except Exception as e:
         print(f"Error checking bullish arrangement for {ticker}: {e}")
         return False
+
+
+# =============================================================================
+# RESET SIGNAL DETECTION
+# =============================================================================
+
+def filter_tickers_by_reset_signal(tickers: List[str], n_days: int) -> List[str]:
+    """
+    Filter tickers where the most recent m-days low touch occurred after 
+    the most recent n-days high touch (potential exit signal).
+    
+    Args:
+        tickers: List of ticker symbols to check
+        n_days: Number of days for high breakout (20 or 55)
+        
+    Returns:
+        List of tickers that meet the exit criteria
+    """
+    # Determine m_days based on n_days
+    if n_days == 20:
+        m_days = 10
+    elif n_days == 55:
+        m_days = 20
+    else:
+        return []
+    
+    filtered_tickers = []
+    
+    for ticker in tickers:
+        try:
+            df = pd.read_csv(f'{MARKET_DATA_FOLDER_PATH}/{ticker}.csv')
+            
+            if len(df) < max(n_days, m_days) + 1:
+                continue
+            
+            # Find the last date when low price hit m_days low
+            previous_m_days_low_date = _find_last_low_breakout_date(df, m_days)
+            
+            # Find the last date when high price hit n_days high
+            previous_n_days_high_date = _find_last_high_breakout_date(df, n_days)
+            
+            # If m_days low touch is more recent than n_days high touch
+            if previous_m_days_low_date and previous_n_days_high_date:
+                if previous_m_days_low_date > previous_n_days_high_date:
+                    filtered_tickers.append(ticker)
+                    
+        except Exception as e:
+            print(f"Error processing {ticker}: {e}")
+    
+    return filtered_tickers
+
+
+def _find_last_low_breakout_date(df: pd.DataFrame, m_days: int) -> Optional[int]:
+    """
+    Find the most recent date index where the low price hit the m_days low.
+    
+    Args:
+        df: DataFrame with market data
+        m_days: Number of days for low calculation
+        
+    Returns:
+        Index of the most recent low breakout, or None if not found
+    """
+    # Start from the latest date and go backwards
+    for i in range(len(df) - 1, m_days - 1, -1):
+        # Calculate m_days low for the period before index i
+        m_days_low = df.iloc[i - m_days:i][LOW].min()
+        current_low = df.iloc[i][LOW]
+        
+        # Check if current low breaks below m_days low
+        if current_low <= m_days_low:
+            return i
+    
+    return None
+
+
+def _find_last_high_breakout_date(df: pd.DataFrame, n_days: int) -> Optional[int]:
+    """
+    Find the most recent date index where the high price hit the n_days high.
+    
+    Args:
+        df: DataFrame with market data
+        n_days: Number of days for high calculation
+        
+    Returns:
+        Index of the most recent high breakout, or None if not found
+    """
+    # Start from the latest date and go backwards
+    for i in range(len(df) - 1, n_days - 1, -1):
+        # Calculate n_days high for the period before index i
+        n_days_high = df.iloc[i - n_days:i][HIGH].max()
+        current_high = df.iloc[i][HIGH]
+        
+        # Check if current high breaks above n_days high
+        if current_high >= n_days_high:
+            return i
+    
+    return None
