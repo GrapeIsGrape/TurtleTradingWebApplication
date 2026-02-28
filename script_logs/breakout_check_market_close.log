@@ -1,7 +1,75 @@
-breakout_check_market_close
-some logs
-some logs
-some logs
-some logs
-some logs
-some logs
+[START] 2026-02-23 23:12:59.830316 Check breakout at market close job started
+[INFO ] 2026-02-23 23:12:59.830346 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[START] 2026-02-23 23:14:32.198854 Check breakout at market close job started
+[INFO ] 2026-02-23 23:14:32.198886 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[START] 2026-02-23 23:14:58.278889 Check breakout at market close job started
+[INFO ] 2026-02-23 23:14:58.278920 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[START] 2026-02-23 23:19:15.868649 Check breakout at market close job started
+[INFO ] 2026-02-23 23:19:15.868683 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[START] 2026-02-23 23:26:21.732488 Check breakout at market close job started
+[INFO ] 2026-02-23 23:26:21.732518 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-23 23:26:23.140941 Number of price breakout tickers: 1
+[INFO ] 2026-02-23 23:26:23.140967 Tickers include: GEHC
+[END  ] 2026-02-23 23:26:23.140979 Check breakout at market close job ended
+[START] 2026-02-23 23:28:31.473487 Check breakout at market close job started
+[INFO ] 2026-02-23 23:28:31.473518 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-23 23:28:32.771022 Number of price breakout tickers: 1
+[INFO ] 2026-02-23 23:28:32.771049 Tickers include: GEHC
+[END  ] 2026-02-23 23:28:32.771060 Check breakout at market close job ended
+[START] 2026-02-24 06:30:02.254618 Check breakout at market close job started
+[INFO ] 2026-02-24 06:30:02.254645 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-24 06:30:03.766249 Number of price breakout tickers: 1
+[INFO ] 2026-02-24 06:30:03.766275 Tickers include: PDD
+[END  ] 2026-02-24 06:30:03.766286 Check breakout at market close job ended
+[START] 2026-02-24 22:27:26.790834 Check breakout at market close job started
+[INFO ] 2026-02-24 22:27:26.790865 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-24 22:27:28.519034 20-days high Breakout tickers: PDD (Count: 1)
+[INFO ] 2026-02-24 22:27:29.830171 55-days high Breakout tickers:  (Count: 0)
+[END  ] 2026-02-24 22:27:29.830189 Check breakout at market close job ended
+[START] 2026-02-24 22:32:11.414078 Check breakout at market close job started
+[INFO ] 2026-02-24 22:32:11.414122 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-24 22:32:12.945059 20-days high Breakout tickers: PDD (Count: 1)
+[INFO ] 2026-02-24 22:32:14.274186 55-days high Breakout tickers:  (Count: 0)
+[END  ] 2026-02-24 22:32:14.274263 Check breakout at market close job ended
+[START] 2026-02-24 23:03:15.278699 Check breakout at market close job started
+[INFO ] 2026-02-24 23:03:15.278731 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-24 23:03:16.823405 20-days high Breakout tickers: PDD (Count: 1)
+[INFO ] 2026-02-24 23:03:18.136800 55-days high Breakout tickers:  (Count: 0)
+[END  ] 2026-02-24 23:03:18.136843 Check breakout at market close job ended
+[START] 2026-02-25 06:30:03.148748 Check breakout at market close job started
+[INFO ] 2026-02-25 06:30:03.148798 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[START] 2026-02-25 10:50:32.178303 Check breakout at market close job started
+[INFO ] 2026-02-25 10:50:32.178359 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-25 10:50:33.219522 20-days high Breakout tickers:  (Count: 0)
+[INFO ] 2026-02-25 10:50:34.266452 55-days high Breakout tickers:  (Count: 0)
+[END  ] 2026-02-25 10:50:34.266494 Check breakout at market close job ended
+[START] 2026-02-25 10:59:09.444313 Check breakout at market close job started
+[INFO ] 2026-02-25 10:59:09.444344 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-25 10:59:10.484068 20-days high Breakout tickers:  (Count: 0)
+[INFO ] 2026-02-25 10:59:11.500926 50-days high Breakout tickers:  (Count: 0)
+[END  ] 2026-02-25 10:59:11.500945 Check breakout at market close job ended
+[START] 2026-02-25 15:02:34.310930 Check breakout at market close job started
+[INFO ] 2026-02-25 15:02:34.310963 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-25 15:02:35.498025 20-days high Breakout tickers:  (Count: 0)
+[INFO ] 2026-02-25 15:02:36.530519 50-days high Breakout tickers:  (Count: 0)
+[END  ] 2026-02-25 15:02:36.530537 Check breakout at market close job ended
+[START] 2026-02-25 18:14:19.308118 Check breakout at market close job started
+[INFO ] 2026-02-25 18:14:19.308149 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-25 18:14:20.124745 20-days high Breakout tickers: AMT, CEG, GE, GEV, LIN, MRK, NEE, NRG, PG, TMUS (Count: 10)
+[INFO ] 2026-02-25 18:14:20.918887 50-days high Breakout tickers: AMT, GE, GEV, LIN, MRK, NEE, NRG, PG, TMUS (Count: 9)
+[END  ] 2026-02-25 18:14:20.918906 Check breakout at market close job ended
+[START] 2026-02-25 18:26:03.823961 Check breakout at market close job started
+[INFO ] 2026-02-25 18:26:03.823996 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-25 18:26:04.627381 20-days high Breakout tickers: AMT, CEG, GE, GEV, LIN, MRK, NEE, NRG, PG, TMUS (Count: 10)
+[INFO ] 2026-02-25 18:26:05.406221 55-days high Breakout tickers: AMT, GE, GEV, LIN, MRK, NEE, NRG, PG, TMUS (Count: 9)
+[END  ] 2026-02-25 18:26:05.406239 Check breakout at market close job ended
+[START] 2026-02-26 06:30:03.118341 Check breakout at market close job started
+[INFO ] 2026-02-26 06:30:03.118373 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-26 06:30:03.949327 20-days high Breakout tickers: ALB, CEG, DUK, FCX, GE, GEV, LIN, MRK, NRG, NVDA, PM (Count: 11)
+[INFO ] 2026-02-26 06:30:04.757762 55-days high Breakout tickers: ALB, DUK, FCX, GE, GEV, LIN, MRK, NRG, NVDA, PM (Count: 10)
+[END  ] 2026-02-26 06:30:04.757805 Check breakout at market close job ended
+[START] 2026-02-28 06:30:02.848907 Check breakout at market close job started
+[INFO ] 2026-02-28 06:30:02.848943 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-28 06:30:03.767748 20-days high Breakout tickers: CEG, DUK, EQT, EXC, NFLX, PG, PLD, SO, VST (Count: 9)
+[INFO ] 2026-02-28 06:30:04.626742 55-days high Breakout tickers: DUK, EQT, EXC, PG, PLD, SO (Count: 6)
+[END  ] 2026-02-28 06:30:04.626761 Check breakout at market close job ended

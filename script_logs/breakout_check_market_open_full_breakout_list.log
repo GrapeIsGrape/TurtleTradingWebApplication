@@ -48,23 +48,109 @@
 [2026-02-25 22:00:06.095399] Market is closed, no breakout check performed
 [2026-02-25 22:10:03.694029] Market is closed, no breakout check performed
 [2026-02-25 22:20:03.704553] Market is closed, no breakout check performed
-[2026-02-25 22:30:25.927097] 20-days high breakout tickers: LIN, NVDA (count: 4)
-[2026-02-25 22:30:38.040596] 55-days high breakout tickers: LIN, NVDA (count: 5)
-[2026-02-25 22:40:17.209471] 20-days high breakout tickers: FCX, GE, LIN, NVDA (count: 8)
-[2026-02-25 22:40:27.124827] 55-days high breakout tickers: FCX, GE, LIN, NVDA (count: 7)
-[2026-02-25 22:50:17.414104] 20-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 9)
-[2026-02-25 22:50:27.559036] 55-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 8)
-[2026-02-25 23:00:17.920582] 20-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 9)
-[2026-02-25 23:00:28.244189] 55-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 8)
-[2026-02-25 23:10:17.105143] 20-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 9)
-[2026-02-25 23:10:26.978971] 55-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 8)
-[2026-02-25 23:20:17.457715] 20-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 9)
-[2026-02-25 23:20:27.462912] 55-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 8)
-[2026-02-25 23:30:22.668691] 20-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 9)
-[2026-02-25 23:30:34.433772] 55-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 8)
-[2026-02-25 23:40:17.545904] 20-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 9)
-[2026-02-25 23:40:27.415964] 55-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 8)
-[2026-02-25 23:50:17.167733] 20-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 9)
-[2026-02-25 23:50:26.958818] 55-days high breakout tickers: FCX, GE, LIN, MRK, NVDA (count: 8)
+[2026-02-25 22:30:25.927097] 20-days high breakout tickers: GEV, LIN, NRG, NVDA (count: 4)
+[2026-02-25 22:30:38.040596] 55-days high breakout tickers: ALB, GEV, LIN, NRG, NVDA (count: 5)
+[2026-02-25 22:40:17.209471] 20-days high breakout tickers: ALB, CEG, FCX, GE, GEV, LIN, NRG, NVDA (count: 8)
+[2026-02-25 22:40:27.124827] 55-days high breakout tickers: ALB, FCX, GE, GEV, LIN, NRG, NVDA (count: 7)
+[2026-02-25 22:50:17.414104] 20-days high breakout tickers: ALB, CEG, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 9)
+[2026-02-25 22:50:27.559036] 55-days high breakout tickers: ALB, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 8)
+[2026-02-25 23:00:17.920582] 20-days high breakout tickers: ALB, CEG, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 9)
+[2026-02-25 23:00:28.244189] 55-days high breakout tickers: ALB, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 8)
+[2026-02-25 23:10:17.105143] 20-days high breakout tickers: ALB, CEG, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 9)
+[2026-02-25 23:10:26.978971] 55-days high breakout tickers: ALB, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 8)
+[2026-02-25 23:20:17.457715] 20-days high breakout tickers: ALB, CEG, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 9)
+[2026-02-25 23:20:27.462912] 55-days high breakout tickers: ALB, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 8)
+[2026-02-25 23:30:22.668691] 20-days high breakout tickers: ALB, CEG, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 9)
+[2026-02-25 23:30:34.433772] 55-days high breakout tickers: ALB, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 8)
+[2026-02-25 23:40:17.545904] 20-days high breakout tickers: ALB, CEG, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 9)
+[2026-02-25 23:40:27.415964] 55-days high breakout tickers: ALB, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 8)
+[2026-02-25 23:50:17.167733] 20-days high breakout tickers: ALB, CEG, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 9)
+[2026-02-25 23:50:26.958818] 55-days high breakout tickers: ALB, FCX, GE, GEV, LIN, MRK, NRG, NVDA (count: 8)
 [2026-02-26 00:00:04.114858] Market is closed, no breakout check performed
 [2026-02-26 00:10:03.855465] Market is closed, no breakout check performed
+[2026-02-26 00:20:03.928469] Market is closed, no breakout check performed
+[2026-02-26 00:30:04.269614] Market is closed, no breakout check performed
+[2026-02-26 00:40:03.909064] Market is closed, no breakout check performed
+[2026-02-26 00:50:03.929389] Market is closed, no breakout check performed
+[2026-02-26 01:00:04.077780] Market is closed, no breakout check performed
+[2026-02-26 01:10:03.944586] Market is closed, no breakout check performed
+[2026-02-26 01:20:03.974058] Market is closed, no breakout check performed
+[2026-02-26 01:30:03.968004] Market is closed, no breakout check performed
+[2026-02-26 01:40:03.973367] Market is closed, no breakout check performed
+[2026-02-26 01:50:04.003811] Market is closed, no breakout check performed
+[2026-02-26 02:00:04.023747] Market is closed, no breakout check performed
+[2026-02-26 02:10:04.026595] Market is closed, no breakout check performed
+[2026-02-26 02:20:04.068163] Market is closed, no breakout check performed
+[2026-02-26 02:30:04.085247] Market is closed, no breakout check performed
+[2026-02-26 02:40:04.101224] Market is closed, no breakout check performed
+[2026-02-26 02:50:04.109934] Market is closed, no breakout check performed
+[2026-02-26 03:00:04.116450] Market is closed, no breakout check performed
+[2026-02-26 03:10:04.151184] Market is closed, no breakout check performed
+[2026-02-26 03:20:04.117804] Market is closed, no breakout check performed
+[2026-02-26 03:30:04.142920] Market is closed, no breakout check performed
+[2026-02-26 03:40:04.156918] Market is closed, no breakout check performed
+[2026-02-26 03:50:04.186122] Market is closed, no breakout check performed
+[2026-02-26 04:00:04.183718] Market is closed, no breakout check performed
+[2026-02-26 04:10:04.198463] Market is closed, no breakout check performed
+[2026-02-26 04:20:04.205859] Market is closed, no breakout check performed
+[2026-02-26 04:30:04.229908] Market is closed, no breakout check performed
+[2026-02-26 04:40:04.225798] Market is closed, no breakout check performed
+[2026-02-26 04:50:04.258947] Market is closed, no breakout check performed
+[2026-02-26 21:00:07.003650] Market is closed, no breakout check performed
+[2026-02-26 21:10:03.689867] Market is closed, no breakout check performed
+[2026-02-26 21:20:03.647313] Market is closed, no breakout check performed
+[2026-02-26 21:30:03.655134] Market is closed, no breakout check performed
+[2026-02-26 21:40:03.667096] Market is closed, no breakout check performed
+[2026-02-26 21:50:03.682812] Market is closed, no breakout check performed
+[2026-02-26 22:00:03.693580] Market is closed, no breakout check performed
+[2026-02-26 22:10:03.739862] Market is closed, no breakout check performed
+[2026-02-26 22:20:05.028691] Market is closed, no breakout check performed
+[2026-02-26 22:30:18.519087] 20-days high breakout tickers: DUK (count: 1)
+[2026-02-26 22:30:29.395382] 55-days high breakout tickers: DUK (count: 1)
+[2026-02-26 22:40:17.869657] 20-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 22:40:28.683773] 55-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 22:50:17.990806] 20-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 22:50:28.231755] 55-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 23:00:18.028269] 20-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 23:00:28.640817] 55-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 23:10:17.867949] 20-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 23:10:28.045544] 55-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 23:20:17.877785] 20-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 23:20:28.096150] 55-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 23:30:17.726497] 20-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 23:30:28.109224] 55-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 23:40:17.644503] 20-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 23:40:27.398441] 55-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 23:50:18.133610] 20-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-26 23:50:28.723448] 55-days high breakout tickers: DUK, LIN (count: 2)
+[2026-02-27 00:00:04.328089] Market is closed, no breakout check performed
+[2026-02-27 00:10:03.898434] Market is closed, no breakout check performed
+[2026-02-27 00:20:04.016153] Market is closed, no breakout check performed
+[2026-02-27 00:30:03.968145] Market is closed, no breakout check performed
+[2026-02-27 00:40:04.097682] Market is closed, no breakout check performed
+[2026-02-28 00:43:00.194531] Market is closed, no breakout check performed
+[2026-02-28 00:50:03.854779] Market is closed, no breakout check performed
+[2026-02-28 01:00:03.872745] Market is closed, no breakout check performed
+[2026-02-28 01:10:03.874467] Market is closed, no breakout check performed
+[2026-02-28 01:20:03.887405] Market is closed, no breakout check performed
+[2026-02-28 01:30:19.230159] Market is closed, no breakout check performed
+[2026-02-28 01:40:07.011603] Market is closed, no breakout check performed
+[2026-02-28 01:50:03.586430] Market is closed, no breakout check performed
+[2026-02-28 02:00:03.570963] Market is closed, no breakout check performed
+[2026-02-28 02:10:03.584159] Market is closed, no breakout check performed
+[2026-02-28 02:20:03.593509] Market is closed, no breakout check performed
+[2026-02-28 02:30:03.617395] Market is closed, no breakout check performed
+[2026-02-28 02:40:03.634828] Market is closed, no breakout check performed
+[2026-02-28 02:50:03.650519] Market is closed, no breakout check performed
+[2026-02-28 03:00:03.692525] Market is closed, no breakout check performed
+[2026-02-28 03:10:03.716568] Market is closed, no breakout check performed
+[2026-02-28 03:20:03.677896] Market is closed, no breakout check performed
+[2026-02-28 03:30:03.704806] Market is closed, no breakout check performed
+[2026-02-28 03:40:03.727207] Market is closed, no breakout check performed
+[2026-02-28 03:50:03.728630] Market is closed, no breakout check performed
+[2026-02-28 04:00:03.738218] Market is closed, no breakout check performed
+[2026-02-28 04:10:03.753555] Market is closed, no breakout check performed
+[2026-02-28 04:20:03.772806] Market is closed, no breakout check performed
+[2026-02-28 04:30:03.786061] Market is closed, no breakout check performed
+[2026-02-28 04:40:03.800084] Market is closed, no breakout check performed
+[2026-02-28 04:50:03.820771] Market is closed, no breakout check performed
