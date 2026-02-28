@@ -72,6 +72,42 @@ def check_exit_by_stop_loss(env_folder_path: str = '') -> Dict[str, List[str]]:
     }
 
 
+def check_exit_by_stop_loss_live() -> Dict[str, List[str]]:
+    """
+    Check current positions for stop loss exit signals using live market data.
+    
+    Returns:
+        Dict with keys '10' and '20' containing lists of tickers that hit stop loss
+    """
+    try:
+        positions_df = pd.read_csv(CURRENT_POSITIONS_FILE_PATH)
+    except FileNotFoundError:
+        print(f"Positions file not found: {CURRENT_POSITIONS_FILE_PATH}")
+        return {'10': [], '20': []}
+    
+    exit_tickers_10 = []
+    exit_tickers_20 = []
+    
+    for _, row in positions_df.iterrows():
+        ticker = row[TICKER]
+        entry_price = row['Entry']
+        atr_20 = row['ATR-20']
+        stop_loss = entry_price - (2 * atr_20)
+        
+        # Check 10-days low
+        if _check_stop_loss_hit_live(ticker, stop_loss, 10):
+            exit_tickers_10.append(ticker)
+        
+        # Check 20-days low
+        if _check_stop_loss_hit_live(ticker, stop_loss, 20):
+            exit_tickers_20.append(ticker)
+    
+    return {
+        '10': exit_tickers_10,
+        '20': exit_tickers_20
+    }
+
+
 def _check_stop_loss_hit(ticker: str, stop_loss: float, days: int, env_folder_path: str = '') -> bool:
     """
     Check if an exit signal is triggered based on either condition:
@@ -119,6 +155,60 @@ def _check_stop_loss_hit(ticker: str, stop_loss: float, days: int, env_folder_pa
         
     except Exception as e:
         print(f"Error checking stop loss for {ticker}: {e}")
+        return False
+
+
+def _check_stop_loss_hit_live(ticker: str, stop_loss: float, days: int) -> bool:
+    """
+    Check if an exit signal is triggered using live market data based on either condition:
+    1) Current low hits (Entry Price - 2*ATR), or
+    2) Current low hits the n-days low
+    
+    Args:
+        ticker: Ticker symbol
+        stop_loss: Stop loss price level (Entry Price - 2*ATR)
+        days: Number of days to check (10 or 20)
+        
+    Returns:
+        True if either exit condition is met
+    """
+    try:
+        # Get live data from yfinance
+        stock = yf.Ticker(ticker)
+        current_low = stock.info.get('dayLow')
+        
+        if not current_low:
+            print(f"Could not get current low for {ticker}")
+            return False
+        
+        # Get historical data to get the n-days low
+        df = pd.read_csv(f'{MARKET_DATA_FOLDER_PATH}/{ticker}.csv')
+        
+        # Get the column name for n-days low
+        if days == 10:
+            days_low_col = DAYS_LOW_10
+        elif days == 20:
+            days_low_col = DAYS_LOW_20
+        else:
+            return False
+        
+        if days_low_col not in df.columns:
+            print(f"Column {days_low_col} not found for {ticker}")
+            return False
+        
+        # Condition 1: Current low hits stop loss level
+        if current_low <= stop_loss:
+            return True
+        
+        # Condition 2: Current low hits the n-days low
+        most_recent_n_days_low = df[days_low_col].iloc[-1]
+        if current_low <= most_recent_n_days_low:
+            return True
+        
+        return False
+        
+    except Exception as e:
+        print(f"Error checking stop loss for {ticker} (live): {e}")
         return False
 
 
