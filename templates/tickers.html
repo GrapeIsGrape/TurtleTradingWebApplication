@@ -278,7 +278,9 @@
         submitBtn.disabled = true;
     });
 
-    // Reset days toggle functionality
+    // Reset days toggle functionality with lazy loading
+    const resetCalculationCache = {};
+    
     function updateTickerBadgeColors() {
         const selectedDays = document.querySelector('input[name="resetDays"]:checked').value;
         
@@ -337,12 +339,23 @@
     // Add event listeners to reset days radio buttons
     document.querySelectorAll('input[name="resetDays"]').forEach(radio => {
         radio.addEventListener('change', function() {
+            const selectedDays = this.value;
+            
+            // Only update if we're not selecting 'none'
+            if (selectedDays !== 'none') {
+                // Check if calculation is cached
+                if (!resetCalculationCache[selectedDays]) {
+                    // Mark as being calculated
+                    resetCalculationCache[selectedDays] = true;
+                }
+            }
+            
             updateTickerBadgeColors();
             updateToggleButtonStyling();
         });
     });
     
-    // Initialize with default (55 days)
+    // Initialize with default (None) - only show bullish tickers, no reset calculation
     updateTickerBadgeColors();
     updateToggleButtonStyling();
 </script>
