@@ -2,3 +2,7 @@
 [INFO ] 2026-02-28 16:26:02.506936 Current script directory is /Users/albertwong/Documents/GitHub/TurtleTradingWebApplication/
 [INFO ] 2026-02-28 16:26:02.563115 Market is closed, skip checking exit
 [END  ] 2026-02-28 16:26:02.563291 Check exit at market open job ended
+[START] 2026-02-28 23:31:19.347727 Check exit at market open job started
+[INFO ] 2026-02-28 23:31:19.347729 Current script directory is /Users/albertwong/Documents/GitHub/TurtleTradingWebApplication/
+[INFO ] 2026-02-28 23:31:19.401110 Market is closed, skip checking exit
+[END  ] 2026-02-28 23:31:19.402285 Check exit at market open job ended

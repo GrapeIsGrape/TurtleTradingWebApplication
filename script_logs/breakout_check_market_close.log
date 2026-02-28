@@ -73,3 +73,7 @@
 [INFO ] 2026-02-28 06:30:03.767748 20-days high Breakout tickers: CEG, DUK, EQT, EXC, NFLX, PG, PLD, SO, VST (Count: 9)
 [INFO ] 2026-02-28 06:30:04.626742 55-days high Breakout tickers: DUK, EQT, EXC, PG, PLD, SO (Count: 6)
 [END  ] 2026-02-28 06:30:04.626761 Check breakout at market close job ended
+[START] 2026-02-28 23:31:05.216383 Check breakout and exit at market close job started
+[INFO ] 2026-02-28 23:31:05.356658 [BREAKOUT] 20-days high Breakout tickers: DUK, LIN, MCD, NFLX (Count: 4)
+[INFO ] 2026-02-28 23:31:05.462239 [BREAKOUT] 55-days high Breakout tickers: DUK, LIN, MCD (Count: 3)
+[END  ] 2026-02-28 23:31:05.470702 Check breakout and exit at market close job ended
