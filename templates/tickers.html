@@ -51,7 +51,7 @@
                 <div class="modal-body">
                     <div class="d-flex flex-wrap gap-2">
                         {% for ticker in all_tickers|sort %}
-                            {% set badge_class = 'bg-success' if ticker in bullish_tickers else 'bg-secondary' %}
+                            {% set badge_class = 'bg-info' if ticker in bullish_tickers else 'bg-secondary' %}
                             {% set badge_weight = 'fw-bold' if ticker in bullish_tickers else '' %}
                             <span class="badge {{ badge_class }} {{ badge_weight }}" style="font-size:0.95em;">{{ ticker }}</span>
                         {% endfor %}
@@ -131,7 +131,7 @@
             {% if sector.tickers %}
             <div class="d-flex flex-wrap gap-2">
               {% for ticker in sector.tickers %}
-                              {% set badge_class = 'bg-success' if ticker in bullish_tickers else 'bg-secondary' %}
+                              {% set badge_class = 'bg-info' if ticker in bullish_tickers else 'bg-secondary' %}
                               {% set badge_weight = 'fw-bold' if ticker in bullish_tickers else '' %}
                                                                                                                         <span class="badge {{ badge_class }} {{ badge_weight }}" style="font-size:0.95em;">{{ ticker }}</span>
               {% endfor %}

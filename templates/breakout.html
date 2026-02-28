@@ -46,7 +46,7 @@
                       {% if breakout.tickers %}<strong class="me-2">{{ breakout.label }} ({{ breakout.tickers|length }})</strong>{% else %}<span class="me-2 text-muted">{{ breakout.label }} (0)</span>{% endif %}
                       {% for ticker in breakout.tickers %}
                         {% if is_first_card %}
-                          {% set badge_class = 'bg-success' if ticker in bullish_tickers else 'bg-secondary' %}
+                          {% set badge_class = 'bg-info' if ticker in bullish_tickers else 'bg-secondary' %}
                           {% set badge_weight = 'fw-bold' if ticker in bullish_tickers else '' %}
                           <span class="badge {{ badge_class }} {{ badge_weight }} me-1 mb-1 mt-1" 
                                 style="cursor: pointer;" 
