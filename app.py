@@ -47,6 +47,7 @@ from classes.breakout_checker import (
     check_bullish_arrangement_for_tickers,
     get_breakout_ticker_information_close,
     get_breakout_ticker_information_live,
+    filter_tickers_by_reset_signal,
 )
 from classes.helper import check_if_market_is_open
 from classes.data_retriever import (
@@ -244,6 +245,15 @@ def breakout() -> str:
     
     bullish_tickers, ticker_info = get_breakout_ticker_info(all_tickers, use_live=False)
     
+    # Calculate reset tickers for both 20 and 55 day periods
+    reset_tickers_20 = set(filter_tickers_by_reset_signal(all_tickers, 20))
+    reset_tickers_55 = set(filter_tickers_by_reset_signal(all_tickers, 55))
+    reset_tickers = reset_tickers_20 | reset_tickers_55
+    
+    # Add reset_tickers to each entry
+    for entry in entries:
+        entry['reset_tickers'] = reset_tickers
+    
     return render_template(
         'breakout.html',
         entries=entries,
@@ -275,6 +285,15 @@ def breakout_live() -> str:
         all_tickers,
         use_live=check_if_market_is_open()
     )
+    
+    # Calculate reset tickers for both 20 and 55 day periods
+    reset_tickers_20 = set(filter_tickers_by_reset_signal(all_tickers, 20))
+    reset_tickers_55 = set(filter_tickers_by_reset_signal(all_tickers, 55))
+    reset_tickers = reset_tickers_20 | reset_tickers_55
+    
+    # Add reset_tickers to each entry
+    for entry in entries:
+        entry['reset_tickers'] = reset_tickers
     
     return render_template(
         'breakout.html',
@@ -313,10 +332,16 @@ def tickers() -> str:
     
     bullish_tickers, _ = get_breakout_ticker_info(all_tickers, use_live=False)
     
+    # Calculate reset tickers for both 20 and 55 day periods
+    reset_tickers_20 = set(filter_tickers_by_reset_signal(all_tickers, 20))
+    reset_tickers_55 = set(filter_tickers_by_reset_signal(all_tickers, 55))
+    
     return render_template(
         "tickers.html",
         sectors=sectors,
         bullish_tickers=bullish_tickers,
+        reset_tickers_20=reset_tickers_20,
+        reset_tickers_55=reset_tickers_55,
         FILTER_MIN_PRICE=FILTER_MIN_PRICE,
         FILTER_MIN_VOLUME=FILTER_MIN_VOLUME,
         FILTER_MIN_DOLLAR_VOLUME=FILTER_MIN_DOLLAR_VOLUME,
