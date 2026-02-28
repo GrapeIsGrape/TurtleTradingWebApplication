@@ -47,9 +47,9 @@
                       {% for ticker in breakout.tickers %}
                         {% if is_first_card %}
                           {% if ticker in entry.reset_tickers %}
-                            {% set badge_class = 'bg-success fw-bold' %}
-                          {% elif ticker in bullish_tickers %}
                             {% set badge_class = 'bg-info fw-bold' %}
+                          {% elif ticker in bullish_tickers %}
+                            {% set badge_class = 'bg-success fw-bold' %}
                           {% else %}
                             {% set badge_class = 'bg-secondary' %}
                           {% endif %}
