@@ -144,8 +144,8 @@
                                 <div class="mt-4 p-3 bg-success bg-opacity-10 border-start border-4 border-success rounded">
                                         <h6 class="fw-bold mb-3"><span class="badge bg-success">POSITION SIZING & RISK</span></h6>
                                         <ul class="small ps-3 mb-0">
-                                                <li class="mb-2"><span class="fw-bold text-success">Unit Size:</span> Shares = (Risk per trade $) ÷ <span class="badge bg-light text-dark">ATR</span>. E.g., $1,000 ÷ $50 ATR = 20 shares.</li>
-                                                <li class="mb-2"><span class="fw-bold text-success">Stop Distance:</span> <span class="badge bg-light text-dark">ATR × 2</span> below entry (defines max loss).</li>
+                                                <li class="mb-2"><span class="fw-bold text-success">Unit Size:</span> Shares = (Risk per trade $) ÷ <span class="badge bg-light text-dark">2 x ATR</span>. E.g., $100 ÷ (2 x $5 ATR) = 10 shares.</li>
+                                                <li class="mb-2"><span class="fw-bold text-success">Stop Distance:</span> <span class="badge bg-light text-dark">2 x ATR</span> below entry (defines max loss).</li>
                                                 <li class="mb-2"><span class="fw-bold text-success">Max Risk/Trade:</span> 1–2% of account. Typical Turtle rule: <span class="badge bg-light text-dark">2%</span>.</li>
                                                 <li><span class="fw-bold text-success">Sector Limit:</span> Max 1–2 units per sector to avoid concentration.</li>
                                         </ul>
@@ -183,7 +183,7 @@
                                      data-bs-target="#multiSignalsCollapse"
                                      aria-expanded="false"
                                      aria-controls="multiSignalsCollapse">
-                                        <h5 class="mb-0 fw-semibold">Multiple Signals in the Same Day</h5>
+                                        <h5 class="mb-0 fw-semibold">Multiple Signals</h5>
                                         <i class="bi bi-chevron-down fs-6" aria-hidden="true"></i>
                                 </div>
                                 <div class="collapse" id="multiSignalsCollapse">
@@ -197,7 +197,7 @@
                                                                 <span>1) Sector Filter First</span>
                                                                 <span class="badge bg-warning text-dark">Highest Priority</span>
                                                         </h6>
-                                                        <p class="small text-muted mb-0">If you already have an open trade in that <span class="fw-semibold text-warning-emphasis">GICS sector</span>, skip the new setup. This alone removes most over-concentration risk.</p>
+                                                        <p class="small text-muted mb-0">If you already have an <span class="fw-semibold text-warning-emphasis">open trade in that GICS sector</span>, skip the new setup. This alone removes most over-concentration risk.</p>
                                                 </div>
 
                                                 <div class="p-3 rounded border border-danger-subtle bg-danger bg-opacity-10">
@@ -205,7 +205,7 @@
                                                                 <i class="bi bi-activity text-danger" aria-hidden="true"></i>
                                                                 <span>2) Volatility Rank (Highest First)</span>
                                                         </h6>
-                                                        <p class="small text-muted mb-0">Choose the ticker with the biggest <span class="fw-semibold text-danger-emphasis">20-day ATR in dollars</span>. Bigger expected movement can translate into better reward when the breakout follows through.</p>
+                                                        <p class="small text-muted mb-0">Choose the ticker with the <span class="fw-semibold text-danger-emphasis">biggest 20-day ATR</span>. Bigger expected movement can translate into better reward when the breakout follows through.</p>
                                                 </div>
 
                                                 <div class="p-3 rounded border border-primary-subtle bg-primary bg-opacity-10">
@@ -214,8 +214,8 @@
                                                                 <span>3) Momentum Strength</span>
                                                         </h6>
                                                         <ul class="small text-muted mb-0 ps-3">
-                                                                <li>Prefer the one trading farther above its <span class="fw-semibold text-primary-emphasis">200-day moving average</span>.</li>
-                                                                <li>Or compare breakout force: pick the one that cleared the <span class="fw-semibold text-primary-emphasis">55-day high</span> by a wider margin.</li>
+                                                                <li>Prefer the one trading <span class="fw-semibold text-primary-emphasis">farther above its 200-day moving average</span>.</li>
+                                                                <li>Or compare breakout force: pick the one that <span class="fw-semibold text-primary-emphasis">cleared the 55-day high by a wider margin.</span></li>
                                                         </ul>
                                                 </div>
 
@@ -224,7 +224,7 @@
                                                                 <i class="bi bi-droplet-half text-success" aria-hidden="true"></i>
                                                                 <span>4) Liquidity Tie-Breaker</span>
                                                         </h6>
-                                                        <p class="small text-muted mb-0">If candidates are still close, pick the one with higher <span class="fw-semibold text-success-emphasis">average daily dollar volume</span> for smoother fills and tighter spreads.</p>
+                                                        <p class="small text-muted mb-0">If candidates are still close, pick the one with <span class="fw-semibold text-success-emphasis">higher average daily dollar volume</span> for smoother fills and tighter spreads.</p>
                                                 </div>
 
                                                 <div class="p-3 rounded border border-secondary-subtle bg-secondary bg-opacity-10">
@@ -232,7 +232,7 @@
                                                                 <i class="bi bi-hourglass-split text-secondary" aria-hidden="true"></i>
                                                                 <span>5) Still Tied?</span>
                                                         </h6>
-                                                        <p class="small text-muted mb-0">Take the first symbol in your scan order (FIFO), or randomize. <span class="fw-semibold text-secondary-emphasis">Do not overthink the final tie.</span></p>
+                                                        <p class="small text-muted mb-0">Take the first symbol in your scan order (FIFO), or <span class="fw-semibold text-secondary-emphasis">randomize</span>. Do not overthink the final tie.</p>
                                                 </div>
                                         </div>
                                 </div>
