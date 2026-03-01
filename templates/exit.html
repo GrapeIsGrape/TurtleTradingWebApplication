@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>{{ page_title }}</h2>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="showLastCheckOnly" checked>
+      <label class="form-check-label" for="showLastCheckOnly">
+        Show Last Only
+      </label>
+    </div>
+  </div>
+  {% include 'common/exit_legend.html' %}
+  {% if entries %}
+    {% set first_data_card_found = [False] %}
+    <div class="row">
+      {% for entry in entries %}
+        {% set data_ns = namespace(has_ticker_data=false) %}
+        {% for exit_signal in entry.exits %}
+          {% if exit_signal.tickers %}
+            {% set data_ns.has_ticker_data = true %}
+          {% endif %}
+        {% endfor %}
+        {% set is_first_card = (data_ns.has_ticker_data and not first_data_card_found[0]) %}
+        {% if is_first_card %}
+          {% set _ = first_data_card_found.append(True) %}
+          {% set _ = first_data_card_found.pop(0) %}
+        {% endif %}
+        <div class="col-md-6 mb-4 {% if not is_first_card %}exit-card-history{% endif %}">
+          <div class="card">
+            <div class="card-header {% if is_first_card %}bg-primary{% else %}bg-secondary{% endif %} text-white">
+              {{ entry.timestamp }}
+            </div>
+            <div class="card-body">
+              {% if entry.market_closed %}
+                <div class="alert alert-warning mb-0" role="alert">
+                  <i>Market is closed, no exit check performed</i>
+                </div>
+              {% else %}
+                {% for exit_signal in entry.exits %}
+                  <div class="mb-3 p-2 border rounded bg-light">
+                    <div class="d-flex align-items-center flex-wrap">
+                      {% if exit_signal.tickers %}<strong class="me-2">{{ exit_signal.label }} ({{ exit_signal.tickers|length }})</strong>{% else %}<span class="me-2 text-muted">{{ exit_signal.label }} (0)</span>{% endif %}
+                      {% for ticker in exit_signal.tickers %}
+                        <span class="badge bg-danger fw-bold me-1 mb-1 mt-1" 
+                              style="cursor: pointer;" 
+                              data-bs-toggle="modal" 
+                              data-bs-target="#tickerModal" 
+                              data-ticker="{{ ticker }}">{{ ticker }}</span>
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No exit log data found.</p>
+  {% endif %}
+
+{% include 'common/ticker_details_modal.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Handle toggle for showing last check only
+  const toggleSwitch = document.getElementById('showLastCheckOnly');
+  const historyCards = document.querySelectorAll('.exit-card-history');
+
+  function updateCardVisibility() {
+    const showLastOnly = toggleSwitch.checked;
+    historyCards.forEach(card => {
+      card.style.display = showLastOnly ? 'none' : '';
+    });
+  }
+
+  // Initialize visibility on page load
+  updateCardVisibility();
+
+  // Add event listener for toggle changes
+  toggleSwitch.addEventListener('change', updateCardVisibility);
+</script>
+
+{% include 'common/ticker_details_modal_script.html' %}
+{% endblock %}
+

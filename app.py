@@ -5,6 +5,7 @@ This Flask application provides a web interface for the Turtle Trading strategy,
 allowing users to:
 - View and manage S&P 500 sector tickers
 - Monitor breakout opportunities (market open and close)
+- Monitor exit signals (market open and close)
 - View and filter ticker data
 - Retrieve new ticker market data
 - View application logs
@@ -14,6 +15,8 @@ Routes:
     /tickers          - Manage and view S&P 500 tickers by sector
     /breakout         - View breakout opportunities (market close)
     /breakout_live    - View breakout opportunities (market open)
+    /exit             - View exit signals (market close)
+    /exit_live        - View exit signals (market open)
     /raw_data         - Browse historical market data
     /logs             - View application logs
     /about            - About the application
@@ -34,6 +37,8 @@ from classes.constants import (
     SCRIPT_LOGS_FOLDER_PATH,
     BREAKOUT_LOG_MARKET_CLOSE,
     BREAKOUT_LOG_MARKET_OPEN,
+    EXIT_LOG_MARKET_CLOSE,
+    EXIT_LOG_MARKET_OPEN,
     FILTER_MIN_PRICE,
     FILTER_MIN_VOLUME,
     FILTER_MIN_DOLLAR_VOLUME,
@@ -49,6 +54,7 @@ from classes.breakout_checker import (
     get_breakout_ticker_information_live,
     filter_tickers_by_reset_signal,
 )
+from classes.exit_checker import check_exit_by_stop_loss, check_exit_by_stop_loss_live
 from classes.helper import check_if_market_is_open
 from classes.data_retriever import (
     download_market_data_for_ticker,
@@ -158,6 +164,65 @@ def parse_breakout_log(log_path: str, group_by_date: bool = True) -> List[Dict[s
             'is_today': key.startswith(today_str),
             'market_closed': entry_dict[key].get('market_closed', False),
             'breakouts': entry_dict[key].get('breakouts', [])
+        })
+    
+    return entries
+
+
+def parse_exit_log(log_path: str, group_by_date: bool = True) -> List[Dict[str, Any]]:
+    """
+    Parse exit log file and return structured data.
+    
+    Args:
+        log_path: Path to the log file
+        group_by_date: If True, group by date only. If False, group by minute (YYYY-MM-DD HH:MM).
+    
+    Returns:
+        List of dicts with timestamp/date, exits, and metadata
+    """
+    entries = []
+    if not os.path.exists(log_path):
+        return entries
+    
+    entry_dict: Dict[str, Dict[str, Any]] = {}
+    
+    with open(log_path, 'r') as f:
+        lines = f.readlines()
+    
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        
+        # Check for market closed message
+        closed_match = re.match(r'\[(.*?)\] Market is closed, no exit check performed', line)
+        if closed_match:
+            timestamp = closed_match.group(1)
+            key = timestamp.split()[0] if group_by_date else timestamp.split('.')[0].rsplit(':', 1)[0]
+            if key not in entry_dict:
+                entry_dict[key] = {'market_closed': True, 'exits': []}
+            continue
+        
+        # Check for exit tickers
+        exit_match = re.match(
+            r'\[(.*?)\] (.*?-days low) Exit tickers: ?(.*) \([Cc]ount: (\d+)\)',
+            line
+        )
+        if exit_match:
+            timestamp, label, tickers_str, count = exit_match.groups()
+            tickers = [t.strip() for t in tickers_str.split(',') if t.strip()]
+            key = timestamp.split()[0] if group_by_date else timestamp.split('.')[0].rsplit(':', 1)[0]
+            if key not in entry_dict:
+                entry_dict[key] = {'market_closed': False, 'exits': []}
+            entry_dict[key]['exits'].append({'label': label, 'tickers': tickers})
+    
+    today_str = str(date.today())
+    for key in sorted(entry_dict.keys(), reverse=True):
+        entries.append({
+            'timestamp': key,
+            'is_today': key.startswith(today_str),
+            'market_closed': entry_dict[key].get('market_closed', False),
+            'exits': entry_dict[key].get('exits', [])
         })
     
     return entries
@@ -299,6 +364,71 @@ def breakout_live() -> str:
         'breakout.html',
         entries=entries,
         page_title="Breakout (Live)",
+        bullish_tickers=bullish_tickers,
+        ticker_info=ticker_info
+    )
+
+
+# =============================================================================
+# ROUTES - EXIT
+# =============================================================================
+
+@app.route("/exit")
+def exit() -> str:
+    """Display exit opportunities at market close."""
+    log_path = os.path.join(LOG_FOLDER, EXIT_LOG_MARKET_CLOSE)
+    entries = parse_exit_log(log_path, group_by_date=True)
+    
+    # Collect all tickers from the first entry with exits
+    all_tickers = []
+    for entry in entries:
+        if entry.get('market_closed'):
+            continue
+        entry_tickers = []
+        for exit_signal in entry.get('exits', []):
+            entry_tickers.extend(exit_signal.get('tickers', []))
+        if entry_tickers:
+            all_tickers = entry_tickers
+            break
+    
+    bullish_tickers, ticker_info = get_breakout_ticker_info(all_tickers, use_live=False)
+    
+    return render_template(
+        'exit.html',
+        entries=entries,
+        page_title="Exit (Close)",
+        bullish_tickers=bullish_tickers,
+        ticker_info=ticker_info
+    )
+
+
+@app.route("/exit_live")
+def exit_live() -> str:
+    """Display exit opportunities during market hours."""
+    log_path = os.path.join(LOG_FOLDER, EXIT_LOG_MARKET_OPEN)
+    entries = parse_exit_log(log_path, group_by_date=False)
+    
+    # Collect all tickers from the first entry with exits
+    all_tickers = []
+    for entry in entries:
+        if entry.get('market_closed'):
+            continue
+        entry_tickers = []
+        for exit_signal in entry.get('exits', []):
+            entry_tickers.extend(exit_signal.get('tickers', []))
+        if entry_tickers:
+            all_tickers = entry_tickers
+            break
+    
+    bullish_tickers, ticker_info = get_breakout_ticker_info(
+        all_tickers,
+        use_live=check_if_market_is_open()
+    )
+    
+    return render_template(
+        'exit.html',
+        entries=entries,
+        page_title="Exit (Live)",
         bullish_tickers=bullish_tickers,
         ticker_info=ticker_info
     )
