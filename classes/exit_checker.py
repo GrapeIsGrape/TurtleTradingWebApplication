@@ -98,11 +98,11 @@ def check_exit_by_stop_loss_live(env_folder_path: str = '') -> Dict[str, List[st
         stop_loss = entry_price - (2 * atr_20)
         
         # Check 10-days low
-        if _check_stop_loss_hit_live(ticker, stop_loss, 10):
+        if _check_stop_loss_hit_live(ticker, stop_loss, 10, env_folder_path):
             exit_tickers_10.append(ticker)
         
         # Check 20-days low
-        if _check_stop_loss_hit_live(ticker, stop_loss, 20):
+        if _check_stop_loss_hit_live(ticker, stop_loss, 20, env_folder_path):
             exit_tickers_20.append(ticker)
     
     return {
@@ -161,7 +161,7 @@ def _check_stop_loss_hit(ticker: str, stop_loss: float, days: int, env_folder_pa
         return False
 
 
-def _check_stop_loss_hit_live(ticker: str, stop_loss: float, days: int) -> bool:
+def _check_stop_loss_hit_live(ticker: str, stop_loss: float, days: int, env_folder_path: str = '') -> bool:
     """
     Check if an exit signal is triggered using live market data based on either condition:
     1) Current low hits (Entry Price - 2*ATR), or
@@ -185,7 +185,7 @@ def _check_stop_loss_hit_live(ticker: str, stop_loss: float, days: int) -> bool:
             return False
         
         # Get historical data to get the n-days low
-        df = pd.read_csv(f'{MARKET_DATA_FOLDER_PATH}/{ticker}.csv')
+        df = pd.read_csv(f'{env_folder_path}{MARKET_DATA_FOLDER_PATH}/{ticker}.csv')
         
         # Get the column name for n-days low
         if days == 10:
