@@ -14,23 +14,20 @@
   </div>
   {% include 'common/exit_legend.html' %}
   {% if entries %}
-    {% set first_data_card_found = [False] %}
+    {% set latest_non_closed_found = [false] %}
+    
     <div class="row">
       {% for entry in entries %}
-        {% set data_ns = namespace(has_ticker_data=false) %}
-        {% for exit_signal in entry.exits %}
-          {% if exit_signal.tickers %}
-            {% set data_ns.has_ticker_data = true %}
-          {% endif %}
-        {% endfor %}
-        {% set is_first_card = (data_ns.has_ticker_data and not first_data_card_found[0]) %}
-        {% if is_first_card %}
-          {% set _ = first_data_card_found.append(True) %}
-          {% set _ = first_data_card_found.pop(0) %}
+        {# First non-market-closed entry is the latest #}
+        {% set is_latest_non_closed = (not entry.market_closed and not latest_non_closed_found[0]) %}
+        {% if is_latest_non_closed %}
+          {% set _ = latest_non_closed_found.pop() %}
+          {% set _ = latest_non_closed_found.append(true) %}
         {% endif %}
-        <div class="col-md-6 mb-4 {% if not is_first_card %}exit-card-history{% endif %}">
+        
+        <div class="col-md-6 mb-4 exit-card" data-card-index="{{ loop.index0 }}" data-is-market-closed="{{ 'true' if entry.market_closed else 'false' }}" data-is-latest="{{ 'true' if is_latest_non_closed else 'false' }}">
           <div class="card">
-            <div class="card-header {% if is_first_card %}bg-primary{% else %}bg-secondary{% endif %} text-white">
+            <div class="card-header {% if loop.index0 == latest_non_closed_index %}bg-primary{% else %}bg-secondary{% endif %} text-white">
               {{ entry.timestamp }}
             </div>
             <div class="card-body">
@@ -70,16 +67,25 @@
 <script>
   // Handle toggle for showing last check only
   const toggleSwitch = document.getElementById('showLastCheckOnly');
-  const historyCards = document.querySelectorAll('.exit-card-history');
+  const allCards = document.querySelectorAll('.exit-card');
 
   function updateCardVisibility() {
     const showLastOnly = toggleSwitch.checked;
-    historyCards.forEach(card => {
-      card.style.display = showLastOnly ? 'none' : '';
+    
+    allCards.forEach(card => {
+      const isLatest = card.getAttribute('data-is-latest') === 'true';
+      
+      if (showLastOnly) {
+        // Show only the latest non-market-closed card
+        card.style.display = isLatest ? '' : 'none';
+      } else {
+        // Show all cards
+        card.style.display = '';
+      }
     });
   }
 
-  // Initialize visibility on page load
+  // Initialize visibility on page load (toggle is checked by default)
   updateCardVisibility();
 
   // Add event listener for toggle changes
