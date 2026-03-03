@@ -1,0 +1,289 @@
+{% extends 'base.html' %}
+
+{% block title %}Positions Management{% endblock %}
+
+{% block extra_css %}
+<style>
+  .positions-panel {
+    border: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0.5rem 1.5rem rgba(15, 23, 42, 0.08);
+  }
+
+  .positions-table {
+    margin-bottom: 0;
+  }
+
+  .positions-table thead th {
+    background: linear-gradient(90deg, #111827 0%, #1f2937 100%);
+    color: #fff;
+    border: 0;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  .positions-table th,
+  .positions-table td {
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .positions-table tbody tr:hover {
+    background-color: #f8fafc;
+  }
+
+  .action-btn {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hidden-column {
+    display: none;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Positions Management</h2>
+    <div class="d-flex gap-2">
+      <button type="button" class="btn btn-outline-secondary" id="toggleColumnsBtn">
+        <i class="bi bi-layout-three-columns me-1"></i>Show All Columns
+      </button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPositionModal">
+        <i class="bi bi-plus-circle me-1"></i>Add New Position
+      </button>
+    </div>
+  </div>
+
+  {% if positions %}
+    <div class="card positions-panel">
+      <div class="table-responsive">
+      <table class="table table-hover positions-table">
+        <thead>
+          <tr>
+            <th>GICS Industry</th>
+            <th>Ticker</th>
+            <th>Market Value</th>
+            <th>Position</th>
+            <th>Entry</th>
+            <th>Current</th>
+            <th>Stop loss (ATR)</th>
+            <th>Stop loss (Low)</th>
+            <th class="hidden-column toggle-column">ATR-20</th>
+            <th class="hidden-column toggle-column">10-days low</th>
+            <th class="hidden-column toggle-column">20-days low</th>
+            <th class="hidden-column toggle-column">System</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for position in positions %}
+            <tr>
+              <td>{{ position.gics_industry }}</td>
+              <td><strong>{{ position.ticker }}</strong></td>
+              <td class="text-primary fw-semibold">{{ format_number(position.market_value) }}</td>
+              <td>{{ format_number(position.positions) }}</td>
+              <td>{{ format_number(position.entry) }}</td>
+              {% set current_color = 'text-dark' %}
+              {% if position.current > position.entry %}
+                {% set current_color = 'text-success fw-semibold' %}
+              {% elif position.current < position.entry %}
+                {% set current_color = 'text-danger fw-semibold' %}
+              {% endif %}
+              <td class="{{ current_color }}">{{ format_number(position.current) }}</td>
+              <td>{{ format_number(position.stop_loss_atr) }}</td>
+              <td>{{ format_number(position.stop_loss_low) }}</td>
+              <td class="hidden-column toggle-column">{{ format_number(position.atr20) }}</td>
+              <td class="hidden-column toggle-column">{{ format_number(position.days_low_10) }}</td>
+              <td class="hidden-column toggle-column">{{ format_number(position.days_low_20) }}</td>
+              <td class="hidden-column toggle-column">{{ position.system }}</td>
+              <td>
+                <button type="button" class="btn btn-sm btn-outline-warning rounded-circle action-btn me-1 edit-position-btn"
+                        title="Edit"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editPositionModal"
+                        data-ticker="{{ position.ticker }}"
+                        data-entry="{{ position.entry }}"
+                        data-atr20="{{ position.atr20 }}"
+                        data-positions="{{ position.positions }}">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-danger rounded-circle action-btn delete-position-btn"
+                        title="Delete"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deletePositionModal"
+                        data-ticker="{{ position.ticker }}">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    </div>
+  {% else %}
+    <div class="alert alert-info rounded-4 shadow-sm" role="alert">
+      No positions found. Click "Add New Position" to create one.
+    </div>
+  {% endif %}
+
+  <!-- Add Position Modal -->
+  <div class="modal fade" id="addPositionModal" tabindex="-1" aria-labelledby="addPositionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="addPositionModalLabel">Add New Position</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST" action="/positions/add">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="addTicker" class="form-label">Ticker <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="addTicker" name="ticker" required placeholder="e.g., AAPL">
+            </div>
+            <div class="mb-3">
+              <label for="addEntry" class="form-label">Entry Price <span class="text-danger">*</span></label>
+              <input type="number" step="0.01" class="form-control" id="addEntry" name="entry" required placeholder="e.g., 150.25">
+            </div>
+            <div class="mb-3">
+              <label for="addAtr20" class="form-label">ATR-20 <span class="text-danger">*</span></label>
+              <input type="number" step="0.01" class="form-control" id="addAtr20" name="atr20" required placeholder="e.g., 3.50">
+            </div>
+            <div class="mb-3">
+              <label for="addPositions" class="form-label">Positions <span class="text-danger">*</span></label>
+              <input type="number" class="form-control" id="addPositions" name="positions" required placeholder="e.g., 20">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Add Position</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Position Modal -->
+  <div class="modal fade" id="editPositionModal" tabindex="-1" aria-labelledby="editPositionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-warning">
+          <h5 class="modal-title" id="editPositionModalLabel">Edit Position</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST" action="/positions/edit">
+          <input type="hidden" id="editOriginalTicker" name="original_ticker">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="editTicker" class="form-label">Ticker <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="editTicker" name="ticker" required>
+            </div>
+            <div class="mb-3">
+              <label for="editEntry" class="form-label">Entry Price <span class="text-danger">*</span></label>
+              <input type="number" step="0.01" class="form-control" id="editEntry" name="entry" required>
+            </div>
+            <div class="mb-3">
+              <label for="editAtr20" class="form-label">ATR-20 <span class="text-danger">*</span></label>
+              <input type="number" step="0.01" class="form-control" id="editAtr20" name="atr20" required>
+            </div>
+            <div class="mb-3">
+              <label for="editPositions" class="form-label">Positions <span class="text-danger">*</span></label>
+              <input type="number" class="form-control" id="editPositions" name="positions" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-warning">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal fade" id="deletePositionModal" tabindex="-1" aria-labelledby="deletePositionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="deletePositionModalLabel">Confirm Delete</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST" action="/positions/delete">
+          <input type="hidden" id="deleteTicker" name="ticker">
+          <div class="modal-body">
+            <p>Are you sure you want to delete the position for <strong id="deleteTickerDisplay"></strong>?</p>
+            <p class="text-danger">This action cannot be undone.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-danger">Delete Position</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function populateEditModal(ticker, entry, atr20, positions) {
+    document.getElementById('editOriginalTicker').value = ticker;
+    document.getElementById('editTicker').value = ticker;
+    document.getElementById('editEntry').value = entry;
+    document.getElementById('editAtr20').value = atr20;
+    document.getElementById('editPositions').value = positions;
+  }
+
+  function setDeleteTicker(ticker) {
+    document.getElementById('deleteTicker').value = ticker;
+    document.getElementById('deleteTickerDisplay').textContent = ticker;
+  }
+
+  document.querySelectorAll('.edit-position-btn').forEach((button) => {
+    button.addEventListener('click', function () {
+      populateEditModal(
+        this.dataset.ticker,
+        this.dataset.entry,
+        this.dataset.atr20,
+        this.dataset.positions,
+      );
+    });
+  });
+
+  document.querySelectorAll('.delete-position-btn').forEach((button) => {
+    button.addEventListener('click', function () {
+      setDeleteTicker(this.dataset.ticker);
+    });
+  });
+
+  const toggleColumnsBtn = document.getElementById('toggleColumnsBtn');
+  const toggleColumns = document.querySelectorAll('.toggle-column');
+  let showAllColumns = false;
+
+  if (toggleColumnsBtn) {
+    toggleColumnsBtn.addEventListener('click', function () {
+      showAllColumns = !showAllColumns;
+      toggleColumns.forEach((column) => {
+        if (showAllColumns) {
+          column.classList.remove('hidden-column');
+        } else {
+          column.classList.add('hidden-column');
+        }
+      });
+      this.innerHTML = showAllColumns
+        ? '<i class="bi bi-layout-sidebar-inset me-1"></i>Hide Columns'
+        : '<i class="bi bi-layout-three-columns me-1"></i>Show All Columns';
+    });
+  }
+</script>
+{% endblock %}
