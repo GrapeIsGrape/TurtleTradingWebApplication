@@ -72,17 +72,20 @@ def check_exit_by_stop_loss(env_folder_path: str = '') -> Dict[str, List[str]]:
     }
 
 
-def check_exit_by_stop_loss_live() -> Dict[str, List[str]]:
+def check_exit_by_stop_loss_live(env_folder_path: str = '') -> Dict[str, List[str]]:
     """
     Check current positions for stop loss exit signals using live market data.
     
+    Args:
+        env_folder_path: Optional environment folder path prefix
+        
     Returns:
         Dict with keys '10' and '20' containing lists of tickers that hit stop loss
     """
     try:
-        positions_df = pd.read_csv(CURRENT_POSITIONS_FILE_PATH)
+        positions_df = pd.read_csv(env_folder_path + CURRENT_POSITIONS_FILE_PATH)
     except FileNotFoundError:
-        print(f"Positions file not found: {CURRENT_POSITIONS_FILE_PATH}")
+        print(f"Positions file not found: {env_folder_path + CURRENT_POSITIONS_FILE_PATH}")
         return {'10': [], '20': []}
     
     exit_tickers_10 = []

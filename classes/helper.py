@@ -44,35 +44,25 @@ def check_if_market_is_open() -> bool:
     Returns:
         True if US market is currently open (comparing in HK timezone)
     """
-    import pytz
-    
-    today_date = str(date.today())
-    
+    from datetime import timedelta
+
+    now_utc = datetime.now(timezone.utc)
+
     nyse = pmc.get_calendar('NYSE')
-    schedule = nyse.schedule(start_date=today_date, end_date=today_date)
-    
-    # If market is closed today (weekends, holidays)
-    if len(schedule) == 0:
+    start_date = (now_utc.date() - timedelta(days=1)).isoformat()
+    end_date = (now_utc.date() + timedelta(days=1)).isoformat()
+    schedule = nyse.schedule(start_date=start_date, end_date=end_date)
+
+    if schedule.empty:
         return False
-    
-    # Get market open and close times - they come with timezone info
-    market_open_et = schedule['market_open'].iloc[0].to_pydatetime()
-    market_close_et = schedule['market_close'].iloc[0].to_pydatetime()
-    
-    # Convert to HK timezone
-    hk_tz = pytz.timezone('Asia/Hong_Kong')
-    market_open_hk = market_open_et.astimezone(hk_tz)
-    market_close_hk = market_close_et.astimezone(hk_tz)
-    
-    # Get current time in HK timezone
-    current_time_hk = datetime.now(hk_tz)
-    
-    # Handle case where market close is on the next day (common for HK timezone)
-    if market_close_hk < market_open_hk:
-        # Market spans across midnight
-        return current_time_hk >= market_open_hk or current_time_hk <= market_close_hk
-    else:
-        return market_open_hk <= current_time_hk <= market_close_hk
+
+    for _, row in schedule.iterrows():
+        market_open_utc = row['market_open'].to_pydatetime()
+        market_close_utc = row['market_close'].to_pydatetime()
+        if market_open_utc <= now_utc <= market_close_utc:
+            return True
+
+    return False
 
 
 def check_if_previous_night_market_was_open() -> bool:

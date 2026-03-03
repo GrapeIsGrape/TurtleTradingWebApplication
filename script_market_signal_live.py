@@ -20,6 +20,7 @@ with open(current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MAIN_LOG_BR
     main_log_file.write(f'[START] {str(datetime.now())} Check breakout and exit at market open job started\n')
 
     if check_if_market_is_open():
+        main_log_file.write(f'[INFO ] {str(datetime.now())} Market is open, starting breakout check\n')
         # =========================================================================
         # BREAKOUT CHECK
         # =========================================================================
@@ -44,10 +45,11 @@ with open(current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MAIN_LOG_EX
     main_log_file.write(f'[INFO ] {str(datetime.now())} Current script directory is {current_script_directory}\n')
 
     if check_if_market_is_open():
+        main_log_file.write(f'[INFO ] {str(datetime.now())} Market is open, starting exit check\n')
         # =========================================================================
         # EXIT CHECK
         # =========================================================================
-        exit_tickers = check_exit_by_stop_loss_live()
+        exit_tickers = check_exit_by_stop_loss_live(current_script_directory)
 
         for days in ['10', '20']:
             tickers = exit_tickers[days]
