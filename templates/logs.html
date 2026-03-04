@@ -3,9 +3,7 @@
 {% block title %}Logs - Turtle Trading Web App{% endblock %}
 
 {% block content %}
-{% include 'common/password_modal.html' %}
-
-<div id="contentContainer" class="d-none">
+<div>
     <h2 class="mb-4">Logs</h2>
     <form method="get" action="">
         <div class="row mb-3">
@@ -28,32 +26,4 @@
     {% endif %}
 </div>
 
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    // Setup password modal for logs page
-    setupPasswordModal({
-        correctPassword: 'admin',
-        modalTitle: 'Access Required',
-        canDismiss: false,
-        onSuccess: function() {
-            // Show content and hide modal
-            document.getElementById('contentContainer').classList.remove('d-none');
-        },
-        onCancel: function() {
-            // Redirect back to home page
-            window.location.href = '/';
-        }
-    });
-
-    // Show password modal on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        const passwordModal = new bootstrap.Modal(document.getElementById('passwordModal'), {
-            backdrop: 'static',
-            keyboard: false
-        });
-        passwordModal.show();
-    });
-</script>
 {% endblock %}
