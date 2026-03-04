@@ -35,6 +35,15 @@
             <button class="btn btn-outline-success me-2 d-none" id="retrieveTickerDataBtn" title="Retrieve market data for a ticker (admin only)">
                 📥 Retrieve Ticker Data
             </button>
+            <button class="btn btn-warning me-2 d-none" id="runFillMarketDataBtn" title="Run fill market data script (admin only)">
+                💾 Fill Market Data
+            </button>
+            <button class="btn btn-info me-2 d-none" id="runMarketSignalCloseBtn" title="Run market signal close script (admin only)">
+                🔚 Market Signal (Close)
+            </button>
+            <button class="btn btn-info me-2 d-none" id="runMarketSignalLiveBtn" title="Run market signal live script (admin only)">
+                📊 Market Signal (Live)
+            </button>
             <button class="btn btn-outline-primary" id="editModeBtn" data-bs-toggle="modal" data-bs-target="#passwordModal" title="Enable admin mode">
                 🔒 Admin Mode
             </button>
@@ -228,6 +237,10 @@
             document.getElementById('refreshTickersBtn').classList.remove('d-none');
             // Show retrieve ticker button
             document.getElementById('retrieveTickerDataBtn').classList.remove('d-none');
+            // Show script execution buttons
+            document.getElementById('runFillMarketDataBtn').classList.remove('d-none');
+            document.getElementById('runMarketSignalCloseBtn').classList.remove('d-none');
+            document.getElementById('runMarketSignalLiveBtn').classList.remove('d-none');
             // Show exit button, hide edit mode button
             document.getElementById('editModeBtn').classList.add('d-none');
             document.getElementById('exitModeBtn').classList.remove('d-none');
@@ -247,6 +260,10 @@
         document.getElementById('refreshTickersBtn').classList.add('d-none');
         // Hide retrieve ticker button
         document.getElementById('retrieveTickerDataBtn').classList.add('d-none');
+        // Hide script execution buttons
+        document.getElementById('runFillMarketDataBtn').classList.add('d-none');
+        document.getElementById('runMarketSignalCloseBtn').classList.add('d-none');
+        document.getElementById('runMarketSignalLiveBtn').classList.add('d-none');
         // Show edit mode button, hide exit button
         document.getElementById('editModeBtn').classList.remove('d-none');
         document.getElementById('exitModeBtn').classList.add('d-none');
@@ -262,6 +279,114 @@
     document.getElementById('retrieveTickerDataBtn').addEventListener('click', function() {
         const retrieveModal = new bootstrap.Modal(document.getElementById('retrieveTickerModal'));
         retrieveModal.show();
+    });
+
+    // Run Fill Market Data script button
+    document.getElementById('runFillMarketDataBtn').addEventListener('click', function() {
+        if (!confirm('This will run the fill market data script. This may take a long time. Continue?')) {
+            return;
+        }
+        
+        const btn = this;
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Running...';
+        btn.disabled = true;
+        
+        fetch('/run_fill_market_data', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(response => response.json())
+        .then(data => {
+            btn.innerHTML = originalHtml;
+            btn.disabled = false;
+            
+            if (data.status === 'success') {
+                alert('Fill Market Data script completed successfully!\n\nOutput:\n' + (data.stdout || 'No output'));
+            } else {
+                let errorMsg = 'Fill Market Data script completed with errors.\n\n';
+                errorMsg += 'Exit code: ' + data.exit_code + '\n\n';
+                if (data.stderr) {
+                    errorMsg += 'Error output:\n' + data.stderr + '\n\n';
+                }
+                if (data.stdout) {
+                    errorMsg += 'Standard output:\n' + data.stdout + '\n\n';
+                }
+                errorMsg += 'Check logs for full details.';
+                alert(errorMsg);
+            }
+        })
+        .catch(error => {
+            btn.innerHTML = originalHtml;
+            btn.disabled = false;
+            alert('Error running script: ' + error.message);
+        });
+    });
+
+    // Run Market Signal Close script button
+    document.getElementById('runMarketSignalCloseBtn').addEventListener('click', function() {
+        if (!confirm('This will run the market signal close script. Continue?')) {
+            return;
+        }
+        
+        const btn = this;
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Running...';
+        btn.disabled = true;
+        
+        fetch('/run_market_signal_close', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(response => response.json())
+        .then(data => {
+            btn.innerHTML = originalHtml;
+            btn.disabled = false;
+            
+            if (data.status === 'success') {
+                alert('Market Signal Close script completed successfully!');
+            } else {
+                alert('Market Signal Close script completed with errors.\n\nExit code: ' + data.exit_code + '\n\nCheck logs for details.');
+            }
+        })
+        .catch(error => {
+            btn.innerHTML = originalHtml;
+            btn.disabled = false;
+            alert('Error running script: ' + error.message);
+        });
+    });
+
+    // Run Market Signal Live script button
+    document.getElementById('runMarketSignalLiveBtn').addEventListener('click', function() {
+        if (!confirm('This will run the market signal live script. Continue?')) {
+            return;
+        }
+        
+        const btn = this;
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Running...';
+        btn.disabled = true;
+        
+        fetch('/run_market_signal_live', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(response => response.json())
+        .then(data => {
+            btn.innerHTML = originalHtml;
+            btn.disabled = false;
+            
+            if (data.status === 'success') {
+                alert('Market Signal Live script completed successfully!');
+            } else {
+                alert('Market Signal Live script completed with errors.\n\nExit code: ' + data.exit_code + '\n\nCheck logs for details.');
+            }
+        })
+        .catch(error => {
+            btn.innerHTML = originalHtml;
+            btn.disabled = false;
+            alert('Error running script: ' + error.message);
+        });
     });
 
     // Show loading indicator when form is submitted

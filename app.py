@@ -34,8 +34,10 @@ import os
 import csv
 import logging
 import re
+import subprocess
+import sys
 import yfinance as yf
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 
 from classes.constants import (
     BULLISH_ARRANGEMENT,
@@ -560,6 +562,114 @@ def retrieve_ticker_data() -> Tuple[str, int]:
             error=error_msg,
             config=app.config
         ), 500
+
+
+@app.route("/run_fill_market_data", methods=["POST"])
+def run_fill_market_data() -> Tuple[Dict[str, Any], int]:
+    """Run script_fill_market_data.py via subprocess."""
+    try:
+        script_path = os.path.join(BASE_DIR, 'script_fill_market_data.py')
+        result = subprocess.run(
+            [sys.executable, script_path],
+            cwd=BASE_DIR,
+            capture_output=True,
+            text=True,
+            timeout=3600
+        )
+        logging.info(f'Executed script_fill_market_data.py. Exit code: {result.returncode}')
+        return jsonify({
+            'status': 'success' if result.returncode == 0 else 'error',
+            'message': 'Fill market data script completed',
+            'exit_code': result.returncode,
+            'stdout': result.stdout[-500:] if result.stdout else '',  # Last 500 chars
+            'stderr': result.stderr[-500:] if result.stderr else ''
+        }), 200
+    except subprocess.TimeoutExpired:
+        logging.error('script_fill_market_data.py execution timed out')
+        return jsonify({
+            'status': 'error',
+            'message': 'Script execution timed out (max 1 hour)',
+            'exit_code': -1
+        }), 500
+    except Exception as e:
+        logging.error(f'Error running script_fill_market_data.py: {e}', exc_info=True)
+        return jsonify({
+            'status': 'error',
+            'message': f'Error executing script: {str(e)}',
+            'exit_code': -1
+        }), 500
+
+
+@app.route("/run_market_signal_close", methods=["POST"])
+def run_market_signal_close() -> Tuple[Dict[str, Any], int]:
+    """Run script_market_signal_close.py via subprocess."""
+    try:
+        script_path = os.path.join(BASE_DIR, 'script_market_signal_close.py')
+        result = subprocess.run(
+            [sys.executable, script_path],
+            cwd=BASE_DIR,
+            capture_output=True,
+            text=True,
+            timeout=3600
+        )
+        logging.info(f'Executed script_market_signal_close.py. Exit code: {result.returncode}')
+        return jsonify({
+            'status': 'success' if result.returncode == 0 else 'error',
+            'message': 'Market signal close script completed',
+            'exit_code': result.returncode,
+            'stdout': result.stdout[-500:] if result.stdout else '',
+            'stderr': result.stderr[-500:] if result.stderr else ''
+        }), 200
+    except subprocess.TimeoutExpired:
+        logging.error('script_market_signal_close.py execution timed out')
+        return jsonify({
+            'status': 'error',
+            'message': 'Script execution timed out (max 1 hour)',
+            'exit_code': -1
+        }), 500
+    except Exception as e:
+        logging.error(f'Error running script_market_signal_close.py: {e}', exc_info=True)
+        return jsonify({
+            'status': 'error',
+            'message': f'Error executing script: {str(e)}',
+            'exit_code': -1
+        }), 500
+
+
+@app.route("/run_market_signal_live", methods=["POST"])
+def run_market_signal_live() -> Tuple[Dict[str, Any], int]:
+    """Run script_market_signal_live.py via subprocess."""
+    try:
+        script_path = os.path.join(BASE_DIR, 'script_market_signal_live.py')
+        result = subprocess.run(
+            [sys.executable, script_path],
+            cwd=BASE_DIR,
+            capture_output=True,
+            text=True,
+            timeout=3600
+        )
+        logging.info(f'Executed script_market_signal_live.py. Exit code: {result.returncode}')
+        return jsonify({
+            'status': 'success' if result.returncode == 0 else 'error',
+            'message': 'Market signal live script completed',
+            'exit_code': result.returncode,
+            'stdout': result.stdout[-500:] if result.stdout else '',
+            'stderr': result.stderr[-500:] if result.stderr else ''
+        }), 200
+    except subprocess.TimeoutExpired:
+        logging.error('script_market_signal_live.py execution timed out')
+        return jsonify({
+            'status': 'error',
+            'message': 'Script execution timed out (max 1 hour)',
+            'exit_code': -1
+        }), 500
+    except Exception as e:
+        logging.error(f'Error running script_market_signal_live.py: {e}', exc_info=True)
+        return jsonify({
+            'status': 'error',
+            'message': f'Error executing script: {str(e)}',
+            'exit_code': -1
+        }), 500
 
 
 # =============================================================================
