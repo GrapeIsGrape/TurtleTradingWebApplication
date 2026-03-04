@@ -566,40 +566,50 @@ def retrieve_ticker_data() -> Tuple[str, int]:
 
 @app.route("/run_fill_market_data", methods=["POST"])
 def run_fill_market_data() -> Tuple[Dict[str, Any], int]:
-    """Run script_fill_market_data.py via subprocess."""
+    """Run script_fill_market_data.py via direct execution."""
     try:
+        import io
+        from contextlib import redirect_stdout, redirect_stderr
+        
         script_path = os.path.join(BASE_DIR, 'script_fill_market_data.py')
-        env = os.environ.copy()
-        env['PYTHONPATH'] = BASE_DIR
-        # Remove uWSGI-related variables to prevent emperor mode interference
-        for key in list(env.keys()):
-            if key.startswith('UWSGI') or key == 'EMPEROR_FD':
-                del env[key]
-        result = subprocess.run(
-            [sys.executable, script_path],
-            cwd=BASE_DIR,
-            env=env,
-            capture_output=True,
-            text=True,
-            timeout=3600
-        )
-        logging.info(f'Executed script_fill_market_data.py. Exit code: {result.returncode}')
-        return jsonify({
-            'status': 'success' if result.returncode == 0 else 'error',
-            'message': 'Fill market data script completed',
-            'exit_code': result.returncode,
-            'stdout': result.stdout[-2000:] if result.stdout else '',
-            'stderr': result.stderr[-2000:] if result.stderr else ''
-        }), 200
-    except subprocess.TimeoutExpired:
-        logging.error('script_fill_market_data.py execution timed out')
-        return jsonify({
-            'status': 'error',
-            'message': 'Script execution timed out (max 1 hour)',
-            'exit_code': -1
-        }), 500
+        
+        stdout_capture = io.StringIO()
+        stderr_capture = io.StringIO()
+        
+        try:
+            with open(script_path, 'r') as f:
+                script_code = f.read()
+            
+            # Create isolated namespace for script execution
+            script_globals = {
+                '__name__': '__main__',
+                '__file__': script_path,
+                'os': os,
+                'sys': sys,
+            }
+            
+            with redirect_stdout(stdout_capture), redirect_stderr(stderr_capture):
+                exec(script_code, script_globals)
+            
+            logging.info('Executed script_fill_market_data.py successfully')
+            return jsonify({
+                'status': 'success',
+                'message': 'Fill market data script completed',
+                'exit_code': 0,
+                'stdout': stdout_capture.getvalue()[-2000:],
+                'stderr': stderr_capture.getvalue()[-2000:]
+            }), 200
+        except Exception as e:
+            logging.error(f'Error executing script_fill_market_data.py: {e}', exc_info=True)
+            return jsonify({
+                'status': 'error',
+                'message': 'Script execution failed',
+                'exit_code': 1,
+                'stdout': stdout_capture.getvalue()[-2000:],
+                'stderr': f'{str(e)}\n{stderr_capture.getvalue()[-1500:]}'
+            }), 200
     except Exception as e:
-        logging.error(f'Error running script_fill_market_data.py: {e}', exc_info=True)
+        logging.error(f'Error preparing script execution: {e}', exc_info=True)
         return jsonify({
             'status': 'error',
             'message': f'Error executing script: {str(e)}',
@@ -609,40 +619,50 @@ def run_fill_market_data() -> Tuple[Dict[str, Any], int]:
 
 @app.route("/run_market_signal_close", methods=["POST"])
 def run_market_signal_close() -> Tuple[Dict[str, Any], int]:
-    """Run script_market_signal_close.py via subprocess."""
+    """Run script_market_signal_close.py via direct execution."""
     try:
+        import io
+        from contextlib import redirect_stdout, redirect_stderr
+        
         script_path = os.path.join(BASE_DIR, 'script_market_signal_close.py')
-        env = os.environ.copy()
-        env['PYTHONPATH'] = BASE_DIR
-        # Remove uWSGI-related variables to prevent emperor mode interference
-        for key in list(env.keys()):
-            if key.startswith('UWSGI') or key == 'EMPEROR_FD':
-                del env[key]
-        result = subprocess.run(
-            [sys.executable, script_path],
-            cwd=BASE_DIR,
-            env=env,
-            capture_output=True,
-            text=True,
-            timeout=3600
-        )
-        logging.info(f'Executed script_market_signal_close.py. Exit code: {result.returncode}')
-        return jsonify({
-            'status': 'success' if result.returncode == 0 else 'error',
-            'message': 'Market signal close script completed',
-            'exit_code': result.returncode,
-            'stdout': result.stdout[-2000:] if result.stdout else '',
-            'stderr': result.stderr[-2000:] if result.stderr else ''
-        }), 200
-    except subprocess.TimeoutExpired:
-        logging.error('script_market_signal_close.py execution timed out')
-        return jsonify({
-            'status': 'error',
-            'message': 'Script execution timed out (max 1 hour)',
-            'exit_code': -1
-        }), 500
+        
+        stdout_capture = io.StringIO()
+        stderr_capture = io.StringIO()
+        
+        try:
+            with open(script_path, 'r') as f:
+                script_code = f.read()
+            
+            # Create isolated namespace for script execution
+            script_globals = {
+                '__name__': '__main__',
+                '__file__': script_path,
+                'os': os,
+                'sys': sys,
+            }
+            
+            with redirect_stdout(stdout_capture), redirect_stderr(stderr_capture):
+                exec(script_code, script_globals)
+            
+            logging.info('Executed script_market_signal_close.py successfully')
+            return jsonify({
+                'status': 'success',
+                'message': 'Market signal close script completed',
+                'exit_code': 0,
+                'stdout': stdout_capture.getvalue()[-2000:],
+                'stderr': stderr_capture.getvalue()[-2000:]
+            }), 200
+        except Exception as e:
+            logging.error(f'Error executing script_market_signal_close.py: {e}', exc_info=True)
+            return jsonify({
+                'status': 'error',
+                'message': 'Script execution failed',
+                'exit_code': 1,
+                'stdout': stdout_capture.getvalue()[-2000:],
+                'stderr': f'{str(e)}\n{stderr_capture.getvalue()[-1500:]}'
+            }), 200
     except Exception as e:
-        logging.error(f'Error running script_market_signal_close.py: {e}', exc_info=True)
+        logging.error(f'Error preparing script execution: {e}', exc_info=True)
         return jsonify({
             'status': 'error',
             'message': f'Error executing script: {str(e)}',
@@ -652,40 +672,50 @@ def run_market_signal_close() -> Tuple[Dict[str, Any], int]:
 
 @app.route("/run_market_signal_live", methods=["POST"])
 def run_market_signal_live() -> Tuple[Dict[str, Any], int]:
-    """Run script_market_signal_live.py via subprocess."""
+    """Run script_market_signal_live.py via direct execution."""
     try:
+        import io
+        from contextlib import redirect_stdout, redirect_stderr
+        
         script_path = os.path.join(BASE_DIR, 'script_market_signal_live.py')
-        env = os.environ.copy()
-        env['PYTHONPATH'] = BASE_DIR
-        # Remove uWSGI-related variables to prevent emperor mode interference
-        for key in list(env.keys()):
-            if key.startswith('UWSGI') or key == 'EMPEROR_FD':
-                del env[key]
-        result = subprocess.run(
-            [sys.executable, script_path],
-            cwd=BASE_DIR,
-            env=env,
-            capture_output=True,
-            text=True,
-            timeout=3600
-        )
-        logging.info(f'Executed script_market_signal_live.py. Exit code: {result.returncode}')
-        return jsonify({
-            'status': 'success' if result.returncode == 0 else 'error',
-            'message': 'Market signal live script completed',
-            'exit_code': result.returncode,
-            'stdout': result.stdout[-2000:] if result.stdout else '',
-            'stderr': result.stderr[-2000:] if result.stderr else ''
-        }), 200
-    except subprocess.TimeoutExpired:
-        logging.error('script_market_signal_live.py execution timed out')
-        return jsonify({
-            'status': 'error',
-            'message': 'Script execution timed out (max 1 hour)',
-            'exit_code': -1
-        }), 500
+        
+        stdout_capture = io.StringIO()
+        stderr_capture = io.StringIO()
+        
+        try:
+            with open(script_path, 'r') as f:
+                script_code = f.read()
+            
+            # Create isolated namespace for script execution
+            script_globals = {
+                '__name__': '__main__',
+                '__file__': script_path,
+                'os': os,
+                'sys': sys,
+            }
+            
+            with redirect_stdout(stdout_capture), redirect_stderr(stderr_capture):
+                exec(script_code, script_globals)
+            
+            logging.info('Executed script_market_signal_live.py successfully')
+            return jsonify({
+                'status': 'success',
+                'message': 'Market signal live script completed',
+                'exit_code': 0,
+                'stdout': stdout_capture.getvalue()[-2000:],
+                'stderr': stderr_capture.getvalue()[-2000:]
+            }), 200
+        except Exception as e:
+            logging.error(f'Error executing script_market_signal_live.py: {e}', exc_info=True)
+            return jsonify({
+                'status': 'error',
+                'message': 'Script execution failed',
+                'exit_code': 1,
+                'stdout': stdout_capture.getvalue()[-2000:],
+                'stderr': f'{str(e)}\n{stderr_capture.getvalue()[-1500:]}'
+            }), 200
     except Exception as e:
-        logging.error(f'Error running script_market_signal_live.py: {e}', exc_info=True)
+        logging.error(f'Error preparing script execution: {e}', exc_info=True)
         return jsonify({
             'status': 'error',
             'message': f'Error executing script: {str(e)}',
