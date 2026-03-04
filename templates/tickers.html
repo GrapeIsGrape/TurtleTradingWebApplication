@@ -23,33 +23,49 @@
 
 {% block content %}
     {% include 'common/password_modal.html' %}
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-start mb-4">
         <h2>Tickers by GICS sector</h2>
-        <div>
-            <button class="btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#allTickersModal" title="View all tickers">
-                📋 View All Tickers
-            </button>
-            <button class="btn btn-success me-2 d-none" id="refreshTickersBtn" title="Refresh tickers based on criteria (admin only)">
-                🔄 Refresh Tickers
-            </button>
-            <button class="btn btn-outline-success me-2 d-none" id="retrieveTickerDataBtn" title="Retrieve market data for a ticker (admin only)">
-                📥 Retrieve Ticker Data
-            </button>
-            <button class="btn btn-warning me-2 d-none" id="runFillMarketDataBtn" title="Run fill market data script (admin only)">
-                💾 Fill Market Data
-            </button>
-            <button class="btn btn-info me-2 d-none" id="runMarketSignalCloseBtn" title="Run market signal close script (admin only)">
-                🔚 Market Signal (Close)
-            </button>
-            <button class="btn btn-info me-2 d-none" id="runMarketSignalLiveBtn" title="Run market signal live script (admin only)">
-                📊 Market Signal (Live)
-            </button>
-            <button class="btn btn-outline-primary" id="editModeBtn" data-bs-toggle="modal" data-bs-target="#passwordModal" title="Enable admin mode">
-                🔒 Admin Mode
-            </button>
-            <button class="btn btn-outline-danger d-none" id="exitModeBtn" title="Exit admin mode">
-                🔓 Exit Admin Mode
-            </button>
+        <div class="d-flex flex-column gap-2 align-items-end">
+            <!-- Public Actions Row -->
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#allTickersModal" title="View all tickers">
+                    📋 View All Tickers
+                </button>
+                <button class="btn btn-outline-primary btn-sm" id="editModeBtn" data-bs-toggle="modal" data-bs-target="#passwordModal" title="Enable admin mode">
+                    🔒 Admin Mode
+                </button>
+            </div>
+            
+            <!-- Admin Actions Row -->
+            <div class="d-none" id="adminActionsContainer">
+                <div class="card border-warning">
+                    <div class="card-body p-2">
+                        <div class="d-flex flex-wrap gap-2 align-items-center">
+                            <small class="text-muted fw-bold me-2">Admin Actions:</small>
+                            <button class="btn btn-success btn-sm" id="refreshTickersBtn" title="Refresh tickers based on criteria">
+                                🔄 GICS Refresh
+                            </button>
+                            <button class="btn btn-outline-success btn-sm" id="retrieveTickerDataBtn" title="Retrieve market data for a ticker">
+                                📥 New Ticker
+                            </button>
+                            <div class="vr"></div>
+                            <button class="btn btn-warning btn-sm" id="runFillMarketDataBtn" title="Run fill market data script">
+                                💾 Fill Data
+                            </button>
+                            <button class="btn btn-info btn-sm" id="runMarketSignalCloseBtn" title="Run market signal close script">
+                                🔚 Signal (Close)
+                            </button>
+                            <button class="btn btn-info btn-sm" id="runMarketSignalLiveBtn" title="Run market signal live script">
+                                📊 Signal (Live)
+                            </button>
+                            <div class="vr"></div>
+                            <button class="btn btn-outline-danger btn-sm" id="exitModeBtn" title="Exit admin mode">
+                                🔓 Exit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -233,17 +249,9 @@
             document.querySelectorAll('.edit-btn').forEach(btn => {
                 btn.classList.remove('d-none');
             });
-            // Show refresh button
-            document.getElementById('refreshTickersBtn').classList.remove('d-none');
-            // Show retrieve ticker button
-            document.getElementById('retrieveTickerDataBtn').classList.remove('d-none');
-            // Show script execution buttons
-            document.getElementById('runFillMarketDataBtn').classList.remove('d-none');
-            document.getElementById('runMarketSignalCloseBtn').classList.remove('d-none');
-            document.getElementById('runMarketSignalLiveBtn').classList.remove('d-none');
-            // Show exit button, hide edit mode button
+            // Show admin actions container and hide admin mode button
+            document.getElementById('adminActionsContainer').classList.remove('d-none');
             document.getElementById('editModeBtn').classList.add('d-none');
-            document.getElementById('exitModeBtn').classList.remove('d-none');
         },
         onCancel: function() {
             // Nothing to do on cancel for this page
@@ -256,17 +264,9 @@
         document.querySelectorAll('.edit-btn').forEach(btn => {
             btn.classList.add('d-none');
         });
-        // Hide refresh button
-        document.getElementById('refreshTickersBtn').classList.add('d-none');
-        // Hide retrieve ticker button
-        document.getElementById('retrieveTickerDataBtn').classList.add('d-none');
-        // Hide script execution buttons
-        document.getElementById('runFillMarketDataBtn').classList.add('d-none');
-        document.getElementById('runMarketSignalCloseBtn').classList.add('d-none');
-        document.getElementById('runMarketSignalLiveBtn').classList.add('d-none');
-        // Show edit mode button, hide exit button
+        // Hide admin actions container and show admin mode button
+        document.getElementById('adminActionsContainer').classList.add('d-none');
         document.getElementById('editModeBtn').classList.remove('d-none');
-        document.getElementById('exitModeBtn').classList.add('d-none');
     });
 
     // Refresh tickers button
