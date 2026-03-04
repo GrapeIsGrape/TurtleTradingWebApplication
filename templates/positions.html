@@ -31,8 +31,16 @@
     white-space: nowrap;
   }
 
-  .positions-table tbody tr:hover {
+  .positions-table tbody tr:hover > * {
     background-color: #f8fafc;
+  }
+
+  .positions-table tbody tr.alert-row > * {
+    background-color: #fff3cd;
+  }
+
+  .positions-table tbody tr.alert-row:hover > * {
+    background-color: #ffe69c;
   }
 
   .action-btn {
@@ -86,7 +94,9 @@
         </thead>
         <tbody>
           {% for position in positions %}
-            <tr>
+            {% set below_stop_loss_atr = position.current is not none and position.stop_loss_atr is not none and position.current < position.stop_loss_atr %}
+            {% set below_stop_loss_low = position.current is not none and position.stop_loss_low is not none and position.current < position.stop_loss_low %}
+            <tr class="{% if below_stop_loss_atr or below_stop_loss_low %}alert-row{% endif %}">
               <td>{{ position.gics_industry }}</td>
               <td><strong>{{ position.ticker }}</strong></td>
               <td class="text-primary fw-semibold">{{ format_number(position.market_value) }}</td>
