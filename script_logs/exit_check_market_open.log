@@ -1,8 +1,844 @@
-[START] 2026-02-28 16:26:02.506932 Check exit at market open job started
-[INFO ] 2026-02-28 16:26:02.506936 Current script directory is /Users/albertwong/Documents/GitHub/TurtleTradingWebApplication/
-[INFO ] 2026-02-28 16:26:02.563115 Market is closed, skip checking exit
-[END  ] 2026-02-28 16:26:02.563291 Check exit at market open job ended
-[START] 2026-02-28 23:31:19.347727 Check exit at market open job started
-[INFO ] 2026-02-28 23:31:19.347729 Current script directory is /Users/albertwong/Documents/GitHub/TurtleTradingWebApplication/
-[INFO ] 2026-02-28 23:31:19.401110 Market is closed, skip checking exit
-[END  ] 2026-02-28 23:31:19.402285 Check exit at market open job ended
+[START] 2026-02-28 23:40:03.432814 Check exit at market open job started
+[INFO ] 2026-02-28 23:40:03.432827 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-28 23:40:04.085073 Market is closed, skip checking exit
+[END  ] 2026-02-28 23:40:04.085540 Check exit at market open job ended
+[START] 2026-02-28 23:50:03.386085 Check exit at market open job started
+[INFO ] 2026-02-28 23:50:03.386099 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-02-28 23:50:04.040209 Market is closed, skip checking exit
+[END  ] 2026-02-28 23:50:04.040497 Check exit at market open job ended
+[START] 2026-03-01 00:00:03.404502 Check exit at market open job started
+[INFO ] 2026-03-01 00:00:03.404515 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 00:00:04.056222 Market is closed, skip checking exit
+[END  ] 2026-03-01 00:00:04.056483 Check exit at market open job ended
+[START] 2026-03-01 00:10:03.407569 Check exit at market open job started
+[INFO ] 2026-03-01 00:10:03.407582 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 00:10:04.057925 Market is closed, skip checking exit
+[END  ] 2026-03-01 00:10:04.058228 Check exit at market open job ended
+[START] 2026-03-01 00:20:03.431393 Check exit at market open job started
+[INFO ] 2026-03-01 00:20:03.431406 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 00:20:04.077018 Market is closed, skip checking exit
+[END  ] 2026-03-01 00:20:04.077244 Check exit at market open job ended
+[START] 2026-03-01 00:30:03.429372 Check exit at market open job started
+[INFO ] 2026-03-01 00:30:03.429384 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 00:30:04.082778 Market is closed, skip checking exit
+[END  ] 2026-03-01 00:30:04.083123 Check exit at market open job ended
+[START] 2026-03-01 00:40:03.438747 Check exit at market open job started
+[INFO ] 2026-03-01 00:40:03.438760 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 00:40:04.090550 Market is closed, skip checking exit
+[END  ] 2026-03-01 00:40:04.090797 Check exit at market open job ended
+[START] 2026-03-01 00:50:03.450521 Check exit at market open job started
+[INFO ] 2026-03-01 00:50:03.450534 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 00:50:04.104726 Market is closed, skip checking exit
+[END  ] 2026-03-01 00:50:04.104949 Check exit at market open job ended
+[START] 2026-03-01 01:00:03.473205 Check exit at market open job started
+[INFO ] 2026-03-01 01:00:03.473239 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 01:00:04.118959 Market is closed, skip checking exit
+[END  ] 2026-03-01 01:00:04.119263 Check exit at market open job ended
+[START] 2026-03-01 01:10:03.509974 Check exit at market open job started
+[INFO ] 2026-03-01 01:10:03.509988 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 01:10:04.165711 Market is closed, skip checking exit
+[END  ] 2026-03-01 01:10:04.165939 Check exit at market open job ended
+[START] 2026-03-01 01:20:03.497583 Check exit at market open job started
+[INFO ] 2026-03-01 01:20:03.497596 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 01:20:04.147666 Market is closed, skip checking exit
+[END  ] 2026-03-01 01:20:04.147880 Check exit at market open job ended
+[START] 2026-03-01 01:30:06.956141 Check exit at market open job started
+[INFO ] 2026-03-01 01:30:06.956175 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 01:30:07.614394 Market is closed, skip checking exit
+[END  ] 2026-03-01 01:30:07.624839 Check exit at market open job ended
+[START] 2026-03-01 01:40:03.561050 Check exit at market open job started
+[INFO ] 2026-03-01 01:40:03.561062 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 01:40:04.207630 Market is closed, skip checking exit
+[END  ] 2026-03-01 01:40:04.207886 Check exit at market open job ended
+[START] 2026-03-01 01:50:07.517230 Check exit at market open job started
+[INFO ] 2026-03-01 01:50:07.517251 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 01:50:08.170980 Market is closed, skip checking exit
+[END  ] 2026-03-01 01:50:08.180059 Check exit at market open job ended
+[START] 2026-03-01 02:00:06.798975 Check exit at market open job started
+[INFO ] 2026-03-01 02:00:06.799012 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 02:00:07.448414 Market is closed, skip checking exit
+[END  ] 2026-03-01 02:00:07.462856 Check exit at market open job ended
+[START] 2026-03-01 02:10:06.027219 Check exit at market open job started
+[INFO ] 2026-03-01 02:10:06.027248 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 02:10:06.671483 Market is closed, skip checking exit
+[END  ] 2026-03-01 02:10:06.678077 Check exit at market open job ended
+[START] 2026-03-01 02:20:04.172719 Check exit at market open job started
+[INFO ] 2026-03-01 02:20:04.172732 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 02:20:04.826788 Market is closed, skip checking exit
+[END  ] 2026-03-01 02:20:04.827007 Check exit at market open job ended
+[START] 2026-03-01 02:30:03.807230 Check exit at market open job started
+[INFO ] 2026-03-01 02:30:03.807243 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 02:30:04.452734 Market is closed, skip checking exit
+[END  ] 2026-03-01 02:30:04.452984 Check exit at market open job ended
+[START] 2026-03-01 02:40:03.821628 Check exit at market open job started
+[INFO ] 2026-03-01 02:40:03.821641 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 02:40:04.465647 Market is closed, skip checking exit
+[END  ] 2026-03-01 02:40:04.465901 Check exit at market open job ended
+[START] 2026-03-01 02:50:05.305549 Check exit at market open job started
+[INFO ] 2026-03-01 02:50:05.305586 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 02:50:05.953866 Market is closed, skip checking exit
+[END  ] 2026-03-01 02:50:05.974735 Check exit at market open job ended
+[START] 2026-03-01 03:00:07.529819 Check exit at market open job started
+[INFO ] 2026-03-01 03:00:07.529853 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 03:00:08.179445 Market is closed, skip checking exit
+[END  ] 2026-03-01 03:00:08.192820 Check exit at market open job ended
+[START] 2026-03-01 03:10:10.669712 Check exit at market open job started
+[INFO ] 2026-03-01 03:10:10.669747 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 03:10:11.344383 Market is closed, skip checking exit
+[END  ] 2026-03-01 03:10:11.345406 Check exit at market open job ended
+[START] 2026-03-01 03:20:13.514028 Check exit at market open job started
+[INFO ] 2026-03-01 03:20:13.514060 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 03:20:14.215916 Market is closed, skip checking exit
+[END  ] 2026-03-01 03:20:14.228130 Check exit at market open job ended
+[START] 2026-03-01 03:30:22.970800 Check exit at market open job started
+[INFO ] 2026-03-01 03:30:22.970819 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 03:30:23.641438 Market is closed, skip checking exit
+[END  ] 2026-03-01 03:30:23.646606 Check exit at market open job ended
+[START] 2026-03-01 03:40:08.121936 Check exit at market open job started
+[INFO ] 2026-03-01 03:40:08.121972 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 03:40:08.777826 Market is closed, skip checking exit
+[END  ] 2026-03-01 03:40:08.779313 Check exit at market open job ended
+[START] 2026-03-01 03:50:12.472995 Check exit at market open job started
+[INFO ] 2026-03-01 03:50:12.473053 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 03:50:13.238044 Market is closed, skip checking exit
+[END  ] 2026-03-01 03:50:13.238662 Check exit at market open job ended
+[START] 2026-03-01 04:00:09.303869 Check exit at market open job started
+[INFO ] 2026-03-01 04:00:09.303899 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 04:00:09.983763 Market is closed, skip checking exit
+[END  ] 2026-03-01 04:00:09.996725 Check exit at market open job ended
+[START] 2026-03-01 04:10:09.543120 Check exit at market open job started
+[INFO ] 2026-03-01 04:10:09.543193 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 04:10:10.326119 Market is closed, skip checking exit
+[END  ] 2026-03-01 04:10:10.326975 Check exit at market open job ended
+[START] 2026-03-01 04:20:11.553733 Check exit at market open job started
+[INFO ] 2026-03-01 04:20:11.553770 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 04:20:12.234559 Market is closed, skip checking exit
+[END  ] 2026-03-01 04:20:12.235192 Check exit at market open job ended
+[START] 2026-03-01 04:30:10.591999 Check exit at market open job started
+[INFO ] 2026-03-01 04:30:10.592034 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 04:30:11.280656 Market is closed, skip checking exit
+[END  ] 2026-03-01 04:30:11.281237 Check exit at market open job ended
+[START] 2026-03-01 04:40:09.865553 Check exit at market open job started
+[INFO ] 2026-03-01 04:40:09.865594 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 04:40:10.588265 Market is closed, skip checking exit
+[END  ] 2026-03-01 04:40:10.589184 Check exit at market open job ended
+[START] 2026-03-01 04:50:17.275960 Check exit at market open job started
+[INFO ] 2026-03-01 04:50:17.276002 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 04:50:18.080820 Market is closed, skip checking exit
+[END  ] 2026-03-01 04:50:18.089197 Check exit at market open job ended
+[START] 2026-03-01 21:00:07.257713 Check exit at market open job started
+[INFO ] 2026-03-01 21:00:07.257751 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 21:00:07.914302 Market is closed, skip checking exit
+[END  ] 2026-03-01 21:00:07.927024 Check exit at market open job ended
+[START] 2026-03-01 21:10:03.316660 Check exit at market open job started
+[INFO ] 2026-03-01 21:10:03.316673 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 21:10:03.977778 Market is closed, skip checking exit
+[END  ] 2026-03-01 21:10:03.978030 Check exit at market open job ended
+[START] 2026-03-01 21:20:03.297145 Check exit at market open job started
+[INFO ] 2026-03-01 21:20:03.297158 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 21:20:03.952694 Market is closed, skip checking exit
+[END  ] 2026-03-01 21:20:03.952923 Check exit at market open job ended
+[START] 2026-03-01 21:30:07.903925 Check exit at market open job started
+[INFO ] 2026-03-01 21:30:07.903961 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 21:30:08.561210 Market is closed, skip checking exit
+[END  ] 2026-03-01 21:30:08.562573 Check exit at market open job ended
+[START] 2026-03-01 21:40:03.367349 Check exit at market open job started
+[INFO ] 2026-03-01 21:40:03.367363 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 21:40:04.029195 Market is closed, skip checking exit
+[END  ] 2026-03-01 21:40:04.029444 Check exit at market open job ended
+[START] 2026-03-01 21:50:03.356502 Check exit at market open job started
+[INFO ] 2026-03-01 21:50:03.356515 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 21:50:04.012661 Market is closed, skip checking exit
+[END  ] 2026-03-01 21:50:04.012876 Check exit at market open job ended
+[START] 2026-03-01 22:00:03.419261 Check exit at market open job started
+[INFO ] 2026-03-01 22:00:03.419274 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 22:00:04.076357 Market is closed, skip checking exit
+[END  ] 2026-03-01 22:00:04.076609 Check exit at market open job ended
+[START] 2026-03-01 22:10:08.335803 Check exit at market open job started
+[INFO ] 2026-03-01 22:10:08.335832 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 22:10:08.992116 Market is closed, skip checking exit
+[END  ] 2026-03-01 22:10:08.993451 Check exit at market open job ended
+[START] 2026-03-01 22:20:06.744131 Check exit at market open job started
+[INFO ] 2026-03-01 22:20:06.744169 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 22:20:07.399534 Market is closed, skip checking exit
+[END  ] 2026-03-01 22:20:07.400130 Check exit at market open job ended
+[START] 2026-03-01 22:30:03.305952 Check exit at market open job started
+[INFO ] 2026-03-01 22:30:03.305965 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 22:30:03.968142 Market is closed, skip checking exit
+[END  ] 2026-03-01 22:30:03.968412 Check exit at market open job ended
+[START] 2026-03-01 22:40:03.365371 Check exit at market open job started
+[INFO ] 2026-03-01 22:40:03.365384 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 22:40:04.019288 Market is closed, skip checking exit
+[END  ] 2026-03-01 22:40:04.019502 Check exit at market open job ended
+[START] 2026-03-01 22:50:03.328623 Check exit at market open job started
+[INFO ] 2026-03-01 22:50:03.328636 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 22:50:03.984429 Market is closed, skip checking exit
+[END  ] 2026-03-01 22:50:03.984637 Check exit at market open job ended
+[START] 2026-03-01 23:00:03.392338 Check exit at market open job started
+[INFO ] 2026-03-01 23:00:03.392352 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 23:00:04.047995 Market is closed, skip checking exit
+[END  ] 2026-03-01 23:00:04.048295 Check exit at market open job ended
+[START] 2026-03-01 23:10:03.346012 Check exit at market open job started
+[INFO ] 2026-03-01 23:10:03.346026 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 23:10:04.004763 Market is closed, skip checking exit
+[END  ] 2026-03-01 23:10:04.005052 Check exit at market open job ended
+[START] 2026-03-01 23:20:03.393735 Check exit at market open job started
+[INFO ] 2026-03-01 23:20:03.393766 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 23:20:04.052833 Market is closed, skip checking exit
+[END  ] 2026-03-01 23:20:04.053054 Check exit at market open job ended
+[START] 2026-03-01 23:30:03.372162 Check exit at market open job started
+[INFO ] 2026-03-01 23:30:03.372176 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 23:30:04.029916 Market is closed, skip checking exit
+[END  ] 2026-03-01 23:30:04.030135 Check exit at market open job ended
+[START] 2026-03-01 23:40:03.410653 Check exit at market open job started
+[INFO ] 2026-03-01 23:40:03.410666 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 23:40:04.069986 Market is closed, skip checking exit
+[END  ] 2026-03-01 23:40:04.070311 Check exit at market open job ended
+[START] 2026-03-01 23:50:03.419478 Check exit at market open job started
+[INFO ] 2026-03-01 23:50:03.419491 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 23:50:04.078304 Market is closed, skip checking exit
+[END  ] 2026-03-01 23:50:04.078517 Check exit at market open job ended
+[START] 2026-03-02 00:00:03.522627 Check exit at market open job started
+[INFO ] 2026-03-02 00:00:03.522640 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 00:00:04.286291 Market is closed, skip checking exit
+[END  ] 2026-03-02 00:00:04.286515 Check exit at market open job ended
+[START] 2026-03-02 00:10:03.530419 Check exit at market open job started
+[INFO ] 2026-03-02 00:10:03.530431 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 00:10:04.290454 Market is closed, skip checking exit
+[END  ] 2026-03-02 00:10:04.290681 Check exit at market open job ended
+[START] 2026-03-02 00:20:03.542232 Check exit at market open job started
+[INFO ] 2026-03-02 00:20:03.542245 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 00:20:04.302649 Market is closed, skip checking exit
+[END  ] 2026-03-02 00:20:04.302875 Check exit at market open job ended
+[START] 2026-03-02 00:30:03.567346 Check exit at market open job started
+[INFO ] 2026-03-02 00:30:03.567378 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 00:30:04.329522 Market is closed, skip checking exit
+[END  ] 2026-03-02 00:30:04.329796 Check exit at market open job ended
+[START] 2026-03-02 00:40:03.580414 Check exit at market open job started
+[INFO ] 2026-03-02 00:40:03.580427 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 00:40:04.348238 Market is closed, skip checking exit
+[END  ] 2026-03-02 00:40:04.348506 Check exit at market open job ended
+[START] 2026-03-02 00:50:03.595961 Check exit at market open job started
+[INFO ] 2026-03-02 00:50:03.595974 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 00:50:04.358743 Market is closed, skip checking exit
+[END  ] 2026-03-02 00:50:04.359019 Check exit at market open job ended
+[START] 2026-03-02 01:00:07.321124 Check exit at market open job started
+[INFO ] 2026-03-02 01:00:07.321162 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 01:00:08.071997 Market is closed, skip checking exit
+[END  ] 2026-03-02 01:00:08.073461 Check exit at market open job ended
+[START] 2026-03-02 01:10:03.632547 Check exit at market open job started
+[INFO ] 2026-03-02 01:10:03.632559 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 01:10:04.384007 Market is closed, skip checking exit
+[END  ] 2026-03-02 01:10:04.384320 Check exit at market open job ended
+[START] 2026-03-02 01:20:03.638381 Check exit at market open job started
+[INFO ] 2026-03-02 01:20:03.638394 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 01:20:04.389628 Market is closed, skip checking exit
+[END  ] 2026-03-02 01:20:04.389866 Check exit at market open job ended
+[START] 2026-03-02 01:30:03.660841 Check exit at market open job started
+[INFO ] 2026-03-02 01:30:03.660854 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 01:30:04.419748 Market is closed, skip checking exit
+[END  ] 2026-03-02 01:30:04.419977 Check exit at market open job ended
+[START] 2026-03-02 01:40:03.687804 Check exit at market open job started
+[INFO ] 2026-03-02 01:40:03.687816 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 01:40:04.444605 Market is closed, skip checking exit
+[END  ] 2026-03-02 01:40:04.444880 Check exit at market open job ended
+[START] 2026-03-02 01:50:03.676226 Check exit at market open job started
+[INFO ] 2026-03-02 01:50:03.676239 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 01:50:04.430876 Market is closed, skip checking exit
+[END  ] 2026-03-02 01:50:04.431127 Check exit at market open job ended
+[START] 2026-03-02 02:00:03.701784 Check exit at market open job started
+[INFO ] 2026-03-02 02:00:03.701797 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 02:00:04.458846 Market is closed, skip checking exit
+[END  ] 2026-03-02 02:00:04.459144 Check exit at market open job ended
+[START] 2026-03-02 02:10:03.727880 Check exit at market open job started
+[INFO ] 2026-03-02 02:10:03.727893 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 02:10:04.480386 Market is closed, skip checking exit
+[END  ] 2026-03-02 02:10:04.480611 Check exit at market open job ended
+[START] 2026-03-02 02:20:03.698391 Check exit at market open job started
+[INFO ] 2026-03-02 02:20:03.698403 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 02:20:04.451852 Market is closed, skip checking exit
+[END  ] 2026-03-02 02:20:04.452089 Check exit at market open job ended
+[START] 2026-03-02 02:30:03.723779 Check exit at market open job started
+[INFO ] 2026-03-02 02:30:03.723792 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 02:30:04.474031 Market is closed, skip checking exit
+[END  ] 2026-03-02 02:30:04.474344 Check exit at market open job ended
+[START] 2026-03-02 02:40:03.748493 Check exit at market open job started
+[INFO ] 2026-03-02 02:40:03.748506 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 02:40:04.502840 Market is closed, skip checking exit
+[END  ] 2026-03-02 02:40:04.503088 Check exit at market open job ended
+[START] 2026-03-02 02:50:03.775050 Check exit at market open job started
+[INFO ] 2026-03-02 02:50:03.775062 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 02:50:04.526266 Market is closed, skip checking exit
+[END  ] 2026-03-02 02:50:04.526534 Check exit at market open job ended
+[START] 2026-03-02 03:00:03.771710 Check exit at market open job started
+[INFO ] 2026-03-02 03:00:03.771723 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 03:00:04.526841 Market is closed, skip checking exit
+[END  ] 2026-03-02 03:00:04.527115 Check exit at market open job ended
+[START] 2026-03-02 03:10:03.781585 Check exit at market open job started
+[INFO ] 2026-03-02 03:10:03.781597 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 03:10:04.534567 Market is closed, skip checking exit
+[END  ] 2026-03-02 03:10:04.534803 Check exit at market open job ended
+[START] 2026-03-02 03:20:03.823719 Check exit at market open job started
+[INFO ] 2026-03-02 03:20:03.823732 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 03:20:04.578120 Market is closed, skip checking exit
+[END  ] 2026-03-02 03:20:04.578348 Check exit at market open job ended
+[START] 2026-03-02 03:30:03.809586 Check exit at market open job started
+[INFO ] 2026-03-02 03:30:03.809599 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 03:30:04.561197 Market is closed, skip checking exit
+[END  ] 2026-03-02 03:30:04.561416 Check exit at market open job ended
+[START] 2026-03-02 03:40:03.845743 Check exit at market open job started
+[INFO ] 2026-03-02 03:40:03.845756 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 03:40:04.598229 Market is closed, skip checking exit
+[END  ] 2026-03-02 03:40:04.598490 Check exit at market open job ended
+[START] 2026-03-02 03:50:03.825826 Check exit at market open job started
+[INFO ] 2026-03-02 03:50:03.825839 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 03:50:04.577840 Market is closed, skip checking exit
+[END  ] 2026-03-02 03:50:04.578063 Check exit at market open job ended
+[START] 2026-03-02 04:00:03.854986 Check exit at market open job started
+[INFO ] 2026-03-02 04:00:03.854998 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 04:00:04.608398 Market is closed, skip checking exit
+[END  ] 2026-03-02 04:00:04.608684 Check exit at market open job ended
+[START] 2026-03-02 04:10:03.858768 Check exit at market open job started
+[INFO ] 2026-03-02 04:10:03.858780 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 04:10:04.609388 Market is closed, skip checking exit
+[END  ] 2026-03-02 04:10:04.609604 Check exit at market open job ended
+[START] 2026-03-02 04:20:03.893710 Check exit at market open job started
+[INFO ] 2026-03-02 04:20:03.893722 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 04:20:04.648542 Market is closed, skip checking exit
+[END  ] 2026-03-02 04:20:04.648774 Check exit at market open job ended
+[START] 2026-03-02 04:30:03.902492 Check exit at market open job started
+[INFO ] 2026-03-02 04:30:03.902506 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 04:30:04.655056 Market is closed, skip checking exit
+[END  ] 2026-03-02 04:30:04.655353 Check exit at market open job ended
+[START] 2026-03-02 04:40:03.903990 Check exit at market open job started
+[INFO ] 2026-03-02 04:40:03.904003 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 04:40:04.658613 Market is closed, skip checking exit
+[END  ] 2026-03-02 04:40:04.658871 Check exit at market open job ended
+[START] 2026-03-02 04:50:03.920862 Check exit at market open job started
+[INFO ] 2026-03-02 04:50:03.920875 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 04:50:04.672785 Market is closed, skip checking exit
+[END  ] 2026-03-02 04:50:04.673012 Check exit at market open job ended
+[START] 2026-03-02 21:00:03.546211 Check exit at market open job started
+[INFO ] 2026-03-02 21:00:03.546247 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 21:00:04.311590 Market is closed, skip checking exit
+[END  ] 2026-03-02 21:00:04.321890 Check exit at market open job ended
+[START] 2026-03-02 21:10:04.014696 Check exit at market open job started
+[INFO ] 2026-03-02 21:10:04.014708 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 21:10:04.774392 Market is closed, skip checking exit
+[END  ] 2026-03-02 21:10:04.774658 Check exit at market open job ended
+[START] 2026-03-02 21:20:06.660206 Check exit at market open job started
+[INFO ] 2026-03-02 21:20:06.660221 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 21:20:07.422764 Market is closed, skip checking exit
+[END  ] 2026-03-02 21:20:07.423034 Check exit at market open job ended
+[START] 2026-03-02 21:30:04.087498 Check exit at market open job started
+[INFO ] 2026-03-02 21:30:04.087511 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 21:30:04.855577 Market is closed, skip checking exit
+[END  ] 2026-03-02 21:30:04.855829 Check exit at market open job ended
+[START] 2026-03-02 21:40:05.550296 Check exit at market open job started
+[INFO ] 2026-03-02 21:40:05.550325 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 21:40:06.311468 Market is closed, skip checking exit
+[END  ] 2026-03-02 21:40:06.311737 Check exit at market open job ended
+[START] 2026-03-02 21:50:04.566094 Check exit at market open job started
+[INFO ] 2026-03-02 21:50:04.566107 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 21:50:05.327839 Market is closed, skip checking exit
+[END  ] 2026-03-02 21:50:05.328049 Check exit at market open job ended
+[START] 2026-03-02 22:00:07.330194 Check exit at market open job started
+[INFO ] 2026-03-02 22:00:07.330231 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 22:00:08.083796 Market is closed, skip checking exit
+[END  ] 2026-03-02 22:00:08.084655 Check exit at market open job ended
+[START] 2026-03-02 22:10:04.162433 Check exit at market open job started
+[INFO ] 2026-03-02 22:10:04.162465 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 22:10:04.924746 Market is closed, skip checking exit
+[END  ] 2026-03-02 22:10:04.924998 Check exit at market open job ended
+[START] 2026-03-02 22:20:04.134630 Check exit at market open job started
+[INFO ] 2026-03-02 22:20:04.134642 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 22:20:04.892835 Market is closed, skip checking exit
+[END  ] 2026-03-02 22:20:04.893059 Check exit at market open job ended
+[START] 2026-03-02 22:30:29.849167 Check exit at market open job started
+[INFO ] 2026-03-02 22:30:29.849180 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 22:30:30.609803 Market is open, starting exit check
+[INFO ] 2026-03-02 22:30:30.610433 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-02 22:30:30.610604 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-02 22:30:30.610642 Check exit at market open job ended
+[START] 2026-03-02 22:40:30.184712 Check exit at market open job started
+[INFO ] 2026-03-02 22:40:30.184725 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 22:40:30.947954 Market is open, starting exit check
+[INFO ] 2026-03-02 22:40:30.948553 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-02 22:40:30.948727 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-02 22:40:30.948767 Check exit at market open job ended
+[START] 2026-03-02 22:50:30.842988 Check exit at market open job started
+[INFO ] 2026-03-02 22:50:30.843000 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 22:50:31.607145 Market is open, starting exit check
+[INFO ] 2026-03-02 22:50:31.607714 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-02 22:50:31.607889 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-02 22:50:31.607927 Check exit at market open job ended
+[START] 2026-03-02 23:00:41.064364 Check exit at market open job started
+[INFO ] 2026-03-02 23:00:41.064377 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 23:00:41.823630 Market is open, starting exit check
+[INFO ] 2026-03-02 23:00:41.824240 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-02 23:00:41.824418 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-02 23:00:41.824456 Check exit at market open job ended
+[START] 2026-03-02 23:10:29.551208 Check exit at market open job started
+[INFO ] 2026-03-02 23:10:29.551221 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 23:10:30.308739 Market is open, starting exit check
+[INFO ] 2026-03-02 23:10:30.322715 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-02 23:10:30.322994 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-02 23:10:30.323031 Check exit at market open job ended
+[START] 2026-03-02 23:20:32.182664 Check exit at market open job started
+[INFO ] 2026-03-02 23:20:32.182701 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 23:20:32.940052 Market is open, starting exit check
+[INFO ] 2026-03-02 23:20:32.940663 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-02 23:20:32.940828 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-02 23:20:32.940865 Check exit at market open job ended
+[START] 2026-03-02 23:30:28.754152 Check exit at market open job started
+[INFO ] 2026-03-02 23:30:28.754164 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 23:30:29.520488 Market is open, starting exit check
+[INFO ] 2026-03-02 23:30:29.521014 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-02 23:30:29.521177 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-02 23:30:29.521189 Check exit at market open job ended
+[START] 2026-03-02 23:40:28.394842 Check exit at market open job started
+[INFO ] 2026-03-02 23:40:28.394854 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 23:40:29.155946 Market is open, starting exit check
+[INFO ] 2026-03-02 23:40:29.156573 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-02 23:40:29.156737 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-02 23:40:29.156775 Check exit at market open job ended
+[START] 2026-03-02 23:50:29.514880 Check exit at market open job started
+[INFO ] 2026-03-02 23:50:29.514892 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 23:50:30.272801 Market is open, starting exit check
+[INFO ] 2026-03-02 23:50:30.273402 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-02 23:50:30.273566 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-02 23:50:30.273604 Check exit at market open job ended
+[START] 2026-03-03 00:00:04.350995 Check exit at market open job started
+[INFO ] 2026-03-03 00:00:04.351008 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 00:00:05.104848 Market is closed, skip checking exit
+[END  ] 2026-03-03 00:00:05.105137 Check exit at market open job ended
+[START] 2026-03-03 00:10:03.818318 Check exit at market open job started
+[INFO ] 2026-03-03 00:10:03.818330 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 00:10:04.576674 Market is closed, skip checking exit
+[END  ] 2026-03-03 00:10:04.595208 Check exit at market open job ended
+[START] 2026-03-03 00:20:05.008213 Check exit at market open job started
+[INFO ] 2026-03-03 00:20:05.008226 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 00:20:05.764726 Market is closed, skip checking exit
+[END  ] 2026-03-03 00:20:05.764969 Check exit at market open job ended
+[START] 2026-03-03 00:30:03.395262 Check exit at market open job started
+[INFO ] 2026-03-03 00:30:03.395275 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 00:30:04.154116 Market is closed, skip checking exit
+[END  ] 2026-03-03 00:30:04.154398 Check exit at market open job ended
+[START] 2026-03-03 00:40:03.414214 Check exit at market open job started
+[INFO ] 2026-03-03 00:40:03.414226 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 00:40:04.176126 Market is closed, skip checking exit
+[END  ] 2026-03-03 00:40:04.176408 Check exit at market open job ended
+[START] 2026-03-03 00:50:03.411128 Check exit at market open job started
+[INFO ] 2026-03-03 00:50:03.411140 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 00:50:04.175117 Market is closed, skip checking exit
+[END  ] 2026-03-03 00:50:04.175344 Check exit at market open job ended
+[START] 2026-03-03 01:00:03.455047 Check exit at market open job started
+[INFO ] 2026-03-03 01:00:03.455060 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 01:00:04.228887 Market is closed, skip checking exit
+[END  ] 2026-03-03 01:00:04.229119 Check exit at market open job ended
+[START] 2026-03-03 01:10:03.441612 Check exit at market open job started
+[INFO ] 2026-03-03 01:10:03.441624 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 01:10:04.199700 Market is closed, skip checking exit
+[END  ] 2026-03-03 01:10:04.199964 Check exit at market open job ended
+[START] 2026-03-03 01:20:03.445838 Check exit at market open job started
+[INFO ] 2026-03-03 01:20:03.445850 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 01:20:04.202831 Market is closed, skip checking exit
+[END  ] 2026-03-03 01:20:04.203101 Check exit at market open job ended
+[START] 2026-03-03 01:30:03.489977 Check exit at market open job started
+[INFO ] 2026-03-03 01:30:03.489989 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 01:30:04.246840 Market is closed, skip checking exit
+[END  ] 2026-03-03 01:30:04.247094 Check exit at market open job ended
+[START] 2026-03-03 01:40:03.484234 Check exit at market open job started
+[INFO ] 2026-03-03 01:40:03.484246 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 01:40:04.246364 Market is closed, skip checking exit
+[END  ] 2026-03-03 01:40:04.246620 Check exit at market open job ended
+[START] 2026-03-03 01:50:03.507876 Check exit at market open job started
+[INFO ] 2026-03-03 01:50:03.507888 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 01:50:04.262438 Market is closed, skip checking exit
+[END  ] 2026-03-03 01:50:04.262739 Check exit at market open job ended
+[START] 2026-03-03 02:00:03.525160 Check exit at market open job started
+[INFO ] 2026-03-03 02:00:03.525193 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 02:00:04.284386 Market is closed, skip checking exit
+[END  ] 2026-03-03 02:00:04.284633 Check exit at market open job ended
+[START] 2026-03-03 02:10:03.521724 Check exit at market open job started
+[INFO ] 2026-03-03 02:10:03.521737 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 02:10:04.281960 Market is closed, skip checking exit
+[END  ] 2026-03-03 02:10:04.282248 Check exit at market open job ended
+[START] 2026-03-03 02:20:03.556321 Check exit at market open job started
+[INFO ] 2026-03-03 02:20:03.556357 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 02:20:04.315527 Market is closed, skip checking exit
+[END  ] 2026-03-03 02:20:04.315754 Check exit at market open job ended
+[START] 2026-03-03 02:30:03.553634 Check exit at market open job started
+[INFO ] 2026-03-03 02:30:03.553646 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 02:30:04.312541 Market is closed, skip checking exit
+[END  ] 2026-03-03 02:30:04.312794 Check exit at market open job ended
+[START] 2026-03-03 02:40:03.552665 Check exit at market open job started
+[INFO ] 2026-03-03 02:40:03.552678 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 02:40:04.308411 Market is closed, skip checking exit
+[END  ] 2026-03-03 02:40:04.308681 Check exit at market open job ended
+[START] 2026-03-03 02:50:03.581991 Check exit at market open job started
+[INFO ] 2026-03-03 02:50:03.582021 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 02:50:04.341180 Market is closed, skip checking exit
+[END  ] 2026-03-03 02:50:04.341447 Check exit at market open job ended
+[START] 2026-03-03 03:00:03.584200 Check exit at market open job started
+[INFO ] 2026-03-03 03:00:03.584213 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 03:00:04.343917 Market is closed, skip checking exit
+[END  ] 2026-03-03 03:00:04.344152 Check exit at market open job ended
+[START] 2026-03-03 03:10:03.602020 Check exit at market open job started
+[INFO ] 2026-03-03 03:10:03.602058 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 03:10:04.361538 Market is closed, skip checking exit
+[END  ] 2026-03-03 03:10:04.361753 Check exit at market open job ended
+[START] 2026-03-03 03:20:03.627512 Check exit at market open job started
+[INFO ] 2026-03-03 03:20:03.627525 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 03:20:04.387063 Market is closed, skip checking exit
+[END  ] 2026-03-03 03:20:04.387376 Check exit at market open job ended
+[START] 2026-03-03 03:30:03.641306 Check exit at market open job started
+[INFO ] 2026-03-03 03:30:03.641346 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 03:30:04.399838 Market is closed, skip checking exit
+[END  ] 2026-03-03 03:30:04.400062 Check exit at market open job ended
+[START] 2026-03-03 03:40:03.651946 Check exit at market open job started
+[INFO ] 2026-03-03 03:40:03.651959 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 03:40:04.408664 Market is closed, skip checking exit
+[END  ] 2026-03-03 03:40:04.408920 Check exit at market open job ended
+[START] 2026-03-03 03:50:04.201524 Check exit at market open job started
+[INFO ] 2026-03-03 03:50:04.201537 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 03:50:04.962960 Market is closed, skip checking exit
+[END  ] 2026-03-03 03:50:04.963282 Check exit at market open job ended
+[START] 2026-03-03 04:00:03.715010 Check exit at market open job started
+[INFO ] 2026-03-03 04:00:03.715023 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 04:00:04.478457 Market is closed, skip checking exit
+[END  ] 2026-03-03 04:00:04.478727 Check exit at market open job ended
+[START] 2026-03-03 04:10:03.732196 Check exit at market open job started
+[INFO ] 2026-03-03 04:10:03.732209 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 04:10:04.492186 Market is closed, skip checking exit
+[END  ] 2026-03-03 04:10:04.492407 Check exit at market open job ended
+[START] 2026-03-03 04:20:03.706210 Check exit at market open job started
+[INFO ] 2026-03-03 04:20:03.706222 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 04:20:04.463729 Market is closed, skip checking exit
+[END  ] 2026-03-03 04:20:04.463986 Check exit at market open job ended
+[START] 2026-03-03 04:30:03.753576 Check exit at market open job started
+[INFO ] 2026-03-03 04:30:03.753589 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 04:30:04.509242 Market is closed, skip checking exit
+[END  ] 2026-03-03 04:30:04.509451 Check exit at market open job ended
+[START] 2026-03-03 04:40:07.302997 Check exit at market open job started
+[INFO ] 2026-03-03 04:40:07.303034 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 04:40:08.065250 Market is closed, skip checking exit
+[END  ] 2026-03-03 04:40:08.066726 Check exit at market open job ended
+[START] 2026-03-03 04:50:03.815602 Check exit at market open job started
+[INFO ] 2026-03-03 04:50:03.815633 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 04:50:04.569600 Market is closed, skip checking exit
+[END  ] 2026-03-03 04:50:04.569882 Check exit at market open job ended
+[START] 2026-03-03 20:00:46.994711 Check exit at market open job started
+[INFO ] 2026-03-03 20:00:46.994749 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 20:00:47.757266 Market is closed, skip checking exit
+[END  ] 2026-03-03 20:00:47.757870 Check exit at market open job ended
+[START] 2026-03-03 21:00:04.135921 Check exit at market open job started
+[INFO ] 2026-03-03 21:00:04.135934 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 21:00:04.892560 Market is closed, skip checking exit
+[END  ] 2026-03-03 21:00:04.892797 Check exit at market open job ended
+[START] 2026-03-03 21:10:04.151253 Check exit at market open job started
+[INFO ] 2026-03-03 21:10:04.151284 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 21:10:04.907108 Market is closed, skip checking exit
+[END  ] 2026-03-03 21:10:04.907333 Check exit at market open job ended
+[START] 2026-03-03 21:20:04.201013 Check exit at market open job started
+[INFO ] 2026-03-03 21:20:04.201025 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 21:20:04.966783 Market is closed, skip checking exit
+[END  ] 2026-03-03 21:20:04.967046 Check exit at market open job ended
+[START] 2026-03-03 21:30:04.183263 Check exit at market open job started
+[INFO ] 2026-03-03 21:30:04.183275 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 21:30:04.948325 Market is closed, skip checking exit
+[END  ] 2026-03-03 21:30:04.948547 Check exit at market open job ended
+[START] 2026-03-03 21:40:04.200984 Check exit at market open job started
+[INFO ] 2026-03-03 21:40:04.200996 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 21:40:04.957145 Market is closed, skip checking exit
+[END  ] 2026-03-03 21:40:04.957419 Check exit at market open job ended
+[START] 2026-03-03 21:50:04.225337 Check exit at market open job started
+[INFO ] 2026-03-03 21:50:04.225349 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 21:50:04.986042 Market is closed, skip checking exit
+[END  ] 2026-03-03 21:50:04.986270 Check exit at market open job ended
+[START] 2026-03-03 22:00:04.208497 Check exit at market open job started
+[INFO ] 2026-03-03 22:00:04.208510 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 22:00:04.964190 Market is closed, skip checking exit
+[END  ] 2026-03-03 22:00:04.964420 Check exit at market open job ended
+[START] 2026-03-03 22:10:04.225004 Check exit at market open job started
+[INFO ] 2026-03-03 22:10:04.225017 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 22:10:04.977985 Market is closed, skip checking exit
+[END  ] 2026-03-03 22:10:04.978226 Check exit at market open job ended
+[START] 2026-03-03 22:20:08.376498 Check exit at market open job started
+[INFO ] 2026-03-03 22:20:08.376535 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 22:20:09.132030 Market is closed, skip checking exit
+[END  ] 2026-03-03 22:20:09.141716 Check exit at market open job ended
+[START] 2026-03-03 22:30:29.104952 Check exit at market open job started
+[INFO ] 2026-03-03 22:30:29.104964 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 22:30:29.857710 Market is open, starting exit check
+[INFO ] 2026-03-03 22:30:30.179632 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 22:30:30.179778 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 22:30:30.179790 Check exit at market open job ended
+[START] 2026-03-03 22:40:29.193805 Check exit at market open job started
+[INFO ] 2026-03-03 22:40:29.193818 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 22:40:29.956499 Market is open, starting exit check
+[INFO ] 2026-03-03 22:40:30.262595 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 22:40:30.262723 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 22:40:30.262736 Check exit at market open job ended
+[START] 2026-03-03 22:50:30.203315 Check exit at market open job started
+[INFO ] 2026-03-03 22:50:30.203327 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 22:50:30.956311 Market is open, starting exit check
+[INFO ] 2026-03-03 22:50:31.382033 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 22:50:31.382229 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 22:50:31.382267 Check exit at market open job ended
+[START] 2026-03-03 23:00:31.154912 Check exit at market open job started
+[INFO ] 2026-03-03 23:00:31.154942 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 23:00:31.906806 Market is open, starting exit check
+[INFO ] 2026-03-03 23:00:32.382564 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 23:00:32.382663 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 23:00:32.382675 Check exit at market open job ended
+[START] 2026-03-03 23:10:28.329410 Check exit at market open job started
+[INFO ] 2026-03-03 23:10:28.329422 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 23:10:29.086240 Market is open, starting exit check
+[INFO ] 2026-03-03 23:10:29.657343 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 23:10:29.657443 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 23:10:29.657455 Check exit at market open job ended
+[START] 2026-03-03 23:20:27.148225 Check exit at market open job started
+[INFO ] 2026-03-03 23:20:27.148237 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 23:20:27.903362 Market is open, starting exit check
+[INFO ] 2026-03-03 23:20:28.309766 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 23:20:28.309909 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 23:20:28.309921 Check exit at market open job ended
+[START] 2026-03-03 23:29:06.469730 Check exit at market open job started
+[INFO ] 2026-03-03 23:29:06.469744 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 23:29:07.231848 Market is open, starting exit check
+[INFO ] 2026-03-03 23:29:07.812075 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 23:29:07.812201 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 23:29:07.812212 Check exit at market open job ended
+[START] 2026-03-03 23:30:27.450175 Check exit at market open job started
+[INFO ] 2026-03-03 23:30:27.450188 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 23:30:28.208004 Market is open, starting exit check
+[INFO ] 2026-03-03 23:30:28.624614 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 23:30:28.624718 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 23:30:28.624730 Check exit at market open job ended
+[START] 2026-03-03 23:32:41.442255 Check exit at market open job started
+[INFO ] 2026-03-03 23:32:41.442268 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 23:32:42.200650 Market is open, starting exit check
+[INFO ] 2026-03-03 23:32:42.633647 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 23:32:42.633847 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 23:32:42.633858 Check exit at market open job ended
+[START] 2026-03-03 23:40:27.785312 Check exit at market open job started
+[INFO ] 2026-03-03 23:40:27.785324 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 23:40:28.540913 Market is open, starting exit check
+[INFO ] 2026-03-03 23:40:29.062632 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 23:40:29.062771 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 23:40:29.062782 Check exit at market open job ended
+[START] 2026-03-03 23:50:27.222290 Check exit at market open job started
+[INFO ] 2026-03-03 23:50:27.222303 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 23:50:27.982108 Market is open, starting exit check
+[INFO ] 2026-03-03 23:50:28.447210 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 23:50:28.447310 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 23:50:28.447321 Check exit at market open job ended
+[START] 2026-03-04 00:00:27.175669 Check exit at market open job started
+[INFO ] 2026-03-04 00:00:27.175681 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 00:00:27.930622 Market is open, starting exit check
+[INFO ] 2026-03-04 00:00:28.453837 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 00:00:28.454008 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 00:00:28.454044 Check exit at market open job ended
+[START] 2026-03-04 00:10:27.743322 Check exit at market open job started
+[INFO ] 2026-03-04 00:10:27.743335 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 00:10:28.509468 Market is open, starting exit check
+[INFO ] 2026-03-04 00:10:28.919795 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 00:10:28.919970 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 00:10:28.920008 Check exit at market open job ended
+[START] 2026-03-04 00:20:27.337489 Check exit at market open job started
+[INFO ] 2026-03-04 00:20:27.337522 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 00:20:28.093516 Market is open, starting exit check
+[INFO ] 2026-03-04 00:20:28.506160 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 00:20:28.506306 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 00:20:28.506317 Check exit at market open job ended
+[START] 2026-03-04 00:30:29.404440 Check exit at market open job started
+[INFO ] 2026-03-04 00:30:29.404453 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 00:30:30.160933 Market is open, starting exit check
+[INFO ] 2026-03-04 00:30:30.556432 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 00:30:30.556609 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 00:30:30.556646 Check exit at market open job ended
+[START] 2026-03-04 00:40:27.025252 Check exit at market open job started
+[INFO ] 2026-03-04 00:40:27.025265 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 00:40:27.779162 Market is open, starting exit check
+[INFO ] 2026-03-04 00:40:28.367100 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 00:40:28.367217 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 00:40:28.367253 Check exit at market open job ended
+[START] 2026-03-04 00:50:29.251609 Check exit at market open job started
+[INFO ] 2026-03-04 00:50:29.251639 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 00:50:30.018206 Market is open, starting exit check
+[INFO ] 2026-03-04 00:50:30.575626 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 00:50:30.575727 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 00:50:30.575738 Check exit at market open job ended
+[START] 2026-03-04 01:00:27.438483 Check exit at market open job started
+[INFO ] 2026-03-04 01:00:27.438495 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 01:00:28.196022 Market is open, starting exit check
+[INFO ] 2026-03-04 01:00:28.670217 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 01:00:28.670317 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 01:00:28.670328 Check exit at market open job ended
+[START] 2026-03-04 01:10:29.670708 Check exit at market open job started
+[INFO ] 2026-03-04 01:10:29.670720 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 01:10:30.425697 Market is open, starting exit check
+[INFO ] 2026-03-04 01:10:30.905234 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 01:10:30.905332 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 01:10:30.905343 Check exit at market open job ended
+[START] 2026-03-04 01:20:27.263045 Check exit at market open job started
+[INFO ] 2026-03-04 01:20:27.263058 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 01:20:28.017969 Market is open, starting exit check
+[INFO ] 2026-03-04 01:20:28.471329 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 01:20:28.471492 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 01:20:28.471529 Check exit at market open job ended
+[START] 2026-03-04 01:30:27.614482 Check exit at market open job started
+[INFO ] 2026-03-04 01:30:27.614495 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 01:30:28.370139 Market is open, starting exit check
+[INFO ] 2026-03-04 01:30:28.753598 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 01:30:28.753695 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 01:30:28.753706 Check exit at market open job ended
+[START] 2026-03-04 01:40:27.066690 Check exit at market open job started
+[INFO ] 2026-03-04 01:40:27.066724 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 01:40:27.822527 Market is open, starting exit check
+[INFO ] 2026-03-04 01:40:28.415116 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 01:40:28.415293 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 01:40:28.415330 Check exit at market open job ended
+[START] 2026-03-04 01:50:26.638626 Check exit at market open job started
+[INFO ] 2026-03-04 01:50:26.638639 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 01:50:27.393599 Market is open, starting exit check
+[INFO ] 2026-03-04 01:50:27.767554 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 01:50:27.767725 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 01:50:27.767765 Check exit at market open job ended
+[START] 2026-03-04 02:00:27.384372 Check exit at market open job started
+[INFO ] 2026-03-04 02:00:27.384385 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 02:00:28.137519 Market is open, starting exit check
+[INFO ] 2026-03-04 02:00:28.658615 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 02:00:28.658711 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 02:00:28.658722 Check exit at market open job ended
+[START] 2026-03-04 02:10:26.709916 Check exit at market open job started
+[INFO ] 2026-03-04 02:10:26.709929 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 02:10:27.474917 Market is open, starting exit check
+[INFO ] 2026-03-04 02:10:28.013811 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 02:10:28.013926 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 02:10:28.013939 Check exit at market open job ended
+[START] 2026-03-04 02:20:26.627906 Check exit at market open job started
+[INFO ] 2026-03-04 02:20:26.627946 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 02:20:27.386719 Market is open, starting exit check
+[INFO ] 2026-03-04 02:20:27.794514 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 02:20:27.794610 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 02:20:27.794621 Check exit at market open job ended
+[START] 2026-03-04 02:30:26.813004 Check exit at market open job started
+[INFO ] 2026-03-04 02:30:26.813036 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 02:30:27.569031 Market is open, starting exit check
+[INFO ] 2026-03-04 02:30:27.936740 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 02:30:27.936911 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 02:30:27.936945 Check exit at market open job ended
+[START] 2026-03-04 02:40:26.334957 Check exit at market open job started
+[INFO ] 2026-03-04 02:40:26.334970 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 02:40:27.093879 Market is open, starting exit check
+[INFO ] 2026-03-04 02:40:27.610305 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 02:40:27.610401 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 02:40:27.610412 Check exit at market open job ended
+[START] 2026-03-04 02:50:27.212354 Check exit at market open job started
+[INFO ] 2026-03-04 02:50:27.212367 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 02:50:27.973590 Market is open, starting exit check
+[INFO ] 2026-03-04 02:50:28.466994 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 02:50:28.467203 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 02:50:28.467266 Check exit at market open job ended
+[START] 2026-03-04 03:00:30.200358 Check exit at market open job started
+[INFO ] 2026-03-04 03:00:30.200371 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 03:00:30.962211 Market is open, starting exit check
+[INFO ] 2026-03-04 03:00:31.409939 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 03:00:31.410035 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 03:00:31.410046 Check exit at market open job ended
+[START] 2026-03-04 03:10:26.855968 Check exit at market open job started
+[INFO ] 2026-03-04 03:10:26.855981 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 03:10:27.610925 Market is open, starting exit check
+[INFO ] 2026-03-04 03:10:27.976789 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 03:10:27.976956 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 03:10:27.976997 Check exit at market open job ended
+[START] 2026-03-04 03:20:27.353488 Check exit at market open job started
+[INFO ] 2026-03-04 03:20:27.353501 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 03:20:28.113802 Market is open, starting exit check
+[INFO ] 2026-03-04 03:20:28.483774 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 03:20:28.483933 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 03:20:28.483971 Check exit at market open job ended
+[START] 2026-03-04 03:30:26.624864 Check exit at market open job started
+[INFO ] 2026-03-04 03:30:26.624877 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 03:30:27.380128 Market is open, starting exit check
+[INFO ] 2026-03-04 03:30:28.018867 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 03:30:28.019026 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 03:30:28.019067 Check exit at market open job ended
+[START] 2026-03-04 03:40:26.933124 Check exit at market open job started
+[INFO ] 2026-03-04 03:40:26.933137 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 03:40:27.692263 Market is open, starting exit check
+[INFO ] 2026-03-04 03:40:28.096660 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 03:40:28.096777 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 03:40:28.096789 Check exit at market open job ended
+[START] 2026-03-04 03:50:26.560070 Check exit at market open job started
+[INFO ] 2026-03-04 03:50:26.560108 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 03:50:27.317772 Market is open, starting exit check
+[INFO ] 2026-03-04 03:50:27.725323 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 03:50:27.725419 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 03:50:27.725430 Check exit at market open job ended
+[START] 2026-03-04 04:00:26.511381 Check exit at market open job started
+[INFO ] 2026-03-04 04:00:26.511394 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 04:00:27.268576 Market is open, starting exit check
+[INFO ] 2026-03-04 04:00:27.676831 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 04:00:27.677000 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 04:00:27.677037 Check exit at market open job ended
+[START] 2026-03-04 04:10:26.746983 Check exit at market open job started
+[INFO ] 2026-03-04 04:10:26.746995 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 04:10:27.507454 Market is open, starting exit check
+[INFO ] 2026-03-04 04:10:27.913991 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 04:10:27.914102 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 04:10:27.914114 Check exit at market open job ended
+[START] 2026-03-04 04:20:26.456146 Check exit at market open job started
+[INFO ] 2026-03-04 04:20:26.456158 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 04:20:27.219188 Market is open, starting exit check
+[INFO ] 2026-03-04 04:20:27.658540 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 04:20:27.658637 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 04:20:27.658648 Check exit at market open job ended
+[START] 2026-03-04 04:30:27.052866 Check exit at market open job started
+[INFO ] 2026-03-04 04:30:27.052878 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 04:30:27.808928 Market is open, starting exit check
+[INFO ] 2026-03-04 04:30:28.221605 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 04:30:28.221765 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 04:30:28.221802 Check exit at market open job ended
+[START] 2026-03-04 04:40:26.628165 Check exit at market open job started
+[INFO ] 2026-03-04 04:40:26.628178 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 04:40:27.383435 Market is open, starting exit check
+[INFO ] 2026-03-04 04:40:27.791459 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 04:40:27.791597 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 04:40:27.791608 Check exit at market open job ended
+[START] 2026-03-04 04:50:26.850772 Check exit at market open job started
+[INFO ] 2026-03-04 04:50:26.850784 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 04:50:27.613867 Market is open, starting exit check
+[INFO ] 2026-03-04 04:50:28.020127 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 04:50:28.020282 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 04:50:28.020319 Check exit at market open job ended
+[START] 2026-03-04 21:00:08.408229 Check exit at market open job started
+[INFO ] 2026-03-04 21:00:08.408265 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 21:00:09.174613 Market is closed, skip checking exit
+[END  ] 2026-03-04 21:00:09.186588 Check exit at market open job ended
+[START] 2026-03-04 21:10:04.244522 Check exit at market open job started
+[INFO ] 2026-03-04 21:10:04.244534 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 21:10:05.006417 Market is closed, skip checking exit
+[END  ] 2026-03-04 21:10:05.006673 Check exit at market open job ended
+[START] 2026-03-04 21:20:04.233236 Check exit at market open job started
+[INFO ] 2026-03-04 21:20:04.233249 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 21:20:04.996521 Market is closed, skip checking exit
+[END  ] 2026-03-04 21:20:04.996737 Check exit at market open job ended
+[START] 2026-03-04 21:30:04.239016 Check exit at market open job started
+[INFO ] 2026-03-04 21:30:04.239029 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 21:30:05.009781 Market is closed, skip checking exit
+[END  ] 2026-03-04 21:30:05.010022 Check exit at market open job ended
+[START] 2026-03-04 21:40:04.238446 Check exit at market open job started
+[INFO ] 2026-03-04 21:40:04.238459 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 21:40:04.999398 Market is closed, skip checking exit
+[END  ] 2026-03-04 21:40:04.999657 Check exit at market open job ended
+[START] 2026-03-04 21:50:04.247562 Check exit at market open job started
+[INFO ] 2026-03-04 21:50:04.247575 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 21:50:05.008315 Market is closed, skip checking exit
+[END  ] 2026-03-04 21:50:05.008566 Check exit at market open job ended
+[START] 2026-03-04 22:00:04.283516 Check exit at market open job started
+[INFO ] 2026-03-04 22:00:04.283529 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 22:00:05.043941 Market is closed, skip checking exit
+[END  ] 2026-03-04 22:00:05.044163 Check exit at market open job ended

@@ -1,15 +1,57 @@
-[START] 2026-02-28 16:15:17.144404 Check exit at market close job started
-[INFO ] 2026-02-28 16:15:17.144416 Current script directory is /Users/albertwong/Documents/GitHub/TurtleTradingWebApplication/
-[INFO ] 2026-02-28 16:15:17.154364 10-days low Exit tickers:  (Count: 0)
-[INFO ] 2026-02-28 16:15:17.154411 20-days low Exit tickers:  (Count: 0)
-[END  ] 2026-02-28 16:15:17.154413 Check exit at market close job ended
-[START] 2026-02-28 16:16:45.414522 Check exit at market close job started
-[INFO ] 2026-02-28 16:16:45.414532 Current script directory is /Users/albertwong/Documents/GitHub/TurtleTradingWebApplication/
-[INFO ] 2026-02-28 16:16:45.428941 10-days low Exit tickers: XOM (Count: 1)
-[INFO ] 2026-02-28 16:16:45.428993 20-days low Exit tickers:  (Count: 0)
-[END  ] 2026-02-28 16:16:45.428995 Check exit at market close job ended
-[START] 2026-02-28 23:31:05.463100 Check exit at market close job started
-[INFO ] 2026-02-28 23:31:05.463104 Current script directory is /Users/albertwong/Documents/GitHub/TurtleTradingWebApplication/
-[INFO ] 2026-02-28 23:31:05.470416 10-days low Exit tickers:  (Count: 0)
-[INFO ] 2026-02-28 23:31:05.470486 20-days low Exit tickers:  (Count: 0)
-[END  ] 2026-02-28 23:31:05.470488 Check exit at market close job ended
+[START] 2026-03-01 06:30:07.761977 Check exit at market close job started
+[INFO ] 2026-03-01 06:30:07.761992 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-01 06:30:07.762446 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-01 06:30:07.762544 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-01 06:30:07.762555 Check exit at market close job ended
+[START] 2026-03-02 06:30:06.967789 Check exit at market close job started
+[INFO ] 2026-03-02 06:30:06.967803 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 06:30:06.968271 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-02 06:30:06.968410 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-02 06:30:06.968448 Check exit at market close job ended
+[START] 2026-03-02 08:32:07.611773 Check exit at market close job started
+[INFO ] 2026-03-02 08:32:07.611803 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-02 08:32:08.274619 Previous night market (2026-03-02) was closed, skip checking exit
+[END  ] 2026-03-02 08:32:08.274945 Check exit at market close job ended
+[START] 2026-03-03 06:30:04.213278 Check exit at market close job started
+[INFO ] 2026-03-03 06:30:04.213312 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 06:30:04.860353 Previous night market (2026-03-03) was closed, skip checking exit
+[END  ] 2026-03-03 06:30:04.860677 Check exit at market close job ended
+[START] 2026-03-03 07:55:36.206032 Check exit at market close job started
+[INFO ] 2026-03-03 07:55:36.206044 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 07:55:36.855597 Previous night market (2026-03-03) was closed, skip checking exit
+[END  ] 2026-03-03 07:55:36.855823 Check exit at market close job ended
+[START] 2026-03-03 07:58:10.983907 Check exit at market close job started
+[INFO ] 2026-03-03 07:58:10.983920 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 07:58:10.994561 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 07:58:10.994871 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 07:58:10.994883 Check exit at market close job ended
+[START] 2026-03-03 08:25:44.682316 Check exit at market close job started
+[INFO ] 2026-03-03 08:25:44.682328 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 08:25:45.443685 Previous night market was open, starting exit check
+[INFO ] 2026-03-03 08:25:45.444281 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 08:25:45.444483 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 08:25:45.444495 Check exit at market close job ended
+[START] 2026-03-03 19:37:19.650504 Check exit at market close job started
+[INFO ] 2026-03-03 19:37:19.650547 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 19:37:20.450239 Previous night market was open, starting exit check
+[START] 2026-03-03 19:39:14.183009 Check exit at market close job started
+[INFO ] 2026-03-03 19:39:14.183042 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 19:39:14.947636 Previous night market was open, starting exit check
+[START] 2026-03-03 19:40:16.252849 Check exit at market close job started
+[INFO ] 2026-03-03 19:40:16.252862 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 19:40:17.035850 Previous night market was open, starting exit check
+[INFO ] 2026-03-03 19:40:17.054775 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 19:40:17.055055 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 19:40:17.055067 Check exit at market close job ended
+[START] 2026-03-03 19:43:54.993224 Check exit at market close job started
+[INFO ] 2026-03-03 19:43:54.993239 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-03 19:43:55.755235 Previous night market was open, starting exit check
+[INFO ] 2026-03-03 19:43:55.799915 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-03 19:43:55.800032 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-03 19:43:55.800044 Check exit at market close job ended
+[START] 2026-03-04 06:30:06.018300 Check exit at market close job started
+[INFO ] 2026-03-04 06:30:06.018337 Current script directory is /volume1/web/sources/turtle_trading_web_application/
+[INFO ] 2026-03-04 06:30:06.774545 Previous night market was open, starting exit check
+[INFO ] 2026-03-04 06:30:06.876769 10-days low Exit tickers:  (Count: 0)
+[INFO ] 2026-03-04 06:30:06.877077 20-days low Exit tickers:  (Count: 0)
+[END  ] 2026-03-04 06:30:06.877126 Check exit at market close job ended

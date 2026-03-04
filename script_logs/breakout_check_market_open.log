@@ -435,6 +435,709 @@
 [START] 2026-02-28 04:50:03.124368 Check breakout at market open job started
 [INFO ] 2026-02-28 04:50:03.820643 Market is closed, skip checking breakout
 [END  ] 2026-02-28 04:50:03.820864 Check breakout at market open job ended
-[START] 2026-02-28 23:31:19.291537 Check breakout and exit at market open job started
-[INFO ] 2026-02-28 23:31:19.346946 Market is closed, skip checking breakout
-[END  ] 2026-02-28 23:31:19.402482 Check breakout and exit at market open job ended
+[START] 2026-02-28 21:00:07.384078 Check breakout at market open job started
+[INFO ] 2026-02-28 21:00:08.096443 Market is closed, skip checking breakout
+[END  ] 2026-02-28 21:00:08.096688 Check breakout at market open job ended
+[START] 2026-02-28 21:10:03.449070 Check breakout at market open job started
+[INFO ] 2026-02-28 21:10:04.140491 Market is closed, skip checking breakout
+[END  ] 2026-02-28 21:10:04.140755 Check breakout at market open job ended
+[START] 2026-02-28 21:20:03.443620 Check breakout at market open job started
+[INFO ] 2026-02-28 21:20:04.139692 Market is closed, skip checking breakout
+[END  ] 2026-02-28 21:20:04.139907 Check breakout at market open job ended
+[START] 2026-02-28 21:30:03.454992 Check breakout at market open job started
+[INFO ] 2026-02-28 21:30:04.146182 Market is closed, skip checking breakout
+[END  ] 2026-02-28 21:30:04.146403 Check breakout at market open job ended
+[START] 2026-02-28 21:40:03.467231 Check breakout at market open job started
+[INFO ] 2026-02-28 21:40:04.160045 Market is closed, skip checking breakout
+[END  ] 2026-02-28 21:40:04.160342 Check breakout at market open job ended
+[START] 2026-02-28 21:50:03.490975 Check breakout at market open job started
+[INFO ] 2026-02-28 21:50:04.185220 Market is closed, skip checking breakout
+[END  ] 2026-02-28 21:50:04.185440 Check breakout at market open job ended
+[START] 2026-02-28 22:00:03.532193 Check breakout at market open job started
+[INFO ] 2026-02-28 22:00:04.229253 Market is closed, skip checking breakout
+[END  ] 2026-02-28 22:00:04.229469 Check breakout at market open job ended
+[START] 2026-02-28 22:10:03.532230 Check breakout at market open job started
+[INFO ] 2026-02-28 22:10:04.223538 Market is closed, skip checking breakout
+[END  ] 2026-02-28 22:10:04.223769 Check breakout at market open job ended
+[START] 2026-02-28 22:20:02.525234 Check breakout at market open job started
+[INFO ] 2026-02-28 22:20:03.223853 Market is closed, skip checking breakout
+[END  ] 2026-02-28 22:20:03.224140 Check breakout at market open job ended
+[START] 2026-02-28 22:30:02.531551 Check breakout at market open job started
+[INFO ] 2026-02-28 22:30:03.230320 Market is closed, skip checking breakout
+[END  ] 2026-02-28 22:30:03.230564 Check breakout at market open job ended
+[START] 2026-02-28 22:40:02.559556 Check breakout at market open job started
+[INFO ] 2026-02-28 22:40:03.256070 Market is closed, skip checking breakout
+[END  ] 2026-02-28 22:40:03.256374 Check breakout at market open job ended
+[START] 2026-02-28 22:50:02.571772 Check breakout at market open job started
+[INFO ] 2026-02-28 22:50:03.267872 Market is closed, skip checking breakout
+[END  ] 2026-02-28 22:50:03.268086 Check breakout at market open job ended
+[START] 2026-02-28 23:00:02.592615 Check breakout at market open job started
+[INFO ] 2026-02-28 23:00:03.288261 Market is closed, skip checking breakout
+[END  ] 2026-02-28 23:00:03.288569 Check breakout at market open job ended
+[START] 2026-02-28 23:10:02.610205 Check breakout at market open job started
+[INFO ] 2026-02-28 23:10:03.303036 Market is closed, skip checking breakout
+[END  ] 2026-02-28 23:10:03.303340 Check breakout at market open job ended
+[START] 2026-02-28 23:20:02.629915 Check breakout at market open job started
+[INFO ] 2026-02-28 23:20:03.324045 Market is closed, skip checking breakout
+[END  ] 2026-02-28 23:20:03.324339 Check breakout at market open job ended
+[START] 2026-02-28 23:30:02.643821 Check breakout at market open job started
+[INFO ] 2026-02-28 23:30:03.337264 Market is closed, skip checking breakout
+[END  ] 2026-02-28 23:30:03.337480 Check breakout at market open job ended
+[START] 2026-02-28 23:40:02.737315 Check breakout and exit at market open job started
+[INFO ] 2026-02-28 23:40:03.432278 Market is closed, skip checking breakout
+[END  ] 2026-02-28 23:40:04.085656 Check breakout and exit at market open job ended
+[START] 2026-02-28 23:50:02.686374 Check breakout and exit at market open job started
+[INFO ] 2026-02-28 23:50:03.385778 Market is closed, skip checking breakout
+[END  ] 2026-02-28 23:50:04.040672 Check breakout and exit at market open job ended
+[START] 2026-03-01 00:00:02.702880 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 00:00:03.404214 Market is closed, skip checking breakout
+[END  ] 2026-03-01 00:00:04.056666 Check breakout and exit at market open job ended
+[START] 2026-03-01 00:10:02.712358 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 00:10:03.407237 Market is closed, skip checking breakout
+[END  ] 2026-03-01 00:10:04.058336 Check breakout and exit at market open job ended
+[START] 2026-03-01 00:20:02.743948 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 00:20:03.431103 Market is closed, skip checking breakout
+[END  ] 2026-03-01 00:20:04.077377 Check breakout and exit at market open job ended
+[START] 2026-03-01 00:30:02.731535 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 00:30:03.428960 Market is closed, skip checking breakout
+[END  ] 2026-03-01 00:30:04.083263 Check breakout and exit at market open job ended
+[START] 2026-03-01 00:40:02.742017 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 00:40:03.438372 Market is closed, skip checking breakout
+[END  ] 2026-03-01 00:40:04.090887 Check breakout and exit at market open job ended
+[START] 2026-03-01 00:50:02.751919 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 00:50:03.450175 Market is closed, skip checking breakout
+[END  ] 2026-03-01 00:50:04.105088 Check breakout and exit at market open job ended
+[START] 2026-03-01 01:00:02.783605 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 01:00:03.472823 Market is closed, skip checking breakout
+[END  ] 2026-03-01 01:00:04.119410 Check breakout and exit at market open job ended
+[START] 2026-03-01 01:10:02.817222 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 01:10:03.509660 Market is closed, skip checking breakout
+[END  ] 2026-03-01 01:10:04.166024 Check breakout and exit at market open job ended
+[START] 2026-03-01 01:20:02.804687 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 01:20:03.497325 Market is closed, skip checking breakout
+[END  ] 2026-03-01 01:20:04.148056 Check breakout and exit at market open job ended
+[START] 2026-03-01 01:30:06.213923 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 01:30:06.927692 Market is closed, skip checking breakout
+[END  ] 2026-03-01 01:30:07.625312 Check breakout and exit at market open job ended
+[START] 2026-03-01 01:40:02.868779 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 01:40:03.560761 Market is closed, skip checking breakout
+[END  ] 2026-03-01 01:40:04.208111 Check breakout and exit at market open job ended
+[START] 2026-03-01 01:50:06.789532 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 01:50:07.500750 Market is closed, skip checking breakout
+[END  ] 2026-03-01 01:50:08.180646 Check breakout and exit at market open job ended
+[START] 2026-03-01 02:00:06.073828 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 02:00:06.785977 Market is closed, skip checking breakout
+[END  ] 2026-03-01 02:00:07.463347 Check breakout and exit at market open job ended
+[START] 2026-03-01 02:10:05.316196 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 02:10:06.006983 Market is closed, skip checking breakout
+[END  ] 2026-03-01 02:10:06.678191 Check breakout and exit at market open job ended
+[START] 2026-03-01 02:20:03.476391 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 02:20:04.172432 Market is closed, skip checking breakout
+[END  ] 2026-03-01 02:20:04.827103 Check breakout and exit at market open job ended
+[START] 2026-03-01 02:30:03.117265 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 02:30:03.806859 Market is closed, skip checking breakout
+[END  ] 2026-03-01 02:30:04.453165 Check breakout and exit at market open job ended
+[START] 2026-03-01 02:40:03.134344 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 02:40:03.821256 Market is closed, skip checking breakout
+[END  ] 2026-03-01 02:40:04.466047 Check breakout and exit at market open job ended
+[START] 2026-03-01 02:50:04.597660 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 02:50:05.291353 Market is closed, skip checking breakout
+[END  ] 2026-03-01 02:50:05.975059 Check breakout and exit at market open job ended
+[START] 2026-03-01 03:00:06.767605 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 03:00:07.478928 Market is closed, skip checking breakout
+[END  ] 2026-03-01 03:00:08.193265 Check breakout and exit at market open job ended
+[START] 2026-03-01 03:10:09.829161 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 03:10:10.635526 Market is closed, skip checking breakout
+[END  ] 2026-03-01 03:10:11.360110 Check breakout and exit at market open job ended
+[START] 2026-03-01 03:20:12.638210 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 03:20:13.480239 Market is closed, skip checking breakout
+[END  ] 2026-03-01 03:20:14.228485 Check breakout and exit at market open job ended
+[START] 2026-03-01 03:30:22.235876 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 03:30:22.958356 Market is closed, skip checking breakout
+[END  ] 2026-03-01 03:30:23.646801 Check breakout and exit at market open job ended
+[START] 2026-03-01 03:40:07.373314 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 03:40:08.097024 Market is closed, skip checking breakout
+[END  ] 2026-03-01 03:40:08.779859 Check breakout and exit at market open job ended
+[START] 2026-03-01 03:50:11.569431 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 03:50:12.410613 Market is closed, skip checking breakout
+[END  ] 2026-03-01 03:50:13.238940 Check breakout and exit at market open job ended
+[START] 2026-03-01 04:00:08.468694 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 04:00:09.227352 Market is closed, skip checking breakout
+[END  ] 2026-03-01 04:00:09.998015 Check breakout and exit at market open job ended
+[START] 2026-03-01 04:10:08.551345 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 04:10:09.472714 Market is closed, skip checking breakout
+[END  ] 2026-03-01 04:10:10.328290 Check breakout and exit at market open job ended
+[START] 2026-03-01 04:20:10.681395 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 04:20:11.526963 Market is closed, skip checking breakout
+[END  ] 2026-03-01 04:20:12.235450 Check breakout and exit at market open job ended
+[START] 2026-03-01 04:30:09.774925 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 04:30:10.550157 Market is closed, skip checking breakout
+[END  ] 2026-03-01 04:30:11.291956 Check breakout and exit at market open job ended
+[START] 2026-03-01 04:40:08.996392 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 04:40:09.835838 Market is closed, skip checking breakout
+[END  ] 2026-03-01 04:40:10.589697 Check breakout and exit at market open job ended
+[START] 2026-03-01 04:50:16.351632 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 04:50:17.215919 Market is closed, skip checking breakout
+[END  ] 2026-03-01 04:50:18.089648 Check breakout and exit at market open job ended
+[START] 2026-03-01 21:00:06.503871 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 21:00:07.210432 Market is closed, skip checking breakout
+[END  ] 2026-03-01 21:00:07.927542 Check breakout and exit at market open job ended
+[START] 2026-03-01 21:10:02.609778 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 21:10:03.316290 Market is closed, skip checking breakout
+[END  ] 2026-03-01 21:10:03.978201 Check breakout and exit at market open job ended
+[START] 2026-03-01 21:20:02.595718 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 21:20:03.296758 Market is closed, skip checking breakout
+[END  ] 2026-03-01 21:20:03.953013 Check breakout and exit at market open job ended
+[START] 2026-03-01 21:30:07.158294 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 21:30:07.879625 Market is closed, skip checking breakout
+[END  ] 2026-03-01 21:30:08.563128 Check breakout and exit at market open job ended
+[START] 2026-03-01 21:40:02.661835 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 21:40:03.366939 Market is closed, skip checking breakout
+[END  ] 2026-03-01 21:40:04.029606 Check breakout and exit at market open job ended
+[START] 2026-03-01 21:50:02.654553 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 21:50:03.356147 Market is closed, skip checking breakout
+[END  ] 2026-03-01 21:50:04.012993 Check breakout and exit at market open job ended
+[START] 2026-03-01 22:00:02.709041 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 22:00:03.418864 Market is closed, skip checking breakout
+[END  ] 2026-03-01 22:00:04.076771 Check breakout and exit at market open job ended
+[START] 2026-03-01 22:10:07.601346 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 22:10:08.311262 Market is closed, skip checking breakout
+[END  ] 2026-03-01 22:10:08.993933 Check breakout and exit at market open job ended
+[START] 2026-03-01 22:20:06.020313 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 22:20:06.729817 Market is closed, skip checking breakout
+[END  ] 2026-03-01 22:20:07.400420 Check breakout and exit at market open job ended
+[START] 2026-03-01 22:30:02.597875 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 22:30:03.305584 Market is closed, skip checking breakout
+[END  ] 2026-03-01 22:30:03.968577 Check breakout and exit at market open job ended
+[START] 2026-03-01 22:40:02.667721 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 22:40:03.364962 Market is closed, skip checking breakout
+[END  ] 2026-03-01 22:40:04.019717 Check breakout and exit at market open job ended
+[START] 2026-03-01 22:50:02.629719 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 22:50:03.328271 Market is closed, skip checking breakout
+[END  ] 2026-03-01 22:50:03.984830 Check breakout and exit at market open job ended
+[START] 2026-03-01 23:00:02.692176 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 23:00:03.391991 Market is closed, skip checking breakout
+[END  ] 2026-03-01 23:00:04.048428 Check breakout and exit at market open job ended
+[START] 2026-03-01 23:10:02.639836 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 23:10:03.345724 Market is closed, skip checking breakout
+[END  ] 2026-03-01 23:10:04.005206 Check breakout and exit at market open job ended
+[START] 2026-03-01 23:20:02.690276 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 23:20:03.393270 Market is closed, skip checking breakout
+[END  ] 2026-03-01 23:20:04.053149 Check breakout and exit at market open job ended
+[START] 2026-03-01 23:30:02.669532 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 23:30:03.371819 Market is closed, skip checking breakout
+[END  ] 2026-03-01 23:30:04.030261 Check breakout and exit at market open job ended
+[START] 2026-03-01 23:40:02.706670 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 23:40:03.410300 Market is closed, skip checking breakout
+[END  ] 2026-03-01 23:40:04.070473 Check breakout and exit at market open job ended
+[START] 2026-03-01 23:50:02.716104 Check breakout and exit at market open job started
+[INFO ] 2026-03-01 23:50:03.419178 Market is closed, skip checking breakout
+[END  ] 2026-03-01 23:50:04.078634 Check breakout and exit at market open job ended
+[START] 2026-03-02 00:00:02.704508 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 00:00:03.522364 Market is closed, skip checking breakout
+[END  ] 2026-03-02 00:00:04.286600 Check breakout and exit at market open job ended
+[START] 2026-03-02 00:10:02.724719 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 00:10:03.530019 Market is closed, skip checking breakout
+[END  ] 2026-03-02 00:10:04.290768 Check breakout and exit at market open job ended
+[START] 2026-03-02 00:20:02.731811 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 00:20:03.541953 Market is closed, skip checking breakout
+[END  ] 2026-03-02 00:20:04.303008 Check breakout and exit at market open job ended
+[START] 2026-03-02 00:30:02.758500 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 00:30:03.566941 Market is closed, skip checking breakout
+[END  ] 2026-03-02 00:30:04.330011 Check breakout and exit at market open job ended
+[START] 2026-03-02 00:40:02.766978 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 00:40:03.580136 Market is closed, skip checking breakout
+[END  ] 2026-03-02 00:40:04.348673 Check breakout and exit at market open job ended
+[START] 2026-03-02 00:50:02.783971 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 00:50:03.595577 Market is closed, skip checking breakout
+[END  ] 2026-03-02 00:50:04.359196 Check breakout and exit at market open job ended
+[START] 2026-03-02 01:00:06.476389 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 01:00:07.292229 Market is closed, skip checking breakout
+[END  ] 2026-03-02 01:00:08.084239 Check breakout and exit at market open job ended
+[START] 2026-03-02 01:10:02.836305 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 01:10:03.632220 Market is closed, skip checking breakout
+[END  ] 2026-03-02 01:10:04.384540 Check breakout and exit at market open job ended
+[START] 2026-03-02 01:20:02.838147 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 01:20:03.637972 Market is closed, skip checking breakout
+[END  ] 2026-03-02 01:20:04.389952 Check breakout and exit at market open job ended
+[START] 2026-03-02 01:30:02.857248 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 01:30:03.660471 Market is closed, skip checking breakout
+[END  ] 2026-03-02 01:30:04.420127 Check breakout and exit at market open job ended
+[START] 2026-03-02 01:40:02.881488 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 01:40:03.687503 Market is closed, skip checking breakout
+[END  ] 2026-03-02 01:40:04.445062 Check breakout and exit at market open job ended
+[START] 2026-03-02 01:50:02.875885 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 01:50:03.675897 Market is closed, skip checking breakout
+[END  ] 2026-03-02 01:50:04.431337 Check breakout and exit at market open job ended
+[START] 2026-03-02 02:00:02.901384 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 02:00:03.701417 Market is closed, skip checking breakout
+[END  ] 2026-03-02 02:00:04.459327 Check breakout and exit at market open job ended
+[START] 2026-03-02 02:10:02.929243 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 02:10:03.727576 Market is closed, skip checking breakout
+[END  ] 2026-03-02 02:10:04.480760 Check breakout and exit at market open job ended
+[START] 2026-03-02 02:20:02.899306 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 02:20:03.697977 Market is closed, skip checking breakout
+[END  ] 2026-03-02 02:20:04.452285 Check breakout and exit at market open job ended
+[START] 2026-03-02 02:30:02.926281 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 02:30:03.723407 Market is closed, skip checking breakout
+[END  ] 2026-03-02 02:30:04.474517 Check breakout and exit at market open job ended
+[START] 2026-03-02 02:40:02.947037 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 02:40:03.748120 Market is closed, skip checking breakout
+[END  ] 2026-03-02 02:40:04.503178 Check breakout and exit at market open job ended
+[START] 2026-03-02 02:50:02.973560 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 02:50:03.774769 Market is closed, skip checking breakout
+[END  ] 2026-03-02 02:50:04.526737 Check breakout and exit at market open job ended
+[START] 2026-03-02 03:00:02.973360 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 03:00:03.771450 Market is closed, skip checking breakout
+[END  ] 2026-03-02 03:00:04.527324 Check breakout and exit at market open job ended
+[START] 2026-03-02 03:10:02.982406 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 03:10:03.781222 Market is closed, skip checking breakout
+[END  ] 2026-03-02 03:10:04.534936 Check breakout and exit at market open job ended
+[START] 2026-03-02 03:20:03.023725 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 03:20:03.823405 Market is closed, skip checking breakout
+[END  ] 2026-03-02 03:20:04.578493 Check breakout and exit at market open job ended
+[START] 2026-03-02 03:30:03.012180 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 03:30:03.809255 Market is closed, skip checking breakout
+[END  ] 2026-03-02 03:30:04.561499 Check breakout and exit at market open job ended
+[START] 2026-03-02 03:40:03.046807 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 03:40:03.845373 Market is closed, skip checking breakout
+[END  ] 2026-03-02 03:40:04.598699 Check breakout and exit at market open job ended
+[START] 2026-03-02 03:50:03.026199 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 03:50:03.825501 Market is closed, skip checking breakout
+[END  ] 2026-03-02 03:50:04.578156 Check breakout and exit at market open job ended
+[START] 2026-03-02 04:00:03.057058 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 04:00:03.854605 Market is closed, skip checking breakout
+[END  ] 2026-03-02 04:00:04.608891 Check breakout and exit at market open job ended
+[START] 2026-03-02 04:10:03.059919 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 04:10:03.858439 Market is closed, skip checking breakout
+[END  ] 2026-03-02 04:10:04.609693 Check breakout and exit at market open job ended
+[START] 2026-03-02 04:20:03.091488 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 04:20:03.893357 Market is closed, skip checking breakout
+[END  ] 2026-03-02 04:20:04.648908 Check breakout and exit at market open job ended
+[START] 2026-03-02 04:30:03.104740 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 04:30:03.902199 Market is closed, skip checking breakout
+[END  ] 2026-03-02 04:30:04.655570 Check breakout and exit at market open job ended
+[START] 2026-03-02 04:40:03.103215 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 04:40:03.903715 Market is closed, skip checking breakout
+[END  ] 2026-03-02 04:40:04.659053 Check breakout and exit at market open job ended
+[START] 2026-03-02 04:50:03.119767 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 04:50:03.920502 Market is closed, skip checking breakout
+[END  ] 2026-03-02 04:50:04.673110 Check breakout and exit at market open job ended
+[START] 2026-03-02 21:00:02.710732 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 21:00:03.529029 Market is closed, skip checking breakout
+[END  ] 2026-03-02 21:00:04.323060 Check breakout and exit at market open job ended
+[START] 2026-03-02 21:10:03.208401 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 21:10:04.014421 Market is closed, skip checking breakout
+[END  ] 2026-03-02 21:10:04.774891 Check breakout and exit at market open job ended
+[START] 2026-03-02 21:20:05.834139 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 21:20:06.637811 Market is closed, skip checking breakout
+[END  ] 2026-03-02 21:20:07.423205 Check breakout and exit at market open job ended
+[START] 2026-03-02 21:30:03.279019 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 21:30:04.087070 Market is closed, skip checking breakout
+[END  ] 2026-03-02 21:30:04.855973 Check breakout and exit at market open job ended
+[START] 2026-03-02 21:40:04.685393 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 21:40:05.526471 Market is closed, skip checking breakout
+[END  ] 2026-03-02 21:40:06.311828 Check breakout and exit at market open job ended
+[START] 2026-03-02 21:50:03.762061 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 21:50:04.565794 Market is closed, skip checking breakout
+[END  ] 2026-03-02 21:50:05.328194 Check breakout and exit at market open job ended
+[START] 2026-03-02 22:00:06.487113 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 22:00:07.303828 Market is closed, skip checking breakout
+[END  ] 2026-03-02 22:00:08.085203 Check breakout and exit at market open job ended
+[START] 2026-03-02 22:10:03.353969 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 22:10:04.162074 Market is closed, skip checking breakout
+[END  ] 2026-03-02 22:10:04.925100 Check breakout and exit at market open job ended
+[START] 2026-03-02 22:20:03.330026 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 22:20:04.134261 Market is closed, skip checking breakout
+[END  ] 2026-03-02 22:20:04.893204 Check breakout and exit at market open job ended
+[START] 2026-03-02 22:30:03.357337 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 22:30:04.163256 Market is open, starting breakout check
+[INFO ] 2026-03-02 22:30:19.030794 [BREAKOUT] 20-days high breakout tickers: NEM, OXY, RTX, VLO, XOM (count: 5)
+[INFO ] 2026-03-02 22:30:29.848801 [BREAKOUT] 55-days high breakout tickers: COP, EQT, OXY, RTX, VLO, XOM (count: 6)
+[END  ] 2026-03-02 22:30:30.610720 Check breakout and exit at market open job ended
+[START] 2026-03-02 22:40:03.401447 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 22:40:04.207427 Market is open, starting breakout check
+[INFO ] 2026-03-02 22:40:18.961146 [BREAKOUT] 20-days high breakout tickers: CEG, COP, CVX, EQT, NEM, NFLX, OXY, RTX, SLB, VLO, XOM (count: 11)
+[INFO ] 2026-03-02 22:40:30.184291 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, NFLX, OXY, RTX, SLB, VLO, XOM (count: 9)
+[END  ] 2026-03-02 22:40:30.948845 Check breakout and exit at market open job ended
+[START] 2026-03-02 22:50:03.375457 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 22:50:04.183665 Market is open, starting breakout check
+[INFO ] 2026-03-02 22:50:19.531433 [BREAKOUT] 20-days high breakout tickers: ABBV, CEG, COP, CVX, DUK, EQT, NEM, NFLX, OXY, RTX, SLB, VLO, XOM (count: 13)
+[INFO ] 2026-03-02 22:50:30.842588 [BREAKOUT] 55-days high breakout tickers: ABBV, COP, CVX, DUK, EQT, NFLX, OXY, RTX, SLB, VLO, XOM (count: 11)
+[END  ] 2026-03-02 22:50:31.608004 Check breakout and exit at market open job ended
+[START] 2026-03-02 23:00:03.452669 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 23:00:04.256881 Market is open, starting breakout check
+[INFO ] 2026-03-02 23:00:19.206415 [BREAKOUT] 20-days high breakout tickers: ABBV, CEG, COP, CVX, DUK, EQT, NEM, NFLX, OXY, RTX, SLB, VLO, XOM (count: 13)
+[INFO ] 2026-03-02 23:00:41.063939 [BREAKOUT] 55-days high breakout tickers: ABBV, COP, CVX, DUK, EQT, NFLX, OXY, RTX, SLB, VLO, XOM (count: 11)
+[END  ] 2026-03-02 23:00:41.824532 Check breakout and exit at market open job ended
+[START] 2026-03-02 23:10:04.098627 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 23:10:04.896805 Market is open, starting breakout check
+[INFO ] 2026-03-02 23:10:18.842860 [BREAKOUT] 20-days high breakout tickers: ABBV, CEG, COP, CVX, DUK, EQT, NEM, NFLX, OXY, RTX, SLB, VLO, XOM (count: 13)
+[INFO ] 2026-03-02 23:10:29.550775 [BREAKOUT] 55-days high breakout tickers: ABBV, COP, CVX, DUK, EQT, NFLX, OXY, RTX, SLB, VLO, XOM (count: 11)
+[END  ] 2026-03-02 23:10:30.325940 Check breakout and exit at market open job ended
+[START] 2026-03-02 23:20:07.352576 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 23:20:08.168709 Market is open, starting breakout check
+[INFO ] 2026-03-02 23:20:22.282189 [BREAKOUT] 20-days high breakout tickers: ABBV, CEG, COP, CVX, DUK, EQT, NEM, NFLX, OXY, RTX, SLB, VLO, XOM (count: 13)
+[INFO ] 2026-03-02 23:20:32.169527 [BREAKOUT] 55-days high breakout tickers: ABBV, COP, CVX, DUK, EQT, NFLX, OXY, RTX, SLB, VLO, XOM (count: 11)
+[END  ] 2026-03-02 23:20:32.941491 Check breakout and exit at market open job ended
+[START] 2026-03-02 23:30:03.493725 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 23:30:04.293629 Market is open, starting breakout check
+[INFO ] 2026-03-02 23:30:18.218870 [BREAKOUT] 20-days high breakout tickers: ABBV, CEG, COP, CVX, DUK, EQT, NEM, NFLX, OXY, RTX, SLB, VLO, XOM (count: 13)
+[INFO ] 2026-03-02 23:30:28.753795 [BREAKOUT] 55-days high breakout tickers: ABBV, COP, CVX, DUK, EQT, NFLX, OXY, RTX, SLB, VLO, XOM (count: 11)
+[END  ] 2026-03-02 23:30:29.521345 Check breakout and exit at market open job ended
+[START] 2026-03-02 23:40:03.523336 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 23:40:04.328117 Market is open, starting breakout check
+[INFO ] 2026-03-02 23:40:18.418949 [BREAKOUT] 20-days high breakout tickers: ABBV, CEG, COP, CVX, DUK, EQT, NEM, NFLX, OXY, RTX, SLB, VLO, XOM (count: 13)
+[INFO ] 2026-03-02 23:40:28.394467 [BREAKOUT] 55-days high breakout tickers: ABBV, COP, CVX, DUK, EQT, NFLX, OXY, RTX, SLB, VLO, XOM (count: 11)
+[END  ] 2026-03-02 23:40:29.156854 Check breakout and exit at market open job ended
+[START] 2026-03-02 23:50:03.540448 Check breakout and exit at market open job started
+[INFO ] 2026-03-02 23:50:04.345060 Market is open, starting breakout check
+[INFO ] 2026-03-02 23:50:18.992115 [BREAKOUT] 20-days high breakout tickers: ABBV, CEG, COP, CVX, DUK, EQT, NEM, NFLX, OXY, RTX, SLB, VLO, XOM (count: 13)
+[INFO ] 2026-03-02 23:50:29.514498 [BREAKOUT] 55-days high breakout tickers: ABBV, COP, CVX, DUK, EQT, NFLX, OXY, RTX, SLB, VLO, XOM (count: 11)
+[END  ] 2026-03-02 23:50:30.273681 Check breakout and exit at market open job ended
+[START] 2026-03-03 00:00:03.548928 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 00:00:04.350707 Market is closed, skip checking breakout
+[END  ] 2026-03-03 00:00:05.105323 Check breakout and exit at market open job ended
+[START] 2026-03-03 00:10:03.015014 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 00:10:03.818005 Market is closed, skip checking breakout
+[END  ] 2026-03-03 00:10:04.595437 Check breakout and exit at market open job ended
+[START] 2026-03-03 00:20:04.208309 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 00:20:05.007902 Market is closed, skip checking breakout
+[END  ] 2026-03-03 00:20:05.765119 Check breakout and exit at market open job ended
+[START] 2026-03-03 00:30:02.588318 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 00:30:03.394910 Market is closed, skip checking breakout
+[END  ] 2026-03-03 00:30:04.154572 Check breakout and exit at market open job ended
+[START] 2026-03-03 00:40:02.606129 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 00:40:03.413727 Market is closed, skip checking breakout
+[END  ] 2026-03-03 00:40:04.176580 Check breakout and exit at market open job ended
+[START] 2026-03-03 00:50:02.604023 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 00:50:03.410840 Market is closed, skip checking breakout
+[END  ] 2026-03-03 00:50:04.175435 Check breakout and exit at market open job ended
+[START] 2026-03-03 01:00:02.640604 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 01:00:03.454664 Market is closed, skip checking breakout
+[END  ] 2026-03-03 01:00:04.229261 Check breakout and exit at market open job ended
+[START] 2026-03-03 01:10:02.634643 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 01:10:03.441314 Market is closed, skip checking breakout
+[END  ] 2026-03-03 01:10:04.200110 Check breakout and exit at market open job ended
+[START] 2026-03-03 01:20:02.646727 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 01:20:03.445483 Market is closed, skip checking breakout
+[END  ] 2026-03-03 01:20:04.203289 Check breakout and exit at market open job ended
+[START] 2026-03-03 01:30:02.688312 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 01:30:03.489614 Market is closed, skip checking breakout
+[END  ] 2026-03-03 01:30:04.247211 Check breakout and exit at market open job ended
+[START] 2026-03-03 01:40:02.676517 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 01:40:03.483853 Market is closed, skip checking breakout
+[END  ] 2026-03-03 01:40:04.246709 Check breakout and exit at market open job ended
+[START] 2026-03-03 01:50:02.709338 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 01:50:03.507492 Market is closed, skip checking breakout
+[END  ] 2026-03-03 01:50:04.262826 Check breakout and exit at market open job ended
+[START] 2026-03-03 02:00:02.723587 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 02:00:03.524776 Market is closed, skip checking breakout
+[END  ] 2026-03-03 02:00:04.284742 Check breakout and exit at market open job ended
+[START] 2026-03-03 02:10:02.714858 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 02:10:03.521346 Market is closed, skip checking breakout
+[END  ] 2026-03-03 02:10:04.282337 Check breakout and exit at market open job ended
+[START] 2026-03-03 02:20:02.753220 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 02:20:03.555974 Market is closed, skip checking breakout
+[END  ] 2026-03-03 02:20:04.315889 Check breakout and exit at market open job ended
+[START] 2026-03-03 02:30:02.747858 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 02:30:03.553312 Market is closed, skip checking breakout
+[END  ] 2026-03-03 02:30:04.312939 Check breakout and exit at market open job ended
+[START] 2026-03-03 02:40:02.752106 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 02:40:03.552304 Market is closed, skip checking breakout
+[END  ] 2026-03-03 02:40:04.308892 Check breakout and exit at market open job ended
+[START] 2026-03-03 02:50:02.777218 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 02:50:03.581609 Market is closed, skip checking breakout
+[END  ] 2026-03-03 02:50:04.341663 Check breakout and exit at market open job ended
+[START] 2026-03-03 03:00:02.780477 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 03:00:03.583851 Market is closed, skip checking breakout
+[END  ] 2026-03-03 03:00:04.344288 Check breakout and exit at market open job ended
+[START] 2026-03-03 03:10:02.798701 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 03:10:03.601682 Market is closed, skip checking breakout
+[END  ] 2026-03-03 03:10:04.361887 Check breakout and exit at market open job ended
+[START] 2026-03-03 03:20:02.825091 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 03:20:03.627119 Market is closed, skip checking breakout
+[END  ] 2026-03-03 03:20:04.387545 Check breakout and exit at market open job ended
+[START] 2026-03-03 03:30:02.835291 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 03:30:03.640881 Market is closed, skip checking breakout
+[END  ] 2026-03-03 03:30:04.400355 Check breakout and exit at market open job ended
+[START] 2026-03-03 03:40:02.850360 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 03:40:03.651660 Market is closed, skip checking breakout
+[END  ] 2026-03-03 03:40:04.409058 Check breakout and exit at market open job ended
+[START] 2026-03-03 03:50:03.394459 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 03:50:04.201171 Market is closed, skip checking breakout
+[END  ] 2026-03-03 03:50:04.963503 Check breakout and exit at market open job ended
+[START] 2026-03-03 04:00:02.906793 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 04:00:03.714629 Market is closed, skip checking breakout
+[END  ] 2026-03-03 04:00:04.478896 Check breakout and exit at market open job ended
+[START] 2026-03-03 04:10:02.927105 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 04:10:03.731915 Market is closed, skip checking breakout
+[END  ] 2026-03-03 04:10:04.492492 Check breakout and exit at market open job ended
+[START] 2026-03-03 04:20:02.903289 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 04:20:03.705758 Market is closed, skip checking breakout
+[END  ] 2026-03-03 04:20:04.464134 Check breakout and exit at market open job ended
+[START] 2026-03-03 04:30:02.951681 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 04:30:03.753283 Market is closed, skip checking breakout
+[END  ] 2026-03-03 04:30:04.509587 Check breakout and exit at market open job ended
+[START] 2026-03-03 04:40:06.445736 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 04:40:07.282072 Market is closed, skip checking breakout
+[END  ] 2026-03-03 04:40:08.067580 Check breakout and exit at market open job ended
+[START] 2026-03-03 04:50:03.019665 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 04:50:03.815206 Market is closed, skip checking breakout
+[END  ] 2026-03-03 04:50:04.570017 Check breakout and exit at market open job ended
+[START] 2026-03-03 20:00:46.132994 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 20:00:46.959313 Market is closed, skip checking breakout
+[END  ] 2026-03-03 20:00:47.758096 Check breakout and exit at market open job ended
+[START] 2026-03-03 21:00:03.335041 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 21:00:04.135527 Market is closed, skip checking breakout
+[END  ] 2026-03-03 21:00:04.892945 Check breakout and exit at market open job ended
+[START] 2026-03-03 21:10:03.351773 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 21:10:04.150871 Market is closed, skip checking breakout
+[END  ] 2026-03-03 21:10:04.907464 Check breakout and exit at market open job ended
+[START] 2026-03-03 21:20:03.390202 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 21:20:04.200631 Market is closed, skip checking breakout
+[END  ] 2026-03-03 21:20:04.967285 Check breakout and exit at market open job ended
+[START] 2026-03-03 21:30:03.375179 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 21:30:04.182901 Market is closed, skip checking breakout
+[END  ] 2026-03-03 21:30:04.948632 Check breakout and exit at market open job ended
+[START] 2026-03-03 21:40:03.398343 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 21:40:04.200593 Market is closed, skip checking breakout
+[END  ] 2026-03-03 21:40:04.957508 Check breakout and exit at market open job ended
+[START] 2026-03-03 21:50:03.415896 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 21:50:04.224902 Market is closed, skip checking breakout
+[END  ] 2026-03-03 21:50:04.986401 Check breakout and exit at market open job ended
+[START] 2026-03-03 22:00:03.404329 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 22:00:04.208112 Market is closed, skip checking breakout
+[END  ] 2026-03-03 22:00:04.964508 Check breakout and exit at market open job ended
+[START] 2026-03-03 22:10:03.426332 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 22:10:04.224689 Market is closed, skip checking breakout
+[END  ] 2026-03-03 22:10:04.978314 Check breakout and exit at market open job ended
+[START] 2026-03-03 22:20:07.534816 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 22:20:08.359197 Market is closed, skip checking breakout
+[END  ] 2026-03-03 22:20:09.142063 Check breakout and exit at market open job ended
+[START] 2026-03-03 22:30:03.495330 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 22:30:04.292547 Market is open, starting breakout check
+[INFO ] 2026-03-03 22:30:18.474030 [BREAKOUT] 20-days high breakout tickers: CVX, RTX, VLO (count: 3)
+[INFO ] 2026-03-03 22:30:29.104588 [BREAKOUT] 55-days high breakout tickers: CVX, RTX, VLO (count: 3)
+[END  ] 2026-03-03 22:30:30.179928 Check breakout and exit at market open job ended
+[START] 2026-03-03 22:40:03.501127 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 22:40:04.304728 Market is open, starting breakout check
+[INFO ] 2026-03-03 22:40:18.369867 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, VLO (count: 5)
+[INFO ] 2026-03-03 22:40:29.193409 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, VLO (count: 5)
+[END  ] 2026-03-03 22:40:30.262817 Check breakout and exit at market open job ended
+[START] 2026-03-03 22:50:03.514938 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 22:50:04.314002 Market is open, starting breakout check
+[INFO ] 2026-03-03 22:50:19.832033 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO (count: 6)
+[INFO ] 2026-03-03 22:50:30.203004 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO (count: 6)
+[END  ] 2026-03-03 22:50:31.382346 Check breakout and exit at market open job ended
+[START] 2026-03-03 23:00:03.518382 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 23:00:04.317174 Market is open, starting breakout check
+[INFO ] 2026-03-03 23:00:20.031032 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO (count: 6)
+[INFO ] 2026-03-03 23:00:31.154510 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO (count: 6)
+[END  ] 2026-03-03 23:00:32.382755 Check breakout and exit at market open job ended
+[START] 2026-03-03 23:10:03.545273 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 23:10:04.345756 Market is open, starting breakout check
+[INFO ] 2026-03-03 23:10:18.097797 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO (count: 6)
+[INFO ] 2026-03-03 23:10:28.328979 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO (count: 6)
+[END  ] 2026-03-03 23:10:29.657557 Check breakout and exit at market open job ended
+[START] 2026-03-03 23:20:02.539443 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 23:20:03.337291 Market is open, starting breakout check
+[INFO ] 2026-03-03 23:20:17.032117 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO (count: 6)
+[INFO ] 2026-03-03 23:20:27.147880 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO (count: 6)
+[END  ] 2026-03-03 23:20:28.310059 Check breakout and exit at market open job ended
+[START] 2026-03-03 23:28:40.214829 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 23:28:41.035581 Market is open, starting breakout check
+[INFO ] 2026-03-03 23:28:56.120574 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-03 23:29:06.469073 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-03 23:29:07.812292 Check breakout and exit at market open job ended
+[START] 2026-03-03 23:30:02.569393 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 23:30:03.380382 Market is open, starting breakout check
+[INFO ] 2026-03-03 23:30:17.514629 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-03 23:30:27.449870 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-03 23:30:28.624811 Check breakout and exit at market open job ended
+[START] 2026-03-03 23:32:13.324937 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 23:32:14.125932 Market is open, starting breakout check
+[INFO ] 2026-03-03 23:32:30.321669 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-03 23:32:41.441888 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-03 23:32:42.633985 Check breakout and exit at market open job ended
+[START] 2026-03-03 23:40:02.755502 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 23:40:03.556227 Market is open, starting breakout check
+[INFO ] 2026-03-03 23:40:17.532925 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-03 23:40:27.784955 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-03 23:40:29.062909 Check breakout and exit at market open job ended
+[START] 2026-03-03 23:50:02.607638 Check breakout and exit at market open job started
+[INFO ] 2026-03-03 23:50:03.411813 Market is open, starting breakout check
+[INFO ] 2026-03-03 23:50:17.172586 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-03 23:50:27.221949 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-03 23:50:28.447406 Check breakout and exit at market open job ended
+[START] 2026-03-04 00:00:02.601764 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 00:00:03.397557 Market is open, starting breakout check
+[INFO ] 2026-03-04 00:00:16.995425 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 00:00:27.175321 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 00:00:28.454130 Check breakout and exit at market open job ended
+[START] 2026-03-04 00:10:02.635700 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 00:10:03.442327 Market is open, starting breakout check
+[INFO ] 2026-03-04 00:10:17.317696 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 00:10:27.742969 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 00:10:28.920121 Check breakout and exit at market open job ended
+[START] 2026-03-04 00:20:02.963493 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 00:20:03.766072 Market is open, starting breakout check
+[INFO ] 2026-03-04 00:20:17.676009 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 00:20:27.337177 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 00:20:28.506454 Check breakout and exit at market open job ended
+[START] 2026-03-04 00:30:02.642009 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 00:30:03.440229 Market is open, starting breakout check
+[INFO ] 2026-03-04 00:30:17.437742 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 00:30:29.404088 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 00:30:30.556723 Check breakout and exit at market open job ended
+[START] 2026-03-04 00:40:02.669561 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 00:40:03.469877 Market is open, starting breakout check
+[INFO ] 2026-03-04 00:40:17.016854 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 00:40:27.024829 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 00:40:28.367331 Check breakout and exit at market open job ended
+[START] 2026-03-04 00:50:02.682764 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 00:50:03.492862 Market is open, starting breakout check
+[INFO ] 2026-03-04 00:50:18.363585 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 00:50:29.251223 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 00:50:30.575926 Check breakout and exit at market open job ended
+[START] 2026-03-04 01:00:02.676696 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 01:00:03.474462 Market is open, starting breakout check
+[INFO ] 2026-03-04 01:00:17.653520 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 01:00:27.438140 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 01:00:28.670497 Check breakout and exit at market open job ended
+[START] 2026-03-04 01:10:02.720301 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 01:10:03.520835 Market is open, starting breakout check
+[INFO ] 2026-03-04 01:10:18.669144 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 01:10:29.670377 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 01:10:30.905423 Check breakout and exit at market open job ended
+[START] 2026-03-04 01:20:02.726407 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 01:20:03.527407 Market is open, starting breakout check
+[INFO ] 2026-03-04 01:20:17.505968 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 01:20:27.262738 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 01:20:28.471660 Check breakout and exit at market open job ended
+[START] 2026-03-04 01:30:02.729065 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 01:30:03.527599 Market is open, starting breakout check
+[INFO ] 2026-03-04 01:30:17.684738 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 01:30:27.614175 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 01:30:28.753785 Check breakout and exit at market open job ended
+[START] 2026-03-04 01:40:02.743297 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 01:40:03.549829 Market is open, starting breakout check
+[INFO ] 2026-03-04 01:40:17.079468 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 01:40:27.066297 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 01:40:28.415482 Check breakout and exit at market open job ended
+[START] 2026-03-04 01:50:02.781686 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 01:50:03.579960 Market is open, starting breakout check
+[INFO ] 2026-03-04 01:50:16.865317 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 01:50:26.638244 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 01:50:27.767843 Check breakout and exit at market open job ended
+[START] 2026-03-04 02:00:02.747615 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 02:00:03.549854 Market is open, starting breakout check
+[INFO ] 2026-03-04 02:00:17.097955 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 02:00:27.384007 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 02:00:28.658800 Check breakout and exit at market open job ended
+[START] 2026-03-04 02:10:02.786412 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 02:10:03.597216 Market is open, starting breakout check
+[INFO ] 2026-03-04 02:10:16.925783 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 02:10:26.709545 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 02:10:28.014039 Check breakout and exit at market open job ended
+[START] 2026-03-04 02:20:02.799969 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 02:20:03.601957 Market is open, starting breakout check
+[INFO ] 2026-03-04 02:20:16.806485 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 02:20:26.627584 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 02:20:27.794701 Check breakout and exit at market open job ended
+[START] 2026-03-04 02:30:02.799583 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 02:30:03.600394 Market is open, starting breakout check
+[INFO ] 2026-03-04 02:30:16.886715 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 02:30:26.812673 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 02:30:27.937025 Check breakout and exit at market open job ended
+[START] 2026-03-04 02:40:02.812786 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 02:40:03.614722 Market is open, starting breakout check
+[INFO ] 2026-03-04 02:40:16.749943 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 02:40:26.334614 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 02:40:27.610488 Check breakout and exit at market open job ended
+[START] 2026-03-04 02:50:02.822269 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 02:50:03.630569 Market is open, starting breakout check
+[INFO ] 2026-03-04 02:50:17.183737 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 02:50:27.211988 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 02:50:28.467403 Check breakout and exit at market open job ended
+[START] 2026-03-04 03:00:02.834909 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 03:00:03.641016 Market is open, starting breakout check
+[INFO ] 2026-03-04 03:00:17.662746 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 03:00:30.199994 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 03:00:31.410142 Check breakout and exit at market open job ended
+[START] 2026-03-04 03:10:02.873687 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 03:10:03.672498 Market is open, starting breakout check
+[INFO ] 2026-03-04 03:10:17.206546 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 03:10:26.855672 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 03:10:27.977109 Check breakout and exit at market open job ended
+[START] 2026-03-04 03:20:02.870440 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 03:20:03.671816 Market is open, starting breakout check
+[INFO ] 2026-03-04 03:20:17.683062 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 03:20:27.353135 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 03:20:28.484048 Check breakout and exit at market open job ended
+[START] 2026-03-04 03:30:02.875539 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 03:30:03.675404 Market is open, starting breakout check
+[INFO ] 2026-03-04 03:30:17.005789 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 03:30:26.624537 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 03:30:28.019202 Check breakout and exit at market open job ended
+[START] 2026-03-04 03:40:02.926011 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 03:40:03.730740 Market is open, starting breakout check
+[INFO ] 2026-03-04 03:40:17.160018 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 03:40:26.932735 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 03:40:28.096870 Check breakout and exit at market open job ended
+[START] 2026-03-04 03:50:02.916669 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 03:50:03.718868 Market is open, starting breakout check
+[INFO ] 2026-03-04 03:50:16.962633 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 03:50:26.559702 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 03:50:27.725510 Check breakout and exit at market open job ended
+[START] 2026-03-04 04:00:02.918017 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 04:00:03.718674 Market is open, starting breakout check
+[INFO ] 2026-03-04 04:00:16.846844 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 04:00:26.511047 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 04:00:27.677126 Check breakout and exit at market open job ended
+[START] 2026-03-04 04:10:02.944734 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 04:10:03.751695 Market is open, starting breakout check
+[INFO ] 2026-03-04 04:10:17.204345 [BREAKOUT] 20-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[INFO ] 2026-03-04 04:10:26.746644 [BREAKOUT] 55-days high breakout tickers: COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 7)
+[END  ] 2026-03-04 04:10:27.914194 Check breakout and exit at market open job ended
+[START] 2026-03-04 04:20:02.988035 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 04:20:03.794217 Market is open, starting breakout check
+[INFO ] 2026-03-04 04:20:16.948357 [BREAKOUT] 20-days high breakout tickers: ABBV, COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 8)
+[INFO ] 2026-03-04 04:20:26.455787 [BREAKOUT] 55-days high breakout tickers: ABBV, COP, CVX, EQT, RTX, TGT, VLO, VZ (count: 8)
+[END  ] 2026-03-04 04:20:27.658728 Check breakout and exit at market open job ended
+[START] 2026-03-04 04:30:02.984910 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 04:30:03.786627 Market is open, starting breakout check
+[INFO ] 2026-03-04 04:30:17.223885 [BREAKOUT] 20-days high breakout tickers: ABBV, COP, CVX, DUK, EQT, RTX, TGT, VLO, VZ (count: 9)
+[INFO ] 2026-03-04 04:30:27.052554 [BREAKOUT] 55-days high breakout tickers: ABBV, COP, CVX, DUK, EQT, RTX, TGT, VLO, VZ (count: 9)
+[END  ] 2026-03-04 04:30:28.221947 Check breakout and exit at market open job ended
+[START] 2026-03-04 04:40:02.974105 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 04:40:03.778025 Market is open, starting breakout check
+[INFO ] 2026-03-04 04:40:17.033979 [BREAKOUT] 20-days high breakout tickers: ABBV, COP, CVX, DUK, EQT, RTX, TGT, VLO, VZ (count: 9)
+[INFO ] 2026-03-04 04:40:26.627867 [BREAKOUT] 55-days high breakout tickers: ABBV, COP, CVX, DUK, EQT, RTX, TGT, VLO, VZ (count: 9)
+[END  ] 2026-03-04 04:40:27.791733 Check breakout and exit at market open job ended
+[START] 2026-03-04 04:50:02.996897 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 04:50:03.800877 Market is open, starting breakout check
+[INFO ] 2026-03-04 04:50:17.215450 [BREAKOUT] 20-days high breakout tickers: ABBV, COP, CVX, DUK, EQT, NFLX, RTX, TGT, VLO, VZ (count: 10)
+[INFO ] 2026-03-04 04:50:26.850486 [BREAKOUT] 55-days high breakout tickers: ABBV, COP, CVX, DUK, EQT, NFLX, RTX, TGT, VLO, VZ (count: 10)
+[END  ] 2026-03-04 04:50:28.020400 Check breakout and exit at market open job ended
+[START] 2026-03-04 21:00:07.538668 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 21:00:08.372755 Market is closed, skip checking breakout
+[END  ] 2026-03-04 21:00:09.187046 Check breakout and exit at market open job ended
+[START] 2026-03-04 21:10:03.435513 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 21:10:04.244194 Market is closed, skip checking breakout
+[END  ] 2026-03-04 21:10:05.006833 Check breakout and exit at market open job ended
+[START] 2026-03-04 21:20:03.422585 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 21:20:04.232943 Market is closed, skip checking breakout
+[END  ] 2026-03-04 21:20:04.996823 Check breakout and exit at market open job ended
+[START] 2026-03-04 21:30:03.425485 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 21:30:04.238643 Market is closed, skip checking breakout
+[END  ] 2026-03-04 21:30:05.010119 Check breakout and exit at market open job ended
+[START] 2026-03-04 21:40:03.430258 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 21:40:04.238154 Market is closed, skip checking breakout
+[END  ] 2026-03-04 21:40:04.999880 Check breakout and exit at market open job ended
+[START] 2026-03-04 21:50:03.437294 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 21:50:04.247245 Market is closed, skip checking breakout
+[END  ] 2026-03-04 21:50:05.008743 Check breakout and exit at market open job ended
+[START] 2026-03-04 22:00:03.475168 Check breakout and exit at market open job started
+[INFO ] 2026-03-04 22:00:04.283125 Market is closed, skip checking breakout
+[END  ] 2026-03-04 22:00:05.044248 Check breakout and exit at market open job ended
