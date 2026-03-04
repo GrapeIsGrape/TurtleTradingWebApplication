@@ -44,7 +44,7 @@ from classes.constants import (
     MARKET_CLOSE_BREAKOUT_RESULT_FILE_NAME,
     MARKET_OPEN_BREAKOUT_RESULT_FILE_NAME,
     MARKET_CLOSE_EXIT_RESULT_FILE_NAME,
-    EXIT_LOG_MARKET_OPEN,
+    MARKET_OPEN_EXIT_RESULT_FILE_NAME,
     FILTER_MIN_PRICE,
     FILTER_MIN_VOLUME,
     FILTER_MIN_DOLLAR_VOLUME,
@@ -416,7 +416,7 @@ def exit() -> str:
 @app.route("/exit_live")
 def exit_live() -> str:
     """Display exit opportunities during market hours."""
-    log_path = os.path.join(LOG_FOLDER, EXIT_LOG_MARKET_OPEN)
+    log_path = os.path.join(LOG_FOLDER, MARKET_OPEN_EXIT_RESULT_FILE_NAME)
     entries = parse_exit_log(log_path, group_by_date=False)
     
     # Collect all tickers from the first entry with exits
