@@ -39,7 +39,7 @@ from flask import Flask, render_template, request, redirect
 
 from classes.constants import (
     BULLISH_ARRANGEMENT,
-    TICKERS_TO_BE_RETRIEVED_FOLDER_PATH,
+    TICKERS_FOLDER_PATH,
     SCRIPT_LOGS_FOLDER_PATH,
     BREAKOUT_LOG_MARKET_CLOSE,
     BREAKOUT_LOG_MARKET_OPEN,
@@ -82,7 +82,7 @@ app = Flask(__name__)
 
 # Get base directory
 BASE_DIR = os.path.dirname(__file__)
-SECTOR_DIR = os.path.join(BASE_DIR, TICKERS_TO_BE_RETRIEVED_FOLDER_PATH)
+SECTOR_DIR = os.path.join(BASE_DIR, TICKERS_FOLDER_PATH)
 LOG_FOLDER = os.path.join(BASE_DIR, SCRIPT_LOGS_FOLDER_PATH)
 LOG_ERROR_FILE = os.path.join(BASE_DIR, 'templates', 'error_handling', 'flask_errors.log')
 MARKET_DATA_DIR = os.path.join(BASE_DIR, 'data', 'market_data')

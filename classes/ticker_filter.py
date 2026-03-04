@@ -16,7 +16,8 @@ from classes.constants import (
     FILTER_MIN_DOLLAR_VOLUME,
     FILTER_MIN_VOLATILITY,
     FILTER_MIN_ATR_PCT,
-    FILTER_MAX_PER_SECTOR
+    FILTER_MAX_PER_SECTOR,
+    TICKERS_FOLDER_PATH
 )
 
 # Fix SSL certificate issue on macOS
@@ -189,5 +190,5 @@ def filter_and_save_tickers(output_dir, max_per_sector=None):
 
 if __name__ == "__main__":
     # For testing
-    output_dir = '../data/tickers_to_be_retrieved'
+    output_dir = f'../data/{TICKERS_FOLDER_PATH}'
     filter_and_save_tickers(output_dir)

@@ -37,7 +37,7 @@ def get_all_unique_tickers(env_folder_path: Optional[str] = None) -> List[str]:
     """
     from .file_handler import read_file_names_in_path
     
-    folder_path = f'{env_folder_path}{TICKERS_TO_BE_RETRIEVED_FOLDER_PATH}' if env_folder_path else TICKERS_TO_BE_RETRIEVED_FOLDER_PATH
+    folder_path = f'{env_folder_path}{TICKERS_FOLDER_PATH}' if env_folder_path else TICKERS_FOLDER_PATH
     
     if not os.path.exists(folder_path):
         print(f"Folder not found: {folder_path}")
