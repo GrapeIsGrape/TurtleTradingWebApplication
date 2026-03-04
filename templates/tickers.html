@@ -310,9 +310,8 @@
                     errorMsg += 'Error output:\n' + data.stderr + '\n\n';
                 }
                 if (data.stdout) {
-                    errorMsg += 'Standard output:\n' + data.stdout + '\n\n';
+                    errorMsg += 'Standard output:\n' + data.stdout;
                 }
-                errorMsg += 'Check logs for full details.';
                 alert(errorMsg);
             }
         })
@@ -344,9 +343,17 @@
             btn.disabled = false;
             
             if (data.status === 'success') {
-                alert('Market Signal Close script completed successfully!');
+                alert('Market Signal Close script completed successfully!\n\nOutput:\n' + (data.stdout || 'No output'));
             } else {
-                alert('Market Signal Close script completed with errors.\n\nExit code: ' + data.exit_code + '\n\nCheck logs for details.');
+                let errorMsg = 'Market Signal Close script completed with errors.\n\n';
+                errorMsg += 'Exit code: ' + data.exit_code + '\n\n';
+                if (data.stderr) {
+                    errorMsg += 'Error output:\n' + data.stderr + '\n\n';
+                }
+                if (data.stdout) {
+                    errorMsg += 'Standard output:\n' + data.stdout;
+                }
+                alert(errorMsg);
             }
         })
         .catch(error => {
@@ -377,9 +384,17 @@
             btn.disabled = false;
             
             if (data.status === 'success') {
-                alert('Market Signal Live script completed successfully!');
+                alert('Market Signal Live script completed successfully!\n\nOutput:\n' + (data.stdout || 'No output'));
             } else {
-                alert('Market Signal Live script completed with errors.\n\nExit code: ' + data.exit_code + '\n\nCheck logs for details.');
+                let errorMsg = 'Market Signal Live script completed with errors.\n\n';
+                errorMsg += 'Exit code: ' + data.exit_code + '\n\n';
+                if (data.stderr) {
+                    errorMsg += 'Error output:\n' + data.stderr + '\n\n';
+                }
+                if (data.stdout) {
+                    errorMsg += 'Standard output:\n' + data.stdout;
+                }
+                alert(errorMsg);
             }
         })
         .catch(error => {

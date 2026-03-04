@@ -569,9 +569,16 @@ def run_fill_market_data() -> Tuple[Dict[str, Any], int]:
     """Run script_fill_market_data.py via subprocess."""
     try:
         script_path = os.path.join(BASE_DIR, 'script_fill_market_data.py')
+        env = os.environ.copy()
+        env['PYTHONPATH'] = BASE_DIR
+        # Remove uWSGI-related variables to prevent emperor mode interference
+        for key in list(env.keys()):
+            if key.startswith('UWSGI') or key == 'EMPEROR_FD':
+                del env[key]
         result = subprocess.run(
             [sys.executable, script_path],
             cwd=BASE_DIR,
+            env=env,
             capture_output=True,
             text=True,
             timeout=3600
@@ -581,8 +588,8 @@ def run_fill_market_data() -> Tuple[Dict[str, Any], int]:
             'status': 'success' if result.returncode == 0 else 'error',
             'message': 'Fill market data script completed',
             'exit_code': result.returncode,
-            'stdout': result.stdout[-500:] if result.stdout else '',  # Last 500 chars
-            'stderr': result.stderr[-500:] if result.stderr else ''
+            'stdout': result.stdout[-2000:] if result.stdout else '',
+            'stderr': result.stderr[-2000:] if result.stderr else ''
         }), 200
     except subprocess.TimeoutExpired:
         logging.error('script_fill_market_data.py execution timed out')
@@ -605,9 +612,16 @@ def run_market_signal_close() -> Tuple[Dict[str, Any], int]:
     """Run script_market_signal_close.py via subprocess."""
     try:
         script_path = os.path.join(BASE_DIR, 'script_market_signal_close.py')
+        env = os.environ.copy()
+        env['PYTHONPATH'] = BASE_DIR
+        # Remove uWSGI-related variables to prevent emperor mode interference
+        for key in list(env.keys()):
+            if key.startswith('UWSGI') or key == 'EMPEROR_FD':
+                del env[key]
         result = subprocess.run(
             [sys.executable, script_path],
             cwd=BASE_DIR,
+            env=env,
             capture_output=True,
             text=True,
             timeout=3600
@@ -617,8 +631,8 @@ def run_market_signal_close() -> Tuple[Dict[str, Any], int]:
             'status': 'success' if result.returncode == 0 else 'error',
             'message': 'Market signal close script completed',
             'exit_code': result.returncode,
-            'stdout': result.stdout[-500:] if result.stdout else '',
-            'stderr': result.stderr[-500:] if result.stderr else ''
+            'stdout': result.stdout[-2000:] if result.stdout else '',
+            'stderr': result.stderr[-2000:] if result.stderr else ''
         }), 200
     except subprocess.TimeoutExpired:
         logging.error('script_market_signal_close.py execution timed out')
@@ -641,9 +655,16 @@ def run_market_signal_live() -> Tuple[Dict[str, Any], int]:
     """Run script_market_signal_live.py via subprocess."""
     try:
         script_path = os.path.join(BASE_DIR, 'script_market_signal_live.py')
+        env = os.environ.copy()
+        env['PYTHONPATH'] = BASE_DIR
+        # Remove uWSGI-related variables to prevent emperor mode interference
+        for key in list(env.keys()):
+            if key.startswith('UWSGI') or key == 'EMPEROR_FD':
+                del env[key]
         result = subprocess.run(
             [sys.executable, script_path],
             cwd=BASE_DIR,
+            env=env,
             capture_output=True,
             text=True,
             timeout=3600
@@ -653,8 +674,8 @@ def run_market_signal_live() -> Tuple[Dict[str, Any], int]:
             'status': 'success' if result.returncode == 0 else 'error',
             'message': 'Market signal live script completed',
             'exit_code': result.returncode,
-            'stdout': result.stdout[-500:] if result.stdout else '',
-            'stderr': result.stderr[-500:] if result.stderr else ''
+            'stdout': result.stdout[-2000:] if result.stdout else '',
+            'stderr': result.stderr[-2000:] if result.stderr else ''
         }), 200
     except subprocess.TimeoutExpired:
         logging.error('script_market_signal_live.py execution timed out')
