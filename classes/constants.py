@@ -97,13 +97,13 @@ SCRIPT_LOGS_FOLDER_PATH = 'script_logs'
 # Log Files
 MARKET_CLOSE_BREAKOUT_RESULT_FILE_NAME = 'market_close_breakout_result.log'
 MARKET_OPEN_BREAKOUT_RESULT_FILE_NAME = 'market_open_breakout_result.log'
+EXIT_LOG_MARKET_CLOSE = 'exit_check_market_close_full_exit_list.log'
+EXIT_LOG_MARKET_OPEN = 'exit_check_market_open_full_exit_list.log'
 MAIN_LOG_BREAKOUT_MARKET_CLOSE = 'breakout_check_market_close.log'
 MAIN_LOG_BREAKOUT_MARKET_OPEN = 'breakout_check_market_open.log'
-MAIN_LOG_FILL_MARKET_DATA = 'fill_market_data.log'
-EXIT_LOG_MARKET_CLOSE = 'exit_check_market_close_full_exit_list.log'
 MAIN_LOG_EXIT_CHECK_MARKET_CLOSE = 'exit_check_market_close.log'
-EXIT_LOG_MARKET_OPEN = 'exit_check_market_open_full_exit_list.log'
 MAIN_LOG_EXIT_CHECK_MARKET_OPEN = 'exit_check_market_open.log'
+MAIN_LOG_FILL_MARKET_DATA = 'fill_market_data.log'
 
 # Log Levels
 LOG_LEVEL_START = 'START'
