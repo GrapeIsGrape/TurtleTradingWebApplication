@@ -102,7 +102,7 @@ MARKET_OPEN_EXIT_RESULT_FILE_NAME = 'market_open_exit_result.log'
 MAIN_LOG_MARKET_CLOSE_BREAKOUT = 'main_log_market_close_breakout.log'
 MAIN_LOG_MARKET_OPEN_BREAKOUT = 'main_log_market_open_breakout.log'
 MAIN_LOG_MARKET_CLOSE_EXIT = 'main_log_market_close_exit.log'
-MAIN_LOG_EXIT_CHECK_MARKET_OPEN = 'exit_check_market_open.log'
+MAIN_LOG_MARKET_OPEN_EXIT = 'main_log_market_open_exit.log'
 MAIN_LOG_FILL_MARKET_DATA = 'fill_market_data.log'
 
 # Log Levels
