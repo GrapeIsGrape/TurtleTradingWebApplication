@@ -96,7 +96,7 @@ SCRIPT_LOGS_FOLDER_PATH = 'script_logs'
 
 # Log Files
 MARKET_CLOSE_BREAKOUT_RESULT_FILE_NAME = 'market_close_breakout_result.log'
-BREAKOUT_LOG_MARKET_OPEN = 'breakout_check_market_open_full_breakout_list.log'
+MARKET_OPEN_BREAKOUT_RESULT_FILE_NAME = 'market_open_breakout_result.log'
 MAIN_LOG_BREAKOUT_MARKET_CLOSE = 'breakout_check_market_close.log'
 MAIN_LOG_BREAKOUT_MARKET_OPEN = 'breakout_check_market_open.log'
 MAIN_LOG_FILL_MARKET_DATA = 'fill_market_data.log'

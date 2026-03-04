@@ -42,7 +42,7 @@ from classes.constants import (
     TICKERS_FOLDER_PATH,
     SCRIPT_LOGS_FOLDER_PATH,
     MARKET_CLOSE_BREAKOUT_RESULT_FILE_NAME,
-    MARKET_LIVE_BREAKOUT_RESULT_FILE_NAME,
+    MARKET_OPEN_BREAKOUT_RESULT_FILE_NAME,
     EXIT_LOG_MARKET_CLOSE,
     EXIT_LOG_MARKET_OPEN,
     FILTER_MIN_PRICE,
@@ -342,7 +342,7 @@ def breakout() -> str:
 @app.route("/breakout_live")
 def breakout_live() -> str:
     """Display breakout opportunities during market hours."""
-    log_path = os.path.join(LOG_FOLDER, MARKET_LIVE_BREAKOUT_RESULT_FILE_NAME)
+    log_path = os.path.join(LOG_FOLDER, MARKET_OPEN_BREAKOUT_RESULT_FILE_NAME)
     entries = parse_breakout_log(log_path, group_by_date=False)
     
     # Collect all tickers from the first entry with breakouts
