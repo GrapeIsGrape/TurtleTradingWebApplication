@@ -103,7 +103,7 @@ MAIN_LOG_MARKET_CLOSE_BREAKOUT = 'main_log_market_close_breakout.log'
 MAIN_LOG_MARKET_OPEN_BREAKOUT = 'main_log_market_open_breakout.log'
 MAIN_LOG_MARKET_CLOSE_EXIT = 'main_log_market_close_exit.log'
 MAIN_LOG_MARKET_OPEN_EXIT = 'main_log_market_open_exit.log'
-MAIN_LOG_FILL_MARKET_DATA = 'fill_market_data.log'
+MAIN_LOG_FILL_MARKET_DATA = 'main_log_fill_market_data.log'
 
 # Log Levels
 LOG_LEVEL_START = 'START'
