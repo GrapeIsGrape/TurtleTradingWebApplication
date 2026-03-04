@@ -95,7 +95,7 @@ CURRENT_POSITIONS_FILE_PATH = 'data/positions.csv'
 SCRIPT_LOGS_FOLDER_PATH = 'script_logs'
 
 # Log Files
-BREAKOUT_LOG_MARKET_CLOSE = 'breakout_check_market_close_full_breakout_list.log'
+MARKET_CLOSE_BREAKOUT_RESULT_FILE_NAME = 'market_close_breakout_result.log'
 BREAKOUT_LOG_MARKET_OPEN = 'breakout_check_market_open_full_breakout_list.log'
 MAIN_LOG_BREAKOUT_MARKET_CLOSE = 'breakout_check_market_close.log'
 MAIN_LOG_BREAKOUT_MARKET_OPEN = 'breakout_check_market_open.log'

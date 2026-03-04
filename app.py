@@ -41,8 +41,8 @@ from classes.constants import (
     BULLISH_ARRANGEMENT,
     TICKERS_FOLDER_PATH,
     SCRIPT_LOGS_FOLDER_PATH,
-    BREAKOUT_LOG_MARKET_CLOSE,
-    BREAKOUT_LOG_MARKET_OPEN,
+    MARKET_CLOSE_BREAKOUT_RESULT_FILE_NAME,
+    MARKET_LIVE_BREAKOUT_RESULT_FILE_NAME,
     EXIT_LOG_MARKET_CLOSE,
     EXIT_LOG_MARKET_OPEN,
     FILTER_MIN_PRICE,
@@ -304,7 +304,7 @@ def about() -> str:
 @app.route("/breakout")
 def breakout() -> str:
     """Display breakout opportunities at market close."""
-    log_path = os.path.join(LOG_FOLDER, BREAKOUT_LOG_MARKET_CLOSE)
+    log_path = os.path.join(LOG_FOLDER, MARKET_CLOSE_BREAKOUT_RESULT_FILE_NAME)
     entries = parse_breakout_log(log_path, group_by_date=True)
     
     # Collect all tickers from the first entry with breakouts
@@ -342,7 +342,7 @@ def breakout() -> str:
 @app.route("/breakout_live")
 def breakout_live() -> str:
     """Display breakout opportunities during market hours."""
-    log_path = os.path.join(LOG_FOLDER, BREAKOUT_LOG_MARKET_OPEN)
+    log_path = os.path.join(LOG_FOLDER, MARKET_LIVE_BREAKOUT_RESULT_FILE_NAME)
     entries = parse_breakout_log(log_path, group_by_date=False)
     
     # Collect all tickers from the first entry with breakouts
