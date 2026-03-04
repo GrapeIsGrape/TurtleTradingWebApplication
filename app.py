@@ -43,7 +43,7 @@ from classes.constants import (
     SCRIPT_LOGS_FOLDER_PATH,
     MARKET_CLOSE_BREAKOUT_RESULT_FILE_NAME,
     MARKET_OPEN_BREAKOUT_RESULT_FILE_NAME,
-    EXIT_LOG_MARKET_CLOSE,
+    MARKET_CLOSE_EXIT_RESULT_FILE_NAME,
     EXIT_LOG_MARKET_OPEN,
     FILTER_MIN_PRICE,
     FILTER_MIN_VOLUME,
@@ -387,7 +387,7 @@ def breakout_live() -> str:
 @app.route("/exit")
 def exit() -> str:
     """Display exit opportunities at market close."""
-    log_path = os.path.join(LOG_FOLDER, EXIT_LOG_MARKET_CLOSE)
+    log_path = os.path.join(LOG_FOLDER, MARKET_CLOSE_EXIT_RESULT_FILE_NAME)
     entries = parse_exit_log(log_path, group_by_date=True)
     
     # Collect all tickers from the first entry with exits
