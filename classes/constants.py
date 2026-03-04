@@ -94,6 +94,10 @@ TICKERS_FOLDER_PATH = 'data/tickers'
 CURRENT_POSITIONS_FILE_PATH = 'data/positions.csv'
 SCRIPT_LOGS_FOLDER_PATH = 'script_logs'
 
+S_AND_P_500_TICKERS_FILE_NAME = 's&p500.csv'
+QQQ_TICKERS_FILE_NAME = 'qqq.csv'
+INDEX_FILE_NAMES = [S_AND_P_500_TICKERS_FILE_NAME, QQQ_TICKERS_FILE_NAME]
+
 # Log Files
 MARKET_CLOSE_BREAKOUT_RESULT_FILE_NAME = 'market_close_breakout_result.log'
 MARKET_OPEN_BREAKOUT_RESULT_FILE_NAME = 'market_open_breakout_result.log'

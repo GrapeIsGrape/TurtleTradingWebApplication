@@ -106,7 +106,7 @@ def main() -> None:
     5. Display results
     """
     # Get all unique S&P 500 tickers
-    tickers = get_all_unique_tickers()
+    tickers = get_all_unique_tickers(include_index_files=True)
     
     # Download and enrich market data with technical indicators
     download_and_enrich_market_data(tickers)

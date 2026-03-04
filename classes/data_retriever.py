@@ -25,35 +25,52 @@ NUMERIC_COLUMNS = [OPEN, HIGH, LOW, CLOSE] + N_DAYS_HIGH_COLUMNS + N_DAYS_LOW_CO
 # TICKER COLLECTION
 # =============================================================================
 
-def get_all_unique_tickers(env_folder_path: Optional[str] = None) -> List[str]:
+def get_all_unique_tickers(env_folder_path: Optional[str] = None, include_index_files: bool = False) -> List[str]:
     """
     Get all unique tickers from CSV files in tickers folder.
     
     Args:
         env_folder_path: Optional environment folder path prefix
+        include_index_files: If True, also include tickers from qqq.csv and s&p500.csv in market_data folder
         
     Returns:
         Sorted list of unique ticker symbols
     """
     from .file_handler import read_file_names_in_path
     
+    all_tickers = []
+    
+    # Load tickers from tickers folder
     folder_path = f'{env_folder_path}{TICKERS_FOLDER_PATH}' if env_folder_path else TICKERS_FOLDER_PATH
     
     if not os.path.exists(folder_path):
         print(f"Folder not found: {folder_path}")
-        return []
+    else:
+        files = read_file_names_in_path(folder_path)
+        
+        for file in files:
+            try:
+                df = pd.read_csv(f'{folder_path}/{file}.csv')
+                tickers = df[TICKER].tolist()
+                all_tickers.extend(tickers)
+                print(f'Number of tickers in {file}: {len(tickers)}')
+            except Exception as e:
+                print(f'Error reading {file}: {e}')
     
-    files = read_file_names_in_path(folder_path)
-    all_tickers = []
-    
-    for file in files:
-        try:
-            df = pd.read_csv(f'{folder_path}/{file}.csv')
-            tickers = df[TICKER].tolist()
-            all_tickers.extend(tickers)
-            print(f'Number of tickers in {file}: {len(tickers)}')
-        except Exception as e:
-            print(f'Error reading {file}: {e}')
+    # Optionally add index files
+    if include_index_files:
+        market_data_folder = f'{env_folder_path}{MARKET_DATA_FOLDER_PATH}' if env_folder_path else MARKET_DATA_FOLDER_PATH
+        
+        for index_file in INDEX_FILE_NAMES:
+            index_path = f'{market_data_folder}/{index_file}'
+            try:
+                if os.path.exists(index_path):
+                    df = pd.read_csv(index_path)
+                    tickers = df[TICKER].tolist()
+                    all_tickers.extend(tickers)
+                    print(f'Number of tickers in {index_file}: {len(tickers)}')
+            except Exception as e:
+                print(f'Error reading {index_file}: {e}')
     
     unique_tickers = sorted(list(set(all_tickers)))
     print(f'Total unique tickers: {len(unique_tickers)}')

@@ -9,7 +9,7 @@ current_script_directory = os.path.dirname(os.path.abspath(__file__)) + '/'
 with open(current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MAIN_LOG_FILL_MARKET_DATA, 'a') as f:
     f.write(f'[START] {str(datetime.now())} Fill market data job started\n')
 
-    tickers = get_all_unique_tickers(current_script_directory)
+    tickers = get_all_unique_tickers(current_script_directory, include_index_files=True)
     download_market_data_for_tickers(tickers, PERIOD_5Y, current_script_directory)
     enrich_with_indicators_for_tickers(tickers, PERIOD_5Y, current_script_directory)
 
