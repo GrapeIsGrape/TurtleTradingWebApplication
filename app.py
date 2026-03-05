@@ -596,8 +596,8 @@ def run_fill_market_data() -> Tuple[Dict[str, Any], int]:
                 'status': 'success',
                 'message': 'Fill market data script completed',
                 'exit_code': 0,
-                'stdout': stdout_capture.getvalue()[-2000:],
-                'stderr': stderr_capture.getvalue()[-2000:]
+                'stdout': stdout_capture.getvalue()[-20000:],
+                'stderr': stderr_capture.getvalue()[-20000:]
             }), 200
         except Exception as e:
             logging.error(f'Error executing script_fill_market_data.py: {e}', exc_info=True)
@@ -605,7 +605,7 @@ def run_fill_market_data() -> Tuple[Dict[str, Any], int]:
                 'status': 'error',
                 'message': 'Script execution failed',
                 'exit_code': 1,
-                'stdout': stdout_capture.getvalue()[-2000:],
+                'stdout': stdout_capture.getvalue()[-20000:],
                 'stderr': f'{str(e)}\n{stderr_capture.getvalue()[-1500:]}'
             }), 200
     except Exception as e:
@@ -649,8 +649,8 @@ def run_market_signal_close() -> Tuple[Dict[str, Any], int]:
                 'status': 'success',
                 'message': 'Market signal close script completed',
                 'exit_code': 0,
-                'stdout': stdout_capture.getvalue()[-2000:],
-                'stderr': stderr_capture.getvalue()[-2000:]
+                'stdout': stdout_capture.getvalue()[-20000:],
+                'stderr': stderr_capture.getvalue()[-20000:]
             }), 200
         except Exception as e:
             logging.error(f'Error executing script_market_signal_close.py: {e}', exc_info=True)
@@ -658,7 +658,7 @@ def run_market_signal_close() -> Tuple[Dict[str, Any], int]:
                 'status': 'error',
                 'message': 'Script execution failed',
                 'exit_code': 1,
-                'stdout': stdout_capture.getvalue()[-2000:],
+                'stdout': stdout_capture.getvalue()[-20000:],
                 'stderr': f'{str(e)}\n{stderr_capture.getvalue()[-1500:]}'
             }), 200
     except Exception as e:
@@ -702,8 +702,8 @@ def run_market_signal_live() -> Tuple[Dict[str, Any], int]:
                 'status': 'success',
                 'message': 'Market signal live script completed',
                 'exit_code': 0,
-                'stdout': stdout_capture.getvalue()[-2000:],
-                'stderr': stderr_capture.getvalue()[-2000:]
+                'stdout': stdout_capture.getvalue()[-20000:],
+                'stderr': stderr_capture.getvalue()[-20000:]
             }), 200
         except Exception as e:
             logging.error(f'Error executing script_market_signal_live.py: {e}', exc_info=True)
@@ -711,7 +711,7 @@ def run_market_signal_live() -> Tuple[Dict[str, Any], int]:
                 'status': 'error',
                 'message': 'Script execution failed',
                 'exit_code': 1,
-                'stdout': stdout_capture.getvalue()[-2000:],
+                'stdout': stdout_capture.getvalue()[-20000:],
                 'stderr': f'{str(e)}\n{stderr_capture.getvalue()[-1500:]}'
             }), 200
     except Exception as e:
