@@ -59,16 +59,19 @@ def get_all_unique_tickers(env_folder_path: Optional[str] = None, include_index_
     
     # Optionally add index files
     if include_index_files:
-        market_data_folder = f'{env_folder_path}{MARKET_DATA_FOLDER_PATH}' if env_folder_path else MARKET_DATA_FOLDER_PATH
+        # Index files are in data/ folder, not data/market_data/
+        data_folder = f'{env_folder_path}{DATA_FOLDER_PATH}' if env_folder_path else DATA_FOLDER_PATH
         
         for index_file in INDEX_FILE_NAMES:
-            index_path = f'{market_data_folder}/{index_file}'
+            index_path = f'{data_folder}/{index_file}'
             try:
                 if os.path.exists(index_path):
                     df = pd.read_csv(index_path)
                     tickers = df[TICKER].tolist()
                     all_tickers.extend(tickers)
                     print(f'Number of tickers in {index_file}: {len(tickers)}')
+                else:
+                    print(f'Index file not found: {index_path}')
             except Exception as e:
                 print(f'Error reading {index_file}: {e}')
     

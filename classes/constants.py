@@ -89,6 +89,7 @@ PERIOD_MAX = 'max'
 # FILE PATHS
 # =============================================================================
 
+DATA_FOLDER_PATH = 'data'
 MARKET_DATA_FOLDER_PATH = 'data/market_data'
 TICKERS_FOLDER_PATH = 'data/tickers'
 CURRENT_POSITIONS_FILE_PATH = 'data/positions.csv'
