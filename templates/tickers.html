@@ -107,11 +107,13 @@
                             {% set is_reset_20 = ticker in reset_tickers_20 %}
                             {% set is_reset_55 = ticker in reset_tickers_55 %}
                             {% set is_bullish = ticker in bullish_tickers %}
+                            {% set is_in_position = ticker in position_tickers %}
                             <span class="badge ticker-badge" 
                                   data-ticker="{{ ticker }}"
                                   data-is-reset-20="{{ is_reset_20 }}"
                                   data-is-reset-55="{{ is_reset_55 }}"
                                   data-is-bullish="{{ is_bullish }}"
+                                  data-is-in-position="{{ is_in_position }}"
                                   style="font-size:0.95em;cursor:pointer;">{{ ticker }}</span>
                         {% endfor %}
                     </div>
@@ -193,11 +195,13 @@
                 {% set is_reset_20 = ticker in reset_tickers_20 %}
                 {% set is_reset_55 = ticker in reset_tickers_55 %}
                 {% set is_bullish = ticker in bullish_tickers %}
+                {% set is_in_position = ticker in position_tickers %}
                 <span class="badge ticker-badge" 
                       data-ticker="{{ ticker }}"
                       data-is-reset-20="{{ is_reset_20 }}"
                       data-is-reset-55="{{ is_reset_55 }}"
                       data-is-bullish="{{ is_bullish }}"
+                      data-is-in-position="{{ is_in_position }}"
                       style="font-size:0.95em;cursor:pointer;">{{ ticker }}</span>
               {% endfor %}
             </div>
@@ -425,9 +429,10 @@
         const selectedDays = document.querySelector('input[name="resetDays"]:checked').value;
         
         document.querySelectorAll('.ticker-badge').forEach(badge => {
-            const isBullish = badge.getAttribute('data-is-bullish') === 'True';
-            const isReset20 = badge.getAttribute('data-is-reset-20') === 'True';
-            const isReset55 = badge.getAttribute('data-is-reset-55') === 'True';
+            const isBullish = (badge.getAttribute('data-is-bullish') || '').toLowerCase() === 'true';
+            const isReset20 = (badge.getAttribute('data-is-reset-20') || '').toLowerCase() === 'true';
+            const isReset55 = (badge.getAttribute('data-is-reset-55') || '').toLowerCase() === 'true';
+            const isInPosition = (badge.getAttribute('data-is-in-position') || '').toLowerCase() === 'true';
             
             // Determine which reset status to check based on selected days
             let isReset = false;
@@ -442,7 +447,9 @@
             badge.className = 'badge ticker-badge';
             
             // Apply new classes
-            if (isReset) {
+            if (isInPosition) {
+                badge.classList.add('bg-danger', 'fw-bold');
+            } else if (isReset) {
                 badge.classList.add('bg-info', 'fw-bold');
             } else if (isBullish) {
                 badge.classList.add('bg-success', 'fw-bold');

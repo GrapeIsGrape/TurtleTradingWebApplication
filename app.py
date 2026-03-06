@@ -456,6 +456,7 @@ def tickers() -> str:
     """Display and manage S&P 500 tickers by sector."""
     sectors = []
     all_tickers = []
+    position_tickers = set()
     
     for sector_name, filename in get_sector_files():
         path = os.path.join(SECTOR_DIR, filename)
@@ -463,7 +464,11 @@ def tickers() -> str:
         if os.path.exists(path):
             with open(path, newline="") as f:
                 reader = csv.DictReader(f)
-                tickers_list = [row['Ticker'] for row in reader]
+                tickers_list = [
+                    str(row.get('Ticker', '')).strip().upper()
+                    for row in reader
+                    if str(row.get('Ticker', '')).strip()
+                ]
         all_tickers.extend(tickers_list)
         file_key = os.path.splitext(filename)[0]
         sectors.append({
@@ -474,6 +479,18 @@ def tickers() -> str:
         })
     
     bullish_tickers, _ = get_breakout_ticker_info(all_tickers, use_live=False)
+
+    if os.path.exists(CURRENT_POSITIONS_FILE_PATH):
+        try:
+            positions_df = pd.read_csv(CURRENT_POSITIONS_FILE_PATH)
+            if 'Ticker' in positions_df.columns:
+                position_tickers = {
+                    str(ticker).strip().upper()
+                    for ticker in positions_df['Ticker'].dropna().tolist()
+                    if str(ticker).strip()
+                }
+        except Exception as e:
+            logging.error(f"Error loading position tickers for /tickers: {e}")
     
     # Calculate reset tickers for both 20 and 55 day periods
     reset_tickers_20 = set(filter_tickers_by_reset_signal(all_tickers, 20))
@@ -483,6 +500,7 @@ def tickers() -> str:
         "tickers.html",
         sectors=sectors,
         bullish_tickers=bullish_tickers,
+        position_tickers=position_tickers,
         reset_tickers_20=reset_tickers_20,
         reset_tickers_55=reset_tickers_55,
         FILTER_MIN_PRICE=FILTER_MIN_PRICE,
