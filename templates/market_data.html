@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Market Data — Turtle Trading{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="flex items-center justify-between mb-5">
+  <div>
+    <h1 class="text-xl font-bold tracking-wide" style="color:#f9fafb;">MARKET DATA</h1>
+    <p class="text-xs mt-0.5 font-mono" style="color:#6b7280;">Raw CSV viewer — last 100 rows</p>
+  </div>
+</div>
+
+<!-- File selector -->
+<div class="bb-card mb-4">
+  <div class="bb-card-body">
+    <div class="flex items-center gap-3">
+      <label for="csvSelect" class="text-xs font-semibold flex-shrink-0" style="color:#9ca3af;">Data file:</label>
+      <select class="form-select text-xs font-mono" id="csvSelect" name="filename"
+              style="max-width:320px;"
+              onchange="if(this.value) window.location.href='/market-data/' + this.value;">
+        {% for file in csv_files %}
+        <option value="{{ file }}" {% if selected_file == file %}selected{% endif %}>{{ file }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+</div>
+
+{% if table_data %}
+<div class="bb-card overflow-x-auto">
+  <table class="bb-table">
+    <thead>
+      <tr>
+        {% for col in columns %}
+        <th>{{ col }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in table_data %}
+      <tr>
+        {% for cell in row %}
+        <td class="font-mono">{{ cell }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="px-4 py-2 text-xs text-right" style="color:#6b7280;border-top:1px solid #1f2937;">
+    Showing last 100 rows (most recent first)
+  </div>
+</div>
+{% else %}
+<div class="bb-card">
+  <div class="bb-card-body text-sm" style="color:#6b7280;">
+    <i class="bi bi-info-circle mr-2"></i>No data file selected or file is empty.
+  </div>
+</div>
+{% endif %}
+{% endblock %}

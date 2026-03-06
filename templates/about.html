@@ -1,247 +1,223 @@
 {% extends 'base.html' %}
-
-{% block title %}About - Turtle Trading Web App{% endblock %}
+{% block title %}About — Turtle Trading{% endblock %}
 
 {% block content %}
-        <div class="card shadow-sm">
-                <div class="card-body">
-                        <h1 class="card-title fs-3 fs-md-2">About Turtle Trading Web App</h1>
-                        <p class="card-text">This web application demonstrates the Turtle Trading strategy and related analytics. Use the navigation bar to explore logs, view trading data, and learn more about the project.</p>
-                        <hr>
-                        <div class="mt-4">
-                                <h5 class="fw-bold mb-3">Turtle Trading Overview</h5>
-                                <p class="text-muted">The Turtle Trading strategy is a systematic trend-following approach based on breakout mechanics, volatility measurement, and disciplined risk management. This project implements both System 1 and System 2 variations.</p>
+<!-- Header -->
+<div class="mb-5">
+  <h1 class="text-xl font-bold tracking-wide" style="color:#f9fafb;">ABOUT</h1>
+  <p class="text-xs mt-0.5 font-mono" style="color:#6b7280;">Strategy documentation &amp; reference</p>
+</div>
 
-                                <div class="row g-3 mt-3">
-                                        <!-- System 1 -->
-                                        <div class="col-12 col-lg-6">
-                                                <div class="card border-primary border-2 shadow-sm">
-                                                        <div class="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center"
-                                                             role="button"
-                                                             data-bs-toggle="collapse"
-                                                             data-bs-target="#system1Collapse"
-                                                             aria-expanded="false"
-                                                             aria-controls="system1Collapse">
-                                                                <strong class="fs-6">📈 System 1: 20-Day Breakout</strong>
-                                                                <i class="bi bi-chevron-down fs-6" aria-hidden="true"></i>
-                                                        </div>
-                                                        <div class="collapse" id="system1Collapse">
-                                                        <div class="card-body">
-                                                                <!-- Long Position -->
-                                                                <div class="mb-4 pb-3 border-bottom">
-                                                                        <h6 class="fw-bold text-success mb-2">📊 Long Position</h6>
-                                                                        <div class="mb-2">
-                                                                                <p class="mb-1"><small><span class="badge bg-success">ENTRY</span></small></p>
-                                                                                <ul class="ps-3 small mb-2">
-                                                                                        <li>Price breaks above <span class="text-success fw-bold">20-day high</span></li>
-                                                                                        <li>No existing position in ticker</li>
-                                                                                        <li><span class="badge bg-warning">Skip Winner:</span> After a winning trade, skip the <span class="text-warning fw-bold">next</span> breakout signal</li>
-                                                                                </ul>
-                                                                        </div>
-                                                                        <div>
-                                                                                <p class="mb-1"><small><span class="badge bg-danger">EXIT</span></small></p>
-                                                                                <ul class="ps-3 small">
-                                                                                        <li>Price closes below <span class="text-danger fw-bold">10-day low</span></li>
-                                                                                        <li>Stop loss: Entry − <span class="text-danger fw-bold">(2 × ATR-20)</span></li>
-                                                                                </ul>
-                                                                        </div>
-                                                                </div>
+<!-- Intro -->
+<div class="bb-card mb-4">
+  <div class="bb-card-body text-sm" style="color:#9ca3af;">
+    This web application implements the Turtle Trading strategy and related analytics.
+    It covers both System 1 and System 2 variations with systematic entry, exit, and position sizing rules.
+  </div>
+</div>
 
-                                                                <!-- Short Position -->
-                                                                <div>
-                                                                        <h6 class="fw-bold text-danger mb-2">📉 Short Position</h6>
-                                                                        <div class="mb-2">
-                                                                                <p class="mb-1"><small><span class="badge bg-success">ENTRY</span></small></p>
-                                                                                <ul class="ps-3 small mb-2">
-                                                                                        <li>Price breaks below <span class="text-success fw-bold">20-day low</span></li>
-                                                                                        <li>No existing position in ticker</li>
-                                                                                        <li><span class="badge bg-warning">Skip Winner:</span> After a winning trade, skip the <span class="text-warning fw-bold">next</span> breakout signal</li>
-                                                                                </ul>
-                                                                        </div>
-                                                                        <div>
-                                                                                <p class="mb-1"><small><span class="badge bg-danger">EXIT</span></small></p>
-                                                                                <ul class="ps-3 small">
-                                                                                        <li>Price closes above <span class="text-danger fw-bold">10-day high</span></li>
-                                                                                        <li>Stop loss: Entry + <span class="text-danger fw-bold">(2 × ATR-20)</span></li>
-                                                                                </ul>
-                                                                        </div>
-                                                                </div>
+<!-- Systems -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 
-                                                                <p class="small text-muted mt-3 mb-0"><strong>💡 Best for:</strong> Quick trends, faster-moving markets. Avoids whipsaw with Skip Winner logic.</p>
-                                                        </div>
-                                                        </div>
-                                                </div>
-                                        </div>
+  <!-- System 1 -->
+  <div class="bb-card">
+    <div class="bb-card-header flex justify-between items-center cursor-pointer"
+         onclick="toggleSection('sys1')" style="color:#3b82f6;">
+      <span><i class="bi bi-graph-up-arrow mr-2"></i>System 1 — 20-Day Breakout</span>
+      <i class="bi bi-chevron-down" id="icon-sys1"></i>
+    </div>
+    <div id="sys1" class="bb-card-body" style="display:none;">
+      <div class="mb-4 pb-3" style="border-bottom:1px solid #1f2937;">
+        <p class="text-xs font-semibold mb-2" style="color:#10b981;">Long Position</p>
+        <div class="mb-2 text-xs" style="color:#9ca3af;">
+          <span class="ticker-badge ticker-bullish" style="cursor:default;">ENTRY</span>
+          <ul class="mt-1 ml-3 space-y-0.5">
+            <li>Price breaks above <span style="color:#10b981;">20-day high</span></li>
+            <li>No existing position in ticker</li>
+            <li>Skip next signal after a winning trade</li>
+          </ul>
+        </div>
+        <div class="text-xs" style="color:#9ca3af;">
+          <span class="ticker-badge ticker-exit" style="cursor:default;">EXIT</span>
+          <ul class="mt-1 ml-3 space-y-0.5">
+            <li>Price closes below <span style="color:#ef4444;">10-day low</span></li>
+            <li>Stop loss: Entry − (2 × ATR-20)</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <p class="text-xs font-semibold mb-2" style="color:#ef4444;">Short Position</p>
+        <div class="mb-2 text-xs" style="color:#9ca3af;">
+          <span class="ticker-badge ticker-bullish" style="cursor:default;">ENTRY</span>
+          <ul class="mt-1 ml-3 space-y-0.5">
+            <li>Price breaks below <span style="color:#10b981;">20-day low</span></li>
+            <li>Skip next signal after a winning trade</li>
+          </ul>
+        </div>
+        <div class="text-xs" style="color:#9ca3af;">
+          <span class="ticker-badge ticker-exit" style="cursor:default;">EXIT</span>
+          <ul class="mt-1 ml-3 space-y-0.5">
+            <li>Price closes above <span style="color:#ef4444;">10-day high</span></li>
+            <li>Stop loss: Entry + (2 × ATR-20)</li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-xs mt-3" style="color:#6b7280;">Best for quick trends; avoids whipsaw with Skip Winner logic.</p>
+    </div>
+  </div>
 
-                                        <!-- System 2 -->
-                                        <div class="col-12 col-lg-6">
-                                                <div class="card border-success border-2 shadow-sm">
-                                                        <div class="card-header bg-success text-white py-3 d-flex justify-content-between align-items-center"
-                                                             role="button"
-                                                             data-bs-toggle="collapse"
-                                                             data-bs-target="#system2Collapse"
-                                                             aria-expanded="false"
-                                                             aria-controls="system2Collapse">
-                                                                <strong class="fs-6">🎯 System 2: 55-Day Breakout</strong>
-                                                                <i class="bi bi-chevron-down fs-6" aria-hidden="true"></i>
-                                                        </div>
-                                                        <div class="collapse" id="system2Collapse">
-                                                        <div class="card-body">
-                                                                <!-- Long Position -->
-                                                                <div class="mb-4 pb-3 border-bottom">
-                                                                        <h6 class="fw-bold text-success mb-2">📊 Long Position</h6>
-                                                                        <div class="mb-2">
-                                                                                <p class="mb-1"><small><span class="badge bg-success">ENTRY</span></small></p>
-                                                                                <ul class="ps-3 small mb-2">
-                                                                                        <li>Price breaks above <span class="text-success fw-bold">55-day high</span></li>
-                                                                                </ul>
-                                                                        </div>
-                                                                        <div>
-                                                                                <p class="mb-1"><small><span class="badge bg-danger">EXIT</span></small></p>
-                                                                                <ul class="ps-3 small">
-                                                                                        <li>Price closes below <span class="text-danger fw-bold">20-day low</span></li>
-                                                                                        <li>Stop loss: Entry − <span class="text-danger fw-bold">(2 × ATR-20)</span></li>
-                                                                                </ul>
-                                                                        </div>
-                                                                </div>
+  <!-- System 2 -->
+  <div class="bb-card">
+    <div class="bb-card-header flex justify-between items-center cursor-pointer"
+         onclick="toggleSection('sys2')" style="color:#10b981;">
+      <span><i class="bi bi-graph-up mr-2"></i>System 2 — 55-Day Breakout</span>
+      <i class="bi bi-chevron-down" id="icon-sys2"></i>
+    </div>
+    <div id="sys2" class="bb-card-body" style="display:none;">
+      <div class="mb-4 pb-3" style="border-bottom:1px solid #1f2937;">
+        <p class="text-xs font-semibold mb-2" style="color:#10b981;">Long Position</p>
+        <div class="mb-2 text-xs" style="color:#9ca3af;">
+          <span class="ticker-badge ticker-bullish" style="cursor:default;">ENTRY</span>
+          <ul class="mt-1 ml-3 space-y-0.5">
+            <li>Price breaks above <span style="color:#10b981;">55-day high</span></li>
+          </ul>
+        </div>
+        <div class="text-xs" style="color:#9ca3af;">
+          <span class="ticker-badge ticker-exit" style="cursor:default;">EXIT</span>
+          <ul class="mt-1 ml-3 space-y-0.5">
+            <li>Price closes below <span style="color:#ef4444;">20-day low</span></li>
+            <li>Stop loss: Entry − (2 × ATR-20)</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <p class="text-xs font-semibold mb-2" style="color:#ef4444;">Short Position</p>
+        <div class="mb-2 text-xs" style="color:#9ca3af;">
+          <span class="ticker-badge ticker-bullish" style="cursor:default;">ENTRY</span>
+          <ul class="mt-1 ml-3 space-y-0.5">
+            <li>Price breaks below <span style="color:#10b981;">55-day low</span></li>
+          </ul>
+        </div>
+        <div class="text-xs" style="color:#9ca3af;">
+          <span class="ticker-badge ticker-exit" style="cursor:default;">EXIT</span>
+          <ul class="mt-1 ml-3 space-y-0.5">
+            <li>Price closes above <span style="color:#ef4444;">20-day high</span></li>
+            <li>Stop loss: Entry + (2 × ATR-20)</li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-xs mt-3" style="color:#6b7280;">Best for major trends; fewer false signals, higher-quality entries.</p>
+    </div>
+  </div>
+</div>
 
-                                                                <!-- Short Position -->
-                                                                <div>
-                                                                        <h6 class="fw-bold text-danger mb-2">📉 Short Position</h6>
-                                                                        <div class="mb-2">
-                                                                                <p class="mb-1"><small><span class="badge bg-success">ENTRY</span></small></p>
-                                                                                <ul class="ps-3 small mb-2">
-                                                                                        <li>Price breaks below <span class="text-success fw-bold">55-day low</span></li>
-                                                                                </ul>
-                                                                        </div>
-                                                                        <div>
-                                                                                <p class="mb-1"><small><span class="badge bg-danger">EXIT</span></small></p>
-                                                                                <ul class="ps-3 small">
-                                                                                        <li>Price closes above <span class="text-danger fw-bold">20-day high</span></li>
-                                                                                        <li>Stop loss: Entry + <span class="text-danger fw-bold">(2 × ATR-20)</span></li>
-                                                                                </ul>
-                                                                        </div>
-                                                                </div>
-
-                                                                <p class="small text-muted mt-3 mb-0"><strong>💡 Best for:</strong> Major trends, fewer false signals. More conservative but higher-quality entries.</p>
-                                                        </div>
-                                                        </div>
-                                                </div>
-                                        </div>
-                                </div>
-
-                                <!-- Key Concepts -->
-                                <div class="mt-4 p-3 border-start border-4 border-info bg-light rounded">
-                                        <h6 class="fw-bold mb-3"><span class="badge bg-info">KEY INDICATORS</span></h6>
-                                        <ul class="small ps-3 mb-0">
-                                                <li class="mb-2"><span class="fw-bold text-primary">Average True Range (ATR)</span> — Volatility measurement. <span class="badge bg-warning">High ATR</span> = bigger moves = smaller position. Used for stops & sizing.</li>
-                                                <li class="mb-2"><span class="fw-bold text-primary">N-Day High/Low</span> — Highest/lowest price over N days. Defines breakout levels.</li>
-                                                <li><span class="fw-bold text-primary">Moving Averages (5/10/20/30/50/100/200)</span> — Confirm trend. <span class="badge bg-light text-dark">Bullish</span> when shorter > longer.</li>
-                                        </ul>
-                                </div>
-
-                                <!-- Position Sizing -->
-                                <div class="mt-4 p-3 bg-success bg-opacity-10 border-start border-4 border-success rounded">
-                                        <h6 class="fw-bold mb-3"><span class="badge bg-success">POSITION SIZING & RISK</span></h6>
-                                        <ul class="small ps-3 mb-0">
-                                                <li class="mb-2"><span class="fw-bold text-success">Unit Size:</span> Shares = (Risk per trade $) ÷ <span class="badge bg-light text-dark">2 x ATR</span>. E.g., $100 ÷ (2 x $5 ATR) = 10 shares.</li>
-                                                <li class="mb-2"><span class="fw-bold text-success">Stop Distance:</span> <span class="badge bg-light text-dark">2 x ATR</span> below entry (defines max loss).</li>
-                                                <li class="mb-2"><span class="fw-bold text-success">Max Risk/Trade:</span> 1–2% of account. Typical Turtle rule: <span class="badge bg-light text-dark">2%</span>.</li>
-                                                <li><span class="fw-bold text-success">Sector Limit:</span> Max 1–2 units per sector to avoid concentration.</li>
-                                        </ul>
-                                </div>
-
-                <hr>
-
-                <section class="mt-4">
-                        <div class="card border-0 shadow-sm">
-                                <div class="card-header bg-warning text-white py-3 d-flex justify-content-between align-items-center"
-                                     role="button"
-                                     data-bs-toggle="collapse"
-                                     data-bs-target="#multiSignalsCollapse"
-                                     aria-expanded="false"
-                                     aria-controls="multiSignalsCollapse">
-                                        <h5 class="mb-0 fw-semibold">Multiple Signals</h5>
-                                        <i class="bi bi-chevron-down fs-6" aria-hidden="true"></i>
-                                </div>
-                                <div class="collapse" id="multiSignalsCollapse">
-                                <div class="card-body">
-                                        <p class="text-muted mb-3">When multiple breakouts fire on the same day, use this quick ranking checklist to make fast, disciplined choices.</p>
-
-                                        <div class="d-grid gap-3">
-                                                <div class="p-3 rounded border border-warning-subtle bg-warning bg-opacity-10">
-                                                        <h6 class="fw-bold mb-2 d-flex align-items-center gap-2">
-                                                                <i class="bi bi-diagram-3-fill text-warning" aria-hidden="true"></i>
-                                                                <span>1) Sector Filter First</span>
-                                                                <span class="badge bg-warning text-dark">Highest Priority</span>
-                                                        </h6>
-                                                        <p class="small text-muted mb-0">If you already have an <span class="fw-semibold text-warning-emphasis">open trade in that GICS sector</span>, skip the new setup. This alone removes most over-concentration risk.</p>
-                                                </div>
-
-                                                <div class="p-3 rounded border border-danger-subtle bg-danger bg-opacity-10">
-                                                        <h6 class="fw-bold mb-2 d-flex align-items-center gap-2">
-                                                                <i class="bi bi-activity text-danger" aria-hidden="true"></i>
-                                                                <span>2) Volatility Rank (Highest First)</span>
-                                                        </h6>
-                                                        <p class="small text-muted mb-0">Choose the ticker with the <span class="fw-semibold text-danger-emphasis">biggest 20-day ATR</span>. Bigger expected movement can translate into better reward when the breakout follows through.</p>
-                                                </div>
-
-                                                <div class="p-3 rounded border border-primary-subtle bg-primary bg-opacity-10">
-                                                        <h6 class="fw-bold mb-2 d-flex align-items-center gap-2">
-                                                                <i class="bi bi-graph-up-arrow text-primary" aria-hidden="true"></i>
-                                                                <span>3) Momentum Strength</span>
-                                                        </h6>
-                                                        <ul class="small text-muted mb-0 ps-3">
-                                                                <li>Prefer the one trading <span class="fw-semibold text-primary-emphasis">farther above its 200-day moving average</span>.</li>
-                                                                <li>Or compare breakout force: pick the one that <span class="fw-semibold text-primary-emphasis">cleared the 55-day high by a wider margin.</span></li>
-                                                        </ul>
-                                                </div>
-
-                                                <div class="p-3 rounded border border-success-subtle bg-success bg-opacity-10">
-                                                        <h6 class="fw-bold mb-2 d-flex align-items-center gap-2">
-                                                                <i class="bi bi-droplet-half text-success" aria-hidden="true"></i>
-                                                                <span>4) Liquidity Tie-Breaker</span>
-                                                        </h6>
-                                                        <p class="small text-muted mb-0">If candidates are still close, pick the one with <span class="fw-semibold text-success-emphasis">higher average daily dollar volume</span> for smoother fills and tighter spreads.</p>
-                                                </div>
-
-                                                <div class="p-3 rounded border border-secondary-subtle bg-secondary bg-opacity-10">
-                                                        <h6 class="fw-bold mb-2 d-flex align-items-center gap-2">
-                                                                <i class="bi bi-hourglass-split text-secondary" aria-hidden="true"></i>
-                                                                <span>5) Still Tied?</span>
-                                                        </h6>
-                                                        <p class="small text-muted mb-0">Take the first symbol in your scan order (FIFO), or <span class="fw-semibold text-secondary-emphasis">randomize</span>. Do not overthink the final tie.</p>
-                                                </div>
-                                        </div>
-                                </div>
-                                </div>
-                        </div>
-                </section>
-
-                <hr>
-
-                <section class="mt-4">
-                        <div class="card border-0 shadow-sm">
-                                <div class="card-header bg-dark text-white py-3 d-flex justify-content-between align-items-center"
-                                     role="button"
-                                     data-bs-toggle="collapse"
-                                     data-bs-target="#tickerCriteriaCollapse"
-                                     aria-expanded="false"
-                                     aria-controls="tickerCriteriaCollapse">
-                                        <h5 class="mb-0 fw-semibold">Ticker Selection Criteria</h5>
-                                        <i class="bi bi-chevron-down fs-6" aria-hidden="true"></i>
-                                </div>
-                                <div class="collapse" id="tickerCriteriaCollapse">
-                                <div class="card-body bg-light">
-                                        <p class="text-muted small mb-3">Use the following criteria to keep your watchlist focused and tradable.</p>
-                                        {% include 'common/criteria.html' %}
-                                </div>
-                                </div>
-                        </div>
-                </section>
-
-        <p class="text-muted small mt-4">&copy; 2026 Turtle Trading Project</p>
+<!-- Key Indicators -->
+<div class="bb-card mb-4">
+  <div class="bb-card-header flex justify-between items-center cursor-pointer"
+       onclick="toggleSection('indicators')" style="color:#06b6d4;">
+    <span><i class="bi bi-activity mr-2"></i>Key Indicators</span>
+    <i class="bi bi-chevron-down" id="icon-indicators"></i>
+  </div>
+  <div id="indicators" class="bb-card-body" style="display:none;">
+    <div class="space-y-3 text-xs" style="color:#9ca3af;">
+      <div>
+        <span class="font-semibold" style="color:#3b82f6;">Average True Range (ATR)</span>
+        — Volatility measurement.
+        <span class="ticker-badge ticker-reset" style="cursor:default;">High ATR</span>
+        = bigger moves = smaller position. Used for stops &amp; sizing.
+      </div>
+      <div>
+        <span class="font-semibold" style="color:#3b82f6;">N-Day High/Low</span>
+        — Highest/lowest price over N days. Defines breakout levels.
+      </div>
+      <div>
+        <span class="font-semibold" style="color:#3b82f6;">Moving Averages (5/10/20/30/50/100/200)</span>
+        — Confirm trend.
+        <span class="ticker-badge ticker-bullish" style="cursor:default;">Bullish</span>
+        when shorter MAs are above longer MAs.
       </div>
     </div>
   </div>
+</div>
+
+<!-- Position Sizing -->
+<div class="bb-card mb-4">
+  <div class="bb-card-header flex justify-between items-center cursor-pointer"
+       onclick="toggleSection('sizing')" style="color:#10b981;">
+    <span><i class="bi bi-calculator mr-2"></i>Position Sizing &amp; Risk</span>
+    <i class="bi bi-chevron-down" id="icon-sizing"></i>
+  </div>
+  <div id="sizing" class="bb-card-body" style="display:none;">
+    <div class="space-y-2 text-xs" style="color:#9ca3af;">
+      <div><span class="font-semibold" style="color:#10b981;">Unit Size:</span>
+        Shares = Risk per trade ÷ (2 × ATR). E.g., $100 ÷ ($5 ATR × 2) = 10 shares.</div>
+      <div><span class="font-semibold" style="color:#10b981;">Stop Distance:</span>
+        2 × ATR below entry (defines max loss per trade).</div>
+      <div><span class="font-semibold" style="color:#10b981;">Max Risk/Trade:</span>
+        1–2% of account. Typical Turtle rule: 2%.</div>
+      <div><span class="font-semibold" style="color:#10b981;">Sector Limit:</span>
+        Max 1–2 units per GICS sector to avoid concentration.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Multiple Signals -->
+<div class="bb-card mb-4">
+  <div class="bb-card-header flex justify-between items-center cursor-pointer"
+       onclick="toggleSection('multisig')" style="color:#f59e0b;">
+    <span><i class="bi bi-diagram-3 mr-2"></i>Multiple Signals — Priority Ranking</span>
+    <i class="bi bi-chevron-down" id="icon-multisig"></i>
+  </div>
+  <div id="multisig" class="bb-card-body" style="display:none;">
+    <p class="text-xs mb-3" style="color:#9ca3af;">When multiple breakouts fire on the same day, use this ranking:</p>
+    <div class="space-y-2">
+      <div class="p-3 rounded text-xs" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);">
+        <p class="font-semibold mb-1" style="color:#f59e0b;">1) Sector Filter First</p>
+        <p style="color:#9ca3af;">Already have an open trade in that GICS sector? Skip the new setup.</p>
+      </div>
+      <div class="p-3 rounded text-xs" style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);">
+        <p class="font-semibold mb-1" style="color:#ef4444;">2) Volatility Rank (Highest First)</p>
+        <p style="color:#9ca3af;">Choose the ticker with the biggest 20-day ATR.</p>
+      </div>
+      <div class="p-3 rounded text-xs" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);">
+        <p class="font-semibold mb-1" style="color:#3b82f6;">3) Momentum Strength</p>
+        <p style="color:#9ca3af;">Prefer the one trading farther above its 200-day MA, or with a wider breakout margin.</p>
+      </div>
+      <div class="p-3 rounded text-xs" style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);">
+        <p class="font-semibold mb-1" style="color:#10b981;">4) Liquidity Tie-Breaker</p>
+        <p style="color:#9ca3af;">Higher average daily dollar volume = smoother fills and tighter spreads.</p>
+      </div>
+      <div class="p-3 rounded text-xs" style="background:rgba(156,163,175,0.08);border:1px solid rgba(156,163,175,0.2);">
+        <p class="font-semibold mb-1" style="color:#9ca3af;">5) Still Tied?</p>
+        <p style="color:#6b7280;">Take the first symbol in scan order (FIFO) or randomize. Don't overthink it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Ticker Selection Criteria -->
+<div class="bb-card mb-5">
+  <div class="bb-card-header flex justify-between items-center cursor-pointer"
+       onclick="toggleSection('criteria')" style="color:#9ca3af;">
+    <span><i class="bi bi-funnel mr-2"></i>Ticker Selection Criteria</span>
+    <i class="bi bi-chevron-down" id="icon-criteria"></i>
+  </div>
+  <div id="criteria" class="bb-card-body" style="display:none;">
+    {% include 'common/criteria.html' %}
+  </div>
+</div>
+
+<p class="text-xs text-right" style="color:#374151;">&copy; 2026 Turtle Trading Project</p>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function toggleSection(id) {
+    const el   = document.getElementById(id);
+    const icon = document.getElementById('icon-' + id);
+    const open = el.style.display === 'none' || el.style.display === '';
+    el.style.display  = open ? '' : 'none';
+    icon.className    = open ? 'bi bi-chevron-up' : 'bi bi-chevron-down';
+  }
+</script>
 {% endblock %}

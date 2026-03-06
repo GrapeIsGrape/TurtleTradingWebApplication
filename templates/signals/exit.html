@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}{{ page_title }} — Turtle Trading{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="flex items-center justify-between mb-5">
+  <div>
+    <h1 class="text-xl font-bold tracking-wide" style="color:#f9fafb;">{{ page_title | upper }}</h1>
+    <p class="text-xs mt-0.5 font-mono" style="color:#6b7280;">Stop-loss exit signals on current positions</p>
+  </div>
+  <label class="flex items-center gap-2 cursor-pointer text-xs" style="color:#9ca3af;">
+    <div class="relative inline-block w-9 h-5">
+      <input type="checkbox" id="showLastCheckOnly" checked class="sr-only">
+      <div class="w-9 h-5 rounded-full transition-colors" style="background:#374151;" id="toggleTrack"></div>
+      <div class="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white transition-transform" id="toggleDot"></div>
+    </div>
+    Show last only
+  </label>
+</div>
+
+<!-- Legend -->
+<div class="flex flex-wrap gap-3 mb-5 text-xs">
+  <span class="flex items-center gap-1.5">
+    <span class="ticker-badge ticker-exit">EXIT</span>
+    <span style="color:#6b7280;">Exit signal triggered — review stop-loss</span>
+  </span>
+  <span class="flex items-center gap-1.5">
+    <span style="color:#6b7280;">10-day low = System 1 trigger · 20-day low = System 2 trigger</span>
+  </span>
+</div>
+
+{% if entries %}
+  {% set latest_found = [false] %}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {% for entry in entries %}
+      {% set is_latest = (not entry.market_closed and not latest_found[0]) %}
+      {% if is_latest %}{% set _ = latest_found.pop() %}{% set _ = latest_found.append(true) %}{% endif %}
+
+      <div class="bb-card exit-card"
+           data-is-market-closed="{{ 'true' if entry.market_closed else 'false' }}"
+           data-is-latest="{{ 'true' if is_latest else 'false' }}">
+        <div class="bb-card-header {% if is_latest %}exit-active{% endif %}">
+          <span class="font-mono">{{ entry.timestamp }}</span>
+          {% if is_latest %}<span class="ml-2 text-xs font-bold" style="color:#f87171;">LATEST</span>{% endif %}
+        </div>
+        <div class="bb-card-body">
+          {% if entry.market_closed %}
+            <p class="text-xs italic" style="color:#f59e0b;">
+              <i class="bi bi-moon-stars mr-1"></i>Market closed — no exit check performed
+            </p>
+          {% else %}
+            {% for exit_signal in entry.exits %}
+              <div class="mb-3">
+                <p class="text-xs font-semibold mb-2"
+                   style="{% if exit_signal.tickers %}color:#d1d5db;{% else %}color:#6b7280;{% endif %}">
+                  {{ exit_signal.label }} ({{ exit_signal.tickers|length }})
+                </p>
+                <div class="flex flex-wrap gap-1.5">
+                  {% for ticker in exit_signal.tickers %}
+                    <span class="ticker-badge ticker-exit"
+                          data-bs-toggle="modal" data-bs-target="#tickerModal"
+                          data-ticker="{{ ticker }}">{{ ticker }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="bb-card">
+    <div class="bb-card-body text-sm" style="color:#6b7280;">
+      <i class="bi bi-info-circle mr-2"></i>No exit log data found.
+    </div>
+  </div>
+{% endif %}
+
+{% include 'common/ticker_details_modal.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const toggle  = document.getElementById('showLastCheckOnly');
+  const track   = document.getElementById('toggleTrack');
+  const dot     = document.getElementById('toggleDot');
+  const cards   = document.querySelectorAll('.exit-card');
+
+  function applyToggle() {
+    const on = toggle.checked;
+    track.style.background = on ? '#ef4444' : '#374151';
+    dot.style.transform    = on ? 'translateX(16px)' : 'translateX(0)';
+    cards.forEach(card => {
+      const isLatest = card.getAttribute('data-is-latest') === 'true';
+      card.style.display = (on && !isLatest) ? 'none' : '';
+    });
+  }
+
+  if (toggle) { applyToggle(); toggle.addEventListener('change', applyToggle); }
+</script>
+{% include 'common/ticker_details_modal_script.html' %}
+{% endblock %}

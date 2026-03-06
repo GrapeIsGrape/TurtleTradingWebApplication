@@ -1,29 +1,46 @@
 {% extends 'base.html' %}
-
-{% block title %}Logs - Turtle Trading Web App{% endblock %}
+{% block title %}Logs — Turtle Trading{% endblock %}
 
 {% block content %}
-<div>
-    <h2 class="mb-4">Logs</h2>
-    <form method="get" action="">
-        <div class="row mb-3">
-            <div class="col-12 col-md-6">
-                <label for="logSelect" class="form-label">Select Log File:</label>
-                <select class="form-select" id="logSelect" name="logfile" onchange="if(this.value) window.location.href='/daily_script_logs/' + this.value;">
-                    {% for log in log_files %}
-                    <option value="{{ log }}" {% if selected_log == log %}selected{% endif %}>{{ log }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-    </form>
-    {% if log_content %}
-    <div class="bg-dark text-light rounded p-3" style="max-height:60vh;overflow:auto;word-break:break-all;font-size:1rem;">
-        <pre class="mb-0" style="background:transparent;border:none;white-space:pre-wrap;">{{ log_content }}</pre>
-    </div>
-    {% else %}
-    <div class="alert alert-info mt-3">No log file selected or log is empty.</div>
-    {% endif %}
+<!-- Header -->
+<div class="flex items-center justify-between mb-5">
+  <div>
+    <h1 class="text-xl font-bold tracking-wide" style="color:#f9fafb;">LOGS</h1>
+    <p class="text-xs mt-0.5 font-mono" style="color:#6b7280;">Script execution output</p>
+  </div>
 </div>
 
+<!-- Log file selector -->
+<div class="bb-card mb-4">
+  <div class="bb-card-body">
+    <div class="flex items-center gap-3">
+      <label for="logSelect" class="text-xs font-semibold flex-shrink-0" style="color:#9ca3af;">Log file:</label>
+      <select class="form-select text-xs font-mono" id="logSelect" name="logfile"
+              style="max-width:320px;"
+              onchange="if(this.value) window.location.href='/logs/' + this.value;">
+        {% for log in log_files %}
+        <option value="{{ log }}" {% if selected_log == log %}selected{% endif %}>{{ log }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+</div>
+
+{% if log_content %}
+<div class="bb-card">
+  <div class="bb-card-header flex items-center gap-2">
+    <i class="bi bi-file-text"></i>
+    <span class="font-mono text-xs">{{ selected_log }}</span>
+  </div>
+  <div class="bb-card-body p-0">
+    <pre class="bb-log-output m-0">{{ log_content }}</pre>
+  </div>
+</div>
+{% else %}
+<div class="bb-card">
+  <div class="bb-card-body text-sm" style="color:#6b7280;">
+    <i class="bi bi-info-circle mr-2"></i>No log file selected or log is empty.
+  </div>
+</div>
+{% endif %}
 {% endblock %}

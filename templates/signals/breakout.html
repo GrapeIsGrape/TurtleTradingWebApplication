@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block title %}{{ page_title }} — Turtle Trading{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="flex items-center justify-between mb-5">
+  <div>
+    <h1 class="text-xl font-bold tracking-wide" style="color:#f9fafb;">{{ page_title | upper }}</h1>
+    <p class="text-xs mt-0.5 font-mono" style="color:#6b7280;">N-day high breakout signals</p>
+  </div>
+  <label class="flex items-center gap-2 cursor-pointer text-xs" style="color:#9ca3af;">
+    <div class="relative inline-block w-9 h-5">
+      <input type="checkbox" id="showLastCheckOnly" checked class="sr-only peer">
+      <div class="w-9 h-5 rounded-full peer-checked:bg-blue-600 peer-focus:ring-0 transition-colors"
+           style="background:#374151;" id="toggleTrack"></div>
+      <div class="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white transition-transform"
+           id="toggleDot"></div>
+    </div>
+    Show last only
+  </label>
+</div>
+
+<!-- Legend -->
+<div class="flex flex-wrap gap-3 mb-5 text-xs">
+  <span class="flex items-center gap-1.5">
+    <span class="ticker-badge ticker-bullish">BULL</span>
+    <span style="color:#6b7280;">Bullish MA arrangement</span>
+  </span>
+  <span class="flex items-center gap-1.5">
+    <span class="ticker-badge ticker-reset">RESET</span>
+    <span style="color:#6b7280;">Reset — recent N-day low hit</span>
+  </span>
+  <span class="flex items-center gap-1.5">
+    <span class="ticker-badge ticker-neutral">TICKER</span>
+    <span style="color:#6b7280;">Normal breakout</span>
+  </span>
+</div>
+
+{% if entries %}
+  {% set first_data_found = [False] %}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {% for entry in entries %}
+      {% set data_ns = namespace(has_tickers=false) %}
+      {% for b in entry.breakouts %}{% if b.tickers %}{% set data_ns.has_tickers = true %}{% endif %}{% endfor %}
+      {% set is_first = (data_ns.has_tickers and not first_data_found[0]) %}
+      {% if is_first %}{% set _ = first_data_found.append(True) %}{% set _ = first_data_found.pop(0) %}{% endif %}
+
+      <div class="bb-card {% if not is_first %}breakout-card-history{% endif %}">
+        <div class="bb-card-header {% if is_first %}active{% endif %}">
+          <span class="font-mono">{{ entry.timestamp }}</span>
+          {% if is_first %}<span class="ml-2 text-xs font-bold" style="color:#60a5fa;">LATEST</span>{% endif %}
+        </div>
+        <div class="bb-card-body">
+          {% if entry.market_closed %}
+            <p class="text-xs italic" style="color:#f59e0b;">
+              <i class="bi bi-moon-stars mr-1"></i>Market closed — no check performed
+            </p>
+          {% else %}
+            {% for breakout in entry.breakouts %}
+              <div class="mb-3">
+                <p class="text-xs font-semibold mb-2" style="{% if breakout.tickers %}color:#d1d5db;{% else %}color:#6b7280;{% endif %}">
+                  {{ breakout.label }} ({{ breakout.tickers|length }})
+                </p>
+                <div class="flex flex-wrap gap-1.5">
+                  {% for ticker in breakout.tickers %}
+                    {% if is_first %}
+                      {% if ticker in entry.reset_tickers %}{% set cls = 'ticker-reset' %}
+                      {% elif ticker in bullish_tickers %}{% set cls = 'ticker-bullish' %}
+                      {% else %}{% set cls = 'ticker-neutral' %}{% endif %}
+                    {% else %}{% set cls = 'ticker-neutral' %}{% endif %}
+                    <span class="ticker-badge {{ cls }}"
+                          data-bs-toggle="modal" data-bs-target="#tickerModal"
+                          data-ticker="{{ ticker }}">{{ ticker }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="bb-card">
+    <div class="bb-card-body text-sm" style="color:#6b7280;">
+      <i class="bi bi-info-circle mr-2"></i>No breakout log data found.
+    </div>
+  </div>
+{% endif %}
+
+{% include 'common/ticker_details_modal.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const toggle  = document.getElementById('showLastCheckOnly');
+  const track   = document.getElementById('toggleTrack');
+  const dot     = document.getElementById('toggleDot');
+  const history = document.querySelectorAll('.breakout-card-history');
+
+  function applyToggle() {
+    const on = toggle.checked;
+    track.style.background = on ? '#3b82f6' : '#374151';
+    dot.style.transform    = on ? 'translateX(16px)' : 'translateX(0)';
+    history.forEach(el => { el.style.display = on ? 'none' : ''; });
+  }
+
+  if (toggle) { applyToggle(); toggle.addEventListener('change', applyToggle); }
+</script>
+{% include 'common/ticker_details_modal_script.html' %}
+{% endblock %}

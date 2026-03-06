@@ -1,62 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Turtle Trading Web App{% endblock %}</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
-    <!-- Custom Styles -->
-    <style>
-        .badge { --bs-badge-font-weight: 400; }
-        .bg-purple { background-color: #6f42c1 !important; }
-        .border-purple { border-color: #6f42c1 !important; }
-        .bg-teal { background-color: #20c997 !important; }
-        .border-teal { border-color: #20c997 !important; }
-        .bg-indigo { background-color: #6610f2 !important; }
-        .border-indigo { border-color: #6610f2 !important; }
-        .bg-orange { background-color: #fd7e14 !important; }
-        .border-orange { border-color: #fd7e14 !important; }
-        .bg-pink { background-color: #d63384 !important; }
-        .border-pink { border-color: #d63384 !important; }
-        
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Turtle Trading{% endblock %}</title>
+
+  <!-- Tailwind CSS Play CDN (no build step required) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bb': {
+              'bg':      '#0a0e1a',
+              'surface': '#111827',
+              'surface2':'#1f2937',
+              'border':  '#374151',
+            }
+          }
         }
-        
-        .container {
-            flex: 1;
-        }
-    </style>
-    
-    {% block extra_css %}{% endblock %}
+      }
+    }
+  </script>
+
+  <!-- Bootstrap Icons (icon set only) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Bloomberg custom styles -->
+  <link rel="stylesheet" href="/static/css/bloomberg.css">
+
+  {% block extra_css %}{% endblock %}
 </head>
-<body>
-    <!-- Navigation Bar -->
-    {% include 'common/navbar.html' %}
-    
-    <!-- Main Content -->
-    <div class="container mt-4">
-        {% block content %}{% endblock %}
-    </div>
-    
-    <!-- Footer -->
-    {% include 'common/footer.html' %}
-    
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Common Utilities -->
-    {% include 'common/utilities.html' %}
-    
-    {% block extra_js %}{% endblock %}
+
+<body class="min-h-screen flex overflow-hidden" style="background-color:#0a0e1a;color:#f9fafb;">
+
+<!-- ============================================================
+     Sidebar overlay (mobile tap-to-close)
+     ============================================================ -->
+<div id="sidebarOverlay"
+     class="fixed inset-0 bg-black/60 z-40 hidden"
+     onclick="toggleSidebar()"></div>
+
+<!-- ============================================================
+     Sidebar
+     ============================================================ -->
+<aside id="sidebar"
+       class="fixed inset-y-0 left-0 z-50 flex flex-col border-r"
+       style="width:224px;background-color:#111827;border-color:#1f2937;
+              transform:translateX(-100%);transition:transform 0.25s ease;">
+
+  <!-- Brand -->
+  <div class="flex items-center gap-2.5 px-4 py-4 border-b" style="border-color:#1f2937;">
+    <i class="bi bi-graph-up text-emerald-400 text-lg"></i>
+    <span class="font-bold tracking-widest text-sm" style="color:#f9fafb;">TURTLE TRADING</span>
+  </div>
+
+  <!-- Market status -->
+  <div class="px-4 py-2.5 border-b" style="border-color:#1f2937;">
+    {% if market_is_open %}
+    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono font-semibold"
+          style="background:rgba(16,185,129,0.15);color:#10b981;border:1px solid rgba(16,185,129,0.3);">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"
+            style="animation:pulse 1.5s cubic-bezier(0.4,0,0.6,1) infinite;"></span>
+      MARKET OPEN
+    </span>
+    {% else %}
+    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono"
+          style="background:rgba(107,114,128,0.15);color:#6b7280;border:1px solid #374151;">
+      <span class="w-1.5 h-1.5 rounded-full" style="background:#4b5563;"></span>
+      MARKET CLOSED
+    </span>
+    {% endif %}
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flex-1 overflow-y-auto px-2 py-2" style="scrollbar-width:thin;">
+
+    {# Macro for nav links #}
+    {% macro nav_item(href, icon, label) %}
+      {% set active = (request.path == href) or (href != '/' and request.path.startswith(href)) %}
+      <a href="{{ href }}"
+         class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm mb-0.5 transition-colors"
+         style="{% if active %}background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.25);{% else %}color:#9ca3af;border:1px solid transparent;{% endif %}"
+         onmouseover="{% if not active %}this.style.color='#d1d5db';this.style.background='rgba(255,255,255,0.05)';{% endif %}"
+         onmouseout="{% if not active %}this.style.color='#9ca3af';this.style.background='transparent';{% endif %}">
+        <i class="bi bi-{{ icon }} text-sm" style="width:1rem;text-align:center;"></i>
+        <span>{{ label }}</span>
+      </a>
+    {% endmacro %}
+
+    {% macro nav_section(title) %}
+      <div class="px-3 pt-3 pb-1">
+        <p class="text-xs font-semibold uppercase tracking-widest" style="color:#4b5563;">{{ title }}</p>
+      </div>
+    {% endmacro %}
+
+    {{ nav_item('/', 'speedometer2', 'Dashboard') }}
+
+    {{ nav_section('Signals') }}
+    {{ nav_item('/signals/breakout',      'graph-up-arrow',      'Breakout (Close)') }}
+    {{ nav_item('/signals/breakout/live', 'broadcast',           'Breakout (Live)') }}
+    {{ nav_item('/signals/exit',          'graph-down-arrow',    'Exit (Close)') }}
+    {{ nav_item('/signals/exit/live',     'exclamation-triangle','Exit (Live)') }}
+
+    {{ nav_section('Portfolio') }}
+    {{ nav_item('/positions', 'briefcase', 'Positions') }}
+    {{ nav_item('/tickers',   'grid-3x3',  'Tickers') }}
+
+    {{ nav_section('Intelligence') }}
+    {{ nav_item('/sentiment', 'newspaper', 'Sentiment') }}
+    {{ nav_item('/analysis',  'robot',     'AI Analysis') }}
+    {{ nav_item('/settings',  'gear',      'Settings') }}
+
+    {{ nav_section('Data') }}
+    {{ nav_item('/market-data', 'table',      'Market Data') }}
+    {{ nav_item('/logs',        'file-text',  'Logs') }}
+    {{ nav_item('/about',       'info-circle','About') }}
+
+  </nav>
+
+  <!-- HKT clock -->
+  <div class="px-4 py-3 border-t" style="border-color:#1f2937;">
+    <div id="hktClock" class="text-xs font-mono" style="color:#4b5563;">HKT --:--:--</div>
+  </div>
+</aside>
+
+<!-- ============================================================
+     Main area
+     ============================================================ -->
+<div class="flex flex-col min-h-screen flex-1" id="mainContent"
+     style="margin-left:0;transition:margin-left 0.25s ease;">
+
+  <!-- Top bar (visible always on mobile; on desktop it's optional) -->
+  <header class="sticky top-0 z-30 flex items-center justify-between px-4 py-3 border-b md:hidden"
+          style="background-color:rgba(17,24,39,0.95);backdrop-filter:blur(8px);border-color:#1f2937;">
+    <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white">
+      <i class="bi bi-list text-xl"></i>
+    </button>
+    <span class="font-bold tracking-widest text-sm">TURTLE TRADING</span>
+    {% if market_is_open %}
+    <span class="text-xs font-mono flex items-center gap-1" style="color:#10b981;">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>OPEN
+    </span>
+    {% else %}
+    <span class="text-xs font-mono" style="color:#6b7280;">CLOSED</span>
+    {% endif %}
+  </header>
+
+  <!-- Page content -->
+  <main class="flex-1 overflow-auto p-4 md:p-6">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="px-6 py-2.5 text-xs border-t font-mono" style="color:#374151;border-color:#111827;">
+    Turtle Trading v2 &nbsp;·&nbsp; HK Timezone &nbsp;·&nbsp; Data via yfinance
+  </footer>
+</div>
+
+<!-- ============================================================
+     Bootstrap JS (for modal toggle functionality only)
+     ============================================================ -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- HTMX -->
+<script src="https://unpkg.com/htmx.org@1.9.12"></script>
+
+<!-- Common utilities -->
+{% include 'common/utilities.html' %}
+
+<!-- Sidebar + clock scripts -->
+<script>
+  /* ---- Responsive sidebar ---- */
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const main    = document.getElementById('mainContent');
+
+  function showDesktopSidebar() {
+    if (window.innerWidth >= 768) {
+      sidebar.style.transform = 'translateX(0)';
+      main.style.marginLeft   = '224px';
+      overlay.classList.add('hidden');
+    }
+  }
+
+  function hideMobileSidebar() {
+    if (window.innerWidth < 768) {
+      sidebar.style.transform = 'translateX(-100%)';
+      overlay.classList.add('hidden');
+    }
+  }
+
+  function toggleSidebar() {
+    const isHidden = sidebar.style.transform === 'translateX(-100%)' ||
+                     sidebar.style.transform === '';
+    if (isHidden) {
+      sidebar.style.transform = 'translateX(0)';
+      overlay.classList.remove('hidden');
+    } else {
+      sidebar.style.transform = 'translateX(-100%)';
+      overlay.classList.add('hidden');
+    }
+  }
+
+  /* Initial layout */
+  showDesktopSidebar();
+  window.addEventListener('resize', function() {
+    if (window.innerWidth >= 768) {
+      showDesktopSidebar();
+    } else {
+      main.style.marginLeft = '0';
+      hideMobileSidebar();
+    }
+  });
+
+  /* ---- HKT clock ---- */
+  function updateClock() {
+    const el = document.getElementById('hktClock');
+    if (!el) return;
+    const time = new Date().toLocaleTimeString('en-HK', {
+      timeZone: 'Asia/Hong_Kong', hour: '2-digit', minute: '2-digit',
+      second: '2-digit', hour12: false
+    });
+    const date = new Date().toLocaleDateString('en-HK', {
+      timeZone: 'Asia/Hong_Kong', month: 'short', day: 'numeric'
+    });
+    el.textContent = 'HKT ' + time + '  ' + date;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
+
+{% block extra_js %}{% endblock %}
 </body>
 </html>

@@ -1,509 +1,342 @@
 {% extends 'base.html' %}
-
-{% block title %}Tickers - Turtle Trading Web App{% endblock %}
-
-{% block extra_css %}
-<style>
-    /* Custom card color extensions */
-    
-    /* Reset days toggle button styling */
-    .btn-check:checked + .btn-outline-info {
-        background-color: #0dcaf0;
-        border-color: #0dcaf0;
-        color: white;
-    }
-    
-    .btn-check:checked + .btn-outline-info:hover {
-        background-color: #0dcaf0;
-        border-color: #0dcaf0;
-        color: white;
-    }
-</style>
-{% endblock %}
+{% block title %}Tickers — Turtle Trading{% endblock %}
 
 {% block content %}
-    {% include 'common/password_modal.html' %}
-    <div class="d-flex justify-content-between align-items-start mb-4">
-        <h2>Tickers by GICS sector</h2>
-        <div class="d-flex flex-column gap-2 align-items-end">
-            <!-- Public Actions Row -->
-            <div class="d-flex gap-2">
-                <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#allTickersModal" title="View all tickers">
-                    📋 View All Tickers
-                </button>
-                <button class="btn btn-outline-primary btn-sm" id="editModeBtn" data-bs-toggle="modal" data-bs-target="#passwordModal" title="Enable admin mode">
-                    🔒 Admin Mode
-                </button>
-            </div>
-            
-            <!-- Admin Actions Row -->
-            <div class="d-none" id="adminActionsContainer">
-                <div class="card border-warning">
-                    <div class="card-body p-2">
-                        <div class="d-flex flex-wrap gap-2 align-items-center">
-                            <small class="text-muted fw-bold me-2">Admin Actions:</small>
-                            <button class="btn btn-success btn-sm" id="refreshTickersBtn" title="Refresh tickers based on criteria">
-                                🔄 GICS Refresh
-                            </button>
-                            <button class="btn btn-outline-success btn-sm" id="retrieveTickerDataBtn" title="Retrieve market data for a ticker">
-                                📥 New Ticker
-                            </button>
-                            <div class="vr"></div>
-                            <button class="btn btn-warning btn-sm" id="runFillMarketDataBtn" title="Run fill market data script">
-                                💾 Fill Data
-                            </button>
-                            <button class="btn btn-info btn-sm" id="runMarketSignalCloseBtn" title="Run market signal close script">
-                                🔚 Signal (Close)
-                            </button>
-                            <button class="btn btn-info btn-sm" id="runMarketSignalLiveBtn" title="Run market signal live script">
-                                📊 Signal (Live)
-                            </button>
-                            <div class="vr"></div>
-                            <button class="btn btn-outline-danger btn-sm" id="exitModeBtn" title="Exit admin mode">
-                                🔓 Exit
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <p class="text-muted mb-4">This page shows tickers that are being used to check price breakout for the Turtle Trading strategy.</p>
-    {% include 'common/tickers_legend.html' %}
-    
-    <!-- Reset Days Toggle -->
-    <div class="d-flex align-items-center gap-2 mb-3">
-        <small class="text-muted">Reset check period:</small>
-        <div class="btn-group btn-group-sm" role="group">
-            <input type="radio" class="btn-check" name="resetDays" id="resetNone" value="none" checked>
-            <label class="btn btn-outline-secondary" for="resetNone">None</label>
-            
-            <input type="radio" class="btn-check" name="resetDays" id="reset20Days" value="20">
-            <label class="btn btn-outline-info" for="reset20Days">20 Days</label>
-            
-            <input type="radio" class="btn-check" name="resetDays" id="reset55Days" value="55">
-            <label class="btn btn-outline-info" for="reset55Days">55 Days</label>
-        </div>
-    </div>
+{% include 'common/password_modal.html' %}
 
-    <!-- All Tickers Modal -->
-    <div class="modal fade" id="allTickersModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    {% set all_tickers = [] %}
-                    {% for sector in sectors %}
-                        {% for ticker in sector.tickers %}
-                            {% set _ = all_tickers.append(ticker) %}
-                        {% endfor %}
-                    {% endfor %}
-                    <h5 class="modal-title">All Tickers ({{ all_tickers|length }})</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="d-flex flex-wrap gap-2" id="allTickersContainer">
-                        {% for ticker in all_tickers|sort %}
-                            {% set is_reset_20 = ticker in reset_tickers_20 %}
-                            {% set is_reset_55 = ticker in reset_tickers_55 %}
-                            {% set is_bullish = ticker in bullish_tickers %}
-                            {% set is_in_position = ticker in position_tickers %}
-                            <span class="badge ticker-badge" 
-                                  data-ticker="{{ ticker }}"
-                                  data-is-reset-20="{{ is_reset_20 }}"
-                                  data-is-reset-55="{{ is_reset_55 }}"
-                                  data-is-bullish="{{ is_bullish }}"
-                                  data-is-in-position="{{ is_in_position }}"
-                                  style="font-size:0.95em;cursor:pointer;">{{ ticker }}</span>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
+<!-- Header -->
+<div class="flex items-center justify-between mb-5">
+  <div>
+    <h1 class="text-xl font-bold tracking-wide" style="color:#f9fafb;">TICKERS</h1>
+    <p class="text-xs mt-0.5 font-mono" style="color:#6b7280;">GICS sector watchlist for Turtle Trading</p>
+  </div>
+  <div class="flex gap-2">
+    <button class="bb-btn bb-btn-secondary text-xs"
+            data-bs-toggle="modal" data-bs-target="#allTickersModal">
+      <i class="bi bi-grid-3x3"></i> All Tickers
+    </button>
+    <button class="bb-btn bb-btn-secondary text-xs" id="editModeBtn"
+            data-bs-toggle="modal" data-bs-target="#passwordModal">
+      <i class="bi bi-lock"></i> Admin
+    </button>
+  </div>
+</div>
+
+<!-- Admin Actions -->
+<div id="adminActionsContainer" class="d-none mb-4">
+  <div class="bb-card">
+    <div class="bb-card-body">
+      <div class="flex flex-wrap gap-2 items-center">
+        <span class="text-xs font-semibold mr-2" style="color:#f59e0b;">
+          <i class="bi bi-shield-lock mr-1"></i>Admin Mode
+        </span>
+        <button class="bb-btn bb-btn-primary bb-btn-sm" id="refreshTickersBtn">
+          <i class="bi bi-arrow-clockwise"></i> GICS Refresh
+        </button>
+        <button class="bb-btn bb-btn-secondary bb-btn-sm" id="retrieveTickerDataBtn">
+          <i class="bi bi-download"></i> New Ticker
+        </button>
+        <div style="width:1px;height:20px;background:#374151;"></div>
+        <button class="bb-btn bb-btn-warning bb-btn-sm" id="runFillMarketDataBtn">
+          <i class="bi bi-hdd"></i> Fill Data
+        </button>
+        <button class="bb-btn bb-btn-secondary bb-btn-sm" id="runMarketSignalCloseBtn">
+          <i class="bi bi-stop-circle"></i> Signal (Close)
+        </button>
+        <button class="bb-btn bb-btn-secondary bb-btn-sm" id="runMarketSignalLiveBtn">
+          <i class="bi bi-broadcast"></i> Signal (Live)
+        </button>
+        <div style="width:1px;height:20px;background:#374151;"></div>
+        <button class="bb-btn bb-btn-danger bb-btn-sm" id="exitModeBtn">
+          <i class="bi bi-lock-open"></i> Exit
+        </button>
+      </div>
     </div>
+  </div>
+</div>
 
-    <!-- Refresh Confirmation Modal -->
-    <div class="modal fade" id="refreshModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Refresh All Tickers</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>This will fetch S&P 500 tickers and filter them based on the following criteria:</p>
-                    {% include 'common/criteria.html' %}
-                    <p class="text-warning mt-3"><strong>⏱ Warning:</strong> This operation may take 5-10 minutes and will replace all existing ticker files.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <form method="POST" action="/refresh_tickers" id="refreshForm">
-                        <button type="submit" class="btn btn-success">Confirm Refresh</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+{% include 'common/tickers_legend.html' %}
+
+<!-- Reset Days Toggle -->
+<div class="flex items-center gap-3 mb-4">
+  <span class="text-xs" style="color:#6b7280;">Reset check period:</span>
+  <div class="flex gap-1">
+    <input type="radio" class="sr-only" name="resetDays" id="resetNone" value="none" checked>
+    <label for="resetNone" class="bb-btn bb-btn-sm text-xs cursor-pointer" id="lbl-resetNone"
+           style="background:#1f2937;color:#9ca3af;border-color:#374151;">None</label>
+
+    <input type="radio" class="sr-only" name="resetDays" id="reset20Days" value="20">
+    <label for="reset20Days" class="bb-btn bb-btn-sm text-xs cursor-pointer" id="lbl-reset20Days"
+           style="background:#1f2937;color:#9ca3af;border-color:#374151;">20 Days</label>
+
+    <input type="radio" class="sr-only" name="resetDays" id="reset55Days" value="55">
+    <label for="reset55Days" class="bb-btn bb-btn-sm text-xs cursor-pointer" id="lbl-reset55Days"
+           style="background:#1f2937;color:#9ca3af;border-color:#374151;">55 Days</label>
+  </div>
+</div>
+
+<!-- Sector Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+  {% for sector in sectors %}
+  {% set ci = loop.index0 % 12 %}
+  <div class="bb-card sector-card-{{ ci }}">
+    <div class="bb-card-header sector-hdr-{{ ci }} flex justify-between items-center">
+      <span>{{ sector.name }} ({{ sector.tickers|length }})</span>
+      <button class="bb-btn bb-btn-sm edit-btn d-none text-xs"
+              data-bs-toggle="modal" data-bs-target="#modal_{{ sector.file_key }}"
+              style="padding:2px 8px;">
+        <i class="bi bi-pencil"></i>
+      </button>
     </div>
-
-    <!-- Retrieve Ticker Data Modal -->
-    <div class="modal fade" id="retrieveTickerModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Retrieve Ticker Data</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <form method="POST" action="/retrieve_ticker_data" id="retrieveTickerForm">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="retrieveTickerInput" class="form-label">Ticker</label>
-                            <input type="text" class="form-control" id="retrieveTickerInput" name="ticker" placeholder="e.g. AAPL" required>
-                        </div>
-                        <p class="text-muted mb-0">Downloads and enriches 5Y data for the ticker.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Retrieve</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <div class="bb-card-body">
+      {% if sector.tickers %}
+      <div class="flex flex-wrap gap-1.5">
+        {% for ticker in sector.tickers %}
+          {% set is_reset_20 = ticker in reset_tickers_20 %}
+          {% set is_reset_55 = ticker in reset_tickers_55 %}
+          {% set is_bullish = ticker in bullish_tickers %}
+          {% set is_in_position = ticker in position_tickers %}
+          <span class="ticker-badge"
+                data-ticker="{{ ticker }}"
+                data-is-reset-20="{{ is_reset_20 }}"
+                data-is-reset-55="{{ is_reset_55 }}"
+                data-is-bullish="{{ is_bullish }}"
+                data-is-in-position="{{ is_in_position }}"
+                data-bs-toggle="modal" data-bs-target="#tickerModal">{{ ticker }}</span>
+        {% endfor %}
+      </div>
+      {% else %}
+      <span class="text-xs" style="color:#6b7280;">No tickers found.</span>
+      {% endif %}
     </div>
+  </div>
 
-    <!-- Password Modal is included from common/password_modal.html -->
-
-    <div class="row g-3">
-      {% set card_colors = ['primary', 'success', 'danger', 'warning', 'info', 'dark', 'purple', 'teal', 'indigo', 'orange', 'pink'] %}
-      {% for sector in sectors %}
-      {% set color_index = loop.index0 % card_colors|length %}
-      {% set card_color = card_colors[color_index] %}
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card border-{{ card_color }} border-2">
-          <div class="card-header bg-{{ card_color }} text-white py-2 px-3 d-flex justify-content-between align-items-center">
-            <strong>{{ sector.name }} ({{ sector.tickers|length }})</strong>
-            <button class="btn btn-sm btn-light edit-btn d-none" data-bs-toggle="modal" data-bs-target="#modal_{{ sector.file_key }}" title="Edit tickers">
-              ✎
-            </button>
+  <!-- Edit sector modal -->
+  <div class="modal fade" id="modal_{{ sector.file_key }}" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit {{ sector.name }} Tickers</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form method="POST" action="/tickers/update">
+          <div class="modal-body">
+            <input type="hidden" name="sector_key" value="{{ sector.file_key }}">
+            <label class="form-label text-xs" style="color:#9ca3af;">Tickers (comma-separated)</label>
+            <textarea class="form-control font-mono" name="tickers" rows="8">{{ sector.tickers|join(', ') }}</textarea>
           </div>
-          <div class="card-body p-3">
-            {% if sector.tickers %}
-            <div class="d-flex flex-wrap gap-2" class="sectorTickersContainer">
-              {% for ticker in sector.tickers %}
-                {% set is_reset_20 = ticker in reset_tickers_20 %}
-                {% set is_reset_55 = ticker in reset_tickers_55 %}
-                {% set is_bullish = ticker in bullish_tickers %}
-                {% set is_in_position = ticker in position_tickers %}
-                <span class="badge ticker-badge" 
-                      data-ticker="{{ ticker }}"
-                      data-is-reset-20="{{ is_reset_20 }}"
-                      data-is-reset-55="{{ is_reset_55 }}"
-                      data-is-bullish="{{ is_bullish }}"
-                      data-is-in-position="{{ is_in_position }}"
-                      style="font-size:0.95em;cursor:pointer;">{{ ticker }}</span>
-              {% endfor %}
-            </div>
-            {% else %}
-            <span class="text-muted">No tickers found.</span>
-            {% endif %}
+          <div class="modal-footer">
+            <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="bb-btn bb-btn-primary">Save Changes</button>
           </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- All Tickers Modal -->
+<div class="modal fade" id="allTickersModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        {% set all_tickers = [] %}
+        {% for sector in sectors %}
+          {% for ticker in sector.tickers %}{% set _ = all_tickers.append(ticker) %}{% endfor %}
+        {% endfor %}
+        <h5 class="modal-title">All Tickers ({{ all_tickers|length }})</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="flex flex-wrap gap-1.5" id="allTickersContainer">
+          {% for ticker in all_tickers|sort %}
+            {% set is_reset_20 = ticker in reset_tickers_20 %}
+            {% set is_reset_55 = ticker in reset_tickers_55 %}
+            {% set is_bullish = ticker in bullish_tickers %}
+            {% set is_in_position = ticker in position_tickers %}
+            <span class="ticker-badge"
+                  data-ticker="{{ ticker }}"
+                  data-is-reset-20="{{ is_reset_20 }}"
+                  data-is-reset-55="{{ is_reset_55 }}"
+                  data-is-bullish="{{ is_bullish }}"
+                  data-is-in-position="{{ is_in_position }}"
+                  data-bs-toggle="modal" data-bs-target="#tickerModal">{{ ticker }}</span>
+          {% endfor %}
         </div>
       </div>
-
-      <!-- Modal for editing tickers -->
-      <div class="modal fade" id="modal_{{ sector.file_key }}" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Edit {{ sector.name }} Tickers</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form method="POST" action="/update_tickers">
-              <div class="modal-body">
-                <input type="hidden" name="sector_key" value="{{ sector.file_key }}">
-                <div class="mb-3">
-                  <label for="tickers_{{ sector.file_key }}" class="form-label">Tickers (comma-separated)</label>
-                  <textarea class="form-control" id="tickers_{{ sector.file_key }}" name="tickers" rows="10">{{ sector.tickers|join(', ') }}</textarea>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-              </div>
-            </form>
-          </div>
-        </div>
+      <div class="modal-footer">
+        <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
-      {% endfor %}
     </div>
+  </div>
+</div>
+
+<!-- Refresh Confirmation Modal -->
+<div class="modal fade" id="refreshModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Refresh All Tickers</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-xs mb-3" style="color:#9ca3af;">
+          This will fetch S&amp;P 500 tickers and filter them based on the following criteria:
+        </p>
+        {% include 'common/criteria.html' %}
+        <p class="text-xs mt-3" style="color:#f59e0b;">
+          <i class="bi bi-exclamation-triangle mr-1"></i>
+          Warning: This may take 5–10 minutes and will replace all existing ticker files.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <form method="POST" action="/tickers/refresh" id="refreshForm">
+          <button type="submit" class="bb-btn bb-btn-primary">Confirm Refresh</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Retrieve Ticker Modal -->
+<div class="modal fade" id="retrieveTickerModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New Ticker Data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" action="/tickers/retrieve" id="retrieveTickerForm">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label text-xs" style="color:#9ca3af;">Ticker Symbol</label>
+            <input type="text" class="form-control font-mono" name="ticker"
+                   placeholder="e.g. AAPL" required>
+          </div>
+          <p class="text-xs" style="color:#6b7280;">Downloads and enriches 5Y market data for this ticker.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="bb-btn bb-btn-primary">Retrieve</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% include 'common/ticker_details_modal.html' %}
 {% endblock %}
 
 {% block extra_js %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 <script>
-    // Setup password modal for tickers page
-    setupPasswordModal({
-        correctPassword: 'admin',
-        modalTitle: 'Enable Admin Mode',
-        canDismiss: true,
-        onSuccess: function() {
-            // Show all edit buttons
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.classList.remove('d-none');
-            });
-            // Show admin actions container and hide admin mode button
-            document.getElementById('adminActionsContainer').classList.remove('d-none');
-            document.getElementById('editModeBtn').classList.add('d-none');
-        },
-        onCancel: function() {
-            // Nothing to do on cancel for this page
-        }
-    });
-
-    // Exit admin mode button
-    document.getElementById('exitModeBtn').addEventListener('click', function() {
-        // Hide all edit buttons
-        document.querySelectorAll('.edit-btn').forEach(btn => {
-            btn.classList.add('d-none');
-        });
-        // Hide admin actions container and show admin mode button
-        document.getElementById('adminActionsContainer').classList.add('d-none');
-        document.getElementById('editModeBtn').classList.remove('d-none');
-    });
-
-    // Refresh tickers button
-    document.getElementById('refreshTickersBtn').addEventListener('click', function() {
-        const refreshModal = new bootstrap.Modal(document.getElementById('refreshModal'));
-        refreshModal.show();
-    });
-
-    // Retrieve ticker data button
-    document.getElementById('retrieveTickerDataBtn').addEventListener('click', function() {
-        const retrieveModal = new bootstrap.Modal(document.getElementById('retrieveTickerModal'));
-        retrieveModal.show();
-    });
-
-    // Run Fill Market Data script button
-    document.getElementById('runFillMarketDataBtn').addEventListener('click', function() {
-        if (!confirm('This will run the fill market data script. This may take a long time. Continue?')) {
-            return;
-        }
-        
-        const btn = this;
-        const originalHtml = btn.innerHTML;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Running...';
-        btn.disabled = true;
-        
-        fetch('/run_fill_market_data', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then(response => response.json())
-        .then(data => {
-            btn.innerHTML = originalHtml;
-            btn.disabled = false;
-            
-            if (data.status === 'success') {
-                alert('Fill Market Data script completed successfully!\n\nOutput:\n' + (data.stdout || 'No output'));
-            } else {
-                let errorMsg = 'Fill Market Data script completed with errors.\n\n';
-                errorMsg += 'Exit code: ' + data.exit_code + '\n\n';
-                if (data.stderr) {
-                    errorMsg += 'Error output:\n' + data.stderr + '\n\n';
-                }
-                if (data.stdout) {
-                    errorMsg += 'Standard output:\n' + data.stdout;
-                }
-                alert(errorMsg);
-            }
-        })
-        .catch(error => {
-            btn.innerHTML = originalHtml;
-            btn.disabled = false;
-            alert('Error running script: ' + error.message);
-        });
-    });
-
-    // Run Market Signal Close script button
-    document.getElementById('runMarketSignalCloseBtn').addEventListener('click', function() {
-        if (!confirm('This will run the market signal close script. Continue?')) {
-            return;
-        }
-        
-        const btn = this;
-        const originalHtml = btn.innerHTML;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Running...';
-        btn.disabled = true;
-        
-        fetch('/run_market_signal_close', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then(response => response.json())
-        .then(data => {
-            btn.innerHTML = originalHtml;
-            btn.disabled = false;
-            
-            if (data.status === 'success') {
-                alert('Market Signal Close script completed successfully!\n\nOutput:\n' + (data.stdout || 'No output'));
-            } else {
-                let errorMsg = 'Market Signal Close script completed with errors.\n\n';
-                errorMsg += 'Exit code: ' + data.exit_code + '\n\n';
-                if (data.stderr) {
-                    errorMsg += 'Error output:\n' + data.stderr + '\n\n';
-                }
-                if (data.stdout) {
-                    errorMsg += 'Standard output:\n' + data.stdout;
-                }
-                alert(errorMsg);
-            }
-        })
-        .catch(error => {
-            btn.innerHTML = originalHtml;
-            btn.disabled = false;
-            alert('Error running script: ' + error.message);
-        });
-    });
-
-    // Run Market Signal Live script button
-    document.getElementById('runMarketSignalLiveBtn').addEventListener('click', function() {
-        if (!confirm('This will run the market signal live script. Continue?')) {
-            return;
-        }
-        
-        const btn = this;
-        const originalHtml = btn.innerHTML;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Running...';
-        btn.disabled = true;
-        
-        fetch('/run_market_signal_live', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then(response => response.json())
-        .then(data => {
-            btn.innerHTML = originalHtml;
-            btn.disabled = false;
-            
-            if (data.status === 'success') {
-                alert('Market Signal Live script completed successfully!\n\nOutput:\n' + (data.stdout || 'No output'));
-            } else {
-                let errorMsg = 'Market Signal Live script completed with errors.\n\n';
-                errorMsg += 'Exit code: ' + data.exit_code + '\n\n';
-                if (data.stderr) {
-                    errorMsg += 'Error output:\n' + data.stderr + '\n\n';
-                }
-                if (data.stdout) {
-                    errorMsg += 'Standard output:\n' + data.stdout;
-                }
-                alert(errorMsg);
-            }
-        })
-        .catch(error => {
-            btn.innerHTML = originalHtml;
-            btn.disabled = false;
-            alert('Error running script: ' + error.message);
-        });
-    });
-
-    // Show loading indicator when form is submitted
-    document.getElementById('refreshForm').addEventListener('submit', function() {
-        const submitBtn = this.querySelector('button[type=\"submit\"]');
-        submitBtn.innerHTML = '<span class=\"spinner-border spinner-border-sm me-2\"></span>Processing...';
-        submitBtn.disabled = true;
-    });
-
-    // Show loading indicator when retrieve form is submitted
-    document.getElementById('retrieveTickerForm').addEventListener('submit', function() {
-        const submitBtn = this.querySelector('button[type=\"submit\"]');
-        submitBtn.innerHTML = '<span class=\"spinner-border spinner-border-sm me-2\"></span>Processing...';
-        submitBtn.disabled = true;
-    });
-
-    // Reset days toggle functionality with lazy loading
-    const resetCalculationCache = {};
-    
-    function updateTickerBadgeColors() {
-        const selectedDays = document.querySelector('input[name="resetDays"]:checked').value;
-        
-        document.querySelectorAll('.ticker-badge').forEach(badge => {
-            const isBullish = (badge.getAttribute('data-is-bullish') || '').toLowerCase() === 'true';
-            const isReset20 = (badge.getAttribute('data-is-reset-20') || '').toLowerCase() === 'true';
-            const isReset55 = (badge.getAttribute('data-is-reset-55') || '').toLowerCase() === 'true';
-            const isInPosition = (badge.getAttribute('data-is-in-position') || '').toLowerCase() === 'true';
-            
-            // Determine which reset status to check based on selected days
-            let isReset = false;
-            if (selectedDays === '20') {
-                isReset = isReset20;
-            } else if (selectedDays === '55') {
-                isReset = isReset55;
-            }
-            // If selectedDays === 'none', isReset stays false
-            
-            // Clear previous classes
-            badge.className = 'badge ticker-badge';
-            
-            // Apply new classes
-            if (isInPosition) {
-                badge.classList.add('bg-danger', 'fw-bold');
-            } else if (isReset) {
-                badge.classList.add('bg-info', 'fw-bold');
-            } else if (isBullish) {
-                badge.classList.add('bg-success', 'fw-bold');
-            } else {
-                badge.classList.add('bg-secondary');
-            }
-        });
+  /* ---- Password / Admin mode ---- */
+  setupPasswordModal({
+    correctPassword: 'admin',
+    modalTitle: 'Enable Admin Mode',
+    canDismiss: true,
+    onSuccess: function() {
+      document.querySelectorAll('.edit-btn').forEach(b => b.classList.remove('d-none'));
+      document.getElementById('adminActionsContainer').classList.remove('d-none');
+      document.getElementById('editModeBtn').classList.add('d-none');
     }
-    
-    // Update toggle button styling based on selection
-    function updateToggleButtonStyling() {
-        const selectedDays = document.querySelector('input[name="resetDays"]:checked').value;
-        
-        // Update all toggle button labels
-        document.querySelectorAll('input[name="resetDays"]').forEach(radio => {
-            const label = document.querySelector(`label[for="${radio.id}"]`);
-            if (label) {
-                label.classList.remove('btn-outline-info', 'btn-outline-secondary');
-                
-                if (radio.value === 'none') {
-                    // None button: always secondary
-                    label.classList.add('btn-outline-secondary');
-                } else if (radio.checked) {
-                    // Selected 20/55 button: info color
-                    label.classList.add('btn-outline-info');
-                } else {
-                    // Unselected 20/55 buttons: secondary color
-                    label.classList.add('btn-outline-secondary');
-                }
-            }
-        });
-    }
-    
-    // Add event listeners to reset days radio buttons
-    document.querySelectorAll('input[name="resetDays"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            const selectedDays = this.value;
-            
-            // Only update if we're not selecting 'none'
-            if (selectedDays !== 'none') {
-                // Check if calculation is cached
-                if (!resetCalculationCache[selectedDays]) {
-                    // Mark as being calculated
-                    resetCalculationCache[selectedDays] = true;
-                }
-            }
-            
-            updateTickerBadgeColors();
-            updateToggleButtonStyling();
-        });
+  });
+
+  document.getElementById('exitModeBtn').addEventListener('click', function() {
+    document.querySelectorAll('.edit-btn').forEach(b => b.classList.add('d-none'));
+    document.getElementById('adminActionsContainer').classList.add('d-none');
+    document.getElementById('editModeBtn').classList.remove('d-none');
+  });
+
+  document.getElementById('refreshTickersBtn').addEventListener('click', function() {
+    new bootstrap.Modal(document.getElementById('refreshModal')).show();
+  });
+
+  document.getElementById('retrieveTickerDataBtn').addEventListener('click', function() {
+    new bootstrap.Modal(document.getElementById('retrieveTickerModal')).show();
+  });
+
+  function runScript(url, btnEl, label) {
+    if (!confirm('Run ' + label + '?')) return;
+    const orig = btnEl.innerHTML;
+    btnEl.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Running...';
+    btnEl.disabled = true;
+    fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'} })
+      .then(r => r.json())
+      .then(data => {
+        btnEl.innerHTML = orig;
+        btnEl.disabled = false;
+        const msg = data.status === 'success'
+          ? label + ' completed.\n\n' + (data.stdout || '')
+          : label + ' failed (exit ' + data.exit_code + ')\n\n' + (data.stderr || '') + '\n' + (data.stdout || '');
+        alert(msg);
+      })
+      .catch(err => {
+        btnEl.innerHTML = orig;
+        btnEl.disabled = false;
+        alert('Error: ' + err.message);
+      });
+  }
+
+  document.getElementById('runFillMarketDataBtn').addEventListener('click', function() {
+    runScript('/signals/run/fill-data', this, 'Fill Market Data');
+  });
+  document.getElementById('runMarketSignalCloseBtn').addEventListener('click', function() {
+    runScript('/signals/run/close', this, 'Signal (Close)');
+  });
+  document.getElementById('runMarketSignalLiveBtn').addEventListener('click', function() {
+    runScript('/signals/run/live', this, 'Signal (Live)');
+  });
+
+  document.getElementById('refreshForm').addEventListener('submit', function() {
+    const btn = this.querySelector('button[type="submit"]');
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Processing...';
+    btn.disabled = true;
+  });
+
+  document.getElementById('retrieveTickerForm').addEventListener('submit', function() {
+    const btn = this.querySelector('button[type="submit"]');
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Processing...';
+    btn.disabled = true;
+  });
+
+  /* ---- Reset days toggle ---- */
+  function updateTickerBadgeColors() {
+    const selectedDays = document.querySelector('input[name="resetDays"]:checked').value;
+    document.querySelectorAll('.ticker-badge').forEach(badge => {
+      const isBullish    = badge.getAttribute('data-is-bullish')     === 'True';
+      const isReset20    = badge.getAttribute('data-is-reset-20')    === 'True';
+      const isReset55    = badge.getAttribute('data-is-reset-55')    === 'True';
+      const isInPosition = badge.getAttribute('data-is-in-position') === 'True';
+      const isReset = selectedDays === '20' ? isReset20 : selectedDays === '55' ? isReset55 : false;
+
+      badge.className = 'ticker-badge';
+      if (isInPosition)   badge.classList.add('ticker-position');
+      else if (isReset)   badge.classList.add('ticker-reset');
+      else if (isBullish) badge.classList.add('ticker-bullish');
+      else                badge.classList.add('ticker-neutral');
     });
-    
-    // Initialize with default (None) - only show bullish tickers, no reset calculation
-    updateTickerBadgeColors();
-    updateToggleButtonStyling();
+
+    ['resetNone','reset20Days','reset55Days'].forEach(id => {
+      const radio = document.getElementById(id);
+      const lbl   = document.getElementById('lbl-' + id);
+      if (radio.checked) {
+        lbl.style.background  = '#3b82f6';
+        lbl.style.color       = '#f9fafb';
+        lbl.style.borderColor = '#3b82f6';
+      } else {
+        lbl.style.background  = '#1f2937';
+        lbl.style.color       = '#9ca3af';
+        lbl.style.borderColor = '#374151';
+      }
+    });
+  }
+
+  document.querySelectorAll('input[name="resetDays"]').forEach(radio => {
+    radio.addEventListener('change', updateTickerBadgeColors);
+  });
+  updateTickerBadgeColors();
 </script>
+{% include 'common/ticker_details_modal_script.html' %}
 {% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard — Turtle Trading{% endblock %}
+
+{% block content %}
+<!-- Page header -->
+<div class="flex items-center justify-between mb-6">
+  <div>
+    <h1 class="text-xl font-bold tracking-wide" style="color:#f9fafb;">DASHBOARD</h1>
+    <p class="text-xs mt-0.5 font-mono" style="color:#6b7280;">Personal Financial Command Center</p>
+  </div>
+  {% if market_is_open %}
+  <a href="/signals/breakout/live" class="bb-btn bb-btn-primary text-xs">
+    <i class="bi bi-broadcast"></i> Live Signals
+  </a>
+  {% endif %}
+</div>
+
+<!-- Quick-nav stat cards -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+  <a href="/signals/breakout" class="stat-card" style="border-color:#1f2937;text-decoration:none;">
+    <div class="stat-label">Breakout</div>
+    <div class="stat-value" style="color:#3b82f6;"><i class="bi bi-graph-up-arrow"></i></div>
+    <div class="stat-sub">Close signals</div>
+  </a>
+  <a href="/signals/exit" class="stat-card" style="border-color:#1f2937;text-decoration:none;">
+    <div class="stat-label">Exit</div>
+    <div class="stat-value" style="color:#ef4444;"><i class="bi bi-graph-down-arrow"></i></div>
+    <div class="stat-sub">Stop-loss signals</div>
+  </a>
+  <a href="/positions" class="stat-card" style="border-color:#1f2937;text-decoration:none;">
+    <div class="stat-label">Positions</div>
+    <div class="stat-value" style="color:#10b981;"><i class="bi bi-briefcase"></i></div>
+    <div class="stat-sub">Portfolio manager</div>
+  </a>
+  <a href="/tickers" class="stat-card" style="border-color:#1f2937;text-decoration:none;">
+    <div class="stat-label">Tickers</div>
+    <div class="stat-value" style="color:#f59e0b;"><i class="bi bi-grid-3x3"></i></div>
+    <div class="stat-sub">GICS watchlist</div>
+  </a>
+</div>
+
+<!-- Intelligence cards -->
+<div class="grid grid-cols-3 gap-3 mb-5">
+  <a href="/sentiment" class="stat-card" style="border-color:#1f2937;text-decoration:none;">
+    <div class="stat-label">Sentiment</div>
+    <div class="flex items-center gap-2 mt-1">
+      <i class="bi bi-newspaper" style="color:#8b5cf6;font-size:1.1rem;"></i>
+      <span class="text-xs" style="color:#6b7280;">Daily analysis</span>
+    </div>
+  </a>
+  <a href="/analysis" class="stat-card" style="border-color:#1f2937;text-decoration:none;">
+    <div class="stat-label">AI Analysis</div>
+    <div class="flex items-center gap-2 mt-1">
+      <i class="bi bi-robot" style="color:#06b6d4;font-size:1.1rem;"></i>
+      <span class="text-xs" style="color:#6b7280;">Claude-powered</span>
+    </div>
+  </a>
+  <a href="/settings" class="stat-card" style="border-color:#1f2937;text-decoration:none;">
+    <div class="stat-label">Settings</div>
+    <div class="flex items-center gap-2 mt-1">
+      <i class="bi bi-gear" style="color:#9ca3af;font-size:1.1rem;"></i>
+      <span class="text-xs" style="color:#6b7280;">Telegram · API keys</span>
+    </div>
+  </a>
+</div>
+
+<!-- Live market alert -->
+{% if market_is_open %}
+<div class="rounded-lg px-4 py-3 mb-5 flex items-center gap-3 text-sm"
+     style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);">
+  <i class="bi bi-activity text-lg" style="color:#10b981;"></i>
+  <div>
+    <span style="color:#10b981;" class="font-semibold">US market is open.</span>
+    <span style="color:#9ca3af;" class="ml-2">
+      Check <a href="/signals/breakout/live" style="color:#60a5fa;">live breakout</a> or
+      <a href="/signals/exit/live" style="color:#f87171;">live exit</a> signals.
+    </span>
+  </div>
+</div>
+{% endif %}
+
+<!-- System overview -->
+<div class="bb-card">
+  <div class="bb-card-header">System Overview</div>
+  <div class="bb-card-body text-sm" style="color:#9ca3af;">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <p class="font-semibold mb-2" style="color:#d1d5db;">Strategy</p>
+        <ul class="space-y-1 text-xs">
+          <li>• Turtle Trading System 1 &amp; 2 (20/55-day breakout)</li>
+          <li>• Stop loss at 2× ATR below entry</li>
+          <li>• Exit on 10/20-day low breach</li>
+          <li>• S&amp;P 500 universe, max 7 per GICS sector</li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold mb-2" style="color:#d1d5db;">Quick Links</p>
+        <ul class="space-y-1 text-xs">
+          <li><a href="/about"       style="color:#60a5fa;">Strategy documentation</a></li>
+          <li><a href="/logs"        style="color:#60a5fa;">Script execution logs</a></li>
+          <li><a href="/market-data" style="color:#60a5fa;">Browse raw market data</a></li>
+          <li><a href="/tickers"     style="color:#60a5fa;">Manage GICS watchlist</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
