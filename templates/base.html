@@ -79,7 +79,7 @@
 
     {# Macro for nav links #}
     {% macro nav_item(href, icon, label) %}
-      {% set active = (request.path == href) or (href != '/' and request.path.startswith(href)) %}
+      {% set active = request.path == href %}
       <a href="{{ href }}"
          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm mb-0.5 transition-colors"
          style="{% if active %}background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.25);{% else %}color:#9ca3af;border:1px solid transparent;{% endif %}"
