@@ -4,7 +4,7 @@ from datetime import datetime, date
 from classes.data_retriever import *
 from classes.breakout_checker import *
 from classes.exit_checker import check_exit_by_stop_loss
-from classes.helper import check_if_previous_night_market_was_open
+from classes.helper import check_if_previous_night_market_was_open, clear_today_from_log
 from classes.constants import (
     SCRIPT_LOGS_FOLDER_PATH,
     MARKET_CLOSE_BREAKOUT_RESULT_FILE_NAME,
@@ -16,6 +16,7 @@ from classes.constants import (
 
 current_script_directory = os.path.dirname(os.path.abspath(__file__)) + '/'
 
+clear_today_from_log(current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MARKET_CLOSE_BREAKOUT_RESULT_FILE_NAME)
 with open(current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MAIN_LOG_MARKET_CLOSE_BREAKOUT_FILE_NAME, 'a') as main_log_file:
     main_log_file.write(f'[START] {str(datetime.now())} Check breakout and exit at market close job started\n')
     
@@ -39,6 +40,7 @@ with open(current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MAIN_LOG_MA
         with open(current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MARKET_CLOSE_BREAKOUT_RESULT_FILE_NAME, 'a') as daily_log_file:
             daily_log_file.write(f'[{date.today()}] Market is closed, no breakout check performed\n')
 
+clear_today_from_log(current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MARKET_CLOSE_EXIT_RESULT_FILE_NAME)
 with open(current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MAIN_LOG_MARKET_CLOSE_EXIT_FILE_NAME, 'a') as main_log_file:
     main_log_file.write(f'[START] {str(datetime.now())} Check exit at market close job started\n')
     main_log_file.write(f'[INFO ] {str(datetime.now())} Current script directory is {current_script_directory}\n')

@@ -1,5 +1,6 @@
 """Helper utilities for market operations and list manipulation."""
 
+import os
 from datetime import date, datetime, timezone
 from typing import List, Set, TypeVar
 import pandas_market_calendars as pmc
@@ -96,3 +97,20 @@ def check_if_previous_night_market_was_open() -> bool:
             return True
 
     return False
+
+
+def clear_today_from_log(file_path: str) -> None:
+    """
+    Remove all lines for today's date from a result log file.
+
+    Lines are identified by starting with '[YYYY-MM-DD' so this matches both
+    close logs ([2026-03-07]) and live logs ([2026-03-07 12:34:56...]).
+    Lines for other dates are preserved.
+    """
+    if not os.path.exists(file_path):
+        return
+    today_prefix = f'[{date.today()}'
+    with open(file_path, 'r', encoding='utf-8') as f:
+        lines = [l for l in f if not l.startswith(today_prefix)]
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.writelines(lines)
