@@ -93,6 +93,8 @@ try:
                     _tickers = [t.strip() for t in _m.group(2).split(',') if t.strip()]
                     _breakout_groups.append({'label': _m.group(1), 'tickers': _tickers})
 
+    from services.telegram_service import enrich_groups as _enrich_groups
+    _enrich_groups(_breakout_groups, is_live=True)
     _bo_text = format_breakout_alert(_today, _breakout_groups, is_live=True)
     if _bo_text:
         _sent = send_message(_bo_text)
@@ -112,6 +114,8 @@ try:
                     _tickers = [t.strip() for t in _m.group(2).split(',') if t.strip()]
                     _exit_groups.append({'label': _m.group(1), 'tickers': _tickers})
 
+    from services.telegram_service import enrich_groups as _enrich_exit_groups
+    _enrich_exit_groups(_exit_groups, is_live=True)
     _ex_text = format_exit_alert(_today, _exit_groups, is_live=True)
     if _ex_text:
         _sent = send_message(_ex_text)

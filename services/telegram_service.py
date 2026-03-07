@@ -102,6 +102,98 @@ def send_test_message() -> tuple[bool, str]:
 
 
 # ---------------------------------------------------------------------------
+# Ticker enrichment
+# ---------------------------------------------------------------------------
+
+def enrich_groups(groups: list, is_live: bool) -> list:
+    """
+    Attach per-ticker enriched data to each group dict.
+
+    For each group, adds an 'enriched' key: {ticker: {price, bullish, reset,
+    atr_20, stop_loss, positions, market_value}}.
+
+    groups: [{'label': '...', 'tickers': [...]}, ...]
+    Returns the same list with 'enriched' populated (in-place and returned).
+    Falls back gracefully — if enrichment fails the group still renders without detail.
+    """
+    import re as _re
+    all_tickers = list({t for g in groups for t in g.get('tickers', [])})
+    if not all_tickers:
+        return groups
+
+    try:
+        from classes.breakout_checker import (
+            get_breakout_ticker_information_live,
+            get_breakout_ticker_information_close,
+            filter_tickers_by_reset_signal,
+        )
+
+        df = (get_breakout_ticker_information_live(all_tickers)
+              if is_live
+              else get_breakout_ticker_information_close(all_tickers))
+
+        ticker_info: dict = {}
+        for _, row in df.iterrows():
+            t = str(row['Ticker'])
+            price = float(row['Current Price'] or 0)
+            atr = float(row['ATR-20'] or 0)
+            stop = float(row['Stop Loss'] or (price - 2 * atr))
+            positions = int(128 / (2 * atr)) if atr > 0 else 0
+            ticker_info[t] = {
+                'price': round(price, 2),
+                'bullish': bool(row['Bullish']),
+                'atr_20': round(atr, 2),
+                'stop_loss': round(stop, 2),
+                'positions': positions,
+                'market_value': round(price * positions, 2),
+                'reset': False,
+            }
+
+        for g in groups:
+            m = _re.search(r'(\d+)', g.get('label', ''))
+            n_days = int(m.group(1)) if m else 20
+            try:
+                reset_set = set(filter_tickers_by_reset_signal(g['tickers'], n_days))
+            except Exception:
+                reset_set = set()
+            enriched = {}
+            for t in g.get('tickers', []):
+                info = ticker_info.get(t)
+                if info:
+                    enriched[t] = dict(info, reset=(t in reset_set))
+                else:
+                    enriched[t] = None
+            g['enriched'] = enriched
+
+    except Exception as e:
+        logger.warning(f'Ticker enrichment failed (non-fatal): {e}')
+
+    return groups
+
+
+def _format_ticker_line(ticker: str, info: dict | None) -> str:
+    """Render one enriched ticker card (multi-line) for a Telegram HTML message."""
+    if not info:
+        return f'⚫ <code>{ticker}</code>'
+    if info['reset']:
+        dot = '🔵'
+    elif info['bullish']:
+        dot = '🟢'
+    else:
+        dot = '⚫'
+    price = f"${info['price']:,.2f}"
+    atr = f"${info['atr_20']:,.2f}"
+    sl = f"${info['stop_loss']:,.2f}"
+    pos = info['positions']
+    mv = f"${info['market_value']:,.0f}"
+    return (
+        f'{dot} <code>{ticker}</code>\n'
+        f'  Price {price} | ATR {atr}\n'
+        f'  SL {sl} | Pos {pos} | MV {mv}'
+    )
+
+
+# ---------------------------------------------------------------------------
 # Alert formatters
 # ---------------------------------------------------------------------------
 
@@ -109,20 +201,41 @@ def format_breakout_alert(date_str: str, breakouts: list, is_live: bool = False)
     """
     Format a breakout alert for Telegram HTML.
 
-    breakouts: [{'label': '20-days high', 'tickers': ['AAPL', ...]}, ...]
+    breakouts: [{'label': '20-days high', 'tickers': ['AAPL', ...],
+                 'enriched': {ticker: {...}}}, ...]
     Only groups with non-empty tickers are included.
     Returns empty string if no tickers in any group.
     """
-    groups = [(b['label'], b['tickers']) for b in breakouts if b.get('tickers')]
+    groups = [b for b in breakouts if b.get('tickers')]
     if not groups:
         return ''
 
+    import re as _re2
     mode = 'LIVE' if is_live else 'CLOSE'
-    lines = [f'<b>📈 BREAKOUT SIGNAL — {mode}</b>', f'📅 {date_str}', '']
-    for label, tickers in groups:
+    mode_emoji = '⚡' if is_live else '🔔'
+    lines = [f'📅 {date_str}', f'<b>📈 BREAKOUT SIGNAL — {mode_emoji} {mode}</b>',
+             '🔵 Reset  🟢 Bullish  ⚫ Normal', '']
+
+    # Parse n_days per group so we can suppress lower-group duplicates
+    group_n = []
+    for g in groups:
+        m = _re2.search(r'(\d+)', g.get('label', ''))
+        group_n.append(int(m.group(1)) if m else 0)
+
+    for i, g in enumerate(groups):
+        label = g['label']
+        tickers = g['tickers']
+        enriched = g.get('enriched', {})
+
+        # Tickers that already appear in a higher n-day group are shown there only
+        higher_tickers = {t for j, og in enumerate(groups) if group_n[j] > group_n[i] for t in og['tickers']}
+        display_tickers = [t for t in tickers if t not in higher_tickers]
+
         lines.append(f'<b>{label}</b> ({len(tickers)})')
-        lines.append(', '.join(f'<code>{t}</code>' for t in tickers))
         lines.append('')
+        for t in display_tickers:
+            lines.append(_format_ticker_line(t, enriched.get(t)))
+            lines.append('')
     return '\n'.join(lines).rstrip()
 
 
@@ -130,19 +243,27 @@ def format_exit_alert(date_str: str, exits: list, is_live: bool = False) -> str:
     """
     Format an exit alert for Telegram HTML.
 
-    exits: [{'label': '10-days low', 'tickers': ['TSLA', ...]}, ...]
+    exits: [{'label': '10-days low', 'tickers': ['TSLA', ...],
+             'enriched': {ticker: {...}}}, ...]
     Returns empty string if no tickers in any group.
     """
-    groups = [(e['label'], e['tickers']) for e in exits if e.get('tickers')]
+    groups = [e for e in exits if e.get('tickers')]
     if not groups:
         return ''
 
     mode = 'LIVE' if is_live else 'CLOSE'
-    lines = [f'<b>🚨 EXIT SIGNAL — {mode}</b>', f'📅 {date_str}', '']
-    for label, tickers in groups:
+    mode_emoji = '⚡' if is_live else '🔔'
+    lines = [f'📅 {date_str}', f'<b>🚨 EXIT SIGNAL — {mode_emoji} {mode}</b>',
+             '🔵 Reset  🟢 Bullish  ⚫ Normal', '']
+    for g in groups:
+        label = g['label']
+        tickers = g['tickers']
+        enriched = g.get('enriched', {})
         lines.append(f'<b>{label}</b> ({len(tickers)})')
-        lines.append(', '.join(f'<code>{t}</code>' for t in tickers))
         lines.append('')
+        for t in tickers:
+            lines.append(_format_ticker_line(t, enriched.get(t)))
+            lines.append('')
     return '\n'.join(lines).rstrip()
 
 
