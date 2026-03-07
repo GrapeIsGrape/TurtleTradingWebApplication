@@ -67,39 +67,32 @@ def check_if_market_is_open() -> bool:
 
 def check_if_previous_night_market_was_open() -> bool:
     """
-    Check if the previous night's NYSE market was open (in HK timezone).
-    
-    Since US market runs from ~10:30 PM HK to ~5:00 AM HK (next day), the "previous night"
-    market corresponds to checking if the current ET date was a trading day.
-    
-    Logic:
-    - Current time: March 3 8:00 AM HK = March 2 7:00 PM ET
-    - Last night session: March 2 10:30 PM HK to March 3 5:00 AM HK
-    - This is March 2 9:30 AM ET to March 2 4:00 PM ET
-    - So we check if March 2 (current ET date) was a trading day
-    
-    Examples:
-    - HK 2026/03/01 (Sat) 10:00 AM: Returns True (Fri Feb 28 session just closed)
-    - HK 2026/03/02 (Sun) 10:00 AM: Returns False (Sat - no market)
-    - HK 2026/03/03 (Mon) 08:00 AM: Returns True (Mon session just closed at 5 AM)
-    
+    Check if a NYSE session closed within the past 24 hours (UTC).
+
+    This is timezone-safe: it does not rely on the current ET calendar date,
+    which can roll past midnight before HKT does, causing false negatives when
+    the script runs in the afternoon/evening HKT.
+
     Returns:
-        True if previous night in HK had a NYSE trading session
+        True if a NYSE closing bell occurred within the last 24 hours
     """
-    import pytz
-    
-    # Get current date in ET timezone
-    et_tz = pytz.timezone('US/Eastern')
-    hk_tz = pytz.timezone('Asia/Hong_Kong')
-    
-    current_time_hk = datetime.now(hk_tz)
-    current_time_et = current_time_hk.astimezone(et_tz)
-    current_date_et = current_time_et.date()
-    
-    # Check if today (in ET) was a trading day
-    # This represents the market session that closed this morning in HK
+    from datetime import timedelta
+
+    now_utc = datetime.now(timezone.utc)
+    window_start = now_utc - timedelta(hours=24)
+
     nyse = pmc.get_calendar('NYSE')
-    schedule = nyse.schedule(start_date=str(current_date_et), end_date=str(current_date_et))
-    print(f"Checking if today (in ET) was a trading day: Current time (HK): {current_time_hk}, Current time (ET): {current_time_et}, Schedule for {current_date_et}: {schedule}")
-    
-    return len(schedule) > 0
+    schedule = nyse.schedule(
+        start_date=window_start.date().isoformat(),
+        end_date=now_utc.date().isoformat(),
+    )
+
+    if schedule.empty:
+        return False
+
+    for _, row in schedule.iterrows():
+        market_close_utc = row['market_close'].to_pydatetime()
+        if window_start <= market_close_utc <= now_utc:
+            return True
+
+    return False
