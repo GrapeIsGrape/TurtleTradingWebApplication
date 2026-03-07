@@ -461,6 +461,17 @@
         Options and bonds are excluded (derivatives / no daily price series).
       </div>
     </div>
+    <div class="bb-card mt-3">
+      <div class="bb-card-body text-xs space-y-1.5" style="color:#9ca3af;">
+        <p>Correlation measures how similarly two positions move day-to-day, from <span style="color:#f9fafb;">−1</span> (perfectly opposite) to <span style="color:#f9fafb;">+1</span> (perfectly in sync).</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 mt-2">
+          <div><span style="color:#ef4444;">● High (&gt; 0.8)</span> — Move almost in lockstep. Holding both provides little diversification; a single bad trade hits both positions.</div>
+          <div><span style="color:#f59e0b;">● Moderate (0.3 – 0.8)</span> — Partially correlated. Some diversification benefit, but still influenced by the same market forces.</div>
+          <div><span style="color:#6b7280;">● Low (−0.3 – 0.3)</span> — Move largely independently. Good diversification; losses in one are unlikely to coincide with losses in the other.</div>
+          <div><span style="color:#10b981;">● Negative (&lt; −0.3)</span> — Tend to move in opposite directions. Acts as a natural hedge; one position may offset losses in the other.</div>
+        </div>
+      </div>
+    </div>
     {% else %}
     <div class="bb-card">
       <div class="bb-card-body text-sm" style="color:#6b7280;">
