@@ -20,6 +20,13 @@ body {
    Bootstrap Modal — Dark Overrides
    ============================================================ */
 
+/* Hide modals by default (Bootstrap CSS normally provides this;
+   since we dropped Bootstrap CSS we must define it here so
+   Bootstrap JS can show/hide them correctly.) */
+.modal {
+  display: none;
+}
+
 .modal-content {
   background-color: #1f2937 !important;
   border: 1px solid #374151 !important;

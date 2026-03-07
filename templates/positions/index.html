@@ -8,35 +8,31 @@
     <h1 class="text-xl font-bold tracking-wide" style="color:#f9fafb;">POSITIONS</h1>
     <p class="text-xs mt-0.5 font-mono" style="color:#6b7280;">Portfolio management across all strategies</p>
   </div>
-  <button class="bb-btn bb-btn-primary text-xs"
-          data-bs-toggle="modal" data-bs-target="#addPositionModal">
-    <i class="bi bi-plus-circle"></i> Add Position
-  </button>
 </div>
 
 <!-- Tabs -->
 <div class="bb-tabs mb-0" id="positionTabs">
-  <div class="bb-tab active" data-tab="turtle">
+  <div class="bb-tab {% if active_tab == 'turtle' %}active{% endif %}" data-tab="turtle">
     <i class="bi bi-graph-up-arrow mr-1.5"></i>Turtle
     <span class="ml-1.5 text-xs px-1.5 py-0.5 rounded font-mono"
           style="background:rgba(59,130,246,0.15);color:#60a5fa;">{{ positions|length }}</span>
   </div>
-  <div class="bb-tab" data-tab="dca">
+  <div class="bb-tab {% if active_tab == 'dca' %}active{% endif %}" data-tab="dca">
     <i class="bi bi-arrow-repeat mr-1.5"></i>DCA
     <span class="ml-1.5 text-xs px-1.5 py-0.5 rounded font-mono"
-          style="background:rgba(139,92,246,0.15);color:#a78bfa;">—</span>
+          style="background:rgba(139,92,246,0.15);color:#a78bfa;">{{ dca_positions|length }}</span>
   </div>
-  <div class="bb-tab" data-tab="bonds">
+  <div class="bb-tab {% if active_tab == 'bonds' %}active{% endif %}" data-tab="bonds">
     <i class="bi bi-bank mr-1.5"></i>Bonds
     <span class="ml-1.5 text-xs px-1.5 py-0.5 rounded font-mono"
-          style="background:rgba(245,158,11,0.15);color:#fbbf24;">—</span>
+          style="background:rgba(245,158,11,0.15);color:#fbbf24;">{{ bond_positions|length }}</span>
   </div>
-  <div class="bb-tab" data-tab="options">
+  <div class="bb-tab {% if active_tab == 'options' %}active{% endif %}" data-tab="options">
     <i class="bi bi-diagram-3 mr-1.5"></i>Options
     <span class="ml-1.5 text-xs px-1.5 py-0.5 rounded font-mono"
-          style="background:rgba(16,185,129,0.15);color:#34d399;">—</span>
+          style="background:rgba(16,185,129,0.15);color:#34d399;">{{ option_positions|length }}</span>
   </div>
-  <div class="bb-tab" data-tab="correlation">
+  <div class="bb-tab {% if active_tab == 'correlation' %}active{% endif %}" data-tab="correlation">
     <i class="bi bi-grid-fill mr-1.5"></i>Correlation
   </div>
 </div>
@@ -44,110 +40,475 @@
 <!-- ================================================================
      TURTLE TAB
      ================================================================ -->
-<div id="tab-turtle" class="tab-pane">
-  <div class="flex justify-end mb-3 mt-3">
+<div id="tab-turtle" class="tab-pane" style="display:{% if active_tab == 'turtle' %}block{% else %}none{% endif %};">
+  <div class="flex justify-between items-center mb-3 mt-3">
+    <button class="bb-btn bb-btn-primary text-xs"
+            data-bs-toggle="modal" data-bs-target="#addTurtleModal">
+      <i class="bi bi-plus-circle"></i> Add Position
+    </button>
     <button class="bb-btn bb-btn-secondary text-xs" id="toggleColumnsBtn">
       <i class="bi bi-layout-three-columns"></i> Show All Columns
     </button>
   </div>
 
   {% if positions %}
-    <div class="bb-card overflow-x-auto">
-      <table class="bb-table">
-        <thead>
-          <tr>
-            <th class="text-left">Sector</th>
-            <th>Ticker</th>
-            <th>Mkt Value</th>
-            <th>Positions</th>
-            <th>Entry</th>
-            <th>Current</th>
-            <th>SL (ATR)</th>
-            <th>SL (Low)</th>
-            <th class="toggle-column" style="display:none;">ATR-20</th>
-            <th class="toggle-column" style="display:none;">10d Low</th>
-            <th class="toggle-column" style="display:none;">20d Low</th>
-            <th class="toggle-column" style="display:none;">System</th>
-            <th>Actions</th>
+  <div class="bb-card overflow-x-auto">
+    <table class="bb-table">
+      <thead>
+        <tr>
+          <th class="text-left">Sector</th>
+          <th>Ticker</th>
+          <th>Mkt Value</th>
+          <th>Positions</th>
+          <th>Entry</th>
+          <th>Current</th>
+          <th>SL (ATR)</th>
+          <th>SL (Low)</th>
+          <th class="toggle-column" style="display:none;">ATR-20</th>
+          <th class="toggle-column" style="display:none;">10d Low</th>
+          <th class="toggle-column" style="display:none;">20d Low</th>
+          <th class="toggle-column" style="display:none;">System</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in positions %}
+          {% set below_atr = p.current is not none and p.stop_loss_atr is not none and p.current < p.stop_loss_atr %}
+          {% set below_low = p.current is not none and p.stop_loss_low is not none and p.current < p.stop_loss_low %}
+          <tr class="{% if below_atr or below_low %}alert-row{% endif %}">
+            <td class="text-left" style="color:#9ca3af;font-size:0.75rem;">{{ p.gics_industry }}</td>
+            <td><span class="font-bold font-mono" style="color:#f9fafb;">{{ p.ticker }}</span></td>
+            <td style="color:#3b82f6;">${{ "%.0f"|format(p.market_value) }}</td>
+            <td>{{ p.num_positions }}</td>
+            <td>{{ "%.2f"|format(p.entry_price) }}</td>
+            {% if p.current > p.entry_price %}
+              <td class="text-green">{{ "%.2f"|format(p.current) }}</td>
+            {% elif p.current < p.entry_price %}
+              <td class="text-red">{{ "%.2f"|format(p.current) }}</td>
+            {% else %}
+              <td>{{ "%.2f"|format(p.current) }}</td>
+            {% endif %}
+            <td style="color:#f59e0b;">{{ "%.2f"|format(p.stop_loss_atr) }}</td>
+            <td style="color:#f59e0b;">{{ "%.2f"|format(p.stop_loss_low) }}</td>
+            <td class="toggle-column" style="display:none;">{{ "%.2f"|format(p.atr_20) }}</td>
+            <td class="toggle-column" style="display:none;">{{ "%.2f"|format(p.days_low_10) }}</td>
+            <td class="toggle-column" style="display:none;">{{ "%.2f"|format(p.days_low_20) }}</td>
+            <td class="toggle-column" style="display:none;font-size:0.75rem;color:#9ca3af;">{{ p.system }}</td>
+            <td>
+              <button class="bb-btn bb-btn-warning bb-btn-sm edit-turtle-btn mr-1"
+                      data-bs-toggle="modal" data-bs-target="#editTurtleModal"
+                      data-id="{{ p.id }}" data-ticker="{{ p.ticker }}"
+                      data-entry="{{ p.entry_price }}" data-atr20="{{ p.atr_20 }}"
+                      data-positions="{{ p.num_positions }}" data-system="{{ p.system }}"
+                      data-notes="{{ p.notes or '' }}" title="Edit">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="bb-btn bb-btn-danger bb-btn-sm delete-btn"
+                      data-bs-toggle="modal" data-bs-target="#deleteModal"
+                      data-label="{{ p.ticker }}"
+                      data-action="/positions/turtle/{{ p.id }}/delete" title="Delete">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {% for p in positions %}
-            {% set below_atr = p.current is not none and p.stop_loss_atr is not none and p.current < p.stop_loss_atr %}
-            {% set below_low = p.current is not none and p.stop_loss_low is not none and p.current < p.stop_loss_low %}
-            <tr class="{% if below_atr or below_low %}alert-row{% endif %}">
-              <td class="text-left" style="color:#9ca3af;font-size:0.75rem;">{{ p.gics_industry }}</td>
-              <td><span class="font-bold font-mono" style="color:#f9fafb;">{{ p.ticker }}</span></td>
-              <td style="color:#3b82f6;">${{ "%.0f"|format(p.market_value) }}</td>
-              <td>{{ p.num_positions }}</td>
-              <td>{{ "%.2f"|format(p.entry_price) }}</td>
-              {% if p.current > p.entry_price %}
-                <td class="text-green">{{ "%.2f"|format(p.current) }}</td>
-              {% elif p.current < p.entry_price %}
-                <td class="text-red">{{ "%.2f"|format(p.current) }}</td>
-              {% else %}
-                <td>{{ "%.2f"|format(p.current) }}</td>
-              {% endif %}
-              <td style="color:#f59e0b;">{{ "%.2f"|format(p.stop_loss_atr) }}</td>
-              <td style="color:#f59e0b;">{{ "%.2f"|format(p.stop_loss_low) }}</td>
-              <td class="toggle-column" style="display:none;">{{ "%.2f"|format(p.atr_20) }}</td>
-              <td class="toggle-column" style="display:none;">{{ "%.2f"|format(p.days_low_10) }}</td>
-              <td class="toggle-column" style="display:none;">{{ "%.2f"|format(p.days_low_20) }}</td>
-              <td class="toggle-column" style="display:none;font-size:0.75rem;color:#9ca3af;">{{ p.system }}</td>
-              <td>
-                <button class="bb-btn bb-btn-warning bb-btn-sm edit-position-btn mr-1"
-                        data-bs-toggle="modal" data-bs-target="#editPositionModal"
-                        data-id="{{ p.id }}"
-                        data-ticker="{{ p.ticker }}"
-                        data-entry="{{ p.entry_price }}"
-                        data-atr20="{{ p.atr_20 }}"
-                        data-positions="{{ p.num_positions }}"
-                        data-system="{{ p.system }}"
-                        data-notes="{{ p.notes or '' }}"
-                        title="Edit">
-                  <i class="bi bi-pencil"></i>
-                </button>
-                <button class="bb-btn bb-btn-danger bb-btn-sm delete-position-btn"
-                        data-bs-toggle="modal" data-bs-target="#deletePositionModal"
-                        data-id="{{ p.id }}"
-                        data-ticker="{{ p.ticker }}"
-                        title="Delete">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
   {% else %}
-    <div class="bb-card mt-3">
-      <div class="bb-card-body text-sm" style="color:#6b7280;">
-        No turtle positions. Click <strong style="color:#d1d5db;">Add Position</strong> to get started.
-      </div>
+  <div class="bb-card mt-3">
+    <div class="bb-card-body text-sm" style="color:#6b7280;">
+      No turtle positions. Click <strong style="color:#d1d5db;">Add Position</strong> to get started.
     </div>
+  </div>
   {% endif %}
 </div>
 
 <!-- ================================================================
-     DCA / BONDS / OPTIONS / CORRELATION placeholders (Phase 2)
+     DCA TAB
      ================================================================ -->
-{% for tab_id in ['dca', 'bonds', 'options', 'correlation'] %}
-<div id="tab-{{ tab_id }}" class="tab-pane" style="display:none;">
-  <div class="bb-card mt-4">
-    <div class="bb-card-header">{{ tab_id | title }} — Coming in Phase 2</div>
+<div id="tab-dca" class="tab-pane" style="display:{% if active_tab == 'dca' %}block{% else %}none{% endif %};">
+  <div class="flex justify-between items-center mb-3 mt-3">
+    <button class="bb-btn bb-btn-primary text-xs"
+            data-bs-toggle="modal" data-bs-target="#addDcaModal">
+      <i class="bi bi-plus-circle"></i> Add DCA Position
+    </button>
+  </div>
+
+  {% if dca_positions %}
+  <div class="bb-card overflow-x-auto">
+    <table class="bb-table">
+      <thead>
+        <tr>
+          <th>Ticker</th>
+          <th>Shares</th>
+          <th>Avg Cost</th>
+          <th>Cost Basis</th>
+          <th>Current</th>
+          <th>Mkt Value</th>
+          <th>P&amp;L ($)</th>
+          <th>P&amp;L (%)</th>
+          <th class="text-left">Notes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in dca_positions %}
+        <tr>
+          <td><span class="font-bold font-mono" style="color:#f9fafb;">{{ p.ticker }}</span></td>
+          <td>{{ "%.4f"|format(p.num_shares) }}</td>
+          <td>${{ "%.2f"|format(p.avg_cost) }}</td>
+          <td style="color:#9ca3af;">${{ "%.0f"|format(p.cost_basis) }}</td>
+          <td>${{ "%.2f"|format(p.current) }}</td>
+          <td style="color:#a78bfa;">${{ "%.0f"|format(p.market_value) }}</td>
+          {% if p.pnl >= 0 %}
+            <td class="text-green">+${{ "%.0f"|format(p.pnl) }}</td>
+            <td class="text-green">+{{ "%.1f"|format(p.pnl_pct) }}%</td>
+          {% else %}
+            <td class="text-red">-${{ "%.0f"|format(p.pnl|abs) }}</td>
+            <td class="text-red">{{ "%.1f"|format(p.pnl_pct) }}%</td>
+          {% endif %}
+          <td class="text-left" style="color:#6b7280;font-size:0.75rem;">{{ p.notes or '—' }}</td>
+          <td>
+            <button class="bb-btn bb-btn-warning bb-btn-sm edit-dca-btn mr-1"
+                    data-bs-toggle="modal" data-bs-target="#editDcaModal"
+                    data-id="{{ p.id }}" data-ticker="{{ p.ticker }}"
+                    data-shares="{{ p.num_shares }}" data-avgcost="{{ p.avg_cost }}"
+                    data-notes="{{ p.notes or '' }}" title="Edit">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="bb-btn bb-btn-danger bb-btn-sm delete-btn"
+                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    data-label="{{ p.ticker }}"
+                    data-action="/positions/dca/{{ p.id }}/delete" title="Delete">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="bb-card mt-3">
     <div class="bb-card-body text-sm" style="color:#6b7280;">
-      <i class="bi bi-tools mr-2"></i>
-      This section is under development. Full {{ tab_id }} position management will be available soon.
+      No DCA positions. Click <strong style="color:#d1d5db;">Add DCA Position</strong> to get started.
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<!-- ================================================================
+     BONDS TAB
+     ================================================================ -->
+<div id="tab-bonds" class="tab-pane" style="display:{% if active_tab == 'bonds' %}block{% else %}none{% endif %};">
+  <div class="flex justify-between items-center mb-3 mt-3">
+    <button class="bb-btn bb-btn-primary text-xs"
+            data-bs-toggle="modal" data-bs-target="#addBondModal">
+      <i class="bi bi-plus-circle"></i> Add Bond
+    </button>
+  </div>
+
+  {% if bond_positions %}
+  <div class="bb-card overflow-x-auto">
+    <table class="bb-table">
+      <thead>
+        <tr>
+          <th>Instrument</th>
+          <th>Type</th>
+          <th>Qty</th>
+          <th>Purchase $</th>
+          <th>Face Value</th>
+          <th>Coupon</th>
+          <th>Maturity</th>
+          <th>Total Cost</th>
+          <th>Est. Yield</th>
+          <th>P&amp;L</th>
+          <th class="text-left">Notes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in bond_positions %}
+        <tr>
+          <td><span class="font-bold font-mono" style="color:#f9fafb;">{{ p.instrument }}</span></td>
+          <td>
+            <span class="ticker-badge ticker-neutral" style="cursor:default;font-size:0.65rem;">
+              {{ p.bond_type | upper }}
+            </span>
+          </td>
+          <td>{{ p.quantity }}</td>
+          <td>${{ "%.2f"|format(p.purchase_price) }}</td>
+          <td style="color:#fbbf24;">${{ "%.2f"|format(p.face_value) }}</td>
+          <td>{{ "%.2f"|format(p.coupon_rate) ~ '%' if p.coupon_rate else '—' }}</td>
+          <td style="color:#9ca3af;font-size:0.75rem;">{{ p.maturity_date or '—' }}</td>
+          <td style="color:#9ca3af;">${{ "%.0f"|format(p.total_cost) }}</td>
+          <td>{{ "%.2f"|format(p.expected_yield) ~ '%' if p.expected_yield else '—' }}</td>
+          {% if p.pnl >= 0 %}
+            <td class="text-green">+${{ "%.0f"|format(p.pnl) }}</td>
+          {% else %}
+            <td class="text-red">-${{ "%.0f"|format(p.pnl|abs) }}</td>
+          {% endif %}
+          <td class="text-left" style="color:#6b7280;font-size:0.75rem;">{{ p.notes or '—' }}</td>
+          <td>
+            <button class="bb-btn bb-btn-warning bb-btn-sm edit-bond-btn mr-1"
+                    data-bs-toggle="modal" data-bs-target="#editBondModal"
+                    data-id="{{ p.id }}"
+                    data-instrument="{{ p.instrument }}"
+                    data-bondtype="{{ p.bond_type }}"
+                    data-facevalue="{{ p.face_value }}"
+                    data-purchaseprice="{{ p.purchase_price }}"
+                    data-quantity="{{ p.quantity }}"
+                    data-couponrate="{{ p.coupon_rate or '' }}"
+                    data-maturitydate="{{ p.maturity_date or '' }}"
+                    data-notes="{{ p.notes or '' }}" title="Edit">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="bb-btn bb-btn-danger bb-btn-sm delete-btn"
+                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    data-label="{{ p.instrument }}"
+                    data-action="/positions/bonds/{{ p.id }}/delete" title="Delete">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="bb-card mt-3">
+    <div class="bb-card-body text-sm" style="color:#6b7280;">
+      No bond positions. Click <strong style="color:#d1d5db;">Add Bond</strong> to get started.
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<!-- ================================================================
+     OPTIONS TAB
+     ================================================================ -->
+<div id="tab-options" class="tab-pane" style="display:{% if active_tab == 'options' %}block{% else %}none{% endif %};">
+  <div class="flex justify-between items-center mb-3 mt-3">
+    <button class="bb-btn bb-btn-primary text-xs"
+            data-bs-toggle="modal" data-bs-target="#addOptionModal">
+      <i class="bi bi-plus-circle"></i> Add Option
+    </button>
+  </div>
+
+  {% if option_positions %}
+  <div class="bb-card overflow-x-auto">
+    <table class="bb-table">
+      <thead>
+        <tr>
+          <th>Ticker</th>
+          <th>Type</th>
+          <th>Dir</th>
+          <th>Strike</th>
+          <th>Expiry</th>
+          <th>DTE</th>
+          <th>Premium</th>
+          <th>Contracts</th>
+          <th>Credit/Debit</th>
+          <th>Status</th>
+          <th>P&amp;L</th>
+          <th class="text-left">Notes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in option_positions %}
+        <tr>
+          <td><span class="font-bold font-mono" style="color:#f9fafb;">{{ p.ticker }}</span></td>
+          <td>
+            <span class="ticker-badge {% if p.option_type == 'call' %}ticker-bullish{% else %}ticker-exit{% endif %}"
+                  style="cursor:default;font-size:0.65rem;">{{ p.option_type | upper }}</span>
+          </td>
+          <td>
+            <span class="ticker-badge {% if p.direction == 'short' %}ticker-reset{% else %}ticker-neutral{% endif %}"
+                  style="cursor:default;font-size:0.65rem;">{{ p.direction | upper }}</span>
+          </td>
+          <td>${{ "%.2f"|format(p.strike) }}</td>
+          <td style="color:#9ca3af;font-size:0.75rem;">{{ p.expiry_date }}</td>
+          <td>
+            {% if p.dte is not none %}
+              <span style="color:{% if p.dte <= 7 %}#ef4444{% elif p.dte <= 21 %}#f59e0b{% else %}#9ca3af{% endif %};">
+                {{ p.dte }}d
+              </span>
+            {% else %}—{% endif %}
+          </td>
+          <td>${{ "%.2f"|format(p.premium) }}</td>
+          <td>{{ p.contracts }}</td>
+          <td style="color:#9ca3af;">${{ "%.0f"|format(p.premium_total) }}</td>
+          <td>
+            <span class="ticker-badge {% if p.status == 'open' %}ticker-bullish{% elif p.status == 'expired' %}ticker-neutral{% else %}ticker-exit{% endif %}"
+                  style="cursor:default;font-size:0.65rem;">{{ p.status | upper }}</span>
+          </td>
+          <td>
+            {% if p.pnl is not none %}
+              {% if p.pnl >= 0 %}
+                <span class="text-green">+${{ "%.0f"|format(p.pnl) }}</span>
+              {% else %}
+                <span class="text-red">-${{ "%.0f"|format(p.pnl|abs) }}</span>
+              {% endif %}
+            {% else %}
+              <span style="color:#6b7280;">—</span>
+            {% endif %}
+          </td>
+          <td class="text-left" style="color:#6b7280;font-size:0.75rem;">{{ p.notes or '—' }}</td>
+          <td>
+            {% if p.status == 'open' %}
+            <button class="bb-btn bb-btn-secondary bb-btn-sm close-option-btn mr-1"
+                    data-bs-toggle="modal" data-bs-target="#closeOptionModal"
+                    data-id="{{ p.id }}" data-ticker="{{ p.ticker }}"
+                    data-strike="{{ p.strike }}" data-type="{{ p.option_type }}"
+                    title="Close position">
+              <i class="bi bi-x-circle"></i>
+            </button>
+            {% endif %}
+            <button class="bb-btn bb-btn-warning bb-btn-sm edit-option-btn mr-1"
+                    data-bs-toggle="modal" data-bs-target="#editOptionModal"
+                    data-id="{{ p.id }}" data-ticker="{{ p.ticker }}"
+                    data-optiontype="{{ p.option_type }}" data-direction="{{ p.direction }}"
+                    data-strike="{{ p.strike }}" data-expiry="{{ p.expiry_date }}"
+                    data-premium="{{ p.premium }}" data-contracts="{{ p.contracts }}"
+                    data-notes="{{ p.notes or '' }}" title="Edit">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="bb-btn bb-btn-danger bb-btn-sm delete-btn"
+                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    data-label="{{ p.ticker }} {{ p.option_type|upper }} ${{ '%.0f'|format(p.strike) }}"
+                    data-action="/positions/options/{{ p.id }}/delete" title="Delete">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="bb-card mt-3">
+    <div class="bb-card-body text-sm" style="color:#6b7280;">
+      No option positions. Click <strong style="color:#d1d5db;">Add Option</strong> to get started.
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<!-- ================================================================
+     CORRELATION TAB
+     ================================================================ -->
+<div id="tab-correlation" class="tab-pane" style="display:{% if active_tab == 'correlation' %}block{% else %}none{% endif %};">
+  <div class="mt-3">
+  {% if active_tab == 'correlation' and correlation %}
+    {% if not correlation.error and correlation.tickers|length >= 2 %}
+    <div class="flex flex-wrap gap-3 mb-3 text-xs">
+      <span class="flex items-center gap-1.5">
+        <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:rgba(239,68,68,0.7);"></span>
+        <span style="color:#6b7280;">High (&gt; 0.8)</span>
+      </span>
+      <span class="flex items-center gap-1.5">
+        <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:rgba(245,158,11,0.5);"></span>
+        <span style="color:#6b7280;">Moderate (0.3–0.8)</span>
+      </span>
+      <span class="flex items-center gap-1.5">
+        <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:rgba(55,65,81,0.6);"></span>
+        <span style="color:#6b7280;">Low (−0.3 – 0.3)</span>
+      </span>
+      <span class="flex items-center gap-1.5">
+        <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:rgba(16,185,129,0.5);"></span>
+        <span style="color:#6b7280;">Negative (&lt; −0.3)</span>
+      </span>
+    </div>
+    <div class="bb-card overflow-x-auto">
+      <table class="bb-table" style="font-size:0.75rem;">
+        <thead>
+          <tr>
+            <th class="text-left" style="color:#6b7280;">Ticker</th>
+            {% for t in correlation.tickers %}
+            <th class="font-mono">{{ t }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(correlation.tickers|length) %}
+          {% set t1 = correlation.tickers[i] %}
+          <tr>
+            <td class="font-bold font-mono text-left" style="color:#f9fafb;">{{ t1 }}</td>
+            {% for j in range(correlation.tickers|length) %}
+              {% set val = correlation.matrix[i][j] %}
+              {% if val is none %}
+                <td style="color:#6b7280;">—</td>
+              {% elif i == j %}
+                <td style="background:rgba(59,130,246,0.15);color:#60a5fa;font-weight:bold;">{{ "%.2f"|format(val) }}</td>
+              {% elif val > 0.8 %}
+                <td style="background:rgba(239,68,68,0.2);color:#f87171;">{{ "%.2f"|format(val) }}</td>
+              {% elif val > 0.3 %}
+                <td style="background:rgba(245,158,11,0.15);color:#fbbf24;">{{ "%.2f"|format(val) }}</td>
+              {% elif val < -0.3 %}
+                <td style="background:rgba(16,185,129,0.15);color:#34d399;">{{ "%.2f"|format(val) }}</td>
+              {% else %}
+                <td style="color:#9ca3af;">{{ "%.2f"|format(val) }}</td>
+              {% endif %}
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="px-4 py-2 text-xs" style="color:#6b7280;border-top:1px solid #1f2937;">
+        Based on last 252 trading days of daily returns — Turtle &amp; DCA equity positions only.
+        Options and bonds are excluded (derivatives / no daily price series).
+      </div>
+    </div>
+    {% else %}
+    <div class="bb-card">
+      <div class="bb-card-body text-sm" style="color:#6b7280;">
+        <i class="bi bi-info-circle mr-2"></i>{{ correlation.error or 'No positions available for correlation.' }}
+      </div>
+    </div>
+    {% endif %}
+  {% else %}
+  <div class="bb-card">
+    <div class="bb-card-body text-sm" style="color:#6b7280;">
+      <a href="/positions?tab=correlation" style="color:#60a5fa;">Click here</a> to load the correlation matrix.
+    </div>
+  </div>
+  {% endif %}
+  </div>
+</div>
+
+
+<!-- ================================================================
+     SHARED DELETE MODAL
+     ================================================================ -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color:#ef4444;">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" id="deleteForm" action="">
+        <div class="modal-body">
+          <p class="text-sm" style="color:#d1d5db;">
+            Delete position for <strong id="deleteLabelDisplay" style="color:#f9fafb;"></strong>?
+          </p>
+          <p class="text-xs" style="color:#ef4444;">This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="bb-btn bb-btn-danger">Delete</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
-{% endfor %}
 
 <!-- ================================================================
-     ADD POSITION MODAL
+     TURTLE MODALS
      ================================================================ -->
-<div class="modal fade" id="addPositionModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="addTurtleModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -158,7 +519,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label">Ticker *</label>
-            <input type="text" class="form-control" name="ticker" required placeholder="e.g., AAPL">
+            <input type="text" class="form-control font-mono" name="ticker" required placeholder="e.g. AAPL">
           </div>
           <div class="mb-3">
             <label class="form-label">Entry Price *</label>
@@ -185,57 +546,54 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Add Position</button>
+          <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="bb-btn bb-btn-primary">Add Position</button>
         </div>
       </form>
     </div>
   </div>
 </div>
 
-<!-- ================================================================
-     EDIT POSITION MODAL
-     ================================================================ -->
-<div class="modal fade" id="editPositionModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="editTurtleModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Edit Position</h5>
+        <h5 class="modal-title">Edit Turtle Position</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <form method="POST" id="editPositionForm" action="">
+      <form method="POST" id="editTurtleForm" action="">
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label">Ticker *</label>
-            <input type="text" class="form-control" id="editTicker" name="ticker" required>
+            <input type="text" class="form-control font-mono" id="editTurtleTicker" name="ticker" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Entry Price *</label>
-            <input type="number" step="0.01" class="form-control" id="editEntry" name="entry" required>
+            <input type="number" step="0.01" class="form-control" id="editTurtleEntry" name="entry" required>
           </div>
           <div class="mb-3">
             <label class="form-label">ATR-20 *</label>
-            <input type="number" step="0.01" class="form-control" id="editAtr20" name="atr20" required>
+            <input type="number" step="0.01" class="form-control" id="editTurtleAtr20" name="atr20" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Number of Positions *</label>
-            <input type="number" class="form-control" id="editPositions" name="positions" required>
+            <input type="number" class="form-control" id="editTurtlePositions" name="positions" required>
           </div>
           <div class="mb-3">
             <label class="form-label">System</label>
-            <select class="form-select" id="editSystem" name="system">
+            <select class="form-select" id="editTurtleSystem" name="system">
               <option value="System 2">System 2 (55-day)</option>
               <option value="System 1">System 1 (20-day)</option>
             </select>
           </div>
           <div class="mb-3">
             <label class="form-label">Notes</label>
-            <input type="text" class="form-control" id="editNotes" name="notes">
+            <input type="text" class="form-control" id="editTurtleNotes" name="notes">
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-warning">Save Changes</button>
+          <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="bb-btn bb-btn-warning">Save Changes</button>
         </div>
       </form>
     </div>
@@ -243,67 +601,458 @@
 </div>
 
 <!-- ================================================================
-     DELETE CONFIRMATION MODAL
+     DCA MODALS
      ================================================================ -->
-<div class="modal fade" id="deletePositionModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="addDcaModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" style="color:#ef4444;">Confirm Delete</h5>
+        <h5 class="modal-title">Add DCA Position</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <form method="POST" id="deletePositionForm" action="">
+      <form method="POST" action="/positions/dca/add">
         <div class="modal-body">
-          <p class="text-sm" style="color:#d1d5db;">
-            Delete position for <strong id="deleteTickerDisplay" style="color:#f9fafb;"></strong>?
-          </p>
-          <p class="text-xs" style="color:#ef4444;">This action cannot be undone.</p>
+          <div class="mb-3">
+            <label class="form-label">Ticker *</label>
+            <input type="text" class="form-control font-mono" name="ticker" required placeholder="e.g. VTI">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Number of Shares *</label>
+            <input type="number" step="0.0001" class="form-control" name="num_shares" required placeholder="100">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Average Cost per Share *</label>
+            <input type="number" step="0.01" class="form-control" name="avg_cost" required placeholder="220.50">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Notes</label>
+            <input type="text" class="form-control" name="notes" placeholder="Optional">
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-danger">Delete</button>
+          <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="bb-btn bb-btn-primary">Add</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="editDcaModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit DCA Position</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" id="editDcaForm" action="">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Ticker *</label>
+            <input type="text" class="form-control font-mono" id="editDcaTicker" name="ticker" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Number of Shares *</label>
+            <input type="number" step="0.0001" class="form-control" id="editDcaShares" name="num_shares" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Average Cost per Share *</label>
+            <input type="number" step="0.01" class="form-control" id="editDcaAvgCost" name="avg_cost" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Notes</label>
+            <input type="text" class="form-control" id="editDcaNotes" name="notes">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="bb-btn bb-btn-warning">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     BOND MODALS
+     ================================================================ -->
+<div class="modal fade" id="addBondModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Bond / Bill / Note</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" action="/positions/bonds/add">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Instrument *</label>
+            <input type="text" class="form-control font-mono" name="instrument" required
+                   placeholder="e.g. BIL or CUSIP">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Type *</label>
+            <select class="form-select" name="bond_type">
+              <option value="bill">T-Bill</option>
+              <option value="note">T-Note</option>
+              <option value="bond">T-Bond</option>
+              <option value="etf">ETF</option>
+            </select>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label">Quantity *</label>
+              <input type="number" step="0.01" class="form-control" name="quantity" required placeholder="1">
+            </div>
+            <div class="col-6">
+              <label class="form-label">Purchase Price *</label>
+              <input type="number" step="0.01" class="form-control" name="purchase_price" required placeholder="980.00">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label">Face Value *</label>
+              <input type="number" step="0.01" class="form-control" name="face_value" required value="1000">
+            </div>
+            <div class="col-6">
+              <label class="form-label">Coupon Rate % <span style="color:#6b7280;">(opt)</span></label>
+              <input type="number" step="0.001" class="form-control" name="coupon_rate" placeholder="4.250">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Maturity Date <span style="color:#6b7280;">(optional)</span></label>
+            <input type="date" class="form-control" name="maturity_date">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Notes</label>
+            <input type="text" class="form-control" name="notes" placeholder="Optional">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="bb-btn bb-btn-primary">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editBondModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Bond Position</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" id="editBondForm" action="">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Instrument *</label>
+            <input type="text" class="form-control font-mono" id="editBondInstrument" name="instrument" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Type *</label>
+            <select class="form-select" id="editBondType" name="bond_type">
+              <option value="bill">T-Bill</option>
+              <option value="note">T-Note</option>
+              <option value="bond">T-Bond</option>
+              <option value="etf">ETF</option>
+            </select>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label">Quantity *</label>
+              <input type="number" step="0.01" class="form-control" id="editBondQty" name="quantity" required>
+            </div>
+            <div class="col-6">
+              <label class="form-label">Purchase Price *</label>
+              <input type="number" step="0.01" class="form-control" id="editBondPurchasePrice" name="purchase_price" required>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label">Face Value *</label>
+              <input type="number" step="0.01" class="form-control" id="editBondFaceValue" name="face_value" required>
+            </div>
+            <div class="col-6">
+              <label class="form-label">Coupon Rate %</label>
+              <input type="number" step="0.001" class="form-control" id="editBondCoupon" name="coupon_rate">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Maturity Date</label>
+            <input type="date" class="form-control" id="editBondMaturity" name="maturity_date">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Notes</label>
+            <input type="text" class="form-control" id="editBondNotes" name="notes">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="bb-btn bb-btn-warning">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     OPTION MODALS
+     ================================================================ -->
+<div class="modal fade" id="addOptionModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Option Position</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" action="/positions/options/add">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Ticker *</label>
+            <input type="text" class="form-control font-mono" name="ticker" required placeholder="e.g. AAPL">
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label">Option Type *</label>
+              <select class="form-select" name="option_type">
+                <option value="put" selected>Put</option>
+                <option value="call">Call</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label class="form-label">Direction *</label>
+              <select class="form-select" name="direction">
+                <option value="short" selected>Short (Sell)</option>
+                <option value="long">Long (Buy)</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label">Strike *</label>
+              <input type="number" step="0.5" class="form-control" name="strike" required placeholder="150.00">
+            </div>
+            <div class="col-6">
+              <label class="form-label">Expiry Date *</label>
+              <input type="date" class="form-control" name="expiry_date" required>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label">Premium (per share) *</label>
+              <input type="number" step="0.01" class="form-control" name="premium" required placeholder="2.50">
+            </div>
+            <div class="col-6">
+              <label class="form-label">Contracts *</label>
+              <input type="number" class="form-control" name="contracts" required value="1" min="1">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Notes</label>
+            <input type="text" class="form-control" name="notes" placeholder="Optional">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="bb-btn bb-btn-primary">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editOptionModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Option Position</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" id="editOptionForm" action="">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Ticker *</label>
+            <input type="text" class="form-control font-mono" id="editOptionTicker" name="ticker" required>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label">Option Type *</label>
+              <select class="form-select" id="editOptionType" name="option_type">
+                <option value="put">Put</option>
+                <option value="call">Call</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label class="form-label">Direction *</label>
+              <select class="form-select" id="editOptionDir" name="direction">
+                <option value="short">Short (Sell)</option>
+                <option value="long">Long (Buy)</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label">Strike *</label>
+              <input type="number" step="0.5" class="form-control" id="editOptionStrike" name="strike" required>
+            </div>
+            <div class="col-6">
+              <label class="form-label">Expiry Date *</label>
+              <input type="date" class="form-control" id="editOptionExpiry" name="expiry_date" required>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label">Premium *</label>
+              <input type="number" step="0.01" class="form-control" id="editOptionPremium" name="premium" required>
+            </div>
+            <div class="col-6">
+              <label class="form-label">Contracts *</label>
+              <input type="number" class="form-control" id="editOptionContracts" name="contracts" required min="1">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Notes</label>
+            <input type="text" class="form-control" id="editOptionNotes" name="notes">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="bb-btn bb-btn-warning">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="closeOptionModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Close Option Position</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" id="closeOptionForm" action="">
+        <div class="modal-body">
+          <p class="text-sm mb-3" style="color:#9ca3af;">
+            Closing: <strong id="closeOptionLabel" style="color:#f9fafb;"></strong>
+          </p>
+          <div class="mb-3">
+            <label class="form-label">Close Price (per share) *</label>
+            <input type="number" step="0.01" class="form-control" name="close_price" required placeholder="0.05">
+            <div class="text-xs mt-1" style="color:#6b7280;">Enter 0 if expired worthless.</div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select class="form-select" name="status">
+              <option value="closed">Closed (bought back)</option>
+              <option value="expired">Expired (worthless)</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="bb-btn bb-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="bb-btn bb-btn-danger">Close Position</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {% block extra_js %}
 <script>
-  /* ---- Tabs ---- */
+  /* ---- Tab switching ---- */
   document.querySelectorAll('.bb-tab').forEach(tab => {
     tab.addEventListener('click', function() {
+      const target = this.dataset.tab;
+      // Correlation tab requires server-side computation — do a full page nav
+      if (target === 'correlation' && '{{ active_tab }}' !== 'correlation') {
+        window.location.href = '/positions?tab=correlation';
+        return;
+      }
       document.querySelectorAll('.bb-tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
       this.classList.add('active');
-      const pane = document.getElementById('tab-' + this.dataset.tab);
-      if (pane) pane.style.display = '';
+      const pane = document.getElementById('tab-' + target);
+      if (pane) pane.style.display = 'block';
     });
   });
 
-  /* ---- Edit modal ---- */
-  document.querySelectorAll('.edit-position-btn').forEach(btn => {
+  /* ---- Shared delete modal ---- */
+  document.querySelectorAll('.delete-btn').forEach(btn => {
     btn.addEventListener('click', function() {
-      document.getElementById('editPositionForm').action = '/positions/turtle/' + this.dataset.id + '/edit';
-      document.getElementById('editTicker').value    = this.dataset.ticker;
-      document.getElementById('editEntry').value     = this.dataset.entry;
-      document.getElementById('editAtr20').value     = this.dataset.atr20;
-      document.getElementById('editPositions').value = this.dataset.positions;
-      document.getElementById('editSystem').value    = this.dataset.system || 'System 2';
-      document.getElementById('editNotes').value     = this.dataset.notes || '';
+      document.getElementById('deleteForm').action = this.dataset.action;
+      document.getElementById('deleteLabelDisplay').textContent = this.dataset.label;
     });
   });
 
-  /* ---- Delete modal ---- */
-  document.querySelectorAll('.delete-position-btn').forEach(btn => {
+  /* ---- Turtle edit ---- */
+  document.querySelectorAll('.edit-turtle-btn').forEach(btn => {
     btn.addEventListener('click', function() {
-      document.getElementById('deletePositionForm').action = '/positions/turtle/' + this.dataset.id + '/delete';
-      document.getElementById('deleteTickerDisplay').textContent = this.dataset.ticker;
+      document.getElementById('editTurtleForm').action        = '/positions/turtle/' + this.dataset.id + '/edit';
+      document.getElementById('editTurtleTicker').value       = this.dataset.ticker;
+      document.getElementById('editTurtleEntry').value        = this.dataset.entry;
+      document.getElementById('editTurtleAtr20').value        = this.dataset.atr20;
+      document.getElementById('editTurtlePositions').value    = this.dataset.positions;
+      document.getElementById('editTurtleSystem').value       = this.dataset.system || 'System 2';
+      document.getElementById('editTurtleNotes').value        = this.dataset.notes || '';
     });
   });
 
-  /* ---- Toggle extra columns ---- */
+  /* ---- DCA edit ---- */
+  document.querySelectorAll('.edit-dca-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.getElementById('editDcaForm').action       = '/positions/dca/' + this.dataset.id + '/edit';
+      document.getElementById('editDcaTicker').value      = this.dataset.ticker;
+      document.getElementById('editDcaShares').value      = this.dataset.shares;
+      document.getElementById('editDcaAvgCost').value     = this.dataset.avgcost;
+      document.getElementById('editDcaNotes').value       = this.dataset.notes || '';
+    });
+  });
+
+  /* ---- Bond edit ---- */
+  document.querySelectorAll('.edit-bond-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.getElementById('editBondForm').action          = '/positions/bonds/' + this.dataset.id + '/edit';
+      document.getElementById('editBondInstrument').value     = this.dataset.instrument;
+      document.getElementById('editBondType').value           = this.dataset.bondtype;
+      document.getElementById('editBondQty').value            = this.dataset.quantity;
+      document.getElementById('editBondPurchasePrice').value  = this.dataset.purchaseprice;
+      document.getElementById('editBondFaceValue').value      = this.dataset.facevalue;
+      document.getElementById('editBondCoupon').value         = this.dataset.couponrate || '';
+      document.getElementById('editBondMaturity').value       = this.dataset.maturitydate || '';
+      document.getElementById('editBondNotes').value          = this.dataset.notes || '';
+    });
+  });
+
+  /* ---- Option edit ---- */
+  document.querySelectorAll('.edit-option-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.getElementById('editOptionForm').action       = '/positions/options/' + this.dataset.id + '/edit';
+      document.getElementById('editOptionTicker').value      = this.dataset.ticker;
+      document.getElementById('editOptionType').value        = this.dataset.optiontype;
+      document.getElementById('editOptionDir').value         = this.dataset.direction;
+      document.getElementById('editOptionStrike').value      = this.dataset.strike;
+      document.getElementById('editOptionExpiry').value      = this.dataset.expiry;
+      document.getElementById('editOptionPremium').value     = this.dataset.premium;
+      document.getElementById('editOptionContracts').value   = this.dataset.contracts;
+      document.getElementById('editOptionNotes').value       = this.dataset.notes || '';
+    });
+  });
+
+  /* ---- Option close ---- */
+  document.querySelectorAll('.close-option-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.getElementById('closeOptionForm').action = '/positions/options/' + this.dataset.id + '/close';
+      document.getElementById('closeOptionLabel').textContent =
+        this.dataset.ticker + ' ' + this.dataset.type.toUpperCase() + ' $' + parseFloat(this.dataset.strike).toFixed(0);
+    });
+  });
+
+  /* ---- Toggle extra turtle columns ---- */
   const toggleBtn = document.getElementById('toggleColumnsBtn');
   let showAll = false;
   if (toggleBtn) {

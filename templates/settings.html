@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% block title %}Settings — Turtle Trading{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="flex items-center justify-between mb-5">
+  <div>
+    <h1 class="text-xl font-bold tracking-wide" style="color:#f9fafb;">SETTINGS</h1>
+    <p class="text-xs mt-0.5 font-mono" style="color:#6b7280;">API keys, Telegram credentials, notifications</p>
+  </div>
+</div>
+
+{% if test_result is not none %}
+  {% if test_result.success %}
+  <div class="bb-card mb-4" style="border-color:#10b981;">
+    <div class="bb-card-body flex items-center gap-2 text-sm" style="color:#10b981;">
+      <i class="bi bi-check-circle-fill"></i>
+      Telegram test message sent successfully.
+    </div>
+  </div>
+  {% else %}
+  <div class="bb-card mb-4" style="border-color:#ef4444;">
+    <div class="bb-card-body flex items-center gap-2 text-sm" style="color:#ef4444;">
+      <i class="bi bi-x-circle-fill"></i>
+      {{ test_result.error or 'Telegram test failed.' }}
+    </div>
+  </div>
+  {% endif %}
+{% endif %}
+
+<!-- Settings Form -->
+<div class="bb-card mb-6">
+  <div class="bb-card-header flex items-center gap-2">
+    <i class="bi bi-gear"></i>
+    <span>Configuration</span>
+  </div>
+  <div class="bb-card-body">
+    <form method="POST" action="/settings/update">
+      <div class="space-y-4">
+        {% for defn in setting_defs %}
+        <div>
+          <label class="block text-xs font-semibold mb-1" style="color:#9ca3af;">
+            {{ defn.label }}
+          </label>
+          {% if defn.type == 'password' %}
+          <input
+            type="password"
+            name="{{ defn.key }}"
+            value="{{ current.get(defn.key, '') }}"
+            placeholder="{% if current.get(defn.key) %}••••••••{% else %}Not set{% endif %}"
+            autocomplete="off"
+            class="form-control font-mono text-xs"
+            style="max-width:480px; background:#0a0e1a; border-color:#374151; color:#f9fafb;"
+          />
+          {% else %}
+          <input
+            type="text"
+            name="{{ defn.key }}"
+            value="{{ current.get(defn.key, '') }}"
+            class="form-control font-mono text-xs"
+            style="max-width:480px; background:#0a0e1a; border-color:#374151; color:#f9fafb;"
+          />
+          {% endif %}
+          <p class="text-xs mt-1" style="color:#6b7280;">{{ defn.description }}</p>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="flex gap-3 mt-6">
+        <button type="submit" class="bb-btn bb-btn-primary">
+          <i class="bi bi-floppy me-1"></i> Save Settings
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Telegram Test -->
+<div class="bb-card mb-6">
+  <div class="bb-card-header flex items-center gap-2">
+    <i class="bi bi-telegram"></i>
+    <span>Telegram</span>
+  </div>
+  <div class="bb-card-body">
+    <p class="text-xs mb-3" style="color:#9ca3af;">
+      Send a test message to verify your bot token and chat ID are working correctly.
+    </p>
+    <form method="POST" action="/settings/test-telegram">
+      <button type="submit" class="bb-btn" style="background:#2563eb; border-color:#2563eb; color:#fff;">
+        <i class="bi bi-send me-1"></i> Send Test Message
+      </button>
+    </form>
+    <div class="mt-4 text-xs space-y-1" style="color:#6b7280;">
+      <p><i class="bi bi-info-circle me-1"></i>Start your bot: run <code class="font-mono" style="color:#9ca3af;">python script_telegram_bot.py</code> on the server.</p>
+      <p>Bot commands: <code class="font-mono" style="color:#9ca3af;">/help /status /positions /breakout /exit</code></p>
+    </div>
+  </div>
+</div>
+
+<!-- IBKR Stub -->
+<div class="bb-card mb-6">
+  <div class="bb-card-header flex items-center gap-2">
+    <i class="bi bi-diagram-3"></i>
+    <span>IBKR Integration <span class="ticker-badge ticker-neutral ms-2">Coming Soon</span></span>
+  </div>
+  <div class="bb-card-body text-xs" style="color:#6b7280;">
+    <p>Interactive Brokers API connection is not yet implemented. The interface stub is defined in <code class="font-mono" style="color:#9ca3af;">services/ibkr_interface.py</code>.</p>
+    <p class="mt-2">When ready, configure the TWS/Gateway host and port here.</p>
+    <div class="mt-3 space-y-3 opacity-50 pointer-events-none">
+      <div>
+        <label class="block text-xs font-semibold mb-1" style="color:#9ca3af;">TWS Host</label>
+        <input type="text" value="127.0.0.1" disabled
+          class="form-control font-mono text-xs" style="max-width:240px; background:#0a0e1a; border-color:#374151; color:#f9fafb;" />
+      </div>
+      <div>
+        <label class="block text-xs font-semibold mb-1" style="color:#9ca3af;">TWS Port</label>
+        <input type="text" value="7497" disabled
+          class="form-control font-mono text-xs" style="max-width:120px; background:#0a0e1a; border-color:#374151; color:#f9fafb;" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Alert History -->
+<div class="bb-card">
+  <div class="bb-card-header flex items-center gap-2">
+    <i class="bi bi-bell-history"></i>
+    <span>Alert History</span>
+    <span class="ticker-badge ticker-neutral ms-2">Last 50</span>
+  </div>
+  {% if alerts %}
+  <div class="bb-card-body p-0">
+    <div class="table-responsive">
+      <table class="bb-table">
+        <thead>
+          <tr>
+            <th>Sent At</th>
+            <th>Type</th>
+            <th>Tickers</th>
+            <th>Telegram</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for a in alerts %}
+          <tr>
+            <td class="font-mono text-xs" style="color:#9ca3af; white-space:nowrap;">{{ a.sent_at[:19] }}</td>
+            <td>
+              {% if 'breakout' in a.alert_type %}
+              <span class="ticker-badge ticker-bullish">{{ a.alert_type }}</span>
+              {% elif 'exit' in a.alert_type %}
+              <span class="ticker-badge ticker-exit">{{ a.alert_type }}</span>
+              {% else %}
+              <span class="ticker-badge ticker-neutral">{{ a.alert_type }}</span>
+              {% endif %}
+            </td>
+            <td class="font-mono text-xs">
+              {% for t in a.tickers %}
+              <span class="ticker-badge ticker-position me-1">{{ t }}</span>
+              {% else %}
+              <span style="color:#6b7280;">—</span>
+              {% endfor %}
+            </td>
+            <td>
+              {% if a.telegram_sent %}
+              <span style="color:#10b981;"><i class="bi bi-check-circle-fill"></i></span>
+              {% else %}
+              <span style="color:#6b7280;"><i class="bi bi-dash-circle"></i></span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% else %}
+  <div class="bb-card-body text-sm" style="color:#6b7280;">
+    <i class="bi bi-info-circle me-1"></i>No alerts have been sent yet. Alerts are created when signal scripts run and find breakout or exit tickers.
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

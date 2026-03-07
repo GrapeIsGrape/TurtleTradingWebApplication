@@ -68,3 +68,53 @@ with open(current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MAIN_LOG_MA
 # Final log message
 with open(current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MAIN_LOG_MARKET_CLOSE_BREAKOUT_FILE_NAME, 'a') as main_log_file:
     main_log_file.write(f'[END  ] {str(datetime.now())} Check breakout and exit at market close job ended\n')
+
+# =========================================================================
+# TELEGRAM ALERTS — sent only when tickers are non-empty
+# =========================================================================
+try:
+    import re as _re
+    from services.telegram_service import format_breakout_alert, format_exit_alert, send_message, save_alert
+
+    _today = str(date.today())
+
+    # Parse breakout results written above
+    _breakout_groups = []
+    _bo_path = current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MARKET_CLOSE_BREAKOUT_RESULT_FILE_NAME
+    if os.path.exists(_bo_path):
+        with open(_bo_path, 'r') as _f:
+            for _line in _f:
+                _line = _line.strip()
+                if not _line.startswith(f'[{_today}]'):
+                    continue
+                _m = _re.match(r'\[.*?\] (.*?) [Bb]reakout tickers: ?(.*) \([Cc]ount: \d+\)', _line)
+                if _m:
+                    _tickers = [t.strip() for t in _m.group(2).split(',') if t.strip()]
+                    _breakout_groups.append({'label': _m.group(1), 'tickers': _tickers})
+
+    _bo_text = format_breakout_alert(_today, _breakout_groups, is_live=False)
+    if _bo_text:
+        _sent = send_message(_bo_text)
+        save_alert('breakout_close', [t for g in _breakout_groups for t in g['tickers']], telegram_sent=_sent)
+
+    # Parse exit results written above
+    _exit_groups = []
+    _ex_path = current_script_directory + SCRIPT_LOGS_FOLDER_PATH + '/' + MARKET_CLOSE_EXIT_RESULT_FILE_NAME
+    if os.path.exists(_ex_path):
+        with open(_ex_path, 'r') as _f:
+            for _line in _f:
+                _line = _line.strip()
+                if not _line.startswith(f'[{_today}]'):
+                    continue
+                _m = _re.match(r'\[.*?\] (.*?-days low) Exit tickers: ?(.*) \([Cc]ount: \d+\)', _line)
+                if _m:
+                    _tickers = [t.strip() for t in _m.group(2).split(',') if t.strip()]
+                    _exit_groups.append({'label': _m.group(1), 'tickers': _tickers})
+
+    _ex_text = format_exit_alert(_today, _exit_groups, is_live=False)
+    if _ex_text:
+        _sent = send_message(_ex_text)
+        save_alert('exit_close', [t for g in _exit_groups for t in g['tickers']], telegram_sent=_sent)
+
+except Exception as _tg_err:
+    print(f'[WARN] Telegram alert error (non-fatal): {_tg_err}')

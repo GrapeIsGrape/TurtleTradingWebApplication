@@ -57,12 +57,14 @@ def create_app(config_class=Config) -> Flask:
     from blueprints.tickers import tickers_bp
     from blueprints.market_data import market_data_bp
     from blueprints.logs import logs_bp
+    from blueprints.settings import settings_bp
 
     app.register_blueprint(signals_bp, url_prefix='/signals')
     app.register_blueprint(positions_bp, url_prefix='/positions')
     app.register_blueprint(tickers_bp, url_prefix='/tickers')
     app.register_blueprint(market_data_bp, url_prefix='/market-data')
     app.register_blueprint(logs_bp, url_prefix='/logs')
+    app.register_blueprint(settings_bp, url_prefix='/settings')
 
     # -------------------------------------------------------------------------
     # Context processors
