@@ -164,7 +164,7 @@ def _run_script(script_name: str, label: str):
         stdout_capture = io.StringIO()
         stderr_capture = io.StringIO()
         try:
-            with open(script_path, 'r') as f:
+            with open(script_path, 'r', encoding='utf-8') as f:
                 script_code = f.read()
             script_globals = {
                 '__name__': '__main__',
