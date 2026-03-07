@@ -97,6 +97,7 @@
     {% endmacro %}
 
     {{ nav_item('/', 'speedometer2', 'Dashboard') }}
+    {{ nav_item('/about',       'info-circle','About') }}
 
     {{ nav_section('Signals') }}
     {{ nav_item('/signals/breakout',      'graph-up-arrow',      'Breakout (Close)', exact=true) }}
@@ -116,7 +117,6 @@
     {{ nav_section('Data') }}
     {{ nav_item('/market-data', 'table',      'Market Data') }}
     {{ nav_item('/logs',        'file-text',  'Logs') }}
-    {{ nav_item('/about',       'info-circle','About') }}
 
   </nav>
 
