@@ -77,9 +77,9 @@
   <!-- Navigation -->
   <nav class="flex-1 overflow-y-auto px-2 py-2" style="scrollbar-width:thin;">
 
-    {# Macro for nav links #}
-    {% macro nav_item(href, icon, label) %}
-      {% set active = request.path == href %}
+    {# Macro for nav links — exact=true forces exact URL match only #}
+    {% macro nav_item(href, icon, label, exact=false) %}
+      {% set active = (request.path == href) or (not exact and href != '/' and request.path.startswith(href ~ '/')) %}
       <a href="{{ href }}"
          class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm mb-0.5 transition-colors"
          style="{% if active %}background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.25);{% else %}color:#9ca3af;border:1px solid transparent;{% endif %}"
@@ -99,10 +99,10 @@
     {{ nav_item('/', 'speedometer2', 'Dashboard') }}
 
     {{ nav_section('Signals') }}
-    {{ nav_item('/signals/breakout',      'graph-up-arrow',      'Breakout (Close)') }}
-    {{ nav_item('/signals/breakout/live', 'broadcast',           'Breakout (Live)') }}
-    {{ nav_item('/signals/exit',          'graph-down-arrow',    'Exit (Close)') }}
-    {{ nav_item('/signals/exit/live',     'exclamation-triangle','Exit (Live)') }}
+    {{ nav_item('/signals/breakout',      'graph-up-arrow',      'Breakout (Close)', exact=true) }}
+    {{ nav_item('/signals/breakout/live', 'broadcast',           'Breakout (Live)',  exact=true) }}
+    {{ nav_item('/signals/exit',          'graph-down-arrow',    'Exit (Close)',      exact=true) }}
+    {{ nav_item('/signals/exit/live',     'exclamation-triangle','Exit (Live)',       exact=true) }}
 
     {{ nav_section('Portfolio') }}
     {{ nav_item('/positions', 'briefcase', 'Positions') }}
