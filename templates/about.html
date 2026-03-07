@@ -17,7 +17,7 @@
 </div>
 
 <!-- Systems -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 items-start">
 
   <!-- System 1 -->
   <div class="bb-card">
@@ -215,8 +215,8 @@
   function toggleSection(id) {
     const el   = document.getElementById(id);
     const icon = document.getElementById('icon-' + id);
-    const open = el.style.display === 'none' || el.style.display === '';
-    el.style.display  = open ? '' : 'none';
+    const open = el.style.display === 'none';
+    el.style.display  = open ? 'block' : 'none';
     icon.className    = open ? 'bi bi-chevron-up' : 'bi bi-chevron-down';
   }
 </script>
