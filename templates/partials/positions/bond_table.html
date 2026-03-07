@@ -1,0 +1,77 @@
+<div id="bond-table-container">
+  {% if bond_positions %}
+  <div class="bb-card overflow-x-auto">
+    <table class="bb-table">
+      <thead>
+        <tr>
+          <th>Instrument</th>
+          <th>Type</th>
+          <th>Qty</th>
+          <th>Purchase $</th>
+          <th>Face Value</th>
+          <th>Coupon</th>
+          <th>Maturity</th>
+          <th>Total Cost</th>
+          <th>Est. Yield</th>
+          <th>P&amp;L</th>
+          <th class="text-left">Notes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in bond_positions %}
+        <tr>
+          <td><span class="font-bold font-mono" style="color:#f9fafb;">{{ p.instrument }}</span></td>
+          <td>
+            <span class="ticker-badge ticker-neutral" style="cursor:default;font-size:0.65rem;">
+              {{ p.bond_type | upper }}
+            </span>
+          </td>
+          <td>{{ p.quantity }}</td>
+          <td>${{ "%.2f"|format(p.purchase_price) }}</td>
+          <td style="color:#fbbf24;">${{ "%.2f"|format(p.face_value) }}</td>
+          <td>{{ "%.2f"|format(p.coupon_rate) ~ '%' if p.coupon_rate else '—' }}</td>
+          <td style="color:#9ca3af;font-size:0.75rem;">{{ p.maturity_date or '—' }}</td>
+          <td style="color:#9ca3af;">${{ "%.0f"|format(p.total_cost) }}</td>
+          <td>{{ "%.2f"|format(p.expected_yield) ~ '%' if p.expected_yield else '—' }}</td>
+          {% if p.pnl >= 0 %}
+            <td class="text-green">+${{ "%.0f"|format(p.pnl) }}</td>
+          {% else %}
+            <td class="text-red">-${{ "%.0f"|format(p.pnl|abs) }}</td>
+          {% endif %}
+          <td class="text-left" style="color:#6b7280;font-size:0.75rem;">{{ p.notes or '—' }}</td>
+          <td>
+            <button class="bb-btn bb-btn-warning bb-btn-sm edit-bond-btn mr-1"
+                    data-bs-toggle="modal" data-bs-target="#editBondModal"
+                    data-id="{{ p.id }}"
+                    data-instrument="{{ p.instrument }}"
+                    data-bondtype="{{ p.bond_type }}"
+                    data-facevalue="{{ p.face_value }}"
+                    data-purchaseprice="{{ p.purchase_price }}"
+                    data-quantity="{{ p.quantity }}"
+                    data-couponrate="{{ p.coupon_rate or '' }}"
+                    data-maturitydate="{{ p.maturity_date or '' }}"
+                    data-notes="{{ p.notes or '' }}" title="Edit">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="bb-btn bb-btn-danger bb-btn-sm delete-btn"
+                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    data-label="{{ p.instrument }}"
+                    data-action="/positions/bonds/{{ p.id }}/delete"
+                    data-container="#bond-table-container" title="Delete">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="bb-card mt-3">
+    <div class="bb-card-body text-sm" style="color:#6b7280;">
+      No bond positions. Click <strong style="color:#d1d5db;">Add Bond</strong> to get started.
+    </div>
+  </div>
+  {% endif %}
+</div>

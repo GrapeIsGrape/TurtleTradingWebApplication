@@ -1,0 +1,74 @@
+<div id="turtle-table-container">
+  {% if positions %}
+  <div class="bb-card overflow-x-auto">
+    <table class="bb-table">
+      <thead>
+        <tr>
+          <th class="text-left">Sector</th>
+          <th>Ticker</th>
+          <th>Mkt Value</th>
+          <th>Positions</th>
+          <th>Entry</th>
+          <th>Current</th>
+          <th>SL (ATR)</th>
+          <th>SL (Low)</th>
+          <th class="toggle-column" style="display:none;">ATR-20</th>
+          <th class="toggle-column" style="display:none;">10d Low</th>
+          <th class="toggle-column" style="display:none;">20d Low</th>
+          <th class="toggle-column" style="display:none;">System</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in positions %}
+          {% set below_atr = p.current is not none and p.stop_loss_atr is not none and p.current < p.stop_loss_atr %}
+          {% set below_low = p.current is not none and p.stop_loss_low is not none and p.current < p.stop_loss_low %}
+          <tr class="{% if below_atr or below_low %}alert-row{% endif %}">
+            <td class="text-left" style="color:#9ca3af;font-size:0.75rem;">{{ p.gics_industry }}</td>
+            <td><span class="font-bold font-mono" style="color:#f9fafb;">{{ p.ticker }}</span></td>
+            <td style="color:#3b82f6;">${{ "%.0f"|format(p.market_value) }}</td>
+            <td>{{ p.num_positions }}</td>
+            <td>{{ "%.2f"|format(p.entry_price) }}</td>
+            {% if p.current > p.entry_price %}
+              <td class="text-green">{{ "%.2f"|format(p.current) }}</td>
+            {% elif p.current < p.entry_price %}
+              <td class="text-red">{{ "%.2f"|format(p.current) }}</td>
+            {% else %}
+              <td>{{ "%.2f"|format(p.current) }}</td>
+            {% endif %}
+            <td style="color:#f59e0b;">{{ "%.2f"|format(p.stop_loss_atr) }}</td>
+            <td style="color:#f59e0b;">{{ "%.2f"|format(p.stop_loss_low) }}</td>
+            <td class="toggle-column" style="display:none;">{{ "%.2f"|format(p.atr_20) }}</td>
+            <td class="toggle-column" style="display:none;">{{ "%.2f"|format(p.days_low_10) }}</td>
+            <td class="toggle-column" style="display:none;">{{ "%.2f"|format(p.days_low_20) }}</td>
+            <td class="toggle-column" style="display:none;font-size:0.75rem;color:#9ca3af;">{{ p.system }}</td>
+            <td>
+              <button class="bb-btn bb-btn-warning bb-btn-sm edit-turtle-btn mr-1"
+                      data-bs-toggle="modal" data-bs-target="#editTurtleModal"
+                      data-id="{{ p.id }}" data-ticker="{{ p.ticker }}"
+                      data-entry="{{ p.entry_price }}" data-atr20="{{ p.atr_20 }}"
+                      data-positions="{{ p.num_positions }}" data-system="{{ p.system }}"
+                      data-notes="{{ p.notes or '' }}" title="Edit">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="bb-btn bb-btn-danger bb-btn-sm delete-btn"
+                      data-bs-toggle="modal" data-bs-target="#deleteModal"
+                      data-label="{{ p.ticker }}"
+                      data-action="/positions/turtle/{{ p.id }}/delete"
+                      data-container="#turtle-table-container" title="Delete">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="bb-card mt-3">
+    <div class="bb-card-body text-sm" style="color:#6b7280;">
+      No turtle positions. Click <strong style="color:#d1d5db;">Add Position</strong> to get started.
+    </div>
+  </div>
+  {% endif %}
+</div>

@@ -1,0 +1,64 @@
+<div id="dca-table-container">
+  {% if dca_positions %}
+  <div class="bb-card overflow-x-auto">
+    <table class="bb-table">
+      <thead>
+        <tr>
+          <th>Ticker</th>
+          <th>Shares</th>
+          <th>Avg Cost</th>
+          <th>Cost Basis</th>
+          <th>Current</th>
+          <th>Mkt Value</th>
+          <th>P&amp;L ($)</th>
+          <th>P&amp;L (%)</th>
+          <th class="text-left">Notes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in dca_positions %}
+        <tr>
+          <td><span class="font-bold font-mono" style="color:#f9fafb;">{{ p.ticker }}</span></td>
+          <td>{{ "%.4f"|format(p.num_shares) }}</td>
+          <td>${{ "%.2f"|format(p.avg_cost) }}</td>
+          <td style="color:#9ca3af;">${{ "%.0f"|format(p.cost_basis) }}</td>
+          <td>${{ "%.2f"|format(p.current) }}</td>
+          <td style="color:#a78bfa;">${{ "%.0f"|format(p.market_value) }}</td>
+          {% if p.pnl >= 0 %}
+            <td class="text-green">+${{ "%.0f"|format(p.pnl) }}</td>
+            <td class="text-green">+{{ "%.1f"|format(p.pnl_pct) }}%</td>
+          {% else %}
+            <td class="text-red">-${{ "%.0f"|format(p.pnl|abs) }}</td>
+            <td class="text-red">{{ "%.1f"|format(p.pnl_pct) }}%</td>
+          {% endif %}
+          <td class="text-left" style="color:#6b7280;font-size:0.75rem;">{{ p.notes or '—' }}</td>
+          <td>
+            <button class="bb-btn bb-btn-warning bb-btn-sm edit-dca-btn mr-1"
+                    data-bs-toggle="modal" data-bs-target="#editDcaModal"
+                    data-id="{{ p.id }}" data-ticker="{{ p.ticker }}"
+                    data-shares="{{ p.num_shares }}" data-avgcost="{{ p.avg_cost }}"
+                    data-notes="{{ p.notes or '' }}" title="Edit">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="bb-btn bb-btn-danger bb-btn-sm delete-btn"
+                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    data-label="{{ p.ticker }}"
+                    data-action="/positions/dca/{{ p.id }}/delete"
+                    data-container="#dca-table-container" title="Delete">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="bb-card mt-3">
+    <div class="bb-card-body text-sm" style="color:#6b7280;">
+      No DCA positions. Click <strong style="color:#d1d5db;">Add DCA Position</strong> to get started.
+    </div>
+  </div>
+  {% endif %}
+</div>

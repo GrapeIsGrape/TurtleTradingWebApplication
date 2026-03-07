@@ -51,77 +51,7 @@
     </button>
   </div>
 
-  {% if positions %}
-  <div class="bb-card overflow-x-auto">
-    <table class="bb-table">
-      <thead>
-        <tr>
-          <th class="text-left">Sector</th>
-          <th>Ticker</th>
-          <th>Mkt Value</th>
-          <th>Positions</th>
-          <th>Entry</th>
-          <th>Current</th>
-          <th>SL (ATR)</th>
-          <th>SL (Low)</th>
-          <th class="toggle-column" style="display:none;">ATR-20</th>
-          <th class="toggle-column" style="display:none;">10d Low</th>
-          <th class="toggle-column" style="display:none;">20d Low</th>
-          <th class="toggle-column" style="display:none;">System</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for p in positions %}
-          {% set below_atr = p.current is not none and p.stop_loss_atr is not none and p.current < p.stop_loss_atr %}
-          {% set below_low = p.current is not none and p.stop_loss_low is not none and p.current < p.stop_loss_low %}
-          <tr class="{% if below_atr or below_low %}alert-row{% endif %}">
-            <td class="text-left" style="color:#9ca3af;font-size:0.75rem;">{{ p.gics_industry }}</td>
-            <td><span class="font-bold font-mono" style="color:#f9fafb;">{{ p.ticker }}</span></td>
-            <td style="color:#3b82f6;">${{ "%.0f"|format(p.market_value) }}</td>
-            <td>{{ p.num_positions }}</td>
-            <td>{{ "%.2f"|format(p.entry_price) }}</td>
-            {% if p.current > p.entry_price %}
-              <td class="text-green">{{ "%.2f"|format(p.current) }}</td>
-            {% elif p.current < p.entry_price %}
-              <td class="text-red">{{ "%.2f"|format(p.current) }}</td>
-            {% else %}
-              <td>{{ "%.2f"|format(p.current) }}</td>
-            {% endif %}
-            <td style="color:#f59e0b;">{{ "%.2f"|format(p.stop_loss_atr) }}</td>
-            <td style="color:#f59e0b;">{{ "%.2f"|format(p.stop_loss_low) }}</td>
-            <td class="toggle-column" style="display:none;">{{ "%.2f"|format(p.atr_20) }}</td>
-            <td class="toggle-column" style="display:none;">{{ "%.2f"|format(p.days_low_10) }}</td>
-            <td class="toggle-column" style="display:none;">{{ "%.2f"|format(p.days_low_20) }}</td>
-            <td class="toggle-column" style="display:none;font-size:0.75rem;color:#9ca3af;">{{ p.system }}</td>
-            <td>
-              <button class="bb-btn bb-btn-warning bb-btn-sm edit-turtle-btn mr-1"
-                      data-bs-toggle="modal" data-bs-target="#editTurtleModal"
-                      data-id="{{ p.id }}" data-ticker="{{ p.ticker }}"
-                      data-entry="{{ p.entry_price }}" data-atr20="{{ p.atr_20 }}"
-                      data-positions="{{ p.num_positions }}" data-system="{{ p.system }}"
-                      data-notes="{{ p.notes or '' }}" title="Edit">
-                <i class="bi bi-pencil"></i>
-              </button>
-              <button class="bb-btn bb-btn-danger bb-btn-sm delete-btn"
-                      data-bs-toggle="modal" data-bs-target="#deleteModal"
-                      data-label="{{ p.ticker }}"
-                      data-action="/positions/turtle/{{ p.id }}/delete" title="Delete">
-                <i class="bi bi-trash"></i>
-              </button>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% else %}
-  <div class="bb-card mt-3">
-    <div class="bb-card-body text-sm" style="color:#6b7280;">
-      No turtle positions. Click <strong style="color:#d1d5db;">Add Position</strong> to get started.
-    </div>
-  </div>
-  {% endif %}
+  {% include 'partials/positions/turtle_table.html' %}
 </div>
 
 <!-- ================================================================
@@ -135,67 +65,7 @@
     </button>
   </div>
 
-  {% if dca_positions %}
-  <div class="bb-card overflow-x-auto">
-    <table class="bb-table">
-      <thead>
-        <tr>
-          <th>Ticker</th>
-          <th>Shares</th>
-          <th>Avg Cost</th>
-          <th>Cost Basis</th>
-          <th>Current</th>
-          <th>Mkt Value</th>
-          <th>P&amp;L ($)</th>
-          <th>P&amp;L (%)</th>
-          <th class="text-left">Notes</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for p in dca_positions %}
-        <tr>
-          <td><span class="font-bold font-mono" style="color:#f9fafb;">{{ p.ticker }}</span></td>
-          <td>{{ "%.4f"|format(p.num_shares) }}</td>
-          <td>${{ "%.2f"|format(p.avg_cost) }}</td>
-          <td style="color:#9ca3af;">${{ "%.0f"|format(p.cost_basis) }}</td>
-          <td>${{ "%.2f"|format(p.current) }}</td>
-          <td style="color:#a78bfa;">${{ "%.0f"|format(p.market_value) }}</td>
-          {% if p.pnl >= 0 %}
-            <td class="text-green">+${{ "%.0f"|format(p.pnl) }}</td>
-            <td class="text-green">+{{ "%.1f"|format(p.pnl_pct) }}%</td>
-          {% else %}
-            <td class="text-red">-${{ "%.0f"|format(p.pnl|abs) }}</td>
-            <td class="text-red">{{ "%.1f"|format(p.pnl_pct) }}%</td>
-          {% endif %}
-          <td class="text-left" style="color:#6b7280;font-size:0.75rem;">{{ p.notes or '—' }}</td>
-          <td>
-            <button class="bb-btn bb-btn-warning bb-btn-sm edit-dca-btn mr-1"
-                    data-bs-toggle="modal" data-bs-target="#editDcaModal"
-                    data-id="{{ p.id }}" data-ticker="{{ p.ticker }}"
-                    data-shares="{{ p.num_shares }}" data-avgcost="{{ p.avg_cost }}"
-                    data-notes="{{ p.notes or '' }}" title="Edit">
-              <i class="bi bi-pencil"></i>
-            </button>
-            <button class="bb-btn bb-btn-danger bb-btn-sm delete-btn"
-                    data-bs-toggle="modal" data-bs-target="#deleteModal"
-                    data-label="{{ p.ticker }}"
-                    data-action="/positions/dca/{{ p.id }}/delete" title="Delete">
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% else %}
-  <div class="bb-card mt-3">
-    <div class="bb-card-body text-sm" style="color:#6b7280;">
-      No DCA positions. Click <strong style="color:#d1d5db;">Add DCA Position</strong> to get started.
-    </div>
-  </div>
-  {% endif %}
+  {% include 'partials/positions/dca_table.html' %}
 </div>
 
 <!-- ================================================================
@@ -209,80 +79,7 @@
     </button>
   </div>
 
-  {% if bond_positions %}
-  <div class="bb-card overflow-x-auto">
-    <table class="bb-table">
-      <thead>
-        <tr>
-          <th>Instrument</th>
-          <th>Type</th>
-          <th>Qty</th>
-          <th>Purchase $</th>
-          <th>Face Value</th>
-          <th>Coupon</th>
-          <th>Maturity</th>
-          <th>Total Cost</th>
-          <th>Est. Yield</th>
-          <th>P&amp;L</th>
-          <th class="text-left">Notes</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for p in bond_positions %}
-        <tr>
-          <td><span class="font-bold font-mono" style="color:#f9fafb;">{{ p.instrument }}</span></td>
-          <td>
-            <span class="ticker-badge ticker-neutral" style="cursor:default;font-size:0.65rem;">
-              {{ p.bond_type | upper }}
-            </span>
-          </td>
-          <td>{{ p.quantity }}</td>
-          <td>${{ "%.2f"|format(p.purchase_price) }}</td>
-          <td style="color:#fbbf24;">${{ "%.2f"|format(p.face_value) }}</td>
-          <td>{{ "%.2f"|format(p.coupon_rate) ~ '%' if p.coupon_rate else '—' }}</td>
-          <td style="color:#9ca3af;font-size:0.75rem;">{{ p.maturity_date or '—' }}</td>
-          <td style="color:#9ca3af;">${{ "%.0f"|format(p.total_cost) }}</td>
-          <td>{{ "%.2f"|format(p.expected_yield) ~ '%' if p.expected_yield else '—' }}</td>
-          {% if p.pnl >= 0 %}
-            <td class="text-green">+${{ "%.0f"|format(p.pnl) }}</td>
-          {% else %}
-            <td class="text-red">-${{ "%.0f"|format(p.pnl|abs) }}</td>
-          {% endif %}
-          <td class="text-left" style="color:#6b7280;font-size:0.75rem;">{{ p.notes or '—' }}</td>
-          <td>
-            <button class="bb-btn bb-btn-warning bb-btn-sm edit-bond-btn mr-1"
-                    data-bs-toggle="modal" data-bs-target="#editBondModal"
-                    data-id="{{ p.id }}"
-                    data-instrument="{{ p.instrument }}"
-                    data-bondtype="{{ p.bond_type }}"
-                    data-facevalue="{{ p.face_value }}"
-                    data-purchaseprice="{{ p.purchase_price }}"
-                    data-quantity="{{ p.quantity }}"
-                    data-couponrate="{{ p.coupon_rate or '' }}"
-                    data-maturitydate="{{ p.maturity_date or '' }}"
-                    data-notes="{{ p.notes or '' }}" title="Edit">
-              <i class="bi bi-pencil"></i>
-            </button>
-            <button class="bb-btn bb-btn-danger bb-btn-sm delete-btn"
-                    data-bs-toggle="modal" data-bs-target="#deleteModal"
-                    data-label="{{ p.instrument }}"
-                    data-action="/positions/bonds/{{ p.id }}/delete" title="Delete">
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% else %}
-  <div class="bb-card mt-3">
-    <div class="bb-card-body text-sm" style="color:#6b7280;">
-      No bond positions. Click <strong style="color:#d1d5db;">Add Bond</strong> to get started.
-    </div>
-  </div>
-  {% endif %}
+  {% include 'partials/positions/bond_table.html' %}
 </div>
 
 <!-- ================================================================
@@ -296,104 +93,7 @@
     </button>
   </div>
 
-  {% if option_positions %}
-  <div class="bb-card overflow-x-auto">
-    <table class="bb-table">
-      <thead>
-        <tr>
-          <th>Ticker</th>
-          <th>Type</th>
-          <th>Dir</th>
-          <th>Strike</th>
-          <th>Expiry</th>
-          <th>DTE</th>
-          <th>Premium</th>
-          <th>Contracts</th>
-          <th>Credit/Debit</th>
-          <th>Status</th>
-          <th>P&amp;L</th>
-          <th class="text-left">Notes</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for p in option_positions %}
-        <tr>
-          <td><span class="font-bold font-mono" style="color:#f9fafb;">{{ p.ticker }}</span></td>
-          <td>
-            <span class="ticker-badge {% if p.option_type == 'call' %}ticker-bullish{% else %}ticker-exit{% endif %}"
-                  style="cursor:default;font-size:0.65rem;">{{ p.option_type | upper }}</span>
-          </td>
-          <td>
-            <span class="ticker-badge {% if p.direction == 'short' %}ticker-reset{% else %}ticker-neutral{% endif %}"
-                  style="cursor:default;font-size:0.65rem;">{{ p.direction | upper }}</span>
-          </td>
-          <td>${{ "%.2f"|format(p.strike) }}</td>
-          <td style="color:#9ca3af;font-size:0.75rem;">{{ p.expiry_date }}</td>
-          <td>
-            {% if p.dte is not none %}
-              <span style="color:{% if p.dte <= 7 %}#ef4444{% elif p.dte <= 21 %}#f59e0b{% else %}#9ca3af{% endif %};">
-                {{ p.dte }}d
-              </span>
-            {% else %}—{% endif %}
-          </td>
-          <td>${{ "%.2f"|format(p.premium) }}</td>
-          <td>{{ p.contracts }}</td>
-          <td style="color:#9ca3af;">${{ "%.0f"|format(p.premium_total) }}</td>
-          <td>
-            <span class="ticker-badge {% if p.status == 'open' %}ticker-bullish{% elif p.status == 'expired' %}ticker-neutral{% else %}ticker-exit{% endif %}"
-                  style="cursor:default;font-size:0.65rem;">{{ p.status | upper }}</span>
-          </td>
-          <td>
-            {% if p.pnl is not none %}
-              {% if p.pnl >= 0 %}
-                <span class="text-green">+${{ "%.0f"|format(p.pnl) }}</span>
-              {% else %}
-                <span class="text-red">-${{ "%.0f"|format(p.pnl|abs) }}</span>
-              {% endif %}
-            {% else %}
-              <span style="color:#6b7280;">—</span>
-            {% endif %}
-          </td>
-          <td class="text-left" style="color:#6b7280;font-size:0.75rem;">{{ p.notes or '—' }}</td>
-          <td>
-            {% if p.status == 'open' %}
-            <button class="bb-btn bb-btn-secondary bb-btn-sm close-option-btn mr-1"
-                    data-bs-toggle="modal" data-bs-target="#closeOptionModal"
-                    data-id="{{ p.id }}" data-ticker="{{ p.ticker }}"
-                    data-strike="{{ p.strike }}" data-type="{{ p.option_type }}"
-                    title="Close position">
-              <i class="bi bi-x-circle"></i>
-            </button>
-            {% endif %}
-            <button class="bb-btn bb-btn-warning bb-btn-sm edit-option-btn mr-1"
-                    data-bs-toggle="modal" data-bs-target="#editOptionModal"
-                    data-id="{{ p.id }}" data-ticker="{{ p.ticker }}"
-                    data-optiontype="{{ p.option_type }}" data-direction="{{ p.direction }}"
-                    data-strike="{{ p.strike }}" data-expiry="{{ p.expiry_date }}"
-                    data-premium="{{ p.premium }}" data-contracts="{{ p.contracts }}"
-                    data-notes="{{ p.notes or '' }}" title="Edit">
-              <i class="bi bi-pencil"></i>
-            </button>
-            <button class="bb-btn bb-btn-danger bb-btn-sm delete-btn"
-                    data-bs-toggle="modal" data-bs-target="#deleteModal"
-                    data-label="{{ p.ticker }} {{ p.option_type|upper }} ${{ '%.0f'|format(p.strike) }}"
-                    data-action="/positions/options/{{ p.id }}/delete" title="Delete">
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% else %}
-  <div class="bb-card mt-3">
-    <div class="bb-card-body text-sm" style="color:#6b7280;">
-      No option positions. Click <strong style="color:#d1d5db;">Add Option</strong> to get started.
-    </div>
-  </div>
-  {% endif %}
+  {% include 'partials/positions/options_table.html' %}
 </div>
 
 <!-- ================================================================
@@ -540,7 +240,7 @@
           <i class="bi bi-x-lg"></i>
         </button>
       </div>
-      <form method="POST" action="/positions/turtle/add">
+      <form id="addTurtleForm" method="POST" action="/positions/turtle/add">
         <div class="modal-body space-y-4">
           <div>
             <label class="form-label">Ticker <span style="color:#ef4444;">*</span></label>
@@ -657,7 +357,7 @@
           <i class="bi bi-x-lg"></i>
         </button>
       </div>
-      <form method="POST" action="/positions/dca/add">
+      <form id="addDcaForm" method="POST" action="/positions/dca/add">
         <div class="modal-body space-y-4">
           <div>
             <label class="form-label">Ticker <span style="color:#ef4444;">*</span></label>
@@ -748,7 +448,7 @@
           <i class="bi bi-x-lg"></i>
         </button>
       </div>
-      <form method="POST" action="/positions/bonds/add">
+      <form id="addBondForm" method="POST" action="/positions/bonds/add">
         <div class="modal-body space-y-4">
           <div class="grid grid-cols-2 gap-3">
             <div>
@@ -893,7 +593,7 @@
           <i class="bi bi-x-lg"></i>
         </button>
       </div>
-      <form method="POST" action="/positions/options/add">
+      <form id="addOptionForm" method="POST" action="/positions/options/add">
         <div class="modal-body space-y-4">
           <div>
             <label class="form-label">Ticker <span style="color:#ef4444;">*</span></label>
@@ -1063,6 +763,14 @@
   </div>
 </div>
 
+<!-- Loading spinner overlay -->
+<div class="bb-loading" id="positionSpinner">
+  <div style="text-align:center;">
+    <div class="bb-spinner" style="margin:0 auto 0.75rem;"></div>
+    <p style="color:#9ca3af;font-size:0.75rem;font-weight:600;letter-spacing:0.1em;font-family:monospace;">SAVING...</p>
+  </div>
+</div>
+
 {% endblock %}
 
 {% block extra_js %}
@@ -1071,7 +779,6 @@
   document.querySelectorAll('.bb-tab').forEach(tab => {
     tab.addEventListener('click', function() {
       const target = this.dataset.tab;
-      // Correlation tab requires server-side computation — do a full page nav
       if (target === 'correlation' && '{{ active_tab }}' !== 'correlation') {
         window.location.href = '/positions?tab=correlation';
         return;
@@ -1084,90 +791,134 @@
     });
   });
 
-  /* ---- Shared delete modal ---- */
-  document.querySelectorAll('.delete-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.getElementById('deleteForm').action = this.dataset.action;
-      document.getElementById('deleteLabelDisplay').textContent = this.dataset.label;
-    });
-  });
-
-  /* ---- Turtle edit ---- */
-  document.querySelectorAll('.edit-turtle-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.getElementById('editTurtleForm').action        = '/positions/turtle/' + this.dataset.id + '/edit';
-      document.getElementById('editTurtleTicker').value       = this.dataset.ticker;
-      document.getElementById('editTurtleEntry').value        = this.dataset.entry;
-      document.getElementById('editTurtleAtr20').value        = this.dataset.atr20;
-      document.getElementById('editTurtlePositions').value    = this.dataset.positions;
-      document.getElementById('editTurtleSystem').value       = this.dataset.system || 'System 2';
-      document.getElementById('editTurtleNotes').value        = this.dataset.notes || '';
-    });
-  });
-
-  /* ---- DCA edit ---- */
-  document.querySelectorAll('.edit-dca-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.getElementById('editDcaForm').action       = '/positions/dca/' + this.dataset.id + '/edit';
-      document.getElementById('editDcaTicker').value      = this.dataset.ticker;
-      document.getElementById('editDcaShares').value      = this.dataset.shares;
-      document.getElementById('editDcaAvgCost').value     = this.dataset.avgcost;
-      document.getElementById('editDcaNotes').value       = this.dataset.notes || '';
-    });
-  });
-
-  /* ---- Bond edit ---- */
-  document.querySelectorAll('.edit-bond-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.getElementById('editBondForm').action          = '/positions/bonds/' + this.dataset.id + '/edit';
-      document.getElementById('editBondInstrument').value     = this.dataset.instrument;
-      document.getElementById('editBondType').value           = this.dataset.bondtype;
-      document.getElementById('editBondQty').value            = this.dataset.quantity;
-      document.getElementById('editBondPurchasePrice').value  = this.dataset.purchaseprice;
-      document.getElementById('editBondFaceValue').value      = this.dataset.facevalue;
-      document.getElementById('editBondCoupon').value         = this.dataset.couponrate || '';
-      document.getElementById('editBondMaturity').value       = this.dataset.maturitydate || '';
-      document.getElementById('editBondNotes').value          = this.dataset.notes || '';
-    });
-  });
-
-  /* ---- Option edit ---- */
-  document.querySelectorAll('.edit-option-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.getElementById('editOptionForm').action       = '/positions/options/' + this.dataset.id + '/edit';
-      document.getElementById('editOptionTicker').value      = this.dataset.ticker;
-      document.getElementById('editOptionType').value        = this.dataset.optiontype;
-      document.getElementById('editOptionDir').value         = this.dataset.direction;
-      document.getElementById('editOptionStrike').value      = this.dataset.strike;
-      document.getElementById('editOptionExpiry').value      = this.dataset.expiry;
-      document.getElementById('editOptionPremium').value     = this.dataset.premium;
-      document.getElementById('editOptionContracts').value   = this.dataset.contracts;
-      document.getElementById('editOptionNotes').value       = this.dataset.notes || '';
-    });
-  });
-
-  /* ---- Option close ---- */
-  document.querySelectorAll('.close-option-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.getElementById('closeOptionForm').action = '/positions/options/' + this.dataset.id + '/close';
-      document.getElementById('closeOptionLabel').textContent =
-        this.dataset.ticker + ' ' + this.dataset.type.toUpperCase() + ' $' + parseFloat(this.dataset.strike).toFixed(0);
-    });
-  });
-
   /* ---- Toggle extra turtle columns ---- */
-  const toggleBtn = document.getElementById('toggleColumnsBtn');
   let showAll = false;
+  function applyColumnToggle() {
+    document.querySelectorAll('.toggle-column').forEach(el => {
+      el.style.display = showAll ? '' : 'none';
+    });
+  }
+  const toggleBtn = document.getElementById('toggleColumnsBtn');
   if (toggleBtn) {
     toggleBtn.addEventListener('click', function() {
       showAll = !showAll;
-      document.querySelectorAll('.toggle-column').forEach(el => {
-        el.style.display = showAll ? '' : 'none';
-      });
+      applyColumnToggle();
       this.innerHTML = showAll
         ? '<i class="bi bi-layout-sidebar-inset"></i> Hide Columns'
         : '<i class="bi bi-layout-three-columns"></i> Show All Columns';
     });
   }
+
+  /* ---- Partial update via fetch ---- */
+  let _deleteContainer = '#turtle-table-container';
+
+  function _partialPost(url, formEl, containerId, modalId) {
+    const spinner = document.getElementById('positionSpinner');
+    if (spinner) spinner.classList.add('active');
+    const fd = new FormData(formEl);
+    fetch(url, { method: 'POST', body: fd, headers: { 'HX-Request': '1' } })
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+      .then(html => {
+        const el = document.querySelector(containerId);
+        if (el) el.outerHTML = html;
+        if (modalId) {
+          const m = bootstrap.Modal.getInstance(document.getElementById(modalId));
+          if (m) m.hide();
+        }
+        if (formEl) formEl.reset();
+        applyColumnToggle();
+      })
+      .catch(() => { if (formEl) formEl.submit(); })
+      .finally(() => { if (spinner) spinner.classList.remove('active'); });
+  }
+
+  /* ---- Event delegation for all position action buttons ---- */
+  document.addEventListener('click', function(e) {
+    const delBtn = e.target.closest('.delete-btn');
+    if (delBtn) {
+      document.getElementById('deleteForm').action = delBtn.dataset.action;
+      document.getElementById('deleteLabelDisplay').textContent = delBtn.dataset.label;
+      _deleteContainer = delBtn.dataset.container || '#turtle-table-container';
+      return;
+    }
+    const turtleEdit = e.target.closest('.edit-turtle-btn');
+    if (turtleEdit) {
+      document.getElementById('editTurtleForm').action        = '/positions/turtle/' + turtleEdit.dataset.id + '/edit';
+      document.getElementById('editTurtleTicker').value       = turtleEdit.dataset.ticker;
+      document.getElementById('editTurtleEntry').value        = turtleEdit.dataset.entry;
+      document.getElementById('editTurtleAtr20').value        = turtleEdit.dataset.atr20;
+      document.getElementById('editTurtlePositions').value    = turtleEdit.dataset.positions;
+      document.getElementById('editTurtleSystem').value       = turtleEdit.dataset.system || 'System 2';
+      document.getElementById('editTurtleNotes').value        = turtleEdit.dataset.notes || '';
+      return;
+    }
+    const dcaEdit = e.target.closest('.edit-dca-btn');
+    if (dcaEdit) {
+      document.getElementById('editDcaForm').action     = '/positions/dca/' + dcaEdit.dataset.id + '/edit';
+      document.getElementById('editDcaTicker').value    = dcaEdit.dataset.ticker;
+      document.getElementById('editDcaShares').value    = dcaEdit.dataset.shares;
+      document.getElementById('editDcaAvgCost').value   = dcaEdit.dataset.avgcost;
+      document.getElementById('editDcaNotes').value     = dcaEdit.dataset.notes || '';
+      return;
+    }
+    const bondEdit = e.target.closest('.edit-bond-btn');
+    if (bondEdit) {
+      document.getElementById('editBondForm').action          = '/positions/bonds/' + bondEdit.dataset.id + '/edit';
+      document.getElementById('editBondInstrument').value     = bondEdit.dataset.instrument;
+      document.getElementById('editBondType').value           = bondEdit.dataset.bondtype;
+      document.getElementById('editBondQty').value            = bondEdit.dataset.quantity;
+      document.getElementById('editBondPurchasePrice').value  = bondEdit.dataset.purchaseprice;
+      document.getElementById('editBondFaceValue').value      = bondEdit.dataset.facevalue;
+      document.getElementById('editBondCoupon').value         = bondEdit.dataset.couponrate || '';
+      document.getElementById('editBondMaturity').value       = bondEdit.dataset.maturitydate || '';
+      document.getElementById('editBondNotes').value          = bondEdit.dataset.notes || '';
+      return;
+    }
+    const optEdit = e.target.closest('.edit-option-btn');
+    if (optEdit) {
+      document.getElementById('editOptionForm').action       = '/positions/options/' + optEdit.dataset.id + '/edit';
+      document.getElementById('editOptionTicker').value      = optEdit.dataset.ticker;
+      document.getElementById('editOptionType').value        = optEdit.dataset.optiontype;
+      document.getElementById('editOptionDir').value         = optEdit.dataset.direction;
+      document.getElementById('editOptionStrike').value      = optEdit.dataset.strike;
+      document.getElementById('editOptionExpiry').value      = optEdit.dataset.expiry;
+      document.getElementById('editOptionPremium').value     = optEdit.dataset.premium;
+      document.getElementById('editOptionContracts').value   = optEdit.dataset.contracts;
+      document.getElementById('editOptionNotes').value       = optEdit.dataset.notes || '';
+      return;
+    }
+    const closeOpt = e.target.closest('.close-option-btn');
+    if (closeOpt) {
+      document.getElementById('closeOptionForm').action = '/positions/options/' + closeOpt.dataset.id + '/close';
+      document.getElementById('closeOptionLabel').textContent =
+        closeOpt.dataset.ticker + ' ' + closeOpt.dataset.type.toUpperCase() + ' $' + parseFloat(closeOpt.dataset.strike).toFixed(0);
+      return;
+    }
+  });
+
+  /* ---- Intercept all position form submits ---- */
+  [
+    ['addTurtleForm',   '/positions/turtle/add',   '#turtle-table-container',  'addTurtleModal'],
+    ['editTurtleForm',  null,                       '#turtle-table-container',  'editTurtleModal'],
+    ['addDcaForm',      '/positions/dca/add',       '#dca-table-container',     'addDcaModal'],
+    ['editDcaForm',     null,                       '#dca-table-container',     'editDcaModal'],
+    ['addBondForm',     '/positions/bonds/add',     '#bond-table-container',    'addBondModal'],
+    ['editBondForm',    null,                       '#bond-table-container',    'editBondModal'],
+    ['addOptionForm',   '/positions/options/add',   '#options-table-container', 'addOptionModal'],
+    ['editOptionForm',  null,                       '#options-table-container', 'editOptionModal'],
+    ['closeOptionForm', null,                       '#options-table-container', 'closeOptionModal'],
+  ].forEach(([formId, url, container, modalId]) => {
+    const form = document.getElementById(formId);
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      _partialPost(url || this.action, this, container, modalId);
+    });
+  });
+
+  document.getElementById('deleteForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    _partialPost(this.action, this, _deleteContainer, 'deleteModal');
+  });
 </script>
 {% endblock %}

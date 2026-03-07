@@ -454,6 +454,19 @@ textarea.form-control {
   animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+@keyframes bb-spin {
+  to { transform: rotate(360deg); }
+}
+
+.bb-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #2d3a4f;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: bb-spin 0.65s linear infinite;
+}
+
 /* Collapse for about page — use Bootstrap collapse, override styles */
 .collapse.show { display: block; }
 

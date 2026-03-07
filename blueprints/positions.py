@@ -69,6 +69,54 @@ def _redirect_tab(tab: str):
     return redirect(f'/positions?tab={tab}')
 
 
+def _is_htmx() -> bool:
+    return bool(request.headers.get('HX-Request'))
+
+
+def _turtle_partial():
+    positions = []
+    for pos in TurtlePosition.query.all():
+        try:
+            positions.append(enrich_turtle_position(pos))
+        except Exception as e:
+            logger.error(f'Error enriching turtle position {pos.ticker}: {e}')
+            positions.append(pos.to_dict())
+    return render_template('partials/positions/turtle_table.html', positions=positions)
+
+
+def _dca_partial():
+    dca_positions = []
+    for pos in DCAPosition.query.all():
+        try:
+            dca_positions.append(enrich_dca_position(pos))
+        except Exception as e:
+            logger.error(f'Error enriching DCA position {pos.ticker}: {e}')
+            dca_positions.append(pos.to_dict())
+    return render_template('partials/positions/dca_table.html', dca_positions=dca_positions)
+
+
+def _bond_partial():
+    bond_positions = []
+    for pos in BondPosition.query.all():
+        try:
+            bond_positions.append(enrich_bond_position(pos))
+        except Exception as e:
+            logger.error(f'Error enriching bond position {pos.instrument}: {e}')
+            bond_positions.append(pos.to_dict())
+    return render_template('partials/positions/bond_table.html', bond_positions=bond_positions)
+
+
+def _options_partial():
+    option_positions = []
+    for pos in OptionPosition.query.all():
+        try:
+            option_positions.append(enrich_option_position(pos))
+        except Exception as e:
+            logger.error(f'Error enriching option position {pos.id}: {e}')
+            option_positions.append(pos.to_dict())
+    return render_template('partials/positions/options_table.html', option_positions=option_positions)
+
+
 # ---------------------------------------------------------------------------
 # Index
 # ---------------------------------------------------------------------------
@@ -160,6 +208,8 @@ def turtle_add():
     except Exception as e:
         db.session.rollback()
         logger.error(f'Error adding turtle position: {e}')
+    if _is_htmx():
+        return _turtle_partial()
     return _redirect_tab('turtle')
 
 
@@ -180,6 +230,8 @@ def turtle_edit(pos_id: int):
     except Exception as e:
         db.session.rollback()
         logger.error(f'Error editing turtle position {pos_id}: {e}')
+    if _is_htmx():
+        return _turtle_partial()
     return _redirect_tab('turtle')
 
 
@@ -195,6 +247,8 @@ def turtle_delete(pos_id: int):
     except Exception as e:
         db.session.rollback()
         logger.error(f'Error deleting turtle position {pos_id}: {e}')
+    if _is_htmx():
+        return _turtle_partial()
     return _redirect_tab('turtle')
 
 
@@ -221,6 +275,8 @@ def dca_add():
     except Exception as e:
         db.session.rollback()
         logger.error(f'Error adding DCA position: {e}')
+    if _is_htmx():
+        return _dca_partial()
     return _redirect_tab('dca')
 
 
@@ -238,6 +294,8 @@ def dca_edit(pos_id: int):
     except Exception as e:
         db.session.rollback()
         logger.error(f'Error editing DCA position {pos_id}: {e}')
+    if _is_htmx():
+        return _dca_partial()
     return _redirect_tab('dca')
 
 
@@ -252,6 +310,8 @@ def dca_delete(pos_id: int):
     except Exception as e:
         db.session.rollback()
         logger.error(f'Error deleting DCA position {pos_id}: {e}')
+    if _is_htmx():
+        return _dca_partial()
     return _redirect_tab('dca')
 
 
@@ -286,6 +346,8 @@ def bond_add():
     except Exception as e:
         db.session.rollback()
         logger.error(f'Error adding bond position: {e}')
+    if _is_htmx():
+        return _bond_partial()
     return _redirect_tab('bonds')
 
 
@@ -309,6 +371,8 @@ def bond_edit(pos_id: int):
     except Exception as e:
         db.session.rollback()
         logger.error(f'Error editing bond position {pos_id}: {e}')
+    if _is_htmx():
+        return _bond_partial()
     return _redirect_tab('bonds')
 
 
@@ -323,6 +387,8 @@ def bond_delete(pos_id: int):
     except Exception as e:
         db.session.rollback()
         logger.error(f'Error deleting bond position {pos_id}: {e}')
+    if _is_htmx():
+        return _bond_partial()
     return _redirect_tab('bonds')
 
 
@@ -355,6 +421,8 @@ def option_add():
     except Exception as e:
         db.session.rollback()
         logger.error(f'Error adding option position: {e}')
+    if _is_htmx():
+        return _options_partial()
     return _redirect_tab('options')
 
 
@@ -376,6 +444,8 @@ def option_edit(pos_id: int):
     except Exception as e:
         db.session.rollback()
         logger.error(f'Error editing option position {pos_id}: {e}')
+    if _is_htmx():
+        return _options_partial()
     return _redirect_tab('options')
 
 
@@ -392,6 +462,8 @@ def option_close(pos_id: int):
     except Exception as e:
         db.session.rollback()
         logger.error(f'Error closing option position {pos_id}: {e}')
+    if _is_htmx():
+        return _options_partial()
     return _redirect_tab('options')
 
 
@@ -406,4 +478,6 @@ def option_delete(pos_id: int):
     except Exception as e:
         db.session.rollback()
         logger.error(f'Error deleting option position {pos_id}: {e}')
+    if _is_htmx():
+        return _options_partial()
     return _redirect_tab('options')

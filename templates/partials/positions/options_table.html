@@ -1,0 +1,101 @@
+<div id="options-table-container">
+  {% if option_positions %}
+  <div class="bb-card overflow-x-auto">
+    <table class="bb-table">
+      <thead>
+        <tr>
+          <th>Ticker</th>
+          <th>Type</th>
+          <th>Dir</th>
+          <th>Strike</th>
+          <th>Expiry</th>
+          <th>DTE</th>
+          <th>Premium</th>
+          <th>Contracts</th>
+          <th>Credit/Debit</th>
+          <th>Status</th>
+          <th>P&amp;L</th>
+          <th class="text-left">Notes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in option_positions %}
+        <tr>
+          <td><span class="font-bold font-mono" style="color:#f9fafb;">{{ p.ticker }}</span></td>
+          <td>
+            <span class="ticker-badge {% if p.option_type == 'call' %}ticker-bullish{% else %}ticker-exit{% endif %}"
+                  style="cursor:default;font-size:0.65rem;">{{ p.option_type | upper }}</span>
+          </td>
+          <td>
+            <span class="ticker-badge {% if p.direction == 'short' %}ticker-reset{% else %}ticker-neutral{% endif %}"
+                  style="cursor:default;font-size:0.65rem;">{{ p.direction | upper }}</span>
+          </td>
+          <td>${{ "%.2f"|format(p.strike) }}</td>
+          <td style="color:#9ca3af;font-size:0.75rem;">{{ p.expiry_date }}</td>
+          <td>
+            {% if p.dte is not none %}
+              <span style="color:{% if p.dte <= 7 %}#ef4444{% elif p.dte <= 21 %}#f59e0b{% else %}#9ca3af{% endif %};">
+                {{ p.dte }}d
+              </span>
+            {% else %}—{% endif %}
+          </td>
+          <td>${{ "%.2f"|format(p.premium) }}</td>
+          <td>{{ p.contracts }}</td>
+          <td style="color:#9ca3af;">${{ "%.0f"|format(p.premium_total) }}</td>
+          <td>
+            <span class="ticker-badge {% if p.status == 'open' %}ticker-bullish{% elif p.status == 'expired' %}ticker-neutral{% else %}ticker-exit{% endif %}"
+                  style="cursor:default;font-size:0.65rem;">{{ p.status | upper }}</span>
+          </td>
+          <td>
+            {% if p.pnl is not none %}
+              {% if p.pnl >= 0 %}
+                <span class="text-green">+${{ "%.0f"|format(p.pnl) }}</span>
+              {% else %}
+                <span class="text-red">-${{ "%.0f"|format(p.pnl|abs) }}</span>
+              {% endif %}
+            {% else %}
+              <span style="color:#6b7280;">—</span>
+            {% endif %}
+          </td>
+          <td class="text-left" style="color:#6b7280;font-size:0.75rem;">{{ p.notes or '—' }}</td>
+          <td>
+            {% if p.status == 'open' %}
+            <button class="bb-btn bb-btn-secondary bb-btn-sm close-option-btn mr-1"
+                    data-bs-toggle="modal" data-bs-target="#closeOptionModal"
+                    data-id="{{ p.id }}" data-ticker="{{ p.ticker }}"
+                    data-strike="{{ p.strike }}" data-type="{{ p.option_type }}"
+                    title="Close position">
+              <i class="bi bi-x-circle"></i>
+            </button>
+            {% endif %}
+            <button class="bb-btn bb-btn-warning bb-btn-sm edit-option-btn mr-1"
+                    data-bs-toggle="modal" data-bs-target="#editOptionModal"
+                    data-id="{{ p.id }}" data-ticker="{{ p.ticker }}"
+                    data-optiontype="{{ p.option_type }}" data-direction="{{ p.direction }}"
+                    data-strike="{{ p.strike }}" data-expiry="{{ p.expiry_date }}"
+                    data-premium="{{ p.premium }}" data-contracts="{{ p.contracts }}"
+                    data-notes="{{ p.notes or '' }}" title="Edit">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="bb-btn bb-btn-danger bb-btn-sm delete-btn"
+                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    data-label="{{ p.ticker }} {{ p.option_type|upper }} ${{ '%.0f'|format(p.strike) }}"
+                    data-action="/positions/options/{{ p.id }}/delete"
+                    data-container="#options-table-container" title="Delete">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="bb-card mt-3">
+    <div class="bb-card-body text-sm" style="color:#6b7280;">
+      No option positions. Click <strong style="color:#d1d5db;">Add Option</strong> to get started.
+    </div>
+  </div>
+  {% endif %}
+</div>
